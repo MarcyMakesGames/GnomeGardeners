@@ -4,21 +4,26 @@ using UnityEngine.InputSystem;
 public class Gnome : MonoBehaviour
 {
     [SerializeField]
-    private float gnomeSpeed = 2f;
+    private float speed;
+    private Vector2 direction;
+    private Vector3 velocity;
+    private Rigidbody body;
 
-    private Vector2 gnomeVelocity = new Vector2(0f, 0f);
-
-    private Vector2 movementInput = Vector2.zero;
-
-    void Update()
+    void Start()
     {
-        Vector2 move = new Vector2(movementInput.x, movementInput.y);
-        transform.position += new Vector3(move.x * Time.deltaTime * gnomeSpeed, move.y * Time.deltaTime * gnomeSpeed, 0f);
-        transform.position += new Vector3(gnomeVelocity.x * Time.deltaTime, gnomeVelocity.y * Time.deltaTime, 0f);
+        direction = Vector2.zero;
+        velocity = new Vector3(speed, 0f, speed);
+        body = GetComponent<Rigidbody>();
+    }
+
+    void FixedUpdate()
+    {
+        velocity = new Vector3(direction.x * speed, 0f, direction.y * speed);
+        body.MovePosition(body.position + velocity * Time.fixedDeltaTime);
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        movementInput = context.ReadValue<Vector2>();
+        direction = context.ReadValue<Vector2>();
     }
 }
