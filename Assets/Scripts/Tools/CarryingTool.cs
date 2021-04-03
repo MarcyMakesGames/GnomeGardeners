@@ -22,6 +22,6 @@ public class CarryingTool : MonoBehaviour, ITool
     }
     public void DropItem()
     {
-        // todo: drop item on ground
+        // todo: drop tool
     }
 }
