@@ -26,7 +26,7 @@ public class WeatherController : MonoBehaviour
         }
 
         WeatherChanged += AnnounceWeather;
-        currentWeatherTimer = 0f;
+        currentWeatherTimer = GameManager.Instance.Time.ElapsedTime;
     }
 
     protected void Update()
@@ -41,22 +41,23 @@ public class WeatherController : MonoBehaviour
 
     protected void WeatherCountdown()
     {
-        currentWeatherTimer += Time.deltaTime;
-
-        if(currentWeatherTimer >= weatherDuration)
+        if(GameManager.Instance.Time.GetTimeSince(currentWeatherTimer) >= weatherDuration)
         {
             int selectedWeather = Random.Range(0, weatherTypes.Count);
             currentWeather = weatherTypes[selectedWeather];
 
             WeatherChanged();
-            currentWeatherTimer = 0f;
+            currentWeatherTimer = GameManager.Instance.Time.ElapsedTime;
         }
     }
 }
 
 public enum WeatherType
 {
-    Sunny = 1,
-    Rainy = 2,
-    Windy = 3
+    Default,
+    Sunny,
+    Rainy,
+    Windy,
+
+    Count
 }
