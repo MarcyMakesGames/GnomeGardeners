@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Truck : MonoBehaviour // , IInteractable
+public class Truck : MonoBehaviour , IInteractable
 {
 
     public int totalScore;
@@ -17,5 +17,10 @@ public class Truck : MonoBehaviour // , IInteractable
     void Update()
     {
         
+    }
+
+    public void Interact()
+    {
+
     }
 }

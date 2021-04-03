@@ -20,4 +20,8 @@ public class CarryingTool : MonoBehaviour, ITool
     {
         // todo: pick up object IHeldItem in front of gnome
     }
+    public void DropItem()
+    {
+        // todo: drop item on ground
+    }
 }

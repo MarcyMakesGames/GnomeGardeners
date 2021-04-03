@@ -23,4 +23,9 @@ public class WateringTool : MonoBehaviour, ITool
     {
         // todo: waters plant in front of gnome
     }
+
+    public void DropItem()
+    {
+        // todo: drop item on ground
+    }
 }

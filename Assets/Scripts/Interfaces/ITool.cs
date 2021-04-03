@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface ITool // : IInteractable, IHeldItem
+public interface ITool : IInteractable, IHeldItem
 {
     void UseTool();
 }
