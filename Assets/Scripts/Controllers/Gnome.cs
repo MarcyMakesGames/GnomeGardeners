@@ -8,6 +8,7 @@ public class Gnome : MonoBehaviour
     private Vector2 direction;
     private Vector3 velocity;
     private Rigidbody body;
+    public ITool tool; 
 
     void Start()
     {
@@ -25,5 +26,10 @@ public class Gnome : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         direction = context.ReadValue<Vector2>();
+    }
+
+    public void OnUse(InputAction.CallbackContext context)
+    {
+        // todo: interact with tools
     }
 }
