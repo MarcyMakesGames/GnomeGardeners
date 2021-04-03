@@ -37,7 +37,7 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
         // todo: do behaviour based on tool
     }
 
-    public void DropItem()
+    public void DropItem(Vector3 position)
     {
         // todo: drop plant on ground; if plantbed then it grows
     }

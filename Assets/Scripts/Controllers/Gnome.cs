@@ -14,10 +14,19 @@ public class Gnome : MonoBehaviour
     private bool canMove = true;
     private Vector3 interactDirection = Vector3.back;
 
+    // temp
+    public GameObject activeToolObject;
+
+    GnomeSkin skin;
+
     void Start()
     {
         velocity = new Vector3(speed, 0f, speed);
         body = GetComponent<Rigidbody>();
+
+        // temp
+        activeTool = activeToolObject.GetComponent<ITool>();
+
     }
 
     void FixedUpdate()
@@ -59,23 +68,31 @@ public class Gnome : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(transform.position, interactDirection, out hit, interactRange))
         {
-            if(hit.transform.TryGetComponent(out activeTool))
+            if(hit.transform.GetComponent<ITool>() != null)
             {
-                ChangeArm(activeTool);
+                ChangeArm(hit.transform.GetComponent<ITool>());
 
                 // temp: move tool to separate container
-                hit.transform.gameObject.SetActive(false);
+                hit.transform.GetComponent<ITool>().Interact();
             }
+
+            // todo: check IHarvest, IInteractable etc..
         }
         else if (activeTool != null)
         {
             activeTool.UseTool();
         }
     }
+
+    public void OnDropItem(InputAction.CallbackContext context)
+    {
+        activeTool.DropItem(transform.position + interactDirection);
+    }
     
     public void ChangeArm(ITool tool)
     {
         // todo: change animation sprite
+        activeTool = tool;
     }
 
 }

@@ -13,19 +13,20 @@ public class WateringTool : MonoBehaviour, ITool
         waterAmount = 25f;
             
     }
-
     public void Interact()
     {
         // todo: gets equipped
+        Destroy(gameObject);
     }
 
     public void UseTool()
     {
-        // todo: waters plant in front of gnome
+        // todo: waters plants
     }
-
-    public void DropItem()
+    public void DropItem(Vector3 position)
     {
-        // todo: drop item on ground
+        // todo: drop tool
+        Instantiate(gameObject, position, transform.rotation);
+
     }
 }
