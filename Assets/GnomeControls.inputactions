@@ -28,6 +28,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "DropItem",
+                    "type": "Button",
+                    "id": "2f8123e1-f568-4dfa-8508-f8b550b0d1f0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -155,7 +163,7 @@
                 {
                     "name": "",
                     "id": "78318941-2cd7-4efc-b127-c98d0ea24d29",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardLeft",
@@ -166,7 +174,7 @@
                 {
                     "name": "",
                     "id": "95d73d66-a0a2-403b-859f-69a767eeeda0",
-                    "path": "<Keyboard>/rightCtrl",
+                    "path": "<Keyboard>/numpad0",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardRight",
@@ -193,6 +201,28 @@
                     "processors": "",
                     "groups": "KeyboardRight",
                     "action": "OpenMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6ea40990-64fc-4985-8295-16d649660701",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardLeft",
+                    "action": "DropItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6fe174bb-542a-461a-a4c1-3714281086fc",
+                    "path": "<Keyboard>/rightCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DropItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -14,14 +14,18 @@ public class CarryingTool : MonoBehaviour, ITool
     public void Interact()
     {
         // todo: gets equipped
+        Destroy(gameObject);
+        Debug.Log("Equipped carrying tool.");
     }
 
     public void UseTool()
     {
         // todo: pick up object IHeldItem in front of gnome
     }
-    public void DropItem()
+    public void DropItem(Vector3 position)
     {
-        // todo: drop item on ground
+        // todo: drop tool
+        Instantiate(gameObject, position, transform.rotation);
+        Debug.Log("Dropped carrying tool.");
     }
 }
