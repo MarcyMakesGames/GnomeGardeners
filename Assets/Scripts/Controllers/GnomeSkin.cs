@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GnomeSkin
+public class GnomeSkin : MonoBehaviour
 {
-    SpriteRenderer mustache;
-    SpriteRenderer hat;
-    SpriteRenderer toolArm;
+    public SpriteRenderer mustache;
+    public SpriteRenderer hat;
+    public SpriteRenderer toolArm;
 
     public void ChangeArm(Sprite toolSprite)
     {

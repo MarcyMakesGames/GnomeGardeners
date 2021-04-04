@@ -16,7 +16,8 @@ public class WateringTool : MonoBehaviour, ITool
     public void Interact(ITool tool = null)
     {
         // todo: gets equipped
-        Destroy(gameObject);
+        Debug.Log("Equipped watering tool.");
+        gameObject.SetActive(false);
     }
 
     public void UseTool()
@@ -26,7 +27,8 @@ public class WateringTool : MonoBehaviour, ITool
     public void DropItem(Vector3 position)
     {
         // todo: drop tool
-        Instantiate(gameObject, position, transform.rotation);
+        gameObject.SetActive(true);
+        transform.position = position;
 
     }
 }

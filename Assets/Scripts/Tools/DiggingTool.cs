@@ -7,7 +7,8 @@ public class DiggingTool : MonoBehaviour, ITool
     public void Interact(ITool tool = null)
     {
         // todo: gets equipped
-        Destroy(gameObject);
+        Debug.Log("Equipped digging tool.");
+        gameObject.SetActive(false);
     }
 
     public void UseTool()
@@ -18,6 +19,8 @@ public class DiggingTool : MonoBehaviour, ITool
     public void DropItem(Vector3 position)
     {
         // todo: drop tool
-        Instantiate(gameObject, position, transform.rotation);
+        Debug.Log("Dropped digging tool.");
+        gameObject.SetActive(true);
+        transform.position = position;
     }
 }

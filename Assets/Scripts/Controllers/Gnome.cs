@@ -3,30 +3,20 @@ using UnityEngine.InputSystem;
 
 public class Gnome : MonoBehaviour
 {
-    [SerializeField]
-    private float speed;
-    [SerializeField]
-    private float interactRange = 5f;
+    [SerializeField] private float speed;
+    [SerializeField] private float interactRange = 5f;
     public ITool activeTool;
+
     private Vector2 direction = Vector2.zero;
     private Vector3 velocity;
     private Rigidbody body;
     private bool canMove = true;
     private Vector3 interactDirection = Vector3.back;
 
-    // temp
-    public GameObject activeToolObject;
-
-    GnomeSkin skin;
-
-    void Start()
+    void Awake()
     {
         velocity = new Vector3(speed, 0f, speed);
         body = GetComponent<Rigidbody>();
-
-        // temp
-        activeTool = activeToolObject.GetComponent<ITool>();
-
     }
 
     void FixedUpdate()
@@ -64,19 +54,24 @@ public class Gnome : MonoBehaviour
     public void OnInteract(InputAction.CallbackContext context)
     {
         // todo: interact with tools
+        if (context.performed != true)
+            return;
+
         Debug.DrawLine(transform.position, transform.position + interactDirection * interactRange);
         RaycastHit hit;
         if(Physics.Raycast(transform.position, interactDirection, out hit, interactRange))
         {
-            if(hit.transform.GetComponent<ITool>() != null)
+            IInteractable interactable = hit.transform.GetComponent<IInteractable>();
+            ITool tool = hit.transform.GetComponent<ITool>();
+            if(tool != null)
             {
-                ChangeArm(hit.transform.GetComponent<ITool>());
-
-                // temp: move tool to separate container
-                hit.transform.GetComponent<ITool>().Interact();
+                ChangeArm(tool);
+                tool.Interact();
             }
-
-            // todo: check IHarvest, IInteractable etc..
+            else if (interactable != null)
+            {
+                interactable.Interact();
+            }
         }
         else if (activeTool != null)
         {
@@ -86,7 +81,17 @@ public class Gnome : MonoBehaviour
 
     public void OnDropItem(InputAction.CallbackContext context)
     {
+        if (context.performed != true)
+            return;
+
+        if (activeTool == null)
+        {
+            Debug.Log("Can't drop a non-existing item!");
+            return;
+        }
+
         activeTool.DropItem(transform.position + interactDirection);
+        activeTool = null;
     }
     
     public void ChangeArm(ITool tool)
