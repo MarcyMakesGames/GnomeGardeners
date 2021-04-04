@@ -4,41 +4,58 @@ using UnityEngine;
 
 public class Plant : MonoBehaviour, IInteractable, IHeldItem
 {
-    public int growthStage = 0;
-    [SerializeField]
-    private List<float> stageTimes;
-    [SerializeField]
-    private List<GameObject> harvests;
-    [SerializeField]
-    private List<Sprite> stageSprites;
+    [SerializeField] private List<float> stageTimes;
+    [SerializeField] private List<GameObject> harvests;
+    [SerializeField] private List<Sprite> stageSprites;
+    
+    
+    public int currentGrowthStage = 0;
     private float moisture = 0f;
-    private float growTime = 0f;
+    private float currentGrowTime = 0f;
     private bool isOnArableGround = false;
+    private SpriteRenderer plantRenderer;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Interact(ITool tool = null)
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void Grow()
-    {
-        // todo: called every time the plant advances stages
-    }
-
-    public void Interact()
-    {
-        // todo: do behaviour based on tool
+        // todo: do behaviour based on tool and plant stage.
+        //I.e. watering can + any stage, add to moisture
+        //reaping tool + any stage returns an appropriate harvest
     }
 
     public void DropItem(Vector3 position)
     {
         // todo: drop plant on ground; if plantbed then it grows
+
+        currentGrowTime = GameManager.Instance.Time.ElapsedTime;
+    }
+
+    protected void Awake()
+    {
+        plantRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    protected void Update()
+    {
+        Grow();
+        ConsumeResources();
+    }
+
+    protected void Grow()
+    {
+        if (!isOnArableGround || moisture <= 0f || currentGrowthStage == stageSprites.Count)
+            return;
+
+        if (GameManager.Instance.Time.GetTimeSince(currentGrowTime) >= stageTimes[currentGrowthStage] && moisture > 0f)
+        {
+            currentGrowTime = GameManager.Instance.Time.ElapsedTime;
+            currentGrowthStage++;
+
+            plantRenderer.sprite = stageSprites[currentGrowthStage];
+        }
+    }
+
+    protected void ConsumeResources()
+    {
+        //Lower moisture or fertilizer over time?
     }
 }
