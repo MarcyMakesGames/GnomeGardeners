@@ -18,18 +18,23 @@ public class CoreTool : MonoBehaviour, ITool
 
     public void UseTool()
     {
-        //
+        //Perhaps a change to UseTool to include the raycasting origin/direction/range?
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void UseTool(Vector2 usePosition, Vector2 useDirection, float useRange)
     {
-        
-    }
+        LayerMask interactableMask = LayerMask.GetMask("Interactable");
+        RaycastHit hit;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (Physics.Raycast(usePosition, useDirection, out hit, useRange, interactableMask))
+        {
+            if (hit.transform.GetComponent<IInteractable>() != null)
+            {
+                IInteractable interactable = hit.transform.GetComponent<IInteractable>();
+                interactable.Interact(this);
+            }
+
+            // todo: animation work, sfx, etc.
+        }
     }
 }
