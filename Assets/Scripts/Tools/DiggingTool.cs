@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DiggingTool : MonoBehaviour, ITool
 {
-    public void Interact()
+    public void Interact(ITool tool = null)
     {
         // todo: gets equipped
         Destroy(gameObject);

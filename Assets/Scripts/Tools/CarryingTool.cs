@@ -11,7 +11,7 @@ public class CarryingTool : MonoBehaviour, ITool
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void Interact()
+    public void Interact(ITool tool = null)
     {
         // todo: gets equipped
         Destroy(gameObject);

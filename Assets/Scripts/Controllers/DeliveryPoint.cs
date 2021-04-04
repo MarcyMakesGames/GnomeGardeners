@@ -19,7 +19,7 @@ public class Truck : MonoBehaviour , IInteractable
         
     }
 
-    public void Interact()
+    public void Interact(ITool tool = null)
     {
 
     }

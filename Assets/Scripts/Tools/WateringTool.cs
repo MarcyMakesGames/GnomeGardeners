@@ -13,7 +13,7 @@ public class WateringTool : MonoBehaviour, ITool
         waterAmount = 25f;
             
     }
-    public void Interact()
+    public void Interact(ITool tool = null)
     {
         // todo: gets equipped
         Destroy(gameObject);
