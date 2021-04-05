@@ -33,6 +33,12 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
             case ToolType.Watering:
                 moisture += 10f;
                 break;
+            case ToolType.Harvesting:
+                if (currentGrowthStage == stageSprites.Count)
+                    Instantiate(harvests[harvests.Count - 1]);
+                else
+                    Instantiate(harvests[0]);
+                break;
             default:
                 Debug.Log("Plant.cs : tool not recognized!");
                 break;
