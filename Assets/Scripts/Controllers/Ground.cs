@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CompositeCollider2D))]
 public class Ground : MonoBehaviour
 {
-    public bool isArable;
+    public GroundType type = GroundType.Dirt;
 }

@@ -6,6 +6,8 @@ public class WateringTool : CoreTool, ITool
     private float waterAmount;
     private SpriteRenderer spriteRenderer;
 
+    private readonly ToolType type = ToolType.Watering;
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -20,8 +22,10 @@ public class WateringTool : CoreTool, ITool
         Debug.Log("Equipped watering tool.");
     }
 
-    public new void UseTool(Vector2 usePosition, Vector2 useDirection, float useRange)
+    public new void UseTool(Ray ray, RaycastHit hit)
     {
+        base.UseTool(ray, hit);
+
         // todo: waters plants
     }
 

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class DiggingTool : CoreTool, ITool
 {
+    private readonly ToolType type = ToolType.Digging;
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
@@ -14,8 +15,10 @@ public class DiggingTool : CoreTool, ITool
         Debug.Log("Equipped digging tool.");
     }
 
-    public new void UseTool(Vector2 usePosition, Vector2 useDirection, float useRange)
+    public new void UseTool(Ray ray, RaycastHit hit)
     {
+        base.UseTool(ray, hit);
+
         // todo: digs up dirt
     }
 

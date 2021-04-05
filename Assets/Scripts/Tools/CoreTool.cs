@@ -5,6 +5,16 @@ public class CoreTool : MonoBehaviour, ITool
     protected Rigidbody rb;
     protected float dropStrength = 1000f;
 
+    private readonly ToolType type = ToolType.Count;
+    ToolType ITool.Type { get; }
+
+    protected IInteractable interactable;
+
+    void LateUpdate()
+    {
+        interactable = null;
+    }
+
     public void DropItem(Vector3 position, Vector3 direction)
     {
         // todo: drop tool
@@ -18,19 +28,14 @@ public class CoreTool : MonoBehaviour, ITool
         gameObject.SetActive(false);
     }
 
-    public void UseTool(Vector2 usePosition, Vector2 useDirection, float useRange)
+    public void UseTool(Ray ray, RaycastHit hit)
     {
-        LayerMask interactableMask = LayerMask.GetMask("Interactable");
-
-        if (Physics.Raycast(usePosition, useDirection, out RaycastHit hit, useRange, interactableMask))
+        if (hit.transform.GetComponent<IInteractable>() != null)
         {
-            if (hit.transform.GetComponent<IInteractable>() != null)
-            {
-                IInteractable interactable = hit.transform.GetComponent<IInteractable>();
-                interactable.Interact(this);
-            }
-
-            // todo: animation work, sfx, etc.
+            interactable = hit.transform.GetComponent<IInteractable>();
+            interactable.Interact(this);
         }
+
+        // todo: animation work, sfx, etc.
     }
 }
