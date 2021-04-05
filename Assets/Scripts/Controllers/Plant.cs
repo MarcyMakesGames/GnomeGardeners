@@ -22,7 +22,7 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
         //reaping tool + any stage returns an appropriate harvest
     }
 
-    public void DropItem(Vector3 position)
+    public void DropItem(Vector3 position, Vector3 direction)
     {
         // todo: drop plant on ground; if plantbed then it grows
 

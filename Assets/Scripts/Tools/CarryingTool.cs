@@ -1,31 +1,29 @@
 using UnityEngine;
 
-public class CarryingTool : MonoBehaviour, ITool
+public class CarryingTool : CoreTool, ITool
 {
 
-    SpriteRenderer spriteRenderer;
-
-    // Start is called before the first frame update
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        rb = gameObject.GetComponent<Rigidbody>();
     }
 
-    public void Interact(ITool tool = null)
+    public new void Interact(ITool tool = null)
     {
         // todo: gets equipped
+        base.Interact();
         Debug.Log("Equipped carrying tool.");
-        gameObject.SetActive(false);
     }
 
-    public void UseTool()
+    public new void UseTool(Vector2 usePosition, Vector2 useDirection, float useRange)
     {
         // todo: pick up object IHeldItem in front of gnome
     }
-    public void DropItem(Vector3 position)
+    public new void DropItem(Vector3 position, Vector3 direction)
     {
         // todo: drop tool
-        gameObject.SetActive(true);
-        transform.position = position;
+        base.DropItem(position, direction);
+        rb.AddForce(direction * dropStrength);
+        Debug.Log("Dropped carrying tool.");
     }
 }

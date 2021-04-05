@@ -1,26 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DiggingTool : MonoBehaviour, ITool
+public class DiggingTool : CoreTool, ITool
 {
-    public void Interact(ITool tool = null)
+    void Start()
     {
-        // todo: gets equipped
-        Debug.Log("Equipped digging tool.");
-        gameObject.SetActive(false);
+        rb = gameObject.GetComponent<Rigidbody>();
     }
 
-    public void UseTool()
+    public new void Interact(ITool tool = null)
+    {
+        // todo: gets equipped
+        base.Interact();
+        Debug.Log("Equipped digging tool.");
+    }
+
+    public new void UseTool(Vector2 usePosition, Vector2 useDirection, float useRange)
     {
         // todo: digs up dirt
     }
 
-    public void DropItem(Vector3 position)
+    public new void DropItem(Vector3 position, Vector3 direction)
     {
         // todo: drop tool
+        base.DropItem(position, direction);
+        rb.AddForce(direction * dropStrength);
         Debug.Log("Dropped digging tool.");
-        gameObject.SetActive(true);
-        transform.position = position;
     }
 }

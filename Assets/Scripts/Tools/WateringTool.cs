@@ -1,34 +1,35 @@
 using UnityEngine;
 
-public class WateringTool : MonoBehaviour, ITool
+public class WateringTool : CoreTool, ITool
 {
     [SerializeField]
     private float waterAmount;
     private SpriteRenderer spriteRenderer;
 
-    // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         waterAmount = 25f;
-            
-    }
-    public void Interact(ITool tool = null)
-    {
-        // todo: gets equipped
-        Debug.Log("Equipped watering tool.");
-        gameObject.SetActive(false);
+        rb = gameObject.GetComponent<Rigidbody>();
     }
 
-    public void UseTool()
+    public new void Interact(ITool tool = null)
+    {
+        // todo: gets equipped
+        base.Interact();
+        Debug.Log("Equipped watering tool.");
+    }
+
+    public new void UseTool(Vector2 usePosition, Vector2 useDirection, float useRange)
     {
         // todo: waters plants
     }
-    public void DropItem(Vector3 position)
+
+    public new void DropItem(Vector3 position, Vector3 direction)
     {
         // todo: drop tool
-        gameObject.SetActive(true);
-        transform.position = position;
-
+        base.DropItem(position, direction);
+        rb.AddForce(direction * dropStrength);
+        Debug.Log("Dropped watering tool.");
     }
 }

@@ -33,13 +33,17 @@ public class Gnome : MonoBehaviour
         }
         direction = context.ReadValue<Vector2>();
 
-        // calculate an interactionDirection vector which can never be 0
-        if(direction.x != 0 && direction.y != 0)
+        CalculateInteractDirection();
+    }
+
+    private void CalculateInteractDirection()
+    {
+        if (direction.x != 0 && direction.y != 0)
         {
             interactDirection.x = direction.x > 0f ? 1f : -1f;
             interactDirection.z = direction.y > 0f ? 1f : -1f;
         }
-        else if(direction.x != 0 && direction.y == 0)
+        else if (direction.x != 0 && direction.y == 0)
         {
             interactDirection.x = direction.x > 0f ? 1f : -1f;
             interactDirection.z = direction.y;
@@ -58,13 +62,13 @@ public class Gnome : MonoBehaviour
             return;
 
         Debug.DrawLine(transform.position, transform.position + interactDirection * interactRange);
-        RaycastHit hit;
-        if(Physics.Raycast(transform.position, interactDirection, out hit, interactRange))
+        if (Physics.Raycast(transform.position, interactDirection, out RaycastHit hit, interactRange))
         {
             IInteractable interactable = hit.transform.GetComponent<IInteractable>();
             ITool tool = hit.transform.GetComponent<ITool>();
-            if(tool != null)
+            if (tool != null)
             {
+                DropTool();
                 ChangeArm(tool);
                 tool.Interact();
             }
@@ -75,7 +79,7 @@ public class Gnome : MonoBehaviour
         }
         else if (activeTool != null)
         {
-            activeTool.UseTool();
+            //activeTool.UseTool();
         }
     }
 
@@ -83,17 +87,20 @@ public class Gnome : MonoBehaviour
     {
         if (context.performed != true)
             return;
+        DropTool();
+    }
 
+    private void DropTool()
+    {
         if (activeTool == null)
         {
-            Debug.Log("Can't drop a non-existing item!");
             return;
         }
 
-        activeTool.DropItem(transform.position + interactDirection);
+        activeTool.DropItem(transform.position + interactDirection, interactDirection);
         activeTool = null;
     }
-    
+
     public void ChangeArm(ITool tool)
     {
         // todo: change animation sprite

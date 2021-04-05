@@ -12,7 +12,7 @@ public class Harvest : MonoBehaviour, IHarvest
         throw new System.NotImplementedException();
     }
 
-    public void DropItem(Vector3 position)
+    public void DropItem(Vector3 position, Vector3 direction)
     {
         throw new System.NotImplementedException();
     }
