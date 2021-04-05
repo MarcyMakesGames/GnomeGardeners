@@ -8,8 +8,14 @@ public class GnomeSkin : MonoBehaviour
     public SpriteRenderer hat;
     public SpriteRenderer toolArm;
 
-    public void ChangeArm(Sprite toolSprite)
+    public void ChangeArm(SpriteRenderer renderer)
     {
-        toolArm.sprite = toolSprite;
+        toolArm.sprite = renderer.sprite;
+        toolArm.color = renderer.color;
+    }
+
+    public void ResetArm()
+    {
+        toolArm.color = Color.white;
     }
 }

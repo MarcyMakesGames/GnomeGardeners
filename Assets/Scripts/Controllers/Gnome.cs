@@ -12,11 +12,14 @@ public class Gnome : MonoBehaviour
     private Rigidbody body;
     private bool canMove = true;
     private Vector3 interactDirection = Vector3.back;
+    private GnomeSkin skin;
+    private CoreTool toolObject;
 
     void Awake()
     {
         velocity = new Vector3(speed, 0f, speed);
         body = GetComponent<Rigidbody>();
+        skin = GetComponent<GnomeSkin>();
     }
 
     void FixedUpdate()
@@ -60,10 +63,15 @@ public class Gnome : MonoBehaviour
         // todo: interact with tools
         if (context.performed != true)
             return;
-
+        Ray ray = new Ray(transform.position, interactDirection);
         Debug.DrawLine(transform.position, transform.position + interactDirection * interactRange);
-        if (Physics.Raycast(transform.position, interactDirection, out RaycastHit hit, interactRange))
+        if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
         {
+            if (activeTool != null)
+            {
+                activeTool.UseTool(ray, hit);
+            }
+
             IInteractable interactable = hit.transform.GetComponent<IInteractable>();
             ITool tool = hit.transform.GetComponent<ITool>();
             if (tool != null)
@@ -74,13 +82,10 @@ public class Gnome : MonoBehaviour
             }
             else if (interactable != null)
             {
-                interactable.Interact();
+                interactable.Interact(activeTool);
             }
         }
-        else if (activeTool != null)
-        {
-            //activeTool.UseTool();
-        }
+        
     }
 
     public void OnDropItem(InputAction.CallbackContext context)
@@ -98,6 +103,7 @@ public class Gnome : MonoBehaviour
         }
 
         activeTool.DropItem(transform.position + interactDirection, interactDirection);
+        skin.ResetArm();
         activeTool = null;
     }
 
@@ -105,6 +111,9 @@ public class Gnome : MonoBehaviour
     {
         // todo: change animation sprite
         activeTool = tool;
+        toolObject = (CoreTool)tool;
+        SpriteRenderer renderer = toolObject.GetComponent<SpriteRenderer>();
+        skin.ChangeArm(renderer);
     }
 
 }

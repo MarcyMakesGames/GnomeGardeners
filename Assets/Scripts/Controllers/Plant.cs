@@ -20,12 +20,30 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
         // todo: do behaviour based on tool and plant stage.
         //I.e. watering can + any stage, add to moisture
         //reaping tool + any stage returns an appropriate harvest
+        switch (tool.Type)
+        {
+            case ToolType.Carrying:
+                gameObject.SetActive(false);
+                Debug.Log("Took plant");
+                break;
+            case ToolType.Digging:
+                Debug.Log("Cannot dig plant!");
+                break;
+            case ToolType.Watering:
+                moisture += 10f;
+                break;
+            default:
+                Debug.Log("Plant.cs : tool not recognized!");
+                break;
+        }
     }
 
     public void DropItem(Vector3 position, Vector3 direction)
     {
         // todo: drop plant on ground; if plantbed then it grows
-
+        Debug.Log("Dropped plant");
+        gameObject.SetActive(true);
+        transform.position = position + direction;
         currentGrowTime = GameManager.Instance.Time.ElapsedTime;
     }
 

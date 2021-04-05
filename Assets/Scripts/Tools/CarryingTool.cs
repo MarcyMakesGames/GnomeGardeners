@@ -3,6 +3,10 @@ using UnityEngine;
 public class CarryingTool : CoreTool, ITool
 {
 
+    private readonly ToolType type = ToolType.Carrying;
+
+    private IHeldItem heldItem = null;
+
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
@@ -15,10 +19,20 @@ public class CarryingTool : CoreTool, ITool
         Debug.Log("Equipped carrying tool.");
     }
 
-    public new void UseTool(Vector2 usePosition, Vector2 useDirection, float useRange)
+    public new void UseTool(Ray ray, RaycastHit hit)
     {
+        if (heldItem != null)
+        {
+            heldItem.DropItem(ray.origin, ray.direction);
+        }
+
+        if (hit.transform.GetComponent<IHeldItem>() != null)
+        {
+            heldItem = hit.transform.GetComponent<IHeldItem>();
+        }
         // todo: pick up object IHeldItem in front of gnome
     }
+
     public new void DropItem(Vector3 position, Vector3 direction)
     {
         // todo: drop tool

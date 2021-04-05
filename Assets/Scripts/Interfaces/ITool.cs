@@ -2,5 +2,16 @@ using UnityEngine;
 
 public interface ITool : IInteractable, IHeldItem
 {
-   void UseTool(Vector2 usePosition, Vector2 useDirection, float useRange);
+    ToolType Type { get; }
+
+    void UseTool(Ray ray, RaycastHit hit);
+}
+
+public enum ToolType
+{
+    Carrying,
+    Digging,
+    Watering,
+
+    Count
 }
