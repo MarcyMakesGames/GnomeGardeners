@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class WeatherController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class WeatherController : MonoBehaviour
 
     protected WeatherObject currentWeather;
     protected float currentWeatherTimer;
+
+    public WeatherObject CurrentWeather { get => currentWeather; }
 
     public delegate void OnWeatherChange();
     public event OnWeatherChange WeatherChanged;
@@ -54,10 +57,7 @@ public class WeatherController : MonoBehaviour
 
 public enum WeatherType
 {
-    Default,
-    Sunny,
+    Sunny = 1,
     Rainy,
-    Windy,
-
-    Count
+    Windy
 }

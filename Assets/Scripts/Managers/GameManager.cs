@@ -7,9 +7,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] 
     protected static GameManager gameManager;
     protected GameTime gameTime;
+    protected Level level;
 
     public static GameManager Instance { get => gameManager; }
     public GameTime Time { get => gameTime; set => gameTime = value; }
+    public Level Level { get => level; set => level = value; }
 
     protected void Awake()
     {
@@ -27,7 +29,7 @@ public class GameManager : MonoBehaviour
     [ContextMenu("Start Level Timer")]
     protected void StartLevel()
     {
-        gameTime.PauseTimer = false;
+        level.IsCurrent = true;
     }
 
     [ContextMenu("Announce Times")]
