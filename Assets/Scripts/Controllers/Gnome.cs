@@ -63,29 +63,37 @@ public class Gnome : MonoBehaviour
         // todo: interact with tools
         if (context.performed != true)
             return;
-        Ray ray = new Ray(transform.position, interactDirection);
-        Debug.DrawLine(transform.position, transform.position + interactDirection * interactRange);
-        if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
-        {
-            if (activeTool != null)
-            {
-                activeTool.UseTool(ray, hit);
-            }
 
-            IInteractable interactable = hit.transform.GetComponent<IInteractable>();
-            ITool tool = hit.transform.GetComponent<ITool>();
-            if (tool != null)
+
+        if (activeTool != null)
+        {
+            activeTool.UseTool(transform.position, direction, interactRange);
+            return;
+        }
+
+        else if(activeTool == null)
+        {
+            Ray ray = new Ray(transform.position, direction * interactRange);
+            RaycastHit hit;
+
+            if(Physics.Raycast(ray, out hit))
             {
-                DropTool();
-                ChangeArm(tool);
-                tool.Interact();
-            }
-            else if (interactable != null)
-            {
-                interactable.Interact(activeTool);
+                IInteractable interactable = hit.transform.GetComponent<IInteractable>();
+                ITool tool = hit.transform.GetComponent<ITool>();
+                
+                if (tool != null)
+                {
+                    DropTool();
+                    ChangeArm(tool);
+                    tool.Interact();
+                }
+
+                if(interactable != null)
+                {
+                    interactable.Interact();
+                }
             }
         }
-        
     }
 
     public void OnDropItem(InputAction.CallbackContext context)

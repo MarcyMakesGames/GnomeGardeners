@@ -4,7 +4,7 @@ public interface ITool : IInteractable, IHeldItem
 {
     ToolType Type { get; }
 
-    void UseTool(Ray ray, RaycastHit hit);
+    void UseTool(Vector3 origin, Vector3 direction, float distance);
 }
 
 public enum ToolType

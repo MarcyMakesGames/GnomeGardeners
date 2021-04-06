@@ -17,7 +17,10 @@ public class DiggingTool : CoreTool, ITool
     public new void UseTool(Ray ray, RaycastHit hit)
     {
         base.UseTool(ray, hit);
+        Debug.Log(ray.origin);
 
+        GridManager gridManager = FindObjectOfType<GridManager>();
+        gridManager.ChangeTile(gridManager.GetClosestGrid(ray.origin + ray.direction), GroundType.Arable);
         // todo: digs up dirt
     }
 
