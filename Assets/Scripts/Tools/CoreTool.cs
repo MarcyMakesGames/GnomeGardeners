@@ -11,7 +11,7 @@ public class CoreTool : MonoBehaviour, ITool
 
     public ToolType Type { get => type; }
 
-    void LateUpdate()
+    public void LateUpdate()
     {
         interactable = null;
     }
@@ -26,7 +26,27 @@ public class CoreTool : MonoBehaviour, ITool
     public void Interact(ITool tool = null)
     {
         // todo: gets equipped
-        gameObject.SetActive(false);
+        if(tool == null)
+        {
+            gameObject.SetActive(false);
+            Debug.Log("Equipped Tool");
+        }
+        else
+        {
+            switch (tool.Type)
+            {
+                case ToolType.Carrying:
+                    // pick up with carrying tool
+                    gameObject.SetActive(false);
+                    Debug.Log("Carrying tool: " + Type.ToString());
+                    break;
+                case ToolType.Digging:
+                case ToolType.Watering:
+                case ToolType.Harvesting:
+                default:
+                    break;
+            }
+        }
     }
 
     public void UseTool(Vector3 origin, Vector3 direction, float distance)

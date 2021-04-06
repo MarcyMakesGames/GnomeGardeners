@@ -16,8 +16,7 @@ public class WateringTool : CoreTool, ITool
     public new void Interact(ITool tool = null)
     {
         // todo: gets equipped
-        base.Interact();
-        Debug.Log("Equipped watering tool.");
+        base.Interact(tool);
     }
 
     public new void UseTool(Vector3 origin, Vector3 direction, float distance)
