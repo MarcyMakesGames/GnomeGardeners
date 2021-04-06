@@ -64,81 +64,24 @@ public class Gnome : MonoBehaviour
         if (context.performed != true)
             return;
 
-
         if (activeTool != null)
-
         {
-
             activeTool.UseTool(transform.position, interactDirection, interactRange);
-
             return;
 
         }
-
-
-
         else if(activeTool == null)
-
         {
-
             Ray ray = new Ray(transform.position, interactDirection * interactRange);
-
             RaycastHit hit;
-
-
-
             Debug.Log("Raycasting in " + interactDirection + " direction from " + transform.position + " position.");
 
-
-
             if(Physics.Raycast(ray, out hit))
-
             {
-
                 Debug.Log("Found something.");
-
-                IInteractable interactable = hit.transform.GetComponent<IInteractable>();
-
-                ITool tool = hit.transform.GetComponent<ITool>();
-
-                
-
-                if (tool != null)
-
-                {
-
-                    DropTool();
-
-                    ChangeArm(tool);
-
-                    tool.Interact();
-
-                }
-
-
-
-                if(interactable != null)
-
-                {
-
-                    interactable.Interact();
-
-                }
-
-            }
-
-        }
-
-        else if(activeTool == null)
-        {
-            Ray ray = new Ray(transform.position, direction * interactRange);
-            RaycastHit hit;
-
-            if(Physics.Raycast(ray, out hit))
-            {
                 IInteractable interactable = hit.transform.GetComponent<IInteractable>();
                 ITool tool = hit.transform.GetComponent<ITool>();
-                
+
                 if (tool != null)
                 {
                     DropTool();
