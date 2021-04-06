@@ -21,6 +21,9 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
         // todo: do behaviour based on tool and plant stage.
         //I.e. watering can + any stage, add to moisture
         //reaping tool + any stage returns an appropriate harvest
+        if (tool == null)
+            return;
+
         switch (tool.Type)
         {
             case ToolType.Carrying:

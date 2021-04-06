@@ -3,6 +3,7 @@ using UnityEngine;
 public class CarryingTool : CoreTool, ITool
 {
     private GameObject heldItem = null;
+    [SerializeField] protected bool is2D;
 
     void Start()
     {
@@ -16,18 +17,27 @@ public class CarryingTool : CoreTool, ITool
         Debug.Log("Equipped carrying tool.");
     }
 
-    public new void UseTool(Ray ray, RaycastHit hit)
+    public new void UseTool(Vector3 origin, Vector3 direction, float distance)
     {
-        if (heldItem != null)
-        {
-            heldItem.GetComponent<IHeldItem>().DropItem(ray.origin, ray.direction);
-        }
-
-        if (hit.transform.GetComponent<IHeldItem>() != null)
-        {
-            heldItem = hit.transform.gameObject;
-        }
         // todo: pick up object IHeldItem in front of gnome
+        if (is2D)
+        {
+
+        }
+        else
+        {
+            base.UseTool(origin, direction, distance);
+            if (heldItem != null)
+            {
+                heldItem.GetComponent<IHeldItem>().DropItem(origin, direction);
+                heldItem = null;
+            }
+
+            if (lastHitTransform.GetComponent<IHeldItem>() != null)
+            {
+                heldItem = lastHitTransform.gameObject;
+            }
+        }
     }
 
     public new void DropItem(Vector3 position, Vector3 direction)

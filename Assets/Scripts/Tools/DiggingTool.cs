@@ -17,15 +17,22 @@ public class DiggingTool : CoreTool, ITool
 
     public new void UseTool(Vector3 origin, Vector3 direction, float distance)
     {
-        if(is2D)
-        {
-            GridManager gridManager = FindObjectOfType<GridManager>();
-            gridManager.ChangeTile(gridManager.GetClosestGrid(origin + direction), GroundType.Arable);
+        if(is2D)
+
+        {
+
+            GridManager gridManager = FindObjectOfType<GridManager>();
+
+            gridManager.ChangeTile(gridManager.GetClosestGrid(origin + direction), GroundType.Arable);
+
         }
 
-        else
-        {
-            base.UseTool(origin, direction, distance);
+        else
+
+        {
+
+            base.UseTool(origin, direction, distance);
+
         }
     }
 

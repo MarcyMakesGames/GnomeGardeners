@@ -6,6 +6,7 @@ public class CoreTool : MonoBehaviour, ITool
     protected float dropStrength = 1000f;
 
     protected IInteractable interactable;
+    protected Transform lastHitTransform;
     [SerializeField] protected ToolType type;
 
     public ToolType Type { get => type; }
@@ -39,6 +40,8 @@ public class CoreTool : MonoBehaviour, ITool
 
             if(interactable != null)
                 interactable.Interact(this);
+
+            lastHitTransform = hit.transform;
         }
     }
 }
