@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class Gnome : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField] private float interactRange = 5f;
+    [SerializeField] private float interactRange = 2f;
     public ITool activeTool;
 
     private Vector2 direction = Vector2.zero;
@@ -72,13 +72,13 @@ public class Gnome : MonoBehaviour
         }
         else if(activeTool == null)
         {
-            Ray ray = new Ray(transform.position, interactDirection * interactRange);
+            Ray ray = new Ray(transform.position, interactDirection);
             RaycastHit hit;
             Debug.Log("Raycasting in " + interactDirection + " direction from " + transform.position + " position.");
 
-            if(Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, interactRange))
             {
-                Debug.Log("Found something.");
+                Debug.Log("Found " + hit.transform.gameObject.name);
                 IInteractable interactable = hit.transform.GetComponent<IInteractable>();
                 ITool tool = hit.transform.GetComponent<ITool>();
 

@@ -109,7 +109,7 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
 
             if(Physics.Raycast(ray, out hit))
             {
-                if(hit.collider.GetComponent<Ground>().type == GroundType.Arable)
+                if(hit.collider.GetComponent<Ground3D>().type == GroundType.Arable)
                 {
                     isOnArableGround = true;
                 }
