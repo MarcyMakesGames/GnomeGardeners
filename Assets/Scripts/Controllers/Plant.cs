@@ -63,6 +63,8 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
         else
             transform.position = position + direction;
         CheckArableGround(position + direction);
+
+        Debug.Log("Planted at " + transform.position);
     }
 
     protected void Awake()
