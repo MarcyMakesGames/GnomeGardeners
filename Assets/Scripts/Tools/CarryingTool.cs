@@ -4,6 +4,7 @@ public class CarryingTool : CoreTool, ITool
 {
     private GameObject heldItem = null;
     [SerializeField] protected bool is2D;
+    [SerializeField] private float dropRange = 3f;
 
     void Start()
     {
@@ -33,8 +34,18 @@ public class CarryingTool : CoreTool, ITool
             base.UseTool(origin, direction, distance);
             if (heldItem != null)
             {
-                heldItem.GetComponent<IHeldItem>().DropItem(origin, direction);
+                if (heldItem.GetComponent<IHarvest>() != null)
+                {
+                    if(heldItem.GetComponent<IHarvest>().Deliver(origin, direction, distance))
+                    {
+                        return;
+                    }
+                }
+
+                heldItem.GetComponent<IHeldItem>().DropItem(origin + direction * dropRange, direction);
                 heldItem = null;
+                
+
             }
 
             if (lastHitTransform.GetComponent<IHeldItem>() != null)
@@ -48,7 +59,6 @@ public class CarryingTool : CoreTool, ITool
     {
         // todo: drop tool
         base.DropItem(position, direction);
-        rb.AddForce(direction * dropStrength);
         Debug.Log("Dropped carrying tool.");
     }
 }
