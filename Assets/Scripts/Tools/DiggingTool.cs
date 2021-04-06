@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class DiggingTool : CoreTool, ITool
 {
+    [SerializeField] protected bool is2D;
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
@@ -14,14 +15,18 @@ public class DiggingTool : CoreTool, ITool
         Debug.Log("Equipped digging tool.");
     }
 
-    public new void UseTool(Ray ray, RaycastHit hit)
+    public new void UseTool(Vector3 origin, Vector3 direction, float distance)
     {
-        base.UseTool(ray, hit);
-        Debug.Log(ray.origin);
+        if(is2D)
+        {
+            GridManager gridManager = FindObjectOfType<GridManager>();
+            gridManager.ChangeTile(gridManager.GetClosestGrid(origin + direction), GroundType.Arable);
+        }
 
-        GridManager gridManager = FindObjectOfType<GridManager>();
-        gridManager.ChangeTile(gridManager.GetClosestGrid(ray.origin + ray.direction), GroundType.Arable);
-        // todo: digs up dirt
+        else
+        {
+            base.UseTool(origin, direction, distance);
+        }
     }
 
     public new void DropItem(Vector3 position, Vector3 direction)
