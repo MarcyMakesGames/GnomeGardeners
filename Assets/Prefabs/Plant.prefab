@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8107983885071440429}
   m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
-  m_LocalPosition: {x: 0, y: 0, z: 4.13}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -115,11 +115,17 @@ MonoBehaviour:
   - 20
   - 10
   - 15
-  harvests: []
+  harvests:
+  - {fileID: 1520823353034087717, guid: 73ba27070033aa7478b8085dbcf25888, type: 3}
+  - {fileID: 1520823353034087717, guid: 73ba27070033aa7478b8085dbcf25888, type: 3}
+  - {fileID: 1520823353034087717, guid: 73ba27070033aa7478b8085dbcf25888, type: 3}
   stageSprites:
   - {fileID: 21300000, guid: 16aba112ab3d3a64ab668a587cd1c31c, type: 3}
   - {fileID: 21300000, guid: 209830c45726331429a425eb81806cb6, type: 3}
   - {fileID: 21300000, guid: 55d71c8edb0577849a2df0eb65c31e6f, type: 3}
   - {fileID: 21300000, guid: d9a254a9ae847134c8d3de09d7bc111d, type: 3}
   - {fileID: 21300000, guid: 867f6477928489a459a244e03d5237f0, type: 3}
+  is2D: 0
+  dropScatter: 2
   currentGrowthStage: 0
+  isOnArableGround: 0

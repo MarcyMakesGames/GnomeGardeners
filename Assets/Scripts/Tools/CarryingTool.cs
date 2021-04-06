@@ -38,6 +38,7 @@ public class CarryingTool : CoreTool, ITool
                 {
                     if(heldItem.GetComponent<IHarvest>().Deliver(origin, direction, distance))
                     {
+                        heldItem = null;
                         return;
                     }
                 }

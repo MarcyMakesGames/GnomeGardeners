@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,9 +6,10 @@ using UnityEngine;
 public class Plant : MonoBehaviour, IInteractable, IHeldItem
 {
     [SerializeField] private List<float> stageTimes;
-    [SerializeField] private List<GameObject> harvests;
+    [SerializeField] private List<Harvest> harvests;
     [SerializeField] private List<Sprite> stageSprites;
     [SerializeField] private bool is2D;
+    [SerializeField] private float dropScatter = 2f;
     
     
     public int currentGrowthStage = 0;
@@ -61,7 +63,9 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
             transform.position = gridManager.GetClosestCell(position + direction).WorldPosition;
         }
         else
-            transform.position = position + direction;
+        {
+            transform.position = new Vector3(position.x + direction.x, transform.position.y, position.z + direction.z);
+        }
         CheckArableGround(position + direction);
 
         Debug.Log("Planted at " + transform.position);
@@ -80,6 +84,7 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
 
     protected void Grow()
     {
+
         if (!isOnArableGround || moisture <= 0f || currentGrowthStage == stageSprites.Count)
             return;
 
@@ -89,6 +94,23 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
             currentGrowthStage++;
 
             plantRenderer.sprite = stageSprites[currentGrowthStage];
+
+            // temp: before harvest tool is implemented
+            if (currentGrowthStage == stageTimes.Count - 1)
+            {
+                DropHarvest();
+            }
+        }
+    }
+
+    private void DropHarvest()
+    {
+        foreach(Harvest harvest in harvests)
+        {
+            Vector3 spawnPos = new Vector3(transform.position.x + UnityEngine.Random.Range(-dropScatter, dropScatter)
+                                        , transform.position.y
+                                        , transform.position.z + UnityEngine.Random.Range(-dropScatter, dropScatter));
+            Instantiate(harvest, spawnPos, transform.rotation);
         }
     }
 

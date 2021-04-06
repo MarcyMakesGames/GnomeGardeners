@@ -24,6 +24,10 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         #endregion
+    }
+
+    protected void Start()
+    {
         StartLevel();
     }
 
