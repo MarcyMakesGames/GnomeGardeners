@@ -28,14 +28,17 @@ public class CoreTool : MonoBehaviour, ITool
         gameObject.SetActive(false);
     }
 
-    public void UseTool(Ray ray, RaycastHit hit)
+    public void UseTool(Vector3 origin, Vector3 direction, float distance)
     {
-        if (hit.transform.GetComponent<IInteractable>() != null)
+        Ray ray = new Ray(origin, direction * distance);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
         {
             interactable = hit.transform.GetComponent<IInteractable>();
-            interactable.Interact(this);
-        }
 
-        // todo: animation work, sfx, etc.
+            if(interactable != null)
+                interactable.Interact(this);
+        }
     }
 }
