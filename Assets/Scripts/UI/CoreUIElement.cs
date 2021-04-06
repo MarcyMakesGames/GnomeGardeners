@@ -16,5 +16,17 @@ public abstract class CoreUIElement<T> : MonoBehaviour
     protected void UpdateNumericText(Text target, string textformatting, float value) { UpdateText(target, string.Format(textformatting, value)); }
     protected void UpdateNumericText(TMP_Text target, string textformatting, float value) { UpdateText(target, string.Format(textformatting, value)); }
     protected void SetPercentage(Image target, float percent) { target.fillAmount = percent; }
+    protected void UpdateTimeAsString(Text target, float timeRemaining)
+    {
+        int minutes = (int)Mathf.Floor(timeRemaining / 60f);
+        int seconds = (int)Mathf.Floor(timeRemaining % 60f);
+        UpdateText(target, minutes.ToString() + ":" + seconds.ToString());
+    }
+    protected void UpdateTimeAsString(TMP_Text target, float timeRemaining)
+    {
+        int minutes = (int)Mathf.Floor(timeRemaining / 60f);
+        int seconds = (int)Mathf.Floor(timeRemaining % 60f);
+        UpdateText(target, minutes.ToString() + ":" + seconds.ToString());
+    }
 }
 
