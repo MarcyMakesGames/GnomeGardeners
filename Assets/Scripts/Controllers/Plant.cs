@@ -54,7 +54,14 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
     public void DropItem(Vector3 position, Vector3 direction)
     {
         gameObject.SetActive(true);
-        transform.position = position + direction;
+
+        if(is2D)
+        {
+            GridManager gridManager = FindObjectOfType<GridManager>();
+            transform.position = gridManager.GetClosestCell(position + direction).WorldPosition;
+        }
+        else
+            transform.position = position + direction;
         CheckArableGround(position + direction);
     }
 

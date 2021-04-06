@@ -18,10 +18,15 @@ public class CarryingTool : CoreTool, ITool
 
     public new void UseTool(Vector3 origin, Vector3 direction, float distance)
     {
-        // todo: pick up object IHeldItem in front of gnome
         if (is2D)
         {
+            if (heldItem != null)
+            {
+                GridManager gridManager = FindObjectOfType<GridManager>();
 
+                heldItem.GetComponent<IHeldItem>().DropItem(origin, direction);
+                gridManager.ChangeTileOccupant(gridManager.GetClosestGrid(origin + direction), heldItem.GetComponent<IInteractable>());
+            }
         }
         else
         {

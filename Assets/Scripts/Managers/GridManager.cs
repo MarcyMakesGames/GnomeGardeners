@@ -48,15 +48,7 @@ public class GridManager : MonoBehaviour
 
     public void ChangeTile(Vector3Int gridPosition, GroundType groundType)
     {
-        targetCell = null;
-        foreach (GridCell cell in gridCells)
-        {
-            if (cell.GridPosition == gridPosition)
-            {
-                targetCell = cell;
-                break;
-            }
-        }
+        AssignTargetCell(gridPosition);
 
         if(targetCell == null)
         {
@@ -80,7 +72,21 @@ public class GridManager : MonoBehaviour
         }
 
 
-        PaintTile(gridPosition, targetCell.MapPosition, targetTilePalette);            
+        PaintTile(gridPosition, targetCell.MapPosition, targetTilePalette);
+        targetCell.GroundType = groundType;
+    }
+
+    public void ChangeTileOccupant(Vector3Int gridPosition, IInteractable interactableOccupant)
+    {
+        AssignTargetCell(gridPosition);
+
+        if (targetCell == null)
+        {
+            Debug.Log("Could not find target position in cell list.");
+            return;
+        }
+
+        targetCell.CellOccupant = interactableOccupant;
     }
 
     public Vector3Int GetClosestGrid(Vector3 origin)
@@ -94,6 +100,19 @@ public class GridManager : MonoBehaviour
         }
 
         return targetCell.GridPosition;
+    }
+
+    public GridCell GetClosestCell(Vector3 origin)
+    {
+        targetCell = null;
+
+        foreach (GridCell cell in gridCells)
+        {
+            if (targetCell == null || Vector3.Distance(cell.WorldPosition, origin) <= Vector3.Distance(targetCell.WorldPosition, origin))
+                targetCell = cell;
+        }
+
+        return targetCell;
     }
 
     public GridCell GetGridCell(Vector3Int gridPosition)
@@ -116,6 +135,20 @@ public class GridManager : MonoBehaviour
     protected void Start()
     {
         CreateTileMap(halfMapSize);
+    }
+
+    protected  void AssignTargetCell (Vector3Int gridPosition)
+    {
+        targetCell = null;
+
+        foreach (GridCell cell in gridCells)
+        {
+            if (cell.GridPosition == gridPosition)
+            {
+                targetCell = cell;
+                break;
+            }
+        }
     }
 
     #region MapGeneration
