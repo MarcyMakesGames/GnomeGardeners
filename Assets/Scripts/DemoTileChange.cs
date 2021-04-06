@@ -16,6 +16,6 @@ public class DemoTileChange : MonoBehaviour
     [ContextMenu("Change Tile")]
     protected void ChangeTile()
     {
-        gridManager.ChangeTile(changeTilePosition, GroundType.Dirt);
+        gridManager.ChangeTile(changeTilePosition, GroundType.Arable);
     }
 }

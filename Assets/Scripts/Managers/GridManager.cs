@@ -96,6 +96,15 @@ public class GridManager : MonoBehaviour
         return targetCell.GridPosition;
     }
 
+    public GridCell GetGridCell(Vector3Int gridPosition)
+    {
+        foreach (GridCell cell in gridCells)
+            if (cell.GridPosition == gridPosition)
+                return cell;
+
+        return null;
+    }
+
     protected void Awake()
     {
         if (gridMap == null)

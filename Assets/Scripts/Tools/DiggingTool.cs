@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class DiggingTool : CoreTool, ITool
 {
-    private readonly ToolType type = ToolType.Digging;
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();

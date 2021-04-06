@@ -2,11 +2,8 @@ using UnityEngine;
 
 public class WateringTool : CoreTool, ITool
 {
-    [SerializeField]
-    private float waterAmount;
+    [SerializeField] private float waterAmount;
     private SpriteRenderer spriteRenderer;
-
-    private readonly ToolType type = ToolType.Watering;
 
     void Start()
     {

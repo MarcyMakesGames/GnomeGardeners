@@ -7,12 +7,13 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
     [SerializeField] private List<float> stageTimes;
     [SerializeField] private List<GameObject> harvests;
     [SerializeField] private List<Sprite> stageSprites;
+    [SerializeField] private bool is2D;
     
     
     public int currentGrowthStage = 0;
     private float moisture = 0f;
     private float currentGrowTime = 0f;
-    private bool isOnArableGround = false;
+    [SerializeField] private bool isOnArableGround = false;
     private SpriteRenderer plantRenderer;
 
     public void Interact(ITool tool = null)
@@ -32,6 +33,12 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
             case ToolType.Watering:
                 moisture += 10f;
                 break;
+            case ToolType.Harvesting:
+                if (currentGrowthStage == stageSprites.Count)
+                    Instantiate(harvests[harvests.Count - 1]);
+                else
+                    Instantiate(harvests[0]);
+                break;
             default:
                 Debug.Log("Plant.cs : tool not recognized!");
                 break;
@@ -40,11 +47,9 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
 
     public void DropItem(Vector3 position, Vector3 direction)
     {
-        // todo: drop plant on ground; if plantbed then it grows
-        Debug.Log("Dropped plant");
         gameObject.SetActive(true);
         transform.position = position + direction;
-        currentGrowTime = GameManager.Instance.Time.ElapsedTime;
+        CheckArableGround(position + direction);
     }
 
     protected void Awake()
@@ -75,5 +80,28 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
     protected void ConsumeResources()
     {
         //Lower moisture or fertilizer over time?
+    }
+    
+    protected void CheckArableGround(Vector3 checkPosition)
+    {
+        if(is2D)
+        {
+            GridManager gridManager = FindObjectOfType<GridManager>();
+
+            GridCell cell = gridManager.GetGridCell(gridManager.GetClosestGrid(checkPosition));
+
+            if (cell.GroundType == GroundType.Arable)
+                isOnArableGround = true;
+            else
+                isOnArableGround = false;
+        }
+
+        else
+        {
+            //3D space check for arable ground.
+        }
+
+        currentGrowTime = GameManager.Instance.Time.ElapsedTime;
+
     }
 }

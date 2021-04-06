@@ -5,10 +5,10 @@ public class CoreTool : MonoBehaviour, ITool
     protected Rigidbody rb;
     protected float dropStrength = 1000f;
 
-    private readonly ToolType type = ToolType.Count;
-    ToolType ITool.Type { get; }
-
     protected IInteractable interactable;
+    [SerializeField] protected ToolType type;
+
+    public ToolType Type { get => type; }
 
     void LateUpdate()
     {

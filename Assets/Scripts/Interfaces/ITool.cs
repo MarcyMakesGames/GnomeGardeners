@@ -12,6 +12,7 @@ public enum ToolType
     Carrying,
     Digging,
     Watering,
+    Harvesting,
 
     Count
 }

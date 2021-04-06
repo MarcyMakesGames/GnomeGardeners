@@ -2,10 +2,7 @@ using UnityEngine;
 
 public class CarryingTool : CoreTool, ITool
 {
-
-    private readonly ToolType type = ToolType.Carrying;
-
-    private IHeldItem heldItem = null;
+    private GameObject heldItem = null;
 
     void Start()
     {
@@ -23,12 +20,12 @@ public class CarryingTool : CoreTool, ITool
     {
         if (heldItem != null)
         {
-            heldItem.DropItem(ray.origin, ray.direction);
+            heldItem.GetComponent<IHeldItem>().DropItem(ray.origin, ray.direction);
         }
 
         if (hit.transform.GetComponent<IHeldItem>() != null)
         {
-            heldItem = hit.transform.GetComponent<IHeldItem>();
+            heldItem = hit.transform.gameObject;
         }
         // todo: pick up object IHeldItem in front of gnome
     }
