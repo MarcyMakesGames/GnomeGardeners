@@ -9,7 +9,7 @@ public class WeatherController : MonoBehaviour
     [SerializeField] protected float weatherDuration;
 
     protected WeatherObject currentWeather;
-    protected float currentWeatherTimer;
+    protected float currentWeatherTimer = 0f;
 
     public WeatherObject CurrentWeather { get => currentWeather; }
 

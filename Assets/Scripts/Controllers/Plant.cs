@@ -12,6 +12,8 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
     
     public int currentGrowthStage = 0;
     private float moisture = 0f;
+    private float currentMoisture = 0f;
+    private float waterTime;
     private float currentGrowTime = 0f;
     [SerializeField] private bool isOnArableGround = false;
     private SpriteRenderer plantRenderer;
@@ -35,6 +37,7 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
                 break;
             case ToolType.Watering:
                 moisture += 10f;
+                waterTime = GameManager.Instance.Time.ElapsedTime;
                 break;
             case ToolType.Harvesting:
                 if (currentGrowthStage == stageSprites.Count)
@@ -51,8 +54,17 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
     public void DropItem(Vector3 position, Vector3 direction)
     {
         gameObject.SetActive(true);
-        transform.position = position + direction;
+
+        if(is2D)
+        {
+            GridManager gridManager = FindObjectOfType<GridManager>();
+            transform.position = gridManager.GetClosestCell(position + direction).WorldPosition;
+        }
+        else
+            transform.position = position + direction;
         CheckArableGround(position + direction);
+
+        Debug.Log("Planted at " + transform.position);
     }
 
     protected void Awake()
@@ -82,7 +94,10 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
 
     protected void ConsumeResources()
     {
-        //Lower moisture or fertilizer over time?
+        currentMoisture = Mathf.Clamp(moisture - GameManager.Instance.Time.GetTimeSince(waterTime), 0, 100f);
+
+        if (currentMoisture == 0f)
+            moisture = currentMoisture;
     }
     
     protected void CheckArableGround(Vector3 checkPosition)

@@ -24,9 +24,9 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         #endregion
+        StartLevel();
     }
 
-    [ContextMenu("Start Level Timer")]
     protected void StartLevel()
     {
         level.IsCurrent = true;
