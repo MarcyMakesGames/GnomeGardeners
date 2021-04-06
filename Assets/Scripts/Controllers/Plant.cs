@@ -101,7 +101,24 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
 
         else
         {
-            //3D space check for arable ground.
+            Vector3 localDirection = new Vector3(transform.position.x, -1f, transform.position.z);
+            Vector3 direction = transform.TransformDirection(localDirection);
+            Ray ray = new Ray(transform.position, direction);
+            RaycastHit hit;
+            Debug.DrawRay(transform.position, direction);
+
+            if(Physics.Raycast(ray, out hit))
+            {
+                if(hit.collider.GetComponent<Ground>().type == GroundType.Arable)
+                {
+                    isOnArableGround = true;
+                }
+                else
+                {
+                    isOnArableGround = false;
+
+                }
+            }
         }
 
         currentGrowTime = GameManager.Instance.Time.ElapsedTime;
