@@ -5,7 +5,7 @@ using UnityEngine;
 public class CoreObjectDispenser : MonoBehaviour, IObjectDispenser
 {
     protected string objectName = "Seed Dispenser";
-    List<GameObject> dispensables;
+    [SerializeField] List<GameObject> dispensables;
 
     public string Name => objectName;
 

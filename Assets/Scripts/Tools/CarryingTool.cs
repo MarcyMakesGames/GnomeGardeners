@@ -21,14 +21,38 @@ public class CarryingTool : CoreTool, ITool
 
     public new void UseTool(Vector3 origin, Vector3 direction, float distance)
     {
+        lastHitTransform = null;
+
         if (is2D)
         {
-            if (heldItem != null)
+            base.UseTool(origin, direction, 1);
+
+            if(lastHitTransform == null && heldItem != null)
             {
                 GridManager gridManager = FindObjectOfType<GridManager>();
 
                 heldItem.GetComponent<IHeldItem>().DropItem(origin, direction);
                 gridManager.ChangeTileOccupant(gridManager.GetClosestGrid(origin + direction), heldItem.GetComponent<IInteractable>());
+
+                return;
+            }
+
+            if(lastHitTransform != null && heldItem == null)
+            {
+                if (lastHitTransform.GetComponent<IObjectDispenser>() != null)
+                    lastHitTransform.GetComponent<IObjectDispenser>().DispenseItem(this, "Plant");
+
+                Debug.Log("Getting plant.");
+
+                return;
+
+                //Some kind of interaction
+            }
+
+            if(lastHitTransform != null && heldItem != null)
+            {
+                if (lastHitTransform.GetComponent<Truck>() != null)
+                    heldItem.GetComponent<IHarvest>().Deliver(origin, direction, distance);
             }
         }
 
@@ -68,6 +92,7 @@ public class CarryingTool : CoreTool, ITool
     {
         // todo: drop tool
         base.DropItem(position, direction);
+        heldItem = null;
         Debug.Log("Dropped carrying tool.");
     }
 }

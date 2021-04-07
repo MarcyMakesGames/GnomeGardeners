@@ -108,13 +108,23 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
 
     private void DropHarvest()
     {
-        foreach(Harvest harvest in harvests)
+        if(is2D)
         {
-            Vector3 spawnPos = new Vector3(transform.position.x + UnityEngine.Random.Range(-dropScatter, dropScatter)
-                                        , transform.position.y
-                                        , transform.position.z + UnityEngine.Random.Range(-dropScatter, dropScatter));
-            Instantiate(harvest, spawnPos, transform.rotation);
+            GridManager gridManager = FindObjectOfType<GridManager>();
+            foreach (Vector3Int spot in gridManager.GetNeighborCells(gridManager.GetClosestGrid(transform.position)))
+                Instantiate(harvests[0], spot, transform.rotation);
         }
+
+        else
+        {
+            foreach (Harvest harvest in harvests)
+            {
+                Vector3 spawnPos = new Vector3(transform.position.x + UnityEngine.Random.Range(-dropScatter, dropScatter)
+                                            , transform.position.y
+                                            , transform.position.z + UnityEngine.Random.Range(-dropScatter, dropScatter));
+                Instantiate(harvest, spawnPos, transform.rotation);
+            }
+        }        
     }
 
     protected void ConsumeResources()
