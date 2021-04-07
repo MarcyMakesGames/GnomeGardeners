@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Level : MonoBehaviour
@@ -40,7 +41,22 @@ public class Level : MonoBehaviour
                 hasStarted = true;
             }
             CalculateTime();
+
+            if(restTime <= 0f)
+            {
+                OnLevelEnd();
+            }
         }
+    }
+
+    private void OnLevelEnd()
+    {
+#if UNITY_STANDALONE
+        Application.Quit();
+#endif
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 
     private void CalculateTime()
