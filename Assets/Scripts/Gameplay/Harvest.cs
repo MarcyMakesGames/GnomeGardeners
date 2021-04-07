@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class Harvest : MonoBehaviour, IHarvest
 {
-    public int pointValue;
+    protected int pointValue;
     public int PointValue { get => pointValue; set => pointValue = value; }
 
     public string Name => throw new System.NotImplementedException();
 
+    protected int objectIndex;
+    public int ObjectIndex { get => objectIndex; set => objectIndex = value; }
+
     public bool Deliver(Vector3 origin, Vector3 direction, float distance)
     {
         // deliver harvest to truck; increase score by pointValue
-        Ray ray = new Ray(origin, direction * distance);
+        Ray ray = new Ray(origin, direction);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, distance))
         {
             ITruck truck = hit.transform.GetComponent<ITruck>();
 
@@ -32,9 +35,13 @@ public class Harvest : MonoBehaviour, IHarvest
 
     public void DropItem(Vector3 position, Vector3 direction)
     {
-        gameObject.SetActive(true);
-        transform.position = position;
-        Debug.Log("Dropped harvest");
+        GameObject harvest = GameManager.Instance.ObjectManager.Pool("Harvest").GetPooledObject();
+        if(harvest != null)
+        {
+            harvest.transform.position = position + direction;
+            harvest.SetActive(true);
+            Debug.Log("Dropped harvest");
+        }
     }
 
     public void Interact(ITool tool = null)

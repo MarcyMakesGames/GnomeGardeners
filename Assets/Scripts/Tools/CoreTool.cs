@@ -9,9 +9,13 @@ public class CoreTool : MonoBehaviour, ITool
     protected Transform lastHitTransform;
     [SerializeField] protected ToolType type;
 
+    protected int objectIndex;
+
     public ToolType Type { get => type; }
 
     public string Name => throw new System.NotImplementedException();
+
+    public int ObjectIndex { get => objectIndex; set => objectIndex = value; }
 
     public void LateUpdate()
     {
@@ -30,9 +34,9 @@ public class CoreTool : MonoBehaviour, ITool
         // todo: gets equipped
         if(tool == null)
         {
-            gameObject.SetActive(false);
-            Debug.Log("Equipped Tool");
-        }
+            gameObject.SetActive(true);
+            Debug.Log("Equipped Tool: " + Type.ToString());
+        } 
         else
         {
             switch (tool.Type)
@@ -53,10 +57,10 @@ public class CoreTool : MonoBehaviour, ITool
 
     public void UseTool(Vector3 origin, Vector3 direction, float distance)
     {
-        Ray ray = new Ray(origin, direction * distance);
+        Ray ray = new Ray(origin, direction);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, distance))
         {
             interactable = hit.transform.GetComponent<IInteractable>();
 

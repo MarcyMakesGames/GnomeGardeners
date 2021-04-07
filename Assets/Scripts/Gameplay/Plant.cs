@@ -10,6 +10,8 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
     [SerializeField] private List<Harvest> harvests;
     [SerializeField] private List<Sprite> stageSprites;
     [SerializeField] private bool is2D;
+
+    [SerializeField] private int dropAmount = 3;
     [SerializeField] private float dropScatter = 2f;
     
     
@@ -21,7 +23,11 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
     [SerializeField] private bool isOnArableGround = false;
     private SpriteRenderer plantRenderer;
 
+    protected int objectIndex;
+
     public string Name => plantName;
+
+    public int ObjectIndex { get => objectIndex; set => objectIndex = value; }
 
     public void Interact(ITool tool = null)
     {
@@ -89,6 +95,7 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
     protected void Grow()
     {
 
+        if (!isOnArableGround || moisture <= 0f || currentGrowthStage >= stageTimes.Count)
         if (!isOnArableGround || moisture <= 0f || currentGrowthStage == stageSprites.Count - 1)
             return;
 
@@ -109,12 +116,23 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
 
     private void DropHarvest()
     {
+        for(int i = 0; i < dropAmount; ++i)
         if(is2D)
         {
+            Vector3 spawnPos = new Vector3(transform.position.x + UnityEngine.Random.Range(-dropScatter, dropScatter)
+                                        , transform.position.y
+                                        , transform.position.z + UnityEngine.Random.Range(-dropScatter, dropScatter));
+            GameObject harvest = GameManager.Instance.ObjectManager.Pool("Harvest").GetPooledObject();
+            if (harvest != null)
+            {
+                harvest.transform.position = spawnPos;
+                harvest.SetActive(true);
+            }
             GridManager gridManager = FindObjectOfType<GridManager>();
             foreach (GridCell spot in gridManager.GetNeighborCells(gridManager.GetClosestGrid(transform.position)))
                 Instantiate(harvests[0], spot.WorldPosition, transform.rotation);
         }
+        
 
         else
         {

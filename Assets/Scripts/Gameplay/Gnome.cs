@@ -22,6 +22,7 @@ public class Gnome : MonoBehaviour
         velocity = new Vector3(speed, 0f, speed);
         body = GetComponent<Rigidbody>();
         skin = GetComponent<GnomeSkin>();
+
     }
 
     void FixedUpdate()

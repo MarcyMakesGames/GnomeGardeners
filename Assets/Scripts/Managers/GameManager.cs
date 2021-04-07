@@ -8,10 +8,12 @@ public class GameManager : MonoBehaviour
     protected static GameManager gameManager;
     protected GameTime gameTime;
     protected Level level;
+    protected ObjectManager objectManager;
 
     public static GameManager Instance { get => gameManager; }
     public GameTime Time { get => gameTime; set => gameTime = value; }
     public Level Level { get => level; set => level = value; }
+    public ObjectManager ObjectManager { get => objectManager; set => objectManager = value; }
 
     protected void Awake()
     {
