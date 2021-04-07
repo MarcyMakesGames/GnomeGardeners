@@ -7,6 +7,8 @@ public class Harvest : MonoBehaviour, IHarvest
     public int pointValue;
     public int PointValue { get => pointValue; set => pointValue = value; }
 
+    public string Name => throw new System.NotImplementedException();
+
     public bool Deliver(Vector3 origin, Vector3 direction, float distance)
     {
         // deliver harvest to truck; increase score by pointValue

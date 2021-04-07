@@ -20,6 +20,8 @@ public class Ground3D : MonoBehaviour, IInteractable
     private event TypeChanged typeChanged;
     private SpriteRenderer spriteRenderer;
 
+    public string Name => throw new System.NotImplementedException();
+
     public void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();

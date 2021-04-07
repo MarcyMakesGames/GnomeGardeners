@@ -11,6 +11,8 @@ public class CoreTool : MonoBehaviour, ITool
 
     public ToolType Type { get => type; }
 
+    public string Name => throw new System.NotImplementedException();
+
     public void LateUpdate()
     {
         interactable = null;
