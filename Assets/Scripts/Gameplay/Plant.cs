@@ -64,6 +64,7 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
         {
             GridManager gridManager = FindObjectOfType<GridManager>();
             transform.position = gridManager.GetClosestCell(position + direction).WorldPosition;
+            gameObject.SetActive(true);
         }
         else
         {
@@ -88,7 +89,7 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
     protected void Grow()
     {
 
-        if (!isOnArableGround || moisture <= 0f || currentGrowthStage == stageSprites.Count)
+        if (!isOnArableGround || moisture <= 0f || currentGrowthStage == stageSprites.Count - 1)
             return;
 
         if (GameManager.Instance.Time.GetTimeSince(currentGrowTime) >= stageTimes[currentGrowthStage] && moisture > 0f)
@@ -111,8 +112,8 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
         if(is2D)
         {
             GridManager gridManager = FindObjectOfType<GridManager>();
-            foreach (Vector3Int spot in gridManager.GetNeighborCells(gridManager.GetClosestGrid(transform.position)))
-                Instantiate(harvests[0], spot, transform.rotation);
+            foreach (GridCell spot in gridManager.GetNeighborCells(gridManager.GetClosestGrid(transform.position)))
+                Instantiate(harvests[0], spot.WorldPosition, transform.rotation);
         }
 
         else

@@ -47,6 +47,7 @@ public class Harvest : MonoBehaviour, IHarvest
             case ToolType.Carrying:
                 gameObject.SetActive(false);
                 Debug.Log("Took harvest");
+                gameObject.SetActive(false);
                 break;
             case ToolType.Digging:
                 Debug.Log("Cannot dig harvest!");

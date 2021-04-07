@@ -34,6 +34,7 @@ public class CarryingTool : CoreTool, ITool
                 heldItem.GetComponent<IHeldItem>().DropItem(origin, direction);
                 gridManager.ChangeTileOccupant(gridManager.GetClosestGrid(origin + direction), heldItem.GetComponent<IInteractable>());
 
+                heldItem = null;
                 return;
             }
 
@@ -42,7 +43,11 @@ public class CarryingTool : CoreTool, ITool
                 if (lastHitTransform.GetComponent<IObjectDispenser>() != null)
                     lastHitTransform.GetComponent<IObjectDispenser>().DispenseItem(this, "Plant");
 
-                Debug.Log("Getting plant.");
+                if (lastHitTransform.GetComponent<Plant>() != null || lastHitTransform.GetComponent<CoreTool>() != null || lastHitTransform.GetComponent<Harvest>() != null)
+                {
+                    heldItem = lastHitTransform.gameObject;
+                    lastHitTransform.gameObject.SetActive(false);
+                }
 
                 return;
 
