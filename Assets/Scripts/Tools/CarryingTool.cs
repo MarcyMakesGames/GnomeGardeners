@@ -17,6 +17,7 @@ public class CarryingTool : CoreTool, ITool
     {
         // todo: gets equipped
         base.Interact(tool);
+
     }
 
     public new void UseTool(Vector3 origin, Vector3 direction, float distance)

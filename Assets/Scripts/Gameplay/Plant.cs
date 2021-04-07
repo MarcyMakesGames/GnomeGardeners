@@ -10,6 +10,8 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
     [SerializeField] private List<Harvest> harvests;
     [SerializeField] private List<Sprite> stageSprites;
     [SerializeField] private bool is2D;
+
+    [SerializeField] private int dropAmount = 3;
     [SerializeField] private float dropScatter = 2f;
     
     
@@ -21,7 +23,11 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
     [SerializeField] private bool isOnArableGround = false;
     private SpriteRenderer plantRenderer;
 
+    protected int objectIndex;
+
     public string Name => plantName;
+
+    public int ObjectIndex { get => objectIndex; set => objectIndex = value; }
 
     public void Interact(ITool tool = null)
     {
@@ -88,7 +94,7 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
     protected void Grow()
     {
 
-        if (!isOnArableGround || moisture <= 0f || currentGrowthStage == stageSprites.Count)
+        if (!isOnArableGround || moisture <= 0f || currentGrowthStage >= stageTimes.Count)
             return;
 
         if (GameManager.Instance.Time.GetTimeSince(currentGrowTime) >= stageTimes[currentGrowthStage] && moisture > 0f)
@@ -108,13 +114,19 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
 
     private void DropHarvest()
     {
-        foreach(Harvest harvest in harvests)
+        for(int i = 0; i < dropAmount; ++i)
         {
             Vector3 spawnPos = new Vector3(transform.position.x + UnityEngine.Random.Range(-dropScatter, dropScatter)
                                         , transform.position.y
                                         , transform.position.z + UnityEngine.Random.Range(-dropScatter, dropScatter));
-            Instantiate(harvest, spawnPos, transform.rotation);
+            GameObject harvest = GameManager.Instance.ObjectManager.Pool("Harvest").GetPooledObject();
+            if (harvest != null)
+            {
+                harvest.transform.position = spawnPos;
+                harvest.SetActive(true);
+            }
         }
+        
     }
 
     protected void ConsumeResources()

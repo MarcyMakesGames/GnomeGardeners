@@ -28,7 +28,7 @@ public class WeatherController : MonoBehaviour
             }
         }
 
-        WeatherChanged += AnnounceWeather;
+        // WeatherChanged += AnnounceWeather;
         currentWeatherTimer = GameManager.Instance.Time.ElapsedTime;
     }
 
