@@ -6,6 +6,8 @@ public class CarryingTool : CoreTool, ITool
     [SerializeField] protected bool is2D;
     [SerializeField] private float dropRange = 3f;
 
+    public GameObject HeldItem { get => heldItem; set => heldItem = value; }
+
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
@@ -29,6 +31,7 @@ public class CarryingTool : CoreTool, ITool
                 gridManager.ChangeTileOccupant(gridManager.GetClosestGrid(origin + direction), heldItem.GetComponent<IInteractable>());
             }
         }
+
         else
         {
             base.UseTool(origin, direction, distance);
@@ -52,6 +55,11 @@ public class CarryingTool : CoreTool, ITool
             if (lastHitTransform.GetComponent<IHeldItem>() != null)
             {
                 heldItem = lastHitTransform.gameObject;
+            }
+            
+            if(lastHitTransform.GetComponent<IObjectDispenser>() != null)
+            {
+                lastHitTransform.GetComponent<IObjectDispenser>().DispenseItem(this, "Plant");
             }
         }
     }

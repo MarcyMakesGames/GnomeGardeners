@@ -25,5 +25,7 @@ public class Truck : MonoBehaviour , ITruck
     public void AddScore(int score)
     {
         TotalScore += score;
+
+        FindObjectOfType<Scoreboard>().UpdateUI(TotalScore);
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Plant : MonoBehaviour, IInteractable, IHeldItem
 {
+    [SerializeField] private string plantName;
     [SerializeField] private List<float> stageTimes;
     [SerializeField] private List<Harvest> harvests;
     [SerializeField] private List<Sprite> stageSprites;
@@ -19,6 +20,8 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
     private float currentGrowTime = 0f;
     [SerializeField] private bool isOnArableGround = false;
     private SpriteRenderer plantRenderer;
+
+    public string Name => plantName;
 
     public void Interact(ITool tool = null)
     {
