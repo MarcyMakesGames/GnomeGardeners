@@ -94,8 +94,6 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
 
     protected void Grow()
     {
-
-        if (!isOnArableGround || moisture <= 0f || currentGrowthStage >= stageTimes.Count)
         if (!isOnArableGround || moisture <= 0f || currentGrowthStage == stageSprites.Count - 1)
             return;
 

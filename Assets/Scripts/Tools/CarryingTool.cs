@@ -48,6 +48,8 @@ public class CarryingTool : CoreTool, ITool
                 {
                     heldItem = lastHitTransform.gameObject;
                     lastHitTransform.gameObject.SetActive(false);
+
+                    lastHitTransform = null;
                 }
 
                 return;
@@ -57,8 +59,24 @@ public class CarryingTool : CoreTool, ITool
 
             if(lastHitTransform != null && heldItem != null)
             {
-                if (lastHitTransform.GetComponent<Truck>() != null)
+                if (lastHitTransform.GetComponent<Truck>() != null && heldItem.GetComponent<IHarvest>() != null)
+                {
                     heldItem.GetComponent<IHarvest>().Deliver(origin, direction, distance);
+                    Destroy(heldItem);
+                }
+
+                if (lastHitTransform.GetComponent<Plant>() != null || lastHitTransform.GetComponent<CoreTool>() != null || lastHitTransform.GetComponent<Harvest>() != null)
+                {
+                    GridManager gridManager = FindObjectOfType<GridManager>();
+
+                    heldItem.GetComponent<IHeldItem>().DropItem(origin, direction);
+                    gridManager.ChangeTileOccupant(gridManager.GetClosestGrid(origin + direction), heldItem.GetComponent<IInteractable>());
+
+                    heldItem = lastHitTransform.gameObject;
+                    lastHitTransform.gameObject.SetActive(false);
+
+                    lastHitTransform = null;
+                }
             }
         }
 

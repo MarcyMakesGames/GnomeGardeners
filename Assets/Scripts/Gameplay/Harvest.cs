@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Harvest : MonoBehaviour, IHarvest
 {
-    protected int pointValue;
+    protected int pointValue = 50;
     public int PointValue { get => pointValue; set => pointValue = value; }
 
     public string Name => throw new System.NotImplementedException();

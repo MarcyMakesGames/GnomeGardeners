@@ -34,7 +34,7 @@ public class CoreTool : MonoBehaviour, ITool
         // todo: gets equipped
         if(tool == null)
         {
-            gameObject.SetActive(true);
+            gameObject.SetActive(false);
             Debug.Log("Equipped Tool: " + Type.ToString());
         } 
         else
