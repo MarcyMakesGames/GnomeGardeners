@@ -114,7 +114,6 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
 
     private void DropHarvest()
     {
-        for(int i = 0; i < dropAmount; ++i)
         if(is2D)
         {
             Vector3 spawnPos = new Vector3(transform.position.x + UnityEngine.Random.Range(-dropScatter, dropScatter)
