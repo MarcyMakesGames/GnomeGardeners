@@ -69,7 +69,7 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
         if(is2D)
         {
             GridManager gridManager = FindObjectOfType<GridManager>();
-            transform.position = gridManager.GetClosestCell(position + direction).WorldPosition;
+            transform.position = gridManager.GetClosestCell(position).WorldPosition;
             gameObject.SetActive(true);
         }
         else
@@ -139,39 +139,13 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
         RaycastHit hit;
         Debug.DrawRay(transform.position, direction);
 
-        if(Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit))
         {
-            if(hit.collider.GetComponent<Ground3D>().type == GroundType.Arable)
-            {
+            if (hit.collider.GetComponent<Ground>().type == GroundType.Arable)
                 isOnArableGround = true;
-            }
             else
-            {
                 isOnArableGround = false;
-
-        else
-        {
-            Vector3 localDirection = new Vector3(transform.position.x, -1f, transform.position.z);
-            Vector3 direction = transform.TransformDirection(localDirection);
-            Ray ray = new Ray(transform.position, direction);
-            RaycastHit hit;
-            Debug.DrawRay(transform.position, direction);
-
-            if(Physics.Raycast(ray, out hit))
-            {
-                if(hit.collider.GetComponent<Ground>().type == GroundType.Arable)
-                {
-                    isOnArableGround = true;
-                }
-                else
-                {
-                    isOnArableGround = false;
-
-                }
-            }
         }
-
         currentGrowTime = GameManager.Instance.Time.ElapsedTime;
-
     }
 }
