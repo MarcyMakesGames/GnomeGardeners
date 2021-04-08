@@ -3,10 +3,6 @@ using UnityEngine;
 public class DiggingTool : CoreTool, ITool
 {
     [SerializeField] protected bool is2D;
-    void Start()
-    {
-        rb = gameObject.GetComponent<Rigidbody>();
-    }
 
     public new void Interact(ITool tool = null)
     {
@@ -35,11 +31,10 @@ public class DiggingTool : CoreTool, ITool
         }
     }
 
-    public new void DropItem(Vector3 position, Vector3 direction)
+    public new void DropItem(Vector2 position)
     {
         // todo: drop tool
-        base.DropItem(position, direction);
-        rb.AddForce(direction * dropStrength);
+        base.DropItem(position);
         Debug.Log("Dropped digging tool.");
     }
 }

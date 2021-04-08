@@ -4,14 +4,9 @@ public class CarryingTool : CoreTool, ITool
 {
     private GameObject heldItem = null;
     [SerializeField] protected bool is2D;
-    [SerializeField] private float dropRange = 3f;
+    [SerializeField] private float dropRange = 1f;
 
     public GameObject HeldItem { get => heldItem; set => heldItem = value; }
-
-    void Start()
-    {
-        rb = gameObject.GetComponent<Rigidbody>();
-    }
 
     public new void Interact(ITool tool = null)
     {
@@ -28,7 +23,7 @@ public class CarryingTool : CoreTool, ITool
             {
                 GridManager gridManager = FindObjectOfType<GridManager>();
 
-                heldItem.GetComponent<IHeldItem>().DropItem(origin, direction);
+                heldItem.GetComponent<IHeldItem>().DropItem(origin + direction * dropRange);
                 gridManager.ChangeTileOccupant(gridManager.GetClosestGrid(origin + direction), heldItem.GetComponent<IInteractable>());
             }
         }
@@ -47,11 +42,14 @@ public class CarryingTool : CoreTool, ITool
                     }
                 }
 
-                heldItem.GetComponent<IHeldItem>().DropItem(origin + direction * dropRange, direction);
+                heldItem.GetComponent<IHeldItem>().DropItem(origin + direction * dropRange);
                 heldItem = null;
                 
 
             }
+
+            if (lastHitTransform == null)
+                return;
 
             if (lastHitTransform.GetComponent<IHeldItem>() != null)
             {
@@ -65,10 +63,10 @@ public class CarryingTool : CoreTool, ITool
         }
     }
 
-    public new void DropItem(Vector3 position, Vector3 direction)
+    public new void DropItem(Vector2 position)
     {
         // todo: drop tool
-        base.DropItem(position, direction);
+        base.DropItem(position);
         Debug.Log("Dropped carrying tool.");
     }
 }

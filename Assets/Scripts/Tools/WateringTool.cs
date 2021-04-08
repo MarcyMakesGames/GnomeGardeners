@@ -10,7 +10,6 @@ public class WateringTool : CoreTool, ITool
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         waterAmount = 25f;
-        rb = gameObject.GetComponent<Rigidbody>();
     }
 
     public new void Interact(ITool tool = null)
@@ -32,11 +31,10 @@ public class WateringTool : CoreTool, ITool
         }
     }
 
-    public new void DropItem(Vector3 position, Vector3 direction)
+    public new void DropItem(Vector2 position)
     {
         // todo: drop tool
-        base.DropItem(position, direction);
-        rb.AddForce(direction * dropStrength);
+        base.DropItem(position);
         Debug.Log("Dropped watering tool.");
     }
 }

@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class CoreTool : MonoBehaviour, ITool
 {
-    protected Rigidbody rb;
-    protected float dropStrength = 1000f;
-
     protected IInteractable interactable;
     protected Transform lastHitTransform;
     [SerializeField] protected ToolType type;
@@ -22,7 +19,7 @@ public class CoreTool : MonoBehaviour, ITool
         interactable = null;
     }
 
-    public void DropItem(Vector3 position, Vector3 direction)
+    public void DropItem(Vector2 position)
     {
         // todo: drop tool
         gameObject.SetActive(true);
@@ -34,7 +31,7 @@ public class CoreTool : MonoBehaviour, ITool
         // todo: gets equipped
         if(tool == null)
         {
-            gameObject.SetActive(true);
+            gameObject.SetActive(false);
             Debug.Log("Equipped Tool: " + Type.ToString());
         } 
         else
@@ -57,10 +54,10 @@ public class CoreTool : MonoBehaviour, ITool
 
     public void UseTool(Vector3 origin, Vector3 direction, float distance)
     {
-        Ray ray = new Ray(origin, direction);
-        RaycastHit hit;
+        RaycastHit2D hit = Physics2D.Raycast(origin, direction, distance, LayerMask.GetMask("Interactable"));
+        Debug.Log("Raycasting in " + direction + " direction from " + transform.position + " position.");
 
-        if (Physics.Raycast(ray, out hit, distance))
+        if (hit.collider != null)
         {
             interactable = hit.transform.GetComponent<IInteractable>();
 

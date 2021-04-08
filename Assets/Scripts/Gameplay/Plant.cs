@@ -62,20 +62,20 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
         }
     }
 
-    public void DropItem(Vector3 position, Vector3 direction)
+    public void DropItem(Vector2 position)
     {
         gameObject.SetActive(true);
 
         if(is2D)
         {
             GridManager gridManager = FindObjectOfType<GridManager>();
-            transform.position = gridManager.GetClosestCell(position + direction).WorldPosition;
+            transform.position = gridManager.GetClosestCell(position).WorldPosition;
         }
         else
         {
-            transform.position = new Vector3(position.x + direction.x, transform.position.y, position.z + direction.z);
+            transform.position = position;
         }
-        CheckArableGround(position + direction);
+        CheckArableGround(position);
 
         Debug.Log("Planted at " + transform.position);
     }
@@ -161,7 +161,7 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
 
             if(Physics.Raycast(ray, out hit))
             {
-                if(hit.collider.GetComponent<Ground3D>().type == GroundType.Arable)
+                if(hit.collider.GetComponent<Ground>().type == GroundType.Arable)
                 {
                     isOnArableGround = true;
                 }

@@ -4,30 +4,29 @@ using UnityEngine.InputSystem;
 public class Gnome : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField] private float interactRange = 2f;
-    [SerializeField] private float dropRange = 3f;
+    [SerializeField] private float interactRange = 1f;
+    [SerializeField] private float dropRange = 1f;
     public ITool activeTool;
 
     private Vector2 direction = Vector2.zero;
+    private Vector2 interactDirection = Vector2.down;
     private Vector3 velocity;
-    private Rigidbody body;
     private bool canMove = true;
-    private Vector3 interactDirection = Vector3.back;
     private GnomeSkin skin;
     private CoreTool toolObject;
 
     void Awake()
     {
-        velocity = new Vector3(speed, 0f, speed);
-        body = GetComponent<Rigidbody>();
+        velocity = new Vector3(0f, 0f, 0f);
         skin = GetComponent<GnomeSkin>();
 
     }
 
     void FixedUpdate()
     {
-        velocity = new Vector3(direction.x * speed, 0f, direction.y * speed);
-        body.MovePosition(body.position + velocity * Time.fixedDeltaTime);
+        velocity.x = direction.x * speed;
+        velocity.y = direction.y * speed;
+        transform.Translate(velocity, Space.World);
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -46,17 +45,17 @@ public class Gnome : MonoBehaviour
         if (direction.x != 0 && direction.y != 0)
         {
             interactDirection.x = direction.x > 0f ? 1f : -1f;
-            interactDirection.z = direction.y > 0f ? 1f : -1f;
+            interactDirection.y = direction.y > 0f ? 1f : -1f;
         }
         else if (direction.x != 0 && direction.y == 0)
         {
             interactDirection.x = direction.x > 0f ? 1f : -1f;
-            interactDirection.z = direction.y;
+            interactDirection.y = direction.y;
         }
         else if (direction.x == 0 && direction.y != 0)
         {
             interactDirection.x = direction.x;
-            interactDirection.z = direction.y > 0f ? 1f : -1f;
+            interactDirection.y = direction.y > 0f ? 1f : -1f;
         }
     }
 
@@ -74,12 +73,13 @@ public class Gnome : MonoBehaviour
         }
         else if(activeTool == null)
         {
-            Ray ray = new Ray(transform.position, interactDirection);
-            RaycastHit hit;
+            Ray2D ray = new Ray2D(transform.position, interactDirection);
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, interactRange, LayerMask.GetMask("Interactable"));
             Debug.Log("Raycasting in " + interactDirection + " direction from " + transform.position + " position.");
 
-            if (Physics.Raycast(ray, out hit, interactRange))
+            if (hit.collider != null)
             {
+                Debug.DrawLine(ray.origin, ray.direction);
                 Debug.Log("Found " + hit.transform.gameObject.name);
                 IInteractable interactable = hit.transform.GetComponent<IInteractable>();
                 ITool tool = hit.transform.GetComponent<ITool>();
@@ -112,8 +112,9 @@ public class Gnome : MonoBehaviour
         {
             return;
         }
-
-        activeTool.DropItem(transform.position + interactDirection * dropRange, interactDirection);
+        
+        var dropPosition = (Vector2)transform.position + interactDirection * dropRange;
+        activeTool.DropItem(dropPosition);
         skin.ResetArm();
         activeTool = null;
     }

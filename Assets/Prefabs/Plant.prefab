@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 148511127972733769}
   - component: {fileID: 6781855766866969407}
-  - component: {fileID: 2345110820034917678}
   - component: {fileID: 1934356837747362964}
+  - component: {fileID: -378496446210772951}
   m_Layer: 9
   m_Name: Plant
   m_TagString: Untagged
@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8107983885071440429}
-  m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
-  m_LocalPosition: {x: -3.0128052, y: 0, z: 14.535877}
+  m_LocalRotation: {x: -0.17364825, y: 0, z: 0, w: 0.9848078}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -20, y: 0, z: 0}
 --- !u!212 &6781855766866969407
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -84,19 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!135 &2345110820034917678
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8107983885071440429}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1934356837747362964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +114,23 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d9a254a9ae847134c8d3de09d7bc111d, type: 3}
   - {fileID: 21300000, guid: 867f6477928489a459a244e03d5237f0, type: 3}
   is2D: 0
+  dropAmount: 3
   dropScatter: 2
   currentGrowthStage: 0
   isOnArableGround: 0
+--- !u!58 &-378496446210772951
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8107983885071440429}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.15}
+  serializedVersion: 2
+  m_Radius: 0.2

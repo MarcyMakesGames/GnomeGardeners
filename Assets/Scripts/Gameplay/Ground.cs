@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider))]
-public class Ground3D : MonoBehaviour, IInteractable
+[RequireComponent(typeof(BoxCollider2D))]
+public class Ground : MonoBehaviour, IInteractable
 {
     public GroundType type = GroundType.Count;
 

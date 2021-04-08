@@ -33,12 +33,12 @@ public class Harvest : MonoBehaviour, IHarvest
         return false;
     }
 
-    public void DropItem(Vector3 position, Vector3 direction)
+    public void DropItem(Vector2 position)
     {
         GameObject harvest = GameManager.Instance.ObjectManager.Pool("Harvest").GetPooledObject();
         if(harvest != null)
         {
-            harvest.transform.position = position + direction;
+            harvest.transform.position = position;
             harvest.SetActive(true);
             Debug.Log("Dropped harvest");
         }
