@@ -114,33 +114,13 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
 
     private void DropHarvest()
     {
-        if(is2D)
+        foreach (Harvest harvest in harvests)
         {
             Vector3 spawnPos = new Vector3(transform.position.x + UnityEngine.Random.Range(-dropScatter, dropScatter)
                                         , transform.position.y
                                         , transform.position.z + UnityEngine.Random.Range(-dropScatter, dropScatter));
-            GameObject harvest = GameManager.Instance.ObjectManager.Pool("Harvest").GetPooledObject();
-            if (harvest != null)
-            {
-                harvest.transform.position = spawnPos;
-                harvest.SetActive(true);
-            }
-            GridManager gridManager = FindObjectOfType<GridManager>();
-            foreach (GridCell spot in gridManager.GetNeighborCells(gridManager.GetClosestGrid(transform.position)))
-                Instantiate(harvests[0], spot.WorldPosition, transform.rotation);
+            Instantiate(harvest, spawnPos, transform.rotation);
         }
-        
-
-        else
-        {
-            foreach (Harvest harvest in harvests)
-            {
-                Vector3 spawnPos = new Vector3(transform.position.x + UnityEngine.Random.Range(-dropScatter, dropScatter)
-                                            , transform.position.y
-                                            , transform.position.z + UnityEngine.Random.Range(-dropScatter, dropScatter));
-                Instantiate(harvest, spawnPos, transform.rotation);
-            }
-        }        
     }
 
     protected void ConsumeResources()
@@ -153,37 +133,22 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
     
     protected void CheckArableGround(Vector3 checkPosition)
     {
-        if(is2D)
+        Vector3 localDirection = new Vector3(transform.position.x, -1f, transform.position.z);
+        Vector3 direction = transform.TransformDirection(localDirection);
+        Ray ray = new Ray(transform.position, direction);
+        RaycastHit hit;
+        Debug.DrawRay(transform.position, direction);
+
+        if(Physics.Raycast(ray, out hit))
         {
-            GridManager gridManager = FindObjectOfType<GridManager>();
-
-            GridCell cell = gridManager.GetGridCell(gridManager.GetClosestGrid(checkPosition));
-
-            if (cell.GroundType == GroundType.Arable)
-                isOnArableGround = true;
-            else
-                isOnArableGround = false;
-        }
-
-        else
-        {
-            Vector3 localDirection = new Vector3(transform.position.x, -1f, transform.position.z);
-            Vector3 direction = transform.TransformDirection(localDirection);
-            Ray ray = new Ray(transform.position, direction);
-            RaycastHit hit;
-            Debug.DrawRay(transform.position, direction);
-
-            if(Physics.Raycast(ray, out hit))
+            if(hit.collider.GetComponent<Ground3D>().type == GroundType.Arable)
             {
-                if(hit.collider.GetComponent<Ground3D>().type == GroundType.Arable)
-                {
-                    isOnArableGround = true;
-                }
-                else
-                {
-                    isOnArableGround = false;
+                isOnArableGround = true;
+            }
+            else
+            {
+                isOnArableGround = false;
 
-                }
             }
         }
 

@@ -21,15 +21,7 @@ public class WateringTool : CoreTool, ITool
 
     public new void UseTool(Vector3 origin, Vector3 direction, float distance)
     {
-        if(is2D)
-        {
-            base.UseTool(origin, direction, distance);
-        }
-
-        else
-        {
-            base.UseTool(origin, direction, distance);
-        }
+        base.UseTool(origin, direction, distance);
     }
 
     public new void DropItem(Vector3 position, Vector3 direction)
