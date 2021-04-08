@@ -23,9 +23,9 @@ public class GridManager : MonoBehaviour
     /// </summary>
     /// <param name="origin"></param>
     /// <returns></returns>
-    public List<Vector3Int> GetNeighborCells(Vector3Int origin, int checkDistance = 1)
+    public List<GridCell> GetNeighborCells(Vector3Int origin, int checkDistance = 1)
     {
-        List<Vector3Int> neighbors = new List<Vector3Int>();
+        List<GridCell> neighbors = new List<GridCell>();
 
         for (int i = origin.x - checkDistance; i <= origin.x + checkDistance; i++)
             for(int j = origin.y - checkDistance; j <= origin.y + checkDistance; j++)
@@ -35,10 +35,10 @@ public class GridManager : MonoBehaviour
                 if (checkGrid == origin)
                     continue;
 
-                foreach (Vector3Int cellPosition in gridCells.Select(x => x.GridPosition))
-                    if (checkGrid == cellPosition)
+                foreach (GridCell cell in gridCells)
+                    if (checkGrid == cell.GridPosition)
                     {
-                        neighbors.Add(checkGrid);
+                        neighbors.Add(cell);
                         break;
                     }
             }

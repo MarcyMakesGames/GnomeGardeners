@@ -61,10 +61,12 @@ public class CoreTool : MonoBehaviour, ITool
         {
             interactable = hit.transform.GetComponent<IInteractable>();
 
-            if(interactable != null)
+            if (interactable != null)
                 interactable.Interact(this);
 
             lastHitTransform = hit.transform;
+
+            Debug.Log("Last hit transform: " + hit.transform.gameObject.name);
         }
     }
 }

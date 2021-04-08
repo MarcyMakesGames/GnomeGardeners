@@ -5,7 +5,7 @@ using UnityEngine;
 public class CoreObjectDispenser : MonoBehaviour, IObjectDispenser
 {
     protected string objectName = "Seed Dispenser";
-    List<GameObject> dispensables;
+    [SerializeField] List<GameObject> dispensables;
 
     public string Name => objectName;
 
@@ -13,7 +13,7 @@ public class CoreObjectDispenser : MonoBehaviour, IObjectDispenser
     {
         CarryingTool toolUsed = (CarryingTool)tool;
 
-        if (toolUsed.Type != ToolType.Carrying)
+        if (toolUsed == null || toolUsed.Type != ToolType.Carrying)
             return;
 
         foreach(GameObject item in dispensables)
@@ -21,7 +21,11 @@ public class CoreObjectDispenser : MonoBehaviour, IObjectDispenser
             IInteractable itemInteractable = item.GetComponent<IInteractable>();
 
             if (itemName == itemInteractable.Name)
-                toolUsed.HeldItem = item;
+            {
+                GameObject newPlant = Instantiate(item, transform.position, transform.rotation);
+                toolUsed.HeldItem = newPlant;
+                newPlant.SetActive(false);
+            }
             return;
         }
 
@@ -35,6 +39,6 @@ public class CoreObjectDispenser : MonoBehaviour, IObjectDispenser
 
     public void Interact(ITool tool = null)
     {
-        throw new System.NotImplementedException();
+        DispenseItem(tool, "Plant");
     }
 }

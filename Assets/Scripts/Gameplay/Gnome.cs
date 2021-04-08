@@ -6,6 +6,7 @@ public class Gnome : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float interactRange = 1f;
     [SerializeField] private float dropRange = 1f;
+    [SerializeField] private bool is2D;
     public ITool activeTool;
 
     private Vector2 direction = Vector2.zero;

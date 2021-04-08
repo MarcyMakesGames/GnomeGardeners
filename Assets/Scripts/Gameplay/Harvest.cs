@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Harvest : MonoBehaviour, IHarvest
 {
-    protected int pointValue;
+    protected int pointValue = 50;
     public int PointValue { get => pointValue; set => pointValue = value; }
 
     public string Name => throw new System.NotImplementedException();
@@ -54,6 +54,7 @@ public class Harvest : MonoBehaviour, IHarvest
             case ToolType.Carrying:
                 gameObject.SetActive(false);
                 Debug.Log("Took harvest");
+                gameObject.SetActive(false);
                 break;
             case ToolType.Digging:
                 Debug.Log("Cannot dig harvest!");
