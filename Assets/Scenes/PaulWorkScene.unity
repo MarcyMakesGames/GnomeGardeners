@@ -517,7 +517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1105247436}
   smoothTime: 0.125
-  offset: {x: 0, y: -5, z: -10}
+  offset: {x: 0, y: -5, z: -30}
 --- !u!4 &531004090 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4116659199993229351, guid: 7a5c2c253aab82d4e9778bc22ce88add, type: 3}
@@ -871,6 +871,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4116659199993229351, guid: f1a8616dd27ca034fa6b7a93867b3a47, type: 3}
   m_PrefabInstance: {fileID: 1501153308}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &957593386 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5681867760976127853, guid: e5c26ea68b0fd464d8c468666721dbc9, type: 3}
+  m_PrefabInstance: {fileID: 5681867761091286472}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &957593388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957593386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c440971026e51fa4884a065ce3758848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizedString:
+    key: clock_description
 --- !u!4 &1041541710 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8226555303585533559, guid: c52a93c223f64294582a735b3097b68e, type: 3}
@@ -1668,6 +1687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ef8edcb6f67ea4c967cbd5282b69da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dispensables: []
 --- !u!58 &1997196438
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1806,6 +1826,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b54348e01be84fa43be57ac9a7a03e93, type: 3}
+--- !u!1 &2080711429 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 978335587, guid: e5c26ea68b0fd464d8c468666721dbc9, type: 3}
+  m_PrefabInstance: {fileID: 5681867761091286472}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2080711433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080711429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c440971026e51fa4884a065ce3758848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizedString:
+    key: scoreboard_description
 --- !u!1 &2106052645 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1460186646552481323, guid: ee91b61c14bbef449aae56fd86845530, type: 3}
@@ -2049,6 +2088,10 @@ PrefabInstance:
     - target: {fileID: 978335588, guid: e5c26ea68b0fd464d8c468666721dbc9, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 978335589, guid: e5c26ea68b0fd464d8c468666721dbc9, type: 3}
+      propertyPath: m_text
+      value: 'Score:'
       objectReference: {fileID: 0}
     - target: {fileID: 4817625534680214558, guid: e5c26ea68b0fd464d8c468666721dbc9, type: 3}
       propertyPath: m_RootOrder
