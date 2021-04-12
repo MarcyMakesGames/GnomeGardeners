@@ -16,9 +16,9 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.Level.IsCurrent)
+        if (GameManager.Instance.LevelManager.activeLevel.isCurrent)
         {
-            text.text = GameManager.Instance.Level.GetTimeAsString();
+            text.text = GameManager.Instance.LevelManager.activeLevel.GetTimeAsString();
         }
         else
         {

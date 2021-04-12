@@ -5,17 +5,17 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] 
-    protected static GameManager gameManager;
-    protected GameTime gameTime;
-    protected Level level;
-    protected ObjectManager objectManager;
+    private static GameManager gameManager;
+    private GameTime gameTime;
+    private LevelManager levelManager;
+    private ObjectManager objectManager;
 
     public static GameManager Instance { get => gameManager; }
     public GameTime Time { get => gameTime; set => gameTime = value; }
-    public Level Level { get => level; set => level = value; }
+    public LevelManager LevelManager { get => levelManager; set => levelManager = value; }
     public ObjectManager ObjectManager { get => objectManager; set => objectManager = value; }
 
-    protected void Awake()
+    private void Awake()
     {
         #region Singleton
         if (Instance != null && Instance != this)
@@ -28,18 +28,14 @@ public class GameManager : MonoBehaviour
         #endregion
     }
 
-    protected void Start()
+    [ContextMenu("Start Level")]
+    private void StartLevel()
     {
-        StartLevel();
-    }
-
-    protected void StartLevel()
-    {
-        level.IsCurrent = true;
+        Instance.LevelManager.SetLevelActive(0);
     }
 
     [ContextMenu("Announce Times")]
-    protected void AnnounceTimes()
+    private void AnnounceTimes()
     {
         Debug.Log("Game elapsed time: " + gameTime.ElapsedTime);
     }

@@ -1,37 +1,26 @@
-using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Level : MonoBehaviour
+public class Level
 {
-    [SerializeField]
-    private float availableTime = 300f;
+    public int index;
+    public bool isCurrent;
+    public float highscore;
+    private float availableTime;
     private float restTime;
-    private float timeAtStart = 0f;
-    private int levelIndex;
-    private bool hasStarted = false;
-
-    private bool isCurrent;
-    public bool IsCurrent { get => isCurrent; set => isCurrent = value; }
+    private float timeAtStart;
+    private bool hasStarted;
+    private string sceneName;
+    private string format;
 
     public string GetTimeAsString()
     {
-        int minutes = (int) Mathf.Floor(restTime / 60f);
-        int seconds = (int) Mathf.Floor(restTime % 60f);
-        return minutes.ToString() + ":" + seconds.ToString();
+        int minutes = (int)Mathf.Floor(restTime / 60f);
+        int seconds = (int)Mathf.Floor(restTime % 60f);
+        return minutes.ToString() + ":" + seconds.ToString(format);
     }
-
-    protected void Awake()
-    {
-        GameManager.Instance.Level = this;
-        restTime = availableTime;
-    }
-
-    private void OnLevelStart()
-    {
-            timeAtStart = GameManager.Instance.Time.ElapsedTime;
-    }
-
-    private void Update()
+    public void Update()
     {
         if (isCurrent)
         {
@@ -42,14 +31,27 @@ public class Level : MonoBehaviour
             }
             CalculateTime();
 
-            if(restTime <= 0f)
+            if (restTime <= 0f)
             {
                 OnLevelEnd();
             }
         }
     }
 
-    private void OnLevelEnd()
+    void OnLevelStart()
+    {
+        timeAtStart = GameManager.Instance.Time.ElapsedTime;
+        restTime = availableTime;
+        timeAtStart = 0f;
+        hasStarted = false;
+        format = "00";
+        availableTime = 300f;
+        restTime = 85f;
+        Debug.Log(GetTimeAsString());
+    }
+
+
+    void OnLevelEnd()
     {
 #if UNITY_STANDALONE
         Application.Quit();
@@ -59,9 +61,8 @@ public class Level : MonoBehaviour
 #endif
     }
 
-    private void CalculateTime()
+    void CalculateTime()
     {
         restTime = availableTime - GameManager.Instance.Time.GetTimeSince(timeAtStart);
     }
-
 }
