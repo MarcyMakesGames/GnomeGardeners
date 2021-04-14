@@ -7,16 +7,35 @@ using TilemapExtensions;
 
 public class GridManager : MonoBehaviour
 {
-    [SerializeField] protected Grid gridMap;
-    [SerializeField] protected Tilemap groundTilemap;
-    [SerializeField] protected int halfMapSize;
-    [SerializeField] protected List<GroundTileAssociation> groundTiles;
+    [SerializeField] private Grid gridMap;
+    [SerializeField] private Tilemap groundTilemap;
+    [SerializeField] private int halfMapSize;
+    [SerializeField] private List<GroundTileAssociation> groundTiles;
 
-    protected List<GridCell> gridCells = new List<GridCell>();
-    protected GridCell targetCell;
-    protected TilePaletteObject targetTilePalette;
+    private List<GridCell> gridCells = new List<GridCell>();
+    private GridCell targetCell;
+    private TilePaletteObject targetTilePalette;
 
     public List<GridCell> GridCells { get => gridCells; }
+
+    #region Unity Methods
+
+    private void Awake()
+    {
+        if (gridMap == null)
+            gridMap = GetComponent<Grid>();
+        if (groundTilemap == null)
+            throw new System.NotImplementedException("Did not assign the tilemap.");
+    }
+
+    private void Start()
+    {
+        CreateTileMap(halfMapSize);
+    }
+
+    #endregion
+
+    #region Public Methods
 
     /// <summary>
     /// Returns Vector3Ints on the grid map that are -1 and +1 x and y from the origin.
@@ -124,20 +143,11 @@ public class GridManager : MonoBehaviour
         return null;
     }
 
-    protected void Awake()
-    {
-        if (gridMap == null)
-            gridMap = GetComponent<Grid>();
-        if (groundTilemap == null)
-            throw new System.NotImplementedException("Did not assign the tilemap.");
-    }
+    #endregion
 
-    protected void Start()
-    {
-        CreateTileMap(halfMapSize);
-    }
+    #region Private Methods
 
-    protected  void AssignTargetCell (Vector3Int gridPosition)
+    private void AssignTargetCell (Vector3Int gridPosition)
     {
         targetCell = null;
 
@@ -151,8 +161,10 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    #endregion
+
     #region MapGeneration
-    protected void CreateTileMap(int mapSize)
+    private void CreateTileMap(int mapSize)
     {
         for (int i = -mapSize; i <= mapSize; i++)
             for (int j = -mapSize; j <= mapSize; j++)
@@ -167,12 +179,12 @@ public class GridManager : MonoBehaviour
             }
     }
 
-    protected GridCell CreateCell(Vector3Int gridPosition, Vector3 worldPosition, GroundType typeOfGround, int mapSize)
+    private GridCell CreateCell(Vector3Int gridPosition, Vector3 worldPosition, GroundType typeOfGround, int mapSize)
     {
         return new GridCell(gridPosition, worldPosition, typeOfGround, GetMapPosition(gridPosition, mapSize), null);
     }
 
-    protected MapPosition GetMapPosition(Vector3Int gridPosition, int mapSize)
+    private MapPosition GetMapPosition(Vector3Int gridPosition, int mapSize)
     {
 
         if (gridPosition.x == mapSize && gridPosition.y == mapSize)
@@ -202,7 +214,7 @@ public class GridManager : MonoBehaviour
         return MapPosition.Middle;
     }
 
-    protected void PaintTile(Vector3Int gridPosition, MapPosition mapPosition, TilePaletteObject tilePalette)
+    private void PaintTile(Vector3Int gridPosition, MapPosition mapPosition, TilePaletteObject tilePalette)
     {
         switch(mapPosition)
         {

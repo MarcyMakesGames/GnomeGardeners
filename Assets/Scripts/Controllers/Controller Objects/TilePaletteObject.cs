@@ -6,15 +6,15 @@ using UnityEngine.Tilemaps;
 [System.Serializable]
 public class TilePaletteObject
 {
-    [SerializeField] protected Tile topLeftTile;
-    [SerializeField] protected Tile topMiddleTile;
-    [SerializeField] protected Tile topRightTile;
-    [SerializeField] protected Tile leftTile;
-    [SerializeField] protected Tile middleTile;
-    [SerializeField] protected Tile rightTile;
-    [SerializeField] protected Tile bottomLeftTile;
-    [SerializeField] protected Tile bottomMiddleTile;
-    [SerializeField] protected Tile bottomRightTile;
+    [SerializeField] private Tile topLeftTile;
+    [SerializeField] private Tile topMiddleTile;
+    [SerializeField] private Tile topRightTile;
+    [SerializeField] private Tile leftTile;
+    [SerializeField] private Tile middleTile;
+    [SerializeField] private Tile rightTile;
+    [SerializeField] private Tile bottomLeftTile;
+    [SerializeField] private Tile bottomMiddleTile;
+    [SerializeField] private Tile bottomRightTile;
 
     public Tile TopLeft { get => topLeftTile; set => topLeftTile = value; }
     public Tile TopMiddle { get => topMiddleTile; set => topMiddleTile = value; }

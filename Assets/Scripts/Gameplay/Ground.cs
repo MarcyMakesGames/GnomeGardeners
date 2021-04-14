@@ -7,14 +7,10 @@ public class Ground : MonoBehaviour, IInteractable
 {
     public GroundType type = GroundType.Count;
 
-    [SerializeField]
-    private Sprite arableSprite;
-    [SerializeField]
-    private Sprite grassSprite;
-    [SerializeField]
-    private Sprite dirtSprite;
-    [SerializeField]
-    private Sprite sandSprite;
+    [SerializeField] private Sprite arableSprite;
+    [SerializeField] private Sprite grassSprite;
+    [SerializeField] private Sprite dirtSprite;
+    [SerializeField] private Sprite sandSprite;
 
     private delegate void TypeChanged(GroundType type);
     private event TypeChanged typeChanged;
@@ -22,12 +18,15 @@ public class Ground : MonoBehaviour, IInteractable
 
     public string Name => throw new System.NotImplementedException();
 
+    #region Unity Methods
     public void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         typeChanged += UpdateSprite;
     }
+    #endregion
 
+    #region Public Methods
     public void Interact(ITool tool = null)
     {
         if(tool == null)
@@ -66,7 +65,9 @@ public class Ground : MonoBehaviour, IInteractable
             typeChanged.Invoke(type);
         }
     }
+    #endregion
 
+    #region Private Methods
     private void UpdateSprite(GroundType type)
     {
         switch (type)
@@ -87,4 +88,5 @@ public class Ground : MonoBehaviour, IInteractable
                 break;
         }
     }
+    #endregion
 }

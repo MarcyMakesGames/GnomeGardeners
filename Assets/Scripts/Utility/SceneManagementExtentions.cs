@@ -7,7 +7,7 @@ public class SceneIndexLogger : SceneManagerAPI
     [RuntimeInitializeOnLoadMethod]
     static void OnRuntimeMethodLoad()
     {
-        SceneManagerAPI.overrideAPI = new SceneIndexLogger();
+        overrideAPI = new SceneIndexLogger();
     }
 
     protected override int GetNumScenesInBuildSettings()

@@ -5,14 +5,19 @@ using UnityEngine;
 
 public class ObjectManager : MonoBehaviour
 {
-    protected Dictionary<string, ObjectPool> objectPoolDictionary;
+    private Dictionary<string, ObjectPool> objectPoolDictionary;
 
-    protected void Awake()
+    #region Unity Methods
+
+    private void Awake()
     {
         GameManager.Instance.ObjectManager = this;
         objectPoolDictionary = new Dictionary<string, ObjectPool>();
     }
 
+    #endregion
+
+    #region Public Methods
     public void Add(string key, ObjectPool objectPool )
     {
         objectPoolDictionary.Add(key, objectPool);
@@ -28,4 +33,6 @@ public class ObjectManager : MonoBehaviour
 
         return objectPoolDictionary[key];
     }
+
+    #endregion
 }

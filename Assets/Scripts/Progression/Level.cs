@@ -11,15 +11,11 @@ public class Level
     private float restTime;
     private float timeAtStart;
     private bool hasStarted;
-    private string sceneName;
-    private string format;
 
-    public string GetTimeAsString()
-    {
-        int minutes = (int)Mathf.Floor(restTime / 60f);
-        int seconds = (int)Mathf.Floor(restTime % 60f);
-        return minutes.ToString() + ":" + seconds.ToString(format);
-    }
+    public float RestTime { get { return restTime; } }
+
+    #region Unity Methods
+
     public void Update()
     {
         if (isCurrent)
@@ -38,20 +34,19 @@ public class Level
         }
     }
 
-    void OnLevelStart()
+    #endregion
+
+    #region Private Methods
+
+    private void OnLevelStart()
     {
         timeAtStart = GameManager.Instance.Time.ElapsedTime;
-        restTime = availableTime;
-        timeAtStart = 0f;
-        hasStarted = false;
-        format = "00";
         availableTime = 300f;
-        restTime = 85f;
-        Debug.Log(GetTimeAsString());
+        restTime = availableTime;
+        hasStarted = false;
     }
 
-
-    void OnLevelEnd()
+    private void OnLevelEnd()
     {
 #if UNITY_STANDALONE
         Application.Quit();
@@ -61,8 +56,10 @@ public class Level
 #endif
     }
 
-    void CalculateTime()
+    private void CalculateTime()
     {
         restTime = availableTime - GameManager.Instance.Time.GetTimeSince(timeAtStart);
     }
+
+#endregion
 }

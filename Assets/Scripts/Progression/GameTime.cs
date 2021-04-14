@@ -4,29 +4,41 @@ using UnityEngine;
 
 public class GameTime : MonoBehaviour
 {
-    protected float currentTimer = 0f;
-    protected bool pauseTimer = false;
+    private float currentTimer = 0f;
+    private bool pauseTimer = false;
     public float ElapsedTime { get => currentTimer; }
     public bool PauseTimer { get => pauseTimer; set => pauseTimer = value; }
+
+    #region Unity Methods
+
+    private void Awake()
+    {
+        GameManager.Instance.Time = this;
+    }
+
+    private void Update()
+    {
+        CountUp();
+    }
+
+    #endregion
+
+    #region Public Methods
 
     public float GetTimeSince(float time)
     {
         return ElapsedTime - time;
     }
 
-    protected void Awake()
-    {
-        GameManager.Instance.Time = this;
-    }
+    #endregion
 
-    protected void Update()
-    {
-        CountUp();
-    }
+    #region Private Methods
 
-    protected void CountUp()
+    private void CountUp()
     {
         if (!pauseTimer)
             currentTimer += Time.deltaTime;
     }
+
+    #endregion
 }

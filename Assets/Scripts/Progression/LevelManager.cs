@@ -6,6 +6,9 @@ public class LevelManager : MonoBehaviour
 {
     public Level activeLevel;
     private List<Level> levels;
+    private TimerUI timerUI;
+
+    #region Unity Methods
 
     void Awake()
     {
@@ -19,12 +22,18 @@ public class LevelManager : MonoBehaviour
             new Level()
         };
         activeLevel = levels[0];
+        timerUI = FindObjectOfType<TimerUI>();
     }
 
     void Update()
     {
         activeLevel.Update();
+        timerUI.UpdateUI(activeLevel.RestTime);
     }
+
+    #endregion
+
+    #region Public Methods
 
     public void SetLevelActive(int index)
     {
@@ -32,4 +41,6 @@ public class LevelManager : MonoBehaviour
         activeLevel = levels[index];
         activeLevel.isCurrent = true;
     }
+
+    #endregion
 }

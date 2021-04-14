@@ -22,6 +22,8 @@ public class LocalizationManager
 
     public static CSVLoader csvLoader;
 
+    #region Public Methods
+
     public static void Init()
     {
         csvLoader = new CSVLoader();
@@ -119,4 +121,6 @@ public class LocalizationManager
         UpdateDictionaries();
 
     }
+
+    #endregion
 }

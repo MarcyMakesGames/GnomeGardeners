@@ -10,10 +10,13 @@ public class TextLocalizerUI : MonoBehaviour
 
     public LocalizedString localizedString;
 
-    // Start is called before the first frame update
+    #region Unity Methods
+
     void Start()
     {
         textField = GetComponent<TextMeshProUGUI>();
         textField.text = localizedString.Value;
     }
+
+    #endregion
 }

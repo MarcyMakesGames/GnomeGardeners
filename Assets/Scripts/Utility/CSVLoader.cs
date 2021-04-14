@@ -8,11 +8,13 @@ using System.Linq;
 
 public class CSVLoader
 {
-    // reference to file
+    // note: reference to localization.csv file
     private TextAsset csvFile;
     private char lineSeparator = '\n';
     private char surround = '"';
     private string[] fieldSeperator = { "\",\"" };
+
+    #region Public Methods
 
     public void LoadCSV()
     {
@@ -103,4 +105,6 @@ public class CSVLoader
         Add(key, value);
     }
 #endif
+
+    #endregion
 }

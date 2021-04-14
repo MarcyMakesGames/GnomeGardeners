@@ -4,7 +4,6 @@ public class CarryingTool : CoreTool, ITool
 {
     private GameObject heldItem = null;
     [SerializeField] private float dropRange = 1f;
-
     public GameObject HeldItem { get => heldItem; set => heldItem = value; }
 
     public new void Interact(ITool tool = null)

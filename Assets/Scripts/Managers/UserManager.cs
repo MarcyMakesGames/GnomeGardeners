@@ -1,18 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class UserManager : MonoBehaviour
 {
     public GameObject playerPrefab;
-    PlayerInputManager playerInputManager;
-    Keyboard keyboard;
-    bool keyboardLeftIsActive, keyboardRightIsActive;
+
+    private Keyboard keyboard;
+    private bool keyboardLeftIsActive, keyboardRightIsActive;
+
+    #region Unity Methods
 
     void Start()
     {
-        playerInputManager = GetComponent<PlayerInputManager>();
         keyboardLeftIsActive = false;
         keyboardRightIsActive = false;
 
@@ -39,5 +38,5 @@ public class UserManager : MonoBehaviour
             keyboardRightIsActive = true;
         }
     }
-
+    #endregion
 }

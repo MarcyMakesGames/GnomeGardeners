@@ -10,25 +10,44 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
     [SerializeField] private List<Harvest> harvests;
     [SerializeField] private List<Sprite> stageSprites;
     [SerializeField] private bool is2D;
-
     [SerializeField] private int dropAmount = 3;
     [SerializeField] private float dropScatter = 2f;
-    
-    
-    public int currentGrowthStage = 0;
-    private float moisture = 0f;
-    private float currentMoisture = 0f;
-    private float waterTime;
-    private float currentGrowTime = 0f;
     [SerializeField] private bool isOnArableGround = false;
+    public int currentGrowthStage = 0;
+
+    private float moisture;
+    private float currentMoisture;
+    private float waterTime;
+    private float currentGrowTime;
     private SpriteRenderer plantRenderer;
 
     protected int objectIndex;
-
     public string Name => plantName;
-
     public int ObjectIndex { get => objectIndex; set => objectIndex = value; }
 
+    #region Unity Methods
+
+    private void Awake()
+    {
+        plantRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
+        moisture = 0f;
+        currentMoisture = 0f;
+        currentGrowTime = 0f;
+    }
+
+    private void Update()
+    {
+        Grow();
+        ConsumeResources();
+    }
+
+    #endregion
+
+    #region Public Methods
     public void Interact(ITool tool = null)
     {
         // todo: do behaviour based on tool and plant stage.
@@ -80,19 +99,10 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
 
         Debug.Log("Planted at " + transform.position);
     }
+    #endregion
 
-    protected void Awake()
-    {
-        plantRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    protected void Update()
-    {
-        Grow();
-        ConsumeResources();
-    }
-
-    protected void Grow()
+    #region Private Methods
+    private void Grow()
     {
         if (!isOnArableGround || moisture <= 0f || currentGrowthStage == stageSprites.Count - 1)
             return;
@@ -123,7 +133,7 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
         }
     }
 
-    protected void ConsumeResources()
+    private void ConsumeResources()
     {
         currentMoisture = Mathf.Clamp(moisture - GameManager.Instance.Time.GetTimeSince(waterTime), 0, 100f);
 
@@ -131,7 +141,7 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
             moisture = currentMoisture;
     }
     
-    protected void CheckArableGround(Vector3 checkPosition)
+    private void CheckArableGround(Vector3 checkPosition)
     {
         Vector3 localDirection = new Vector3(transform.position.x, -1f, transform.position.z);
         Vector3 direction = transform.TransformDirection(localDirection);
@@ -148,4 +158,6 @@ public class Plant : MonoBehaviour, IInteractable, IHeldItem
         }
         currentGrowTime = GameManager.Instance.Time.ElapsedTime;
     }
+
+    #endregion
 }

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] 
-    private static GameManager gameManager;
+    [SerializeField] private static GameManager gameManager;
     private GameTime gameTime;
     private LevelManager levelManager;
     private ObjectManager objectManager;
@@ -14,6 +13,8 @@ public class GameManager : MonoBehaviour
     public GameTime Time { get => gameTime; set => gameTime = value; }
     public LevelManager LevelManager { get => levelManager; set => levelManager = value; }
     public ObjectManager ObjectManager { get => objectManager; set => objectManager = value; }
+
+    #region Unity Methods
 
     private void Awake()
     {
@@ -28,6 +29,10 @@ public class GameManager : MonoBehaviour
         #endregion
     }
 
+    #endregion
+
+    #region Private Methods
+
     [ContextMenu("Start Level")]
     private void StartLevel()
     {
@@ -39,4 +44,6 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Game elapsed time: " + gameTime.ElapsedTime);
     }
+
+    #endregion
 }
