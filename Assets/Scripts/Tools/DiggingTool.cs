@@ -1,18 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Shovel : MonoBehaviour
+public class DiggingTool : CoreTool, ITool
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] protected bool is2D;
+
+    public new void Interact(ITool tool = null)
     {
-        
+        // todo: gets equipped
+        base.Interact(tool);
     }
 
-    // Update is called once per frame
-    void Update()
+    public new void UseTool(Vector3 origin, Vector3 direction, float distance)
     {
-        
+
+        base.UseTool(origin, direction, distance);
+
+    }
+
+    public new void DropItem(Vector2 position)
+    {
+        // todo: drop tool
+        base.DropItem(position);
+        Debug.Log("Dropped digging tool.");
     }
 }

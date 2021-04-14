@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IHeldItem
 {
-    void DropItem();
+    void DropItem(Vector2 position);
 }

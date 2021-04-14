@@ -1,7 +1,7 @@
 using UnityEngine;
 
-public interface IHarvest // : IInteractable, IHeldItem
+public interface IHarvest : IInteractable, IHeldItem
 {
     int PointValue { get; set; }
-    void Deliver();
+    bool Deliver(Vector3 origin, Vector3 direction, float distance);
 }

@@ -33,7 +33,7 @@ public class UserManager : MonoBehaviour
             keyboardLeftIsActive = true;
         }
 
-        if (keyboard.rightCtrlKey.wasPressedThisFrame && !keyboardRightIsActive)
+        if (keyboard.pauseKey.wasPressedThisFrame && !keyboardRightIsActive)
         {
             PlayerInput user2 = PlayerInput.Instantiate(playerPrefab, controlScheme: "KeyboardRight", pairWithDevice: Keyboard.current);
             keyboardRightIsActive = true;
