@@ -9,11 +9,13 @@ public class GameManager : MonoBehaviour
     private GameTime gameTime;
     private LevelManager levelManager;
     private ObjectManager objectManager;
+    private IInteractionController interactionController;
 
     public static GameManager Instance { get => gameManager; }
     public GameTime Time { get => gameTime; set => gameTime = value; }
     public LevelManager LevelManager { get => levelManager; set => levelManager = value; }
     public ObjectManager ObjectManager { get => objectManager; set => objectManager = value; }
+    public IInteractionController InteractionController { get => interactionController; set => interactionController = value; }
 
     private void Awake()
     {
