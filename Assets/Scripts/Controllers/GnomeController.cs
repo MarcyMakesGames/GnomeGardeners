@@ -1,85 +1,56 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.InputSystem.InputAction;
 
 public class GnomeController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
-    [SerializeField] private GnomeInput gnomeInput;
-    [SerializeField] private ControlScheme gnomeControlScheme;
+    //Here we want a skin for the gnomes
 
+    private PlayerConfig playerConfig;
+    private GnomeInput inputs;
+    private CameraFollow cameraFollow;
     private Vector2 lookDir;
     private Vector2 moveDir = Vector2.zero;
     private bool interacting = false;
     private ITool tool;
 
-    public GnomeInput GnomeInput { get => gnomeInput; set => gnomeInput = value; }
-    public ControlScheme GnomeControlScheme { get => gnomeControlScheme; set => gnomeControlScheme = value; }
     public Vector2 LookDir { get => lookDir; }
     public ITool EquippedTool { get => tool; set => tool = value; }
 
-    public GnomeController(GnomeInput gnomeInput, ControlScheme controlScheme)
+    #region InputEvents
+    public void OnInputAction(CallbackContext context)
     {
-        this.gnomeInput = gnomeInput;
-        gnomeControlScheme = controlScheme;
+        if (context.action.name == inputs.PlayerMovement.Movement.name)
+            OnInputMove(context);
     }
 
-    public void OnMoveInput(InputAction.CallbackContext moveContext) => moveDir = moveContext.ReadValue<Vector2>();
-    public void OnInteractInput(InputAction.CallbackContext interactContext) => interacting = interactContext.action.triggered;
-
-
-    private void OnEnable()
+    private void OnInputMove(CallbackContext context)
     {
-        if (gnomeInput == null)
-            gnomeInput = new GnomeInput();
+        moveDir = context.ReadValue<Vector2>();
+    }
+    #endregion
 
-        switch(gnomeControlScheme)
-        {
-            case ControlScheme.KeyboardLeft:
-                gnomeInput.GnomeKeyboardLeft.Enable();
-                gnomeInput.GnomeKeyboardLeft.Movement.performed += OnMoveInput;
-                gnomeInput.GnomeKeyboardLeft.Movement.canceled += OnMoveInput;
-                gnomeInput.GnomeKeyboardLeft.Interaction.performed += OnInteractInput;
-                break;
-            case ControlScheme.KeyboardRight:
-                gnomeInput.GnomeKeyboardRight.Enable();
-                gnomeInput.GnomeKeyboardRight.Movement.performed += OnMoveInput;
-                gnomeInput.GnomeKeyboardRight.Movement.canceled += OnMoveInput;
-                gnomeInput.GnomeKeyboardRight.Interaction.performed += OnInteractInput;
-                break;
-            case ControlScheme.GamepadOnly:
-                gnomeInput.GnomeGamepad.Enable();
-                gnomeInput.GnomeGamepad.Movement.performed += OnMoveInput;
-                gnomeInput.GnomeGamepad.Movement.canceled += OnMoveInput;
-                gnomeInput.GnomeGamepad.Interaction.performed += OnInteractInput;
-                break;
-        }
+    #region Initialization
+    public void InitializePlayer(PlayerConfig playerConfig)
+    {
+        this.playerConfig = playerConfig;
+        //This is where we would initialize the gnome skin.
+
+        playerConfig.Input.onActionTriggered += OnInputAction;
     }
 
-    private void OnDisable()
+    private void Awake()
     {
-        switch (gnomeControlScheme)
-        {
-            case ControlScheme.KeyboardLeft:
-                gnomeInput.GnomeKeyboardLeft.Enable();
-                gnomeInput.GnomeKeyboardLeft.Movement.performed -= OnMoveInput;
-                gnomeInput.GnomeKeyboardLeft.Movement.canceled -= OnMoveInput;
-                gnomeInput.GnomeKeyboardLeft.Interaction.performed -= OnInteractInput;
-                break;
-            case ControlScheme.KeyboardRight:
-                gnomeInput.GnomeKeyboardRight.Enable();
-                gnomeInput.GnomeKeyboardRight.Movement.performed -= OnMoveInput;
-                gnomeInput.GnomeKeyboardRight.Movement.canceled -= OnMoveInput;
-                gnomeInput.GnomeKeyboardRight.Interaction.performed -= OnInteractInput;
-                break;
-            case ControlScheme.GamepadOnly:
-                gnomeInput.GnomeGamepad.Enable();
-                gnomeInput.GnomeGamepad.Movement.performed -= OnMoveInput;
-                gnomeInput.GnomeGamepad.Movement.canceled -= OnMoveInput;
-                gnomeInput.GnomeGamepad.Interaction.performed -= OnInteractInput;
-                break;
-        }
+        cameraFollow = FindObjectOfType<CameraFollow>();
+        inputs = new GnomeInput();
     }
+
+    private void Start()
+    {
+        cameraFollow.target = this.transform;
+    }
+    #endregion
 
     private void FixedUpdate() => Move();
 
@@ -104,11 +75,4 @@ public class GnomeController : MonoBehaviour
             interacting = false;
         }
     }
-}
-
-public enum ControlScheme
-{
-    KeyboardLeft,
-    KeyboardRight,
-    GamepadOnly
 }
