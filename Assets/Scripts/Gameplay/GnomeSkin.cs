@@ -8,6 +8,7 @@ public class GnomeSkin : MonoBehaviour
     public SpriteRenderer hat;
     public SpriteRenderer toolArm;
 
+    #region Public Methods
     public void ChangeArm(SpriteRenderer renderer)
     {
         toolArm.sprite = renderer.sprite;
@@ -18,4 +19,5 @@ public class GnomeSkin : MonoBehaviour
     {
         toolArm.color = Color.white;
     }
+    #endregion
 }

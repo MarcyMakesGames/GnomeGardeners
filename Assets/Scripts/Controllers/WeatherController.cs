@@ -5,18 +5,19 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class WeatherController : MonoBehaviour
 {
-    [SerializeField] protected List<WeatherObject> weatherTypes;
-    [SerializeField] protected float weatherDuration;
+    [SerializeField] private List<WeatherObject> weatherTypes;
+    [SerializeField] private float weatherDuration;
 
-    protected WeatherObject currentWeather;
-    protected float currentWeatherTimer = 0f;
+    private WeatherObject currentWeather;
+    private float currentWeatherTimer = 0f;
 
     public WeatherObject CurrentWeather { get => currentWeather; }
 
     public delegate void OnWeatherChange();
     public event OnWeatherChange WeatherChanged;
 
-    protected void Start()
+    #region Unity Methods
+    private void Start()
     {
         foreach(WeatherObject weather in weatherTypes)
         {
@@ -32,17 +33,19 @@ public class WeatherController : MonoBehaviour
         currentWeatherTimer = GameManager.Instance.Time.ElapsedTime;
     }
 
-    protected void Update()
+    private void Update()
     {
         WeatherCountdown();
     }
+    #endregion
 
-    protected void AnnounceWeather()
+    #region Private Methods
+    private void AnnounceWeather()
     {
         Debug.Log("Current weather is: " + currentWeather.weatherType.ToString());
     }
 
-    protected void WeatherCountdown()
+    private void WeatherCountdown()
     {
         if(GameManager.Instance.Time.GetTimeSince(currentWeatherTimer) >= weatherDuration)
         {
@@ -53,6 +56,7 @@ public class WeatherController : MonoBehaviour
             currentWeatherTimer = GameManager.Instance.Time.ElapsedTime;
         }
     }
+    #endregion
 }
 
 public enum WeatherType

@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class CoreObjectDispenser : MonoBehaviour, IObjectDispenser
 {
-    protected string objectName = "Seed Dispenser";
+    private string objectName = "Seed Dispenser";
     [SerializeField] List<GameObject> dispensables;
 
     public string Name => objectName;
 
+    #region Public Methods
     public void DispenseItem(ITool tool, string itemName)
     {
         CarryingTool toolUsed = (CarryingTool)tool;
@@ -41,4 +42,5 @@ public class CoreObjectDispenser : MonoBehaviour, IObjectDispenser
     {
         DispenseItem(tool, "Plant");
     }
+    #endregion
 }

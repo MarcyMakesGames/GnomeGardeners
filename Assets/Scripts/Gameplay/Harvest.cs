@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class Harvest : MonoBehaviour, IHarvest
 {
-    protected int pointValue = 50;
+    private int pointValue = 50;
     public int PointValue { get => pointValue; set => pointValue = value; }
-
+    private int objectIndex;
+    public int ObjectIndex { get => objectIndex; set => objectIndex = value; }
     public string Name => throw new System.NotImplementedException();
 
-    protected int objectIndex;
-    public int ObjectIndex { get => objectIndex; set => objectIndex = value; }
-
+    #region Public Methods
     public bool Deliver(Vector3 origin, Vector3 direction, float distance)
     {
         // deliver harvest to truck; increase score by pointValue
@@ -70,4 +69,5 @@ public class Harvest : MonoBehaviour, IHarvest
                 break;
         }
     }
+    #endregion
 }

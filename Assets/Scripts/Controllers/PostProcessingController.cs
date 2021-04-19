@@ -4,18 +4,22 @@ using UnityEngine.Rendering.PostProcessing;
 [RequireComponent(typeof(PostProcessVolume))]
 public class PostProcessingController : MonoBehaviour
 {
-    PostProcessVolume volume;
-    WeatherController weather;
+    private PostProcessVolume volume;
+    private WeatherController weather;
 
+    #region Unity Methods
     private void Awake()
     {
         volume = GetComponent<PostProcessVolume>();
         weather = FindObjectOfType<WeatherController>();
         weather.WeatherChanged += ChangeProfile;
     }
+    #endregion
 
+    #region Private Methods
     private void ChangeProfile()
     {
         volume.profile = weather.CurrentWeather.weatherProfile;
     }
+    #endregion
 }

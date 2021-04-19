@@ -8,6 +8,7 @@ public class ObjectPool : MonoBehaviour
     public GameObject objectToPool;
     public int amountToPool;
 
+    #region Unity Methods
     void Awake()
     {
         GameManager.Instance.ObjectManager.Add(objectToPool.name, this);
@@ -25,6 +26,10 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Public Methods
+
     public GameObject GetPooledObject()
     {
         for(int i = 0; i < amountToPool; ++i)
@@ -36,4 +41,5 @@ public class ObjectPool : MonoBehaviour
         }
         return null;
     }
+    #endregion
 }

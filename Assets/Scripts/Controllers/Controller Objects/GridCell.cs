@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GridCell 
 {
-    protected Vector3Int gridPosition;
-    protected Vector3 worldPosition;
-    protected GroundType groundType;
-    protected MapPosition mapPosition;
-    protected IInteractable cellOccupant;
+    private Vector3Int gridPosition;
+    private Vector3 worldPosition;
+    private GroundType groundType;
+    private MapPosition mapPosition;
+    private IInteractable cellOccupant;
     
     public Vector3Int GridPosition { get => gridPosition; }
     public Vector3 WorldPosition { get => worldPosition; }

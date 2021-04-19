@@ -6,9 +6,9 @@ using TMPro;
 
 public class Scoreboard : CoreUIElement<int>
 {
-    [SerializeField] protected TMP_Text scoreText;
+    [SerializeField] private TMP_Text scoreText;
 
-    protected int currentScore;
+    private int currentScore;
 
     public override void UpdateUI(int primaryData)
     {
