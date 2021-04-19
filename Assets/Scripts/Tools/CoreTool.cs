@@ -9,9 +9,6 @@ public class CoreTool : MonoBehaviour, ITool
     protected int objectIndex;
 
     public ToolType Type { get => type; }
-
-    public string Name => throw new System.NotImplementedException();
-
     public int ObjectIndex { get => objectIndex; set => objectIndex = value; }
 
     public void LateUpdate()

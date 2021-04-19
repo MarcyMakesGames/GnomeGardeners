@@ -8,7 +8,6 @@ public class Harvest : MonoBehaviour
     public int PointValue { get => pointValue; set => pointValue = value; }
     private int objectIndex;
     public int ObjectIndex { get => objectIndex; set => objectIndex = value; }
-    public string Name => throw new System.NotImplementedException();
 
     #region Public Methods
     public bool Deliver(Vector3 origin, Vector3 direction, float distance)

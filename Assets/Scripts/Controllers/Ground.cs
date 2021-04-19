@@ -16,8 +16,6 @@ public class Ground : MonoBehaviour, IInteractable
     private event TypeChanged typeChanged;
     private SpriteRenderer spriteRenderer;
 
-    public string Name => throw new System.NotImplementedException();
-
     #region Unity Methods
     public void Start()
     {

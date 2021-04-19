@@ -10,11 +10,8 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
     [SerializeField] private Species species;
     private Stage currentStage;
     private SpriteRenderer plantRenderer;
-    private new string name;
     private float currentGrowTime;
     private bool isOnArableGround;
-
-    public string Name { get; }
 
     #region Unity Methods
 #if DEBUG
