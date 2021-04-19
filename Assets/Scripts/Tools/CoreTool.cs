@@ -19,7 +19,7 @@ public class CoreTool : MonoBehaviour, ITool
         interactable = null;
     }
 
-    public void DropItem(Vector2 position)
+    public void Drop(Vector2 position)
     {
         // todo: drop tool
         gameObject.SetActive(true);
@@ -68,5 +68,15 @@ public class CoreTool : MonoBehaviour, ITool
 
             Debug.Log("Last hit transform: " + hit.transform.gameObject.name);
         }
+    }
+
+    public void Hold()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void IsBeingCarried()
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -23,10 +23,10 @@ public class WateringTool : CoreTool, ITool
         base.UseTool(origin, direction, distance);
     }
 
-    public new void DropItem(Vector2 position)
+    public new void Drop(Vector2 position)
     {
         // todo: drop tool
-        base.DropItem(position);
+        base.Drop(position);
         Debug.Log("Dropped watering tool.");
     }
 }

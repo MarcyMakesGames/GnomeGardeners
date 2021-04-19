@@ -20,16 +20,16 @@ public class CarryingTool : CoreTool, ITool
 
         if (heldItem != null)
         {
-            if (heldItem.GetComponent<IHarvest>() != null)
+            if (heldItem.GetComponent<Harvest>() != null)
             {
-                if(heldItem.GetComponent<IHarvest>().Deliver(origin, direction, distance))
+                if(heldItem.GetComponent<Harvest>().Deliver(origin, direction, distance))
                 {
                     heldItem = null;
                     return;
                 }
             }
 
-                heldItem.GetComponent<IHeldItem>().DropItem(origin + direction * dropRange);
+                heldItem.GetComponent<IHoldable>().Drop(origin + direction * dropRange);
                 heldItem = null;
                 
 
@@ -38,7 +38,7 @@ public class CarryingTool : CoreTool, ITool
             if (lastHitTransform == null)
                 return;
 
-            if (lastHitTransform.GetComponent<IHeldItem>() != null)
+            if (lastHitTransform.GetComponent<IHoldable>() != null)
             {
                 heldItem = lastHitTransform.gameObject;
             }
@@ -49,10 +49,10 @@ public class CarryingTool : CoreTool, ITool
         }
     }
 
-    public new void DropItem(Vector2 position)
+    public new void Drop(Vector2 position)
     {
         // todo: drop tool
-        base.DropItem(position);
+        base.Drop(position);
         Debug.Log("Dropped carrying tool.");
     }
 }

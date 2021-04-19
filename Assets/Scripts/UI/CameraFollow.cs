@@ -8,8 +8,6 @@ public class CameraFollow : MonoBehaviour
 
     private Vector3 velocity = Vector3.zero;
 
-    #region Unity Methods
-
     void FixedUpdate()
     {
         if(target != null)
@@ -19,6 +17,4 @@ public class CameraFollow : MonoBehaviour
             transform.position = smoothedPosition;
         }
     }
-
-    #endregion
 }

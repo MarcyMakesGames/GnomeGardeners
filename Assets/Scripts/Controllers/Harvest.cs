@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Harvest : MonoBehaviour, IHarvest
+public class Harvest : MonoBehaviour
 {
     private int pointValue = 50;
     public int PointValue { get => pointValue; set => pointValue = value; }
