@@ -42,8 +42,8 @@ public class GnomeController : MonoBehaviour
 
     private void Awake()
     {
-        cameraFollow = FindObjectOfType<CameraFollow>();
         inputs = new GnomeInput();
+        cameraFollow = FindObjectOfType<CameraFollow>();
     }
 
     private void Start()

@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerConfigManager : MonoBehaviour
 {
-    [SerializeField] private GameObject gnomePrefab;
+    [SerializeField]
+    private GameObject gnomePrefab;
     private List<PlayerConfig> playerConfigs;
     private int maxPlayers = 4;
 
@@ -23,30 +24,27 @@ public class PlayerConfigManager : MonoBehaviour
     {
         if(playerConfigs.Count >= 2 && playerConfigs.All(x => x.IsReady))
         {
-            Debug.Log("All players read, loading next scene.");
-            //Load next scene
+            Debug.Log("All players ready, loading next scene.");
+            GameManager.Instance.LevelManager.SetLevelActive(1);
         }
     }
 
     public void HandlePlayerJoined(PlayerInput playerInput)
     {
-        Debug.Log("Player" + playerInput.playerIndex + " joined.");
-
-        PlayerConfig newConfig = new PlayerConfig(playerInput);
-        playerInput.transform.SetParent(transform);
-        playerConfigs.Add(newConfig);
-
-        GameObject newGnome = Instantiate(gnomePrefab, transform);
-        newGnome.GetComponent<GnomeController>().InitializePlayer(newConfig);
-
-        if (playerConfigs.Any(x => x.PlayerIndex == playerInput.playerIndex))
+        if (!playerConfigs.Any(x => x.PlayerIndex == playerInput.playerIndex))
         {
-            //Do we need a safety check to verify index here?
+            PlayerConfig newConfig = new PlayerConfig(playerInput);
+            playerConfigs.Add(newConfig);
+            playerInput.transform.SetParent(transform);
+
+            GameObject newGnome = Instantiate(gnomePrefab, transform);
+            newGnome.GetComponent<GnomeController>().InitializePlayer(newConfig);
         }
     }
 
-    private void Start()
+    private void Awake()
     {
+        GameManager.Instance.PlayerConfigManager = this;
         playerConfigs = new List<PlayerConfig>();
     }
 }

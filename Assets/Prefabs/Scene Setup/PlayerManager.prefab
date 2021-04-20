@@ -47,10 +47,23 @@ MonoBehaviour:
   m_NotificationBehavior: 2
   m_MaxPlayerCount: -1
   m_AllowJoining: 1
-  m_JoinBehavior: 1
+  m_JoinBehavior: 0
   m_PlayerJoinedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3578868033521738932}
+        m_TargetAssemblyTypeName: PlayerConfigManager, Assembly-CSharp
+        m_MethodName: HandlePlayerJoined
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2991280243012496545, guid: 38e2d25a7ada9f543bbcff335a01ece7, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.InputSystem.PlayerInput,
+            Unity.InputSystem
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_PlayerLeftEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -65,7 +78,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: 5401319892268207167, guid: 7eee925f6f1254949b7bbd0942b7e30f, type: 3}
-  m_PlayerPrefab: {fileID: 6526556031820831372, guid: ee91b61c14bbef449aae56fd86845530, type: 3}
+  m_PlayerPrefab: {fileID: 7647380527088126288, guid: 38e2d25a7ada9f543bbcff335a01ece7, type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
@@ -87,4 +100,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a748d064fa2c8d345a187d00f55ebcd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 6526556031820831372, guid: ee91b61c14bbef449aae56fd86845530, type: 3}
