@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class CoreObjectDispenser : MonoBehaviour, IObjectDispenser
 {
-    private string objectName = "Seed Dispenser";
     [SerializeField] List<GameObject> dispensables;
-
-    public string Name => objectName;
 
     #region Public Methods
     public void DispenseItem(ITool tool, string itemName)
@@ -19,9 +16,8 @@ public class CoreObjectDispenser : MonoBehaviour, IObjectDispenser
 
         foreach(GameObject item in dispensables)
         {
-            IInteractable itemInteractable = item.GetComponent<IInteractable>();
 
-            if (itemName == itemInteractable.Name)
+            if (itemName == item.name)
             {
                 GameObject newPlant = Instantiate(item, transform.position, transform.rotation);
                 toolUsed.HeldItem = newPlant;
