@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3987698278013523315}
   - component: {fileID: 2991280243012496545}
+  - component: {fileID: 4618619853823191034}
   m_Layer: 0
   m_Name: Player Config
   m_TagString: Untagged
@@ -72,8 +73,26 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3081e5bf-4b05-4646-9104-b732ffb18836
     m_ActionName: PlayerMovement/Movement[/SwitchProControllerHID/dpad,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
-  m_NeverAutoSwitchControlSchemes: 0
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bf59ceba-2f07-49c3-88ae-a86e44116941
+    m_ActionName: PlayerMovement/Interact[/Keyboard/e,/SwitchProControllerHID/buttonSouth]
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerMovement
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &4618619853823191034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7647380527088126288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b2dc4c1c11bed48b7a570cd0067d6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  setupMenuPrefab: {fileID: 3941417903356230798, guid: e257171c0baeedc4d974ce1198599c2d, type: 3}
+  input: {fileID: 2991280243012496545}
