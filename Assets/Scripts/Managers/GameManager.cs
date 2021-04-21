@@ -9,12 +9,14 @@ public class GameManager : MonoBehaviour
     private LevelManager levelManager;
     private ObjectManager objectManager;
     private IInteractionController interactionController;
+    private AudioManager audioManager;
 
     public static GameManager Instance { get => gameManager; }
     public GameTime Time { get => gameTime; set => gameTime = value; }
     public LevelManager LevelManager { get => levelManager; set => levelManager = value; }
     public ObjectManager ObjectManager { get => objectManager; set => objectManager = value; }
     public IInteractionController InteractionController { get => interactionController; set => interactionController = value; }
+    public AudioManager AudioManager { get => audioManager; set => audioManager = value; }
 
     #region Unity Methods
 
