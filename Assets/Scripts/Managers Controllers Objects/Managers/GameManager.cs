@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     private GameTime gameTime;
     private LevelManager levelManager;
     private ObjectManager objectManager;
+    private PlayerConfigManager playerConfigManager;
     private IInteractionController interactionController;
     private GridManager gridManager;
 
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameTime Time { get => gameTime; set => gameTime = value; }
     public LevelManager LevelManager { get => levelManager; set => levelManager = value; }
     public ObjectManager ObjectManager { get => objectManager; set => objectManager = value; }
+    public PlayerConfigManager PlayerConfigManager { get => playerConfigManager; set => playerConfigManager = value; }
     public IInteractionController InteractionController { get => interactionController; set => interactionController = value; }
     public GridManager GridManager { get => gridManager; set => gridManager = value; }
 

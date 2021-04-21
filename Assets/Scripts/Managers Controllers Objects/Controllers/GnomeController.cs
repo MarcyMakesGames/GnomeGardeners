@@ -13,10 +13,10 @@ public class GnomeController : MonoBehaviour
     private Vector2 lookDir;
     private Vector2 moveDir = Vector2.zero;
     private bool interacting = false;
-    private ITool tool;
+    private Tool tool;
 
     public Vector2 LookDir { get => lookDir; }
-    public ITool EquippedTool { get => tool; set => tool = value; }
+    public Tool EquippedTool { get => tool; set => tool = value; }
 
     #region InputEvents
     public void OnInputAction(CallbackContext context)
@@ -42,8 +42,8 @@ public class GnomeController : MonoBehaviour
 
     private void Awake()
     {
-        cameraFollow = FindObjectOfType<CameraFollow>();
         inputs = new GnomeInput();
+        cameraFollow = FindObjectOfType<CameraFollow>();
     }
 
     private void Start()
@@ -70,7 +70,7 @@ public class GnomeController : MonoBehaviour
             GameObject interactable = GameManager.Instance.InteractionController.Interact(transform.position, interactDestination, tool);
 
             if (interactable != null)
-                //interactable.GetComponent<IInteractable>().Interact(tool);
+                interactable.GetComponent<IInteractable>().Interact(tool);
 
             interacting = false;
         }
