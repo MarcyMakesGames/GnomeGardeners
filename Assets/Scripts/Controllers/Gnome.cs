@@ -133,7 +133,7 @@ public class Gnome : MonoBehaviour
         }
         
         var dropPosition = (Vector2)transform.position + interactDirection * dropRange;
-        activeTool.DropItem(dropPosition);
+        activeTool.Drop(dropPosition);
         skin.ResetArm();
         activeTool = null;
     }
