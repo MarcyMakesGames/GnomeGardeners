@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 2645252823317662169}
   - component: {fileID: 7633127464655001076}
   - component: {fileID: 6119127629719500766}
+  - component: {fileID: -6137046434597915789}
   m_Layer: 0
   m_Name: Gnome
   m_TagString: Untagged
@@ -230,6 +231,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3081e5bf-4b05-4646-9104-b732ffb18836
     m_ActionName: PlayerMovement/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bf59ceba-2f07-49c3-88ae-a86e44116941
+    m_ActionName: PlayerMovement/Interact[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerMovement
@@ -272,3 +277,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.25}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &-6137046434597915789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460186646552481323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c5572f14273a814ea43b195a64ba8e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 1

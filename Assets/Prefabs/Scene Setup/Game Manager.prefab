@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 277402378935686898}
-  - component: {fileID: 277402378935686899}
+  - component: {fileID: 4975076435574114657}
   - component: {fileID: 277402378935686903}
   m_Layer: 0
   m_Name: Player Manager
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 6771955404163415833}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &277402378935686899
+--- !u!114 &4975076435574114657
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,10 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 277402378935686900}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a748d064fa2c8d345a187d00f55ebcd3, type: 3}
+  m_Script: {fileID: 11500000, guid: b852b30c239187d46a011cfb7510f622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gnomePrefab: {fileID: 6167478687304108727, guid: 62a38ebd8c95113488184808f58c5aab, type: 3}
+  gnomePrefab: {fileID: 1460186646552481323, guid: ee91b61c14bbef449aae56fd86845530, type: 3}
 --- !u!114 &277402378935686903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,7 +64,7 @@ MonoBehaviour:
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 277402378935686899}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerConfigManager, Assembly-CSharp
         m_MethodName: HandlePlayerJoined
         m_Mode: 0
@@ -100,52 +100,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!1 &2072388463188570707
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7009335577255534904}
-  - component: {fileID: 605134347240276810}
-  m_Layer: 0
-  m_Name: HarvestPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7009335577255534904
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2072388463188570707}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4615089733259515472}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &605134347240276810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2072388463188570707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d69c08ebc349024e89c600f5c1dacb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pooledObjects: []
-  objectToPool: {fileID: 567328237128852377, guid: 73ba27070033aa7478b8085dbcf25888, type: 3}
-  amountToPool: 30
 --- !u!1 &5027599226740842406
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,8 +170,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 3.8546233, y: 8.672403, z: -3.3786907}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 7009335577255534904}
+  m_Children: []
   m_Father: {fileID: 6771955404163415833}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -242,7 +195,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6771955404163415833}
-  - component: {fileID: 6771955404163415834}
+  - component: {fileID: 8584072150009934217}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -269,7 +222,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6771955404163415834
+--- !u!114 &8584072150009934217
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -278,7 +231,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6771955404163415835}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9c2a573ef59e7b45a7ad9399373249d, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c9f884d1dceed340884d5d1b2729b9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6771955404369908315
