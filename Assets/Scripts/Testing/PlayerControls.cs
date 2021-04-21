@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Settings/GnomeInput.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/PlayerControls.inputactions'
 
 using System;
 using System.Collections;
@@ -6,31 +6,31 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public class @GnomeInput : IInputActionCollection, IDisposable
+public class @PlayerControls : IInputActionCollection, IDisposable
 {
     public InputActionAsset asset { get; }
-    public @GnomeInput()
+    public @PlayerControls()
     {
         asset = InputActionAsset.FromJson(@"{
-    ""name"": ""GnomeInput"",
+    ""name"": ""PlayerControls"",
     ""maps"": [
         {
             ""name"": ""PlayerMovement"",
-            ""id"": ""dfd9b799-e391-41c6-a800-770be6f094b6"",
+            ""id"": ""f840efd3-0628-420f-a381-521012eb72b8"",
             ""actions"": [
                 {
                     ""name"": ""Movement"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""3081e5bf-4b05-4646-9104-b732ffb18836"",
-                    ""expectedControlType"": ""Button"",
+                    ""type"": ""Button"",
+                    ""id"": ""822c120e-aa06-476b-8b24-3f46fb2e2cc6"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Interact"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""bf59ceba-2f07-49c3-88ae-a86e44116941"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""4eb5ce68-1e6e-4023-af30-4f54a99c111b"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -38,18 +38,18 @@ public class @GnomeInput : IInputActionCollection, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""2f49b706-354f-4830-877a-c5babae8a403"",
+                    ""id"": ""d824b3e2-0838-4ea8-af03-6bf8c89b78a3"",
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
-                    ""processors"": ""StickDeadzone(min=0.8)"",
+                    ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""WASD Movement"",
-                    ""id"": ""e44961cb-a65c-4edd-a8f5-793e2c8d7030"",
+                    ""name"": ""WASD"",
+                    ""id"": ""48286497-0f1d-4270-b5f5-7de2ea52b224"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -60,7 +60,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""2cfc012b-4b44-49d7-a575-b8905f58aafc"",
+                    ""id"": ""75f450ac-68a4-4209-90b3-c69f1b05efbb"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -71,7 +71,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""d0cfd7bb-70d9-4b65-a67f-6d57b9047c0d"",
+                    ""id"": ""8804e3f7-825a-4412-ab3c-9f67728ee130"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -82,7 +82,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""21f47e4b-0fe0-4164-95e8-94f1821fd7f3"",
+                    ""id"": ""d53b764f-03a5-4fe9-87eb-33151efe535b"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -93,7 +93,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""27d6bcfc-d094-4689-86cd-4da176b12e6a"",
+                    ""id"": ""0473e915-6ca1-415f-b426-2e00d5802387"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -104,23 +104,12 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ef967d68-6b69-4b98-bdea-771f2d3f16a6"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": ""Press(behavior=2)"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d17818b0-9e29-4d12-9e13-c294f138c2e1"",
+                    ""id"": ""bff06adf-ea5d-4976-b798-47996afd6030"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Interact"",
+                    ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -132,7 +121,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
         // PlayerMovement
         m_PlayerMovement = asset.FindActionMap("PlayerMovement", throwIfNotFound: true);
         m_PlayerMovement_Movement = m_PlayerMovement.FindAction("Movement", throwIfNotFound: true);
-        m_PlayerMovement_Interact = m_PlayerMovement.FindAction("Interact", throwIfNotFound: true);
+        m_PlayerMovement_Select = m_PlayerMovement.FindAction("Select", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -183,13 +172,13 @@ public class @GnomeInput : IInputActionCollection, IDisposable
     private readonly InputActionMap m_PlayerMovement;
     private IPlayerMovementActions m_PlayerMovementActionsCallbackInterface;
     private readonly InputAction m_PlayerMovement_Movement;
-    private readonly InputAction m_PlayerMovement_Interact;
+    private readonly InputAction m_PlayerMovement_Select;
     public struct PlayerMovementActions
     {
-        private @GnomeInput m_Wrapper;
-        public PlayerMovementActions(@GnomeInput wrapper) { m_Wrapper = wrapper; }
+        private @PlayerControls m_Wrapper;
+        public PlayerMovementActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_PlayerMovement_Movement;
-        public InputAction @Interact => m_Wrapper.m_PlayerMovement_Interact;
+        public InputAction @Select => m_Wrapper.m_PlayerMovement_Select;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -202,9 +191,9 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 @Movement.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnMovement;
-                @Interact.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnInteract;
-                @Interact.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnInteract;
-                @Interact.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnInteract;
+                @Select.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnSelect;
+                @Select.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnSelect;
+                @Select.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnSelect;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -212,9 +201,9 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
-                @Interact.started += instance.OnInteract;
-                @Interact.performed += instance.OnInteract;
-                @Interact.canceled += instance.OnInteract;
+                @Select.started += instance.OnSelect;
+                @Select.performed += instance.OnSelect;
+                @Select.canceled += instance.OnSelect;
             }
         }
     }
@@ -222,6 +211,6 @@ public class @GnomeInput : IInputActionCollection, IDisposable
     public interface IPlayerMovementActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnInteract(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
     }
 }
