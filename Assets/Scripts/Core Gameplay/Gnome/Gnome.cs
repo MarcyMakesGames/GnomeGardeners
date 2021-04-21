@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class Gnome : MonoBehaviour
 {
-    private static bool DEBUG = true;
+    private bool debug = false;
 
     [SerializeField] private float speed;
     [SerializeField] private int interactRange = 1;
@@ -11,9 +11,9 @@ public class Gnome : MonoBehaviour
 
     public Tool activeTool;
     private Vector2 direction = Vector2.zero;
-
     private Vector3Int interactDirection = new Vector3Int(1, 0, 0);
     private Vector3 velocity;
+
 
     private bool canMove = true;
     private GnomeSkin skin;
@@ -28,7 +28,7 @@ public class Gnome : MonoBehaviour
 
     void Start()
     {
-        if (DEBUG)
+        if (debug)
         {
             Debug.Log("Gnome: Debug activated");
         }
@@ -60,7 +60,7 @@ public class Gnome : MonoBehaviour
         if (context.performed != true) // note: necessary for calling method once per key press
             return;
 
-        if (DEBUG)
+        if (debug)
         {
             var toolObject = GameObject.FindWithTag("DEBUG");
             var tool = toolObject.GetComponent<Tool>();

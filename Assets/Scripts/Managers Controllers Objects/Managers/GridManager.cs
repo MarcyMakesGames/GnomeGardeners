@@ -44,14 +44,14 @@ public class GridManager : MonoBehaviour
     /// </summary>
     /// <param name="origin"></param>
     /// <returns></returns>
-    public List<GridCell> GetNeighborCells(Vector3Int origin, int checkDistance = 1)
+    public List<GridCell> GetNeighborCells(Vector2Int origin, int checkDistance = 1)
     {
         List<GridCell> neighbors = new List<GridCell>();
 
         for (int i = origin.x - checkDistance; i <= origin.x + checkDistance; i++)
             for(int j = origin.y - checkDistance; j <= origin.y + checkDistance; j++)
             {
-                Vector3Int checkGrid = new Vector3Int(i, j, 0);
+                Vector2Int checkGrid = new Vector2Int(i, j);
 
                 if (checkGrid == origin)
                     continue;
@@ -67,7 +67,7 @@ public class GridManager : MonoBehaviour
         return neighbors;
     }
 
-    public void ChangeTile(Vector3Int gridPosition, GroundType groundType)
+    public void ChangeTile(Vector2Int gridPosition, GroundType groundType)
     {
         AssignTargetCell(gridPosition);
 
@@ -97,7 +97,7 @@ public class GridManager : MonoBehaviour
         targetCell.GroundType = groundType;
     }
 
-    public void ChangeTileOccupant(Vector3Int gridPosition, IOccupant occupant)
+    public void ChangeTileOccupant(Vector2Int gridPosition, IOccupant occupant)
     {
         AssignTargetCell(gridPosition);
 
@@ -110,7 +110,7 @@ public class GridManager : MonoBehaviour
         targetCell.Occupant = occupant;
     }
 
-    public Vector3Int GetClosestGrid(Vector3 origin)
+    public Vector2Int GetClosestGrid(Vector3 origin)
     {
         targetCell = null;
 
@@ -136,7 +136,7 @@ public class GridManager : MonoBehaviour
         return targetCell;
     }
 
-    public GridCell GetGridCell(Vector3Int gridPosition)
+    public GridCell GetGridCell(Vector2Int gridPosition)
     {
         foreach (GridCell cell in gridCells)
             if (cell.GridPosition == gridPosition)
@@ -149,7 +149,7 @@ public class GridManager : MonoBehaviour
 
     #region Private Methods
 
-    private void AssignTargetCell (Vector3Int gridPosition)
+    private void AssignTargetCell (Vector2Int gridPosition)
     {
         targetCell = null;
 
@@ -171,8 +171,8 @@ public class GridManager : MonoBehaviour
         for (int i = -mapSize; i <= mapSize; i++)
             for (int j = -mapSize; j <= mapSize; j++)
             {
-                Vector3Int gridPosition = new Vector3Int(i, j, 0);
-                Vector3 worldPosition = gridMap.CellToWorld(gridPosition);
+                Vector2Int gridPosition = new Vector2Int(i, j);
+                Vector3 worldPosition = gridMap.CellToWorld((Vector3Int)gridPosition);
 
                 GridCell cell = CreateCell(gridPosition, worldPosition, groundTiles[0].groundType, mapSize);
                 gridCells.Add(cell);
@@ -181,12 +181,12 @@ public class GridManager : MonoBehaviour
             }
     }
 
-    private GridCell CreateCell(Vector3Int gridPosition, Vector3 worldPosition, GroundType typeOfGround, int mapSize)
+    private GridCell CreateCell(Vector2Int gridPosition, Vector3 worldPosition, GroundType typeOfGround, int mapSize)
     {
         return new GridCell(gridPosition, worldPosition, typeOfGround, GetMapPosition(gridPosition, mapSize), null);
     }
 
-    private MapPosition GetMapPosition(Vector3Int gridPosition, int mapSize)
+    private MapPosition GetMapPosition(Vector2Int gridPosition, int mapSize)
     {
 
         if (gridPosition.x == mapSize && gridPosition.y == mapSize)
@@ -216,7 +216,7 @@ public class GridManager : MonoBehaviour
         return MapPosition.Middle;
     }
 
-    private void PaintTile(Vector3Int gridPosition, MapPosition mapPosition, TilePaletteObject tilePalette)
+    private void PaintTile(Vector2Int gridPosition, MapPosition mapPosition, TilePaletteObject tilePalette)
     {
         switch(mapPosition)
         {
