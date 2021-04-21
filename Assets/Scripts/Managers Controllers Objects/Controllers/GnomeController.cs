@@ -92,8 +92,8 @@ public class GnomeController : MonoBehaviour
 
             if (interactTool != null)
             {
-                DropTool();
-                ChangeArm(interactTool);
+                //DropTool();
+                //ChangeArm(interactTool);
             }
 
             IInteractable interactable = null;
@@ -108,25 +108,25 @@ public class GnomeController : MonoBehaviour
         }
     }
 
-    public void ChangeArm(Tool tool)
-    {
-        // todo: change animation sprite
-        tool = tool;
-        SpriteRenderer renderer = tool.GetComponent<SpriteRenderer>();
-        skin.ChangeArm(renderer);
-    }
+    //public void ChangeArm(Tool tool)
+    //{
+    //    // todo: change animation sprite
+    //    tool = tool;
+    //    SpriteRenderer renderer = tool.GetComponent<SpriteRenderer>();
+    //    skin.ChangeArm(renderer);
+    //}
 
-    private void DropTool()
-    {
-        if (activeTool == null)
-        {
-            return;
-        }
+    //private void DropTool()
+    //{
+    //    if (tool == null)
+    //    {
+    //        return;
+    //    }
 
-        var dropPosition = Vector3Int.FloorToInt(transform.position) + interactDirection * dropRange;
-        var dropCell = GameManager.Instance.GridManager.GetGridCell(dropPosition);
-        activeTool.Unequip(dropCell);
-        skin.ResetArm();
-        activeTool = null;
-    }
+    //    var dropPosition = Vector3Int.FloorToInt(transform.position) + interactDirection * dropRange;
+    //    var dropCell = GameManager.Instance.GridManager.GetGridCell(dropPosition);
+    //    tool.Unequip(dropCell);
+    //    skin.ResetArm();
+    //    tool = null;
+    //}
 }

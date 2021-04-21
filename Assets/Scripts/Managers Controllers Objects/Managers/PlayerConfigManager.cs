@@ -5,8 +5,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerConfigManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject gnomePrefab;
     private List<PlayerConfig> playerConfigs;
     private int maxPlayers = 4;
 
@@ -37,8 +35,8 @@ public class PlayerConfigManager : MonoBehaviour
             playerConfigs.Add(newConfig);
             playerInput.transform.SetParent(transform);
 
-            GameObject newGnome = Instantiate(gnomePrefab, transform);
-            newGnome.GetComponent<GnomeController>().InitializePlayer(newConfig);
+            //GameObject newGnome = Instantiate(gnomePrefab, transform);
+            //newGnome.GetComponent<GnomeController>().InitializePlayer(newConfig);
         }
     }
 
@@ -49,22 +47,3 @@ public class PlayerConfigManager : MonoBehaviour
     }
 }
 
-public class PlayerConfig
-{
-    private PlayerInput input;
-    private int playerIndex;
-    private bool isReady;
-
-    public PlayerInput Input { get; set; }
-    public int PlayerIndex { get; set; }
-    public bool IsReady { get; set; }
-
-    //We need to add some kind of ISkin or object to represent the gnome appearance here.
-
-    public PlayerConfig(PlayerInput playerInput)
-    {
-        PlayerIndex = playerInput.playerIndex;
-        Input = playerInput;
-        isReady = false;
-    }
-}

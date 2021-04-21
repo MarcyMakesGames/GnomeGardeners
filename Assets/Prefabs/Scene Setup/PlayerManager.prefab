@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1148481787113081380}
   - component: {fileID: 1148481787113081379}
-  - component: {fileID: 1700886308}
+  - component: {fileID: 5327624845728125264}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -51,7 +51,7 @@ MonoBehaviour:
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1700886308}
+      - m_Target: {fileID: 5327624845728125264}
         m_TargetAssemblyTypeName: PlayerConfigManager, Assembly-CSharp
         m_MethodName: HandlePlayerJoined
         m_Mode: 0
@@ -87,7 +87,7 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &1700886308
+--- !u!114 &5327624845728125264
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,7 +96,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1148481787113081378}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a748d064fa2c8d345a187d00f55ebcd3, type: 3}
+  m_Script: {fileID: 11500000, guid: b852b30c239187d46a011cfb7510f622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPlayers: 4

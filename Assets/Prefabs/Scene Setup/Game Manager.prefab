@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 277402378935686898}
-  - component: {fileID: 4975076435574114657}
   - component: {fileID: 277402378935686903}
+  - component: {fileID: 4975076435574114657}
   m_Layer: 0
   m_Name: Player Manager
   m_TagString: Untagged
@@ -32,19 +32,6 @@ Transform:
   m_Father: {fileID: 6771955404163415833}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4975076435574114657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 277402378935686900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b852b30c239187d46a011cfb7510f622, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gnomePrefab: {fileID: 1460186646552481323, guid: ee91b61c14bbef449aae56fd86845530, type: 3}
 --- !u!114 &277402378935686903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,7 +51,7 @@ MonoBehaviour:
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4975076435574114657}
         m_TargetAssemblyTypeName: PlayerConfigManager, Assembly-CSharp
         m_MethodName: HandlePlayerJoined
         m_Mode: 0
@@ -90,7 +77,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 7647380527088126288, guid: 38e2d25a7ada9f543bbcff335a01ece7, type: 3}
+  m_PlayerPrefab: {fileID: 4348492872630335953, guid: 38e2d25a7ada9f543bbcff335a01ece7, type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
@@ -100,6 +87,18 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &4975076435574114657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277402378935686900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b852b30c239187d46a011cfb7510f622, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5027599226740842406
 GameObject:
   m_ObjectHideFlags: 0
