@@ -13,12 +13,12 @@ public class GnomeMenuController : MonoBehaviour
     [SerializeField]
     private GameObject readyPanel;
     [SerializeField]
-    private Button readyButton;
+    private GameObject startPanel;
     [SerializeField]
     private Button startButton;
 
     private float inputDelayTime = 1.5f;
-    private bool inputEnabled = false;
+    private bool inputEnabled;
 
     public void SetPlayerIndex(int index)
     {
@@ -45,8 +45,7 @@ public class GnomeMenuController : MonoBehaviour
         GameManager.Instance.PlayerConfigManager.ReadyPlayer(PlayerIndex);
 
         startButton.gameObject.SetActive(true);
-        startButton.Select();
-        readyButton.gameObject.SetActive(false);
+        readyPanel.gameObject.SetActive(false);
 
 
     }
@@ -58,7 +57,6 @@ public class GnomeMenuController : MonoBehaviour
 
     private void Start()
     {
-        readyButton.Select();
     }
 
     private void Update()

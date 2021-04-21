@@ -5,9 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerConfigManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject gnomePrefab;
     private List<PlayerConfig> playerConfigs;
+    [SerializeField]
     private int maxPlayers = 4;
 
     //public void SetGnomeSkin(int index, ISkin gnomeSkin)
@@ -31,14 +30,15 @@ public class PlayerConfigManager : MonoBehaviour
 
     public void HandlePlayerJoined(PlayerInput playerInput)
     {
+        playerInput.transform.SetParent(transform);
+
         if (!playerConfigs.Any(x => x.PlayerIndex == playerInput.playerIndex))
         {
             PlayerConfig newConfig = new PlayerConfig(playerInput);
             playerConfigs.Add(newConfig);
-            playerInput.transform.SetParent(transform);
 
-            GameObject newGnome = Instantiate(gnomePrefab, transform);
-            newGnome.GetComponent<GnomeController>().InitializePlayer(newConfig);
+            //GameObject newGnome = Instantiate(gnomePrefab, transform);
+            //newGnome.GetComponent<GnomeController>().InitializePlayer(newConfig);
         }
     }
 
@@ -51,10 +51,6 @@ public class PlayerConfigManager : MonoBehaviour
 
 public class PlayerConfig
 {
-    private PlayerInput input;
-    private int playerIndex;
-    private bool isReady;
-
     public PlayerInput Input { get; set; }
     public int PlayerIndex { get; set; }
     public bool IsReady { get; set; }
@@ -63,8 +59,7 @@ public class PlayerConfig
 
     public PlayerConfig(PlayerInput playerInput)
     {
-        PlayerIndex = playerInput.playerIndex;
         Input = playerInput;
-        isReady = false;
+        PlayerIndex = playerInput.playerIndex;
     }
 }
