@@ -20,6 +20,8 @@ public class GnomeMenuController : MonoBehaviour
     private TextMeshProUGUI readyText;
     [SerializeField]
     private Button startButton;
+    [SerializeField]
+    private Button quitButton;
 
     private float inputDelayTime = 1.5f;
     private bool inputEnabled;
@@ -64,6 +66,7 @@ public class GnomeMenuController : MonoBehaviour
         GameManager.Instance.PlayerConfigManager.ReadyPlayer(PlayerIndex);
         readyButton.gameObject.SetActive(false);
         startButton.gameObject.SetActive(true);
+        quitButton.gameObject.SetActive(true);
         readyText.gameObject.SetActive(true);
 
         startButton.Select();
@@ -72,6 +75,11 @@ public class GnomeMenuController : MonoBehaviour
     public void StartGame()
     {
         GameManager.Instance.PlayerConfigManager.StartGameCheck();
+    }
+
+    public void QuitGame()
+    {
+        GameManager.Instance.SceneController.QuitGame();
     }
 
     private void Update()
