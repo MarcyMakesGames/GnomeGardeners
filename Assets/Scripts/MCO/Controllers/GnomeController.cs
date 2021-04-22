@@ -59,6 +59,8 @@ public class GnomeController : MonoBehaviour
     }
     #endregion
 
+    #region Private Methods
+
     private void FixedUpdate() => Move();
 
     private void Update() => Interact();
@@ -108,25 +110,28 @@ public class GnomeController : MonoBehaviour
         }
     }
 
-    public void ChangeArm(Tool tool)
+    private void ChangeArm(Tool tool)
     {
         // todo: change animation sprite
-        tool = tool;
-        SpriteRenderer renderer = tool.GetComponent<SpriteRenderer>();
+        this.tool = tool;
+        var renderer = tool.GetComponent<SpriteRenderer>();
         skin.ChangeArm(renderer);
     }
 
     private void DropTool()
     {
-        if (activeTool == null)
+        if (tool == null)
         {
             return;
         }
 
-        var dropPosition = Vector3Int.FloorToInt(transform.position) + interactDirection * dropRange;
-        var dropCell = GameManager.Instance.GridManager.GetGridCell(dropPosition);
-        activeTool.Unequip(dropCell);
+        var dropPosition = transform.position + (Vector3)lookDir * dropRange;
+        var dropCell = GameManager.Instance.GridManager.GetClosestCell(dropPosition);
+        tool.Unequip(dropCell);
         skin.ResetArm();
-        activeTool = null;
+        tool = null;
     }
+
+    #endregion
+
 }
