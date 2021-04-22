@@ -19,6 +19,12 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void QuitGame()
+    {
+        //We should save any player prefs before this point.
+        Application.Quit();
+    }
+
     private void Awake()
     {
         GameManager.Instance.SceneController = this;
