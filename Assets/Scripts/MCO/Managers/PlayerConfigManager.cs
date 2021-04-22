@@ -24,8 +24,26 @@ public class PlayerConfigManager : MonoBehaviour
     {
         if(playerConfigs.Count >= 1 && playerConfigs.All(x => x.IsReady))
         {
-            Debug.Log("All players ready, loading next scene.");
-            GameManager.Instance.SceneController.LoadNextScene();
+            if(!GameManager.Instance.DebugMenu)
+            {
+                if (GameManager.Instance.SceneToLoad != string.Empty)
+                {
+                    Debug.Log("All players ready, loading next scene.");
+                    GameManager.Instance.SceneController.LoadNextScene();
+                    GameManager.Instance.playersReady = true;
+                }
+                else
+                {
+                    Debug.Log("All players ready, loading next scene.");
+                    GameManager.Instance.SceneController.LoadNextScene();
+                    GameManager.Instance.playersReady = true;
+                }
+            }
+            else
+            {
+                GameObject.Find("Title Canvas").SetActive(false);
+                GameManager.Instance.playersReady = true;
+            }
         }
     }
 

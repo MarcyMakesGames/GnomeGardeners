@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    //Debug variables
     [SerializeField]
     private bool debugMenu;
     [SerializeField]
     private string sceneToLoad;
 
+    //Cached references
     private static GameManager gameManager;
     private GameTime gameTime;
     private LevelManager levelManager;
@@ -18,6 +20,9 @@ public class GameManager : MonoBehaviour
     private GridManager gridManager;
     private SceneController sceneController;
     private AudioManager audioManager;
+
+    //Game variables
+    public bool playersReady = false;
 
     public static GameManager Instance { get => gameManager; }
     public GameTime Time { get => gameTime; set => gameTime = value; }
@@ -30,6 +35,7 @@ public class GameManager : MonoBehaviour
     public AudioManager AudioManager { get => audioManager; set => audioManager = value; }
 
     public bool DebugMenu { get => debugMenu; }
+    public string SceneToLoad { get => sceneToLoad; }
 
     #region Unity Methods
 

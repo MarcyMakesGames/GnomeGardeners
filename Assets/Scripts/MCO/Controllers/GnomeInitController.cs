@@ -10,11 +10,7 @@ public class GnomeInitController : MonoBehaviour
     private List<Transform> playerSpawnLocations;
 
     private GnomeSkin gnomeSkin;
-
-    private void Start()
-    {
-        InitPlayerGnomes();
-    }
+    private bool hasSpawned = false;
 
     private void InitPlayerGnomes()
     {
@@ -26,6 +22,16 @@ public class GnomeInitController : MonoBehaviour
             //We would build the gnomeSkin here.
 
             newGnome.GetComponent<GnomeController>().InitializePlayer(player);
+        }
+
+        hasSpawned = true;
+    }
+
+    private void Update()
+    {
+        if(GameManager.Instance.playersReady && !hasSpawned)
+        {
+            InitPlayerGnomes();
         }
     }
 }

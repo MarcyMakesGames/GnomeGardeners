@@ -77,10 +77,7 @@ public class GnomeMenuController : MonoBehaviour
 
     public void StartGame()
     {
-        if (!debugMenu)
-            GameManager.Instance.PlayerConfigManager.StartGameCheck();
-        else
-            canvasGroup.SetActive(false);
+        GameManager.Instance.PlayerConfigManager.StartGameCheck();
     }
 
     public void QuitGame()
