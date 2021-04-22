@@ -8,6 +8,8 @@ public class PlayerConfigManager : MonoBehaviour
     private List<PlayerConfig> playerConfigs;
     private int maxPlayers = 4;
 
+    public List<PlayerConfig> PlayerConfigs { get => playerConfigs; }
+
     //public void SetGnomeSkin(int index, ISkin gnomeSkin)
     //{
             //This is where we'd actually create a new playerConfig with the skin using the index.
@@ -37,9 +39,6 @@ public class PlayerConfigManager : MonoBehaviour
             PlayerConfig newConfig = new PlayerConfig(playerInput);
             playerConfigs.Add(newConfig);
             playerInput.transform.SetParent(transform);
-
-            //GameObject newGnome = Instantiate(gnomePrefab, transform);
-            //newGnome.GetComponent<GnomeController>().InitializePlayer(newConfig);
         }
     }
 
