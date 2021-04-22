@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 148511127972733769}
   - component: {fileID: 6781855766866969407}
-  - component: {fileID: 1934356837747362964}
   - component: {fileID: -378496446210772951}
+  - component: {fileID: 91581230841265698}
   m_Layer: 9
   m_Name: Plant
   m_TagString: Untagged
@@ -73,51 +73,17 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 16aba112ab3d3a64ab668a587cd1c31c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5be33e40ef139e941bc0479fa5ec5c07, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.28, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1934356837747362964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8107983885071440429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d36f0eae487c9244ab6651f5f080723, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plantName: Plant
-  stageTimes:
-  - 5
-  - 10
-  - 20
-  - 10
-  - 15
-  harvests:
-  - {fileID: 1520823353034087717, guid: 73ba27070033aa7478b8085dbcf25888, type: 3}
-  - {fileID: 1520823353034087717, guid: 73ba27070033aa7478b8085dbcf25888, type: 3}
-  - {fileID: 1520823353034087717, guid: 73ba27070033aa7478b8085dbcf25888, type: 3}
-  stageSprites:
-  - {fileID: 21300000, guid: 16aba112ab3d3a64ab668a587cd1c31c, type: 3}
-  - {fileID: 21300000, guid: 209830c45726331429a425eb81806cb6, type: 3}
-  - {fileID: 21300000, guid: 55d71c8edb0577849a2df0eb65c31e6f, type: 3}
-  - {fileID: 21300000, guid: d9a254a9ae847134c8d3de09d7bc111d, type: 3}
-  - {fileID: 21300000, guid: 867f6477928489a459a244e03d5237f0, type: 3}
-  is2D: 0
-  dropAmount: 3
-  dropScatter: 2
-  currentGrowthStage: 0
-  isOnArableGround: 0
 --- !u!58 &-378496446210772951
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -134,3 +100,72 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.15}
   serializedVersion: 2
   m_Radius: 0.2
+--- !u!114 &91581230841265698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8107983885071440429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d36f0eae487c9244ab6651f5f080723, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  species:
+    name: 
+    stages:
+    - specifier: 0
+      index: 0
+      sprite: {fileID: 21300000, guid: 5be33e40ef139e941bc0479fa5ec5c07, type: 3}
+      timeToNextStage: 3
+      need:
+        name: Time
+        value: 1
+        threshold: 0
+      name: 
+    - specifier: 1
+      index: 1
+      sprite: {fileID: 21300000, guid: c964319eb7c43c940bf2ba4b38f3b371, type: 3}
+      timeToNextStage: 5
+      need:
+        name: Water
+        value: 0
+        threshold: 50
+      name: 
+    - specifier: 2
+      index: 2
+      sprite: {fileID: 21300000, guid: 7ca4cb28ea9b1fb4785ade3ae0a5568f, type: 3}
+      timeToNextStage: 5
+      need:
+        name: Time
+        value: 1
+        threshold: 0
+      name: 
+    - specifier: 3
+      index: 3
+      sprite: {fileID: 21300000, guid: 5ec4cbd10eb0a9a4591ff3ac0c222a66, type: 3}
+      timeToNextStage: 3
+      need:
+        name: Fertilizer
+        value: 0
+        threshold: 50
+      name: 
+    - specifier: 4
+      index: 4
+      sprite: {fileID: 21300000, guid: 849ffb3fc73314b4bbb40f1e26f6f953, type: 3}
+      timeToNextStage: 10
+      need:
+        name: Time
+        value: 1
+        threshold: 0
+      name: 
+    - specifier: 5
+      index: 5
+      sprite: {fileID: 21300000, guid: f0dd79008f8679b4dbb2e95289af23e0, type: 3}
+      timeToNextStage: 10
+      need:
+        name: Time
+        value: 1
+        threshold: 0
+      name: 
