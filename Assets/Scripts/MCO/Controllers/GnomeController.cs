@@ -27,7 +27,7 @@ public class GnomeController : MonoBehaviour
     #region InputEvents
     public void OnInputAction(CallbackContext context)
     {
-        if (context.action.name == inputs.PlayerMovement.Movement.name)
+        if (context.action.name == inputs.Player.Movement.name)
             OnInputMove(context);
     }
 
