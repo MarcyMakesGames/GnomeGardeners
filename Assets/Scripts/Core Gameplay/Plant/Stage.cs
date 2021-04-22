@@ -10,6 +10,7 @@ public class Stage
     [SerializeField] private Need need;
     [HideInInspector] public string name;
 
+
     public float TimeToNextStage { get => timeToNextStage; }
     public int Index { get => index; }
 
