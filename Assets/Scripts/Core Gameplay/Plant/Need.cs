@@ -4,6 +4,7 @@ using UnityEngine;
 public class Need
 {
     public string name;
+    public int index;
     [HideInInspector] private bool isFulfilled;
     [SerializeField] private float value = 0f;
     [SerializeField] private float threshold = 30f;

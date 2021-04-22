@@ -7,6 +7,8 @@ public class Tool : MonoBehaviour, IOccupant
     [SerializeField] private ToolType type;
     [SerializeField] private int range = 1;
 
+    public IHoldable heldItem;
+
     private ICommand use;
     private bool isEquipped;
 

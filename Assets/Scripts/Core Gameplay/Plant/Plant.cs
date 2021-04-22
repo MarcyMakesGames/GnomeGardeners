@@ -12,8 +12,8 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
     private SpriteRenderer plantRenderer;
     private float currentGrowTime;
     private bool isOnArableGround;
-
     private bool isBeingCarried;
+    private GridCell occupyingCell;
 
     bool IHoldable.IsBeingCarried { get => isBeingCarried; set => isBeingCarried = value; }
 
@@ -22,13 +22,17 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
     public Stage CurrentStage { get => currentStage; }
 
     #region Unity Methods
+
 #if DEBUG
+
     [ContextMenu("SatisfyCurrentNeed")]
-    private void SatisfyCurrentNeed()
+    private void SatisfyAllNeeds()
     {
-        currentStage.SatisfyNeed(50f);
+        currentStage.SatisfyNeeds(50f);
     }
+
 #endif
+
     private void Awake()
     {
         plantRenderer = GetComponent<SpriteRenderer>();
@@ -36,13 +40,13 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
 
     private void Start()
     {
-        Initialize();
+        Configure();
         Log("Debugging");
     }
 
     private void Update()
     {
-        Grow();
+        TryGrowing();
     }
 
     #endregion
@@ -54,8 +58,9 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
 
     public void HarvestPlant()
     {
-        // harvest this plant
-        throw new NotImplementedException();
+        // todo: object pool stash
+        gameObject.SetActive(false);
+        Dispose();
     }
 
     public void WaterPlant()
@@ -70,13 +75,15 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
             return;
 
         cell.Occupant = this;
+        occupyingCell = cell;
+
+        CheckArableGround();
     }
 
     public void Drop(Vector2 position)
     {
         gameObject.SetActive(true);
         transform.position = position;
-        CheckArableGround(position);
         Debug.Log("Planted at " + transform.position);
     }
 
@@ -92,7 +99,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
     #endregion
 
     #region Private Methods
-    private void Grow()
+    private void TryGrowing()
     {
         if (!isOnArableGround)
             return;
@@ -111,40 +118,41 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
             return;
         }
         currentStage = species.NextStage(currentStage.Index);
+        Log("Grew into stage: " + currentStage.specifier.ToString());
         currentGrowTime = GameManager.Instance.Time.ElapsedTime;
         plantRenderer.sprite = currentStage.sprite;
         name = currentStage.name + " " + species.name;
     }
 
-    private void CheckArableGround(Vector3 checkPosition)
+    private void CheckArableGround()
     {
-        // to-do: check tile through grid manager
-
-        //Vector3 localDirection = new Vector3(transform.position.x, -1f, transform.position.z);
-        //Vector3 direction = transform.TransformDirection(localDirection);
-        //Ray ray = new Ray(transform.position, direction);
-        //RaycastHit hit;
-        //Debug.DrawRay(transform.position, direction);
-
-
-        //if (Physics.Raycast(ray, out hit))
-        //{
-        //    if (hit.collider.GetComponent<Ground>().type == GroundType.ArableSoil)
-        //        isOnArableGround = true;
-        //    else
-        //        isOnArableGround = false;
-        //}
+        if(occupyingCell.GroundType == GroundType.ArableSoil)
+        {
+            Log("Found Arable Ground!");
+            isOnArableGround = true;
+        }
+        else
+        {
+            isOnArableGround = false;
+        }
     }
 
-    private void Initialize()
+    private void Configure()
     {
         if (species.stages.Count > 0)
             currentStage = species.stages[0];
         else
-            Debug.LogWarning("Plant.cs: Species not selected or set-up.");
-        isOnArableGround = true;
+            LogWarning("Plant.cs: Species not selected or set-up.");
+        isOnArableGround = false;
         plantRenderer.sprite = currentStage.sprite;
         name = currentStage.name+" "+species.name;
+    }
+
+    private void Dispose()
+    {
+        plantRenderer.sprite = null;
+        name = species.name;
+        currentStage = null;
     }
 
     private void Log(string msg)
