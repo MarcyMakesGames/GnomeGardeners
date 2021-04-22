@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private PlayerConfigManager playerConfigManager;
     private IInteractionController interactionController;
     private GridManager gridManager;
+    private SceneController sceneController;
 
     public static GameManager Instance { get => gameManager; }
     public GameTime Time { get => gameTime; set => gameTime = value; }
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     public PlayerConfigManager PlayerConfigManager { get => playerConfigManager; set => playerConfigManager = value; }
     public IInteractionController InteractionController { get => interactionController; set => interactionController = value; }
     public GridManager GridManager { get => gridManager; set => gridManager = value; }
+    public SceneController SceneController { get => sceneController; set => sceneController = value; }
 
     #region Unity Methods
 

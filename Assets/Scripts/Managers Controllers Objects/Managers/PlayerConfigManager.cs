@@ -23,12 +23,15 @@ public class PlayerConfigManager : MonoBehaviour
         if(playerConfigs.Count >= 2 && playerConfigs.All(x => x.IsReady))
         {
             Debug.Log("All players ready, loading next scene.");
-            GameManager.Instance.LevelManager.SetLevelActive(1);
+            GameManager.Instance.SceneController.LoadNextScene();
         }
     }
 
     public void HandlePlayerJoined(PlayerInput playerInput)
     {
+        if (playerConfigs.Count >= maxPlayers)
+            return;
+
         if (!playerConfigs.Any(x => x.PlayerIndex == playerInput.playerIndex))
         {
             PlayerConfig newConfig = new PlayerConfig(playerInput);

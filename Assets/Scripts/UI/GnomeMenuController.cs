@@ -11,9 +11,13 @@ public class GnomeMenuController : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI titleText;
     [SerializeField]
+    private GameObject skinPanel;
+    [SerializeField]
     private GameObject readyPanel;
     [SerializeField]
-    private GameObject startPanel;
+    private Button readyButton;
+    [SerializeField]
+    private TextMeshProUGUI readyText;
     [SerializeField]
     private Button startButton;
 
@@ -28,14 +32,29 @@ public class GnomeMenuController : MonoBehaviour
         inputDelayTime = Time.time + inputDelayTime;
     }
 
-    //public void SetGnomeSkin(GnomeSkin skin)
-    //{
-    //    if (!inputEnabled)
-    //        return;
+    public void SetGnomeSkin(GnomeSkin skin)
+    {
+        if (!inputEnabled)
+            return;
 
-    //    Here we would assign the player skin to the PlayerConfig
-    //    return;
-    //}
+        return;
+    }
+
+    //This is purely a debug function prior to implementing gnome skins.
+    public void SetGnomeSkin(int skinIndex)
+    {
+        if (!inputEnabled)
+            return;
+
+        Debug.Log("Selected the gnome skin: " + skinIndex);
+
+        readyPanel.gameObject.SetActive(true);
+        skinPanel.gameObject.SetActive(false);
+
+        readyButton.Select();
+
+        return;
+    }
 
     public void SetPlayerReady()
     {
@@ -43,11 +62,11 @@ public class GnomeMenuController : MonoBehaviour
             return;
 
         GameManager.Instance.PlayerConfigManager.ReadyPlayer(PlayerIndex);
-
+        readyButton.gameObject.SetActive(false);
         startButton.gameObject.SetActive(true);
-        readyPanel.gameObject.SetActive(false);
+        readyText.gameObject.SetActive(true);
 
-
+        startButton.Select();
     }
 
     public void StartGame()
@@ -55,15 +74,9 @@ public class GnomeMenuController : MonoBehaviour
         GameManager.Instance.PlayerConfigManager.StartGameCheck();
     }
 
-    private void Start()
-    {
-    }
-
     private void Update()
     {
         if (Time.time > inputDelayTime)
             inputEnabled = true;
     }
-
-
 }

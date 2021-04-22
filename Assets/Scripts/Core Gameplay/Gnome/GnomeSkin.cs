@@ -6,6 +6,7 @@ public class GnomeSkin : MonoBehaviour
 {
     public SpriteRenderer mustache;
     public SpriteRenderer hat;
+    public SpriteRenderer body;
     public SpriteRenderer toolArm;
 
     #region Public Methods

@@ -13,7 +13,7 @@ public class GnomeMenuSetupController : MonoBehaviour
 
     private void Awake()
     {
-        menuLayout = GameObject.Find("Canvas");
+        menuLayout = GameObject.Find("Gnome Options Panel");
 
         if(menuLayout != null)
         {
