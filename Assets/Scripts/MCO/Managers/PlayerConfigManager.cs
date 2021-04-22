@@ -26,7 +26,8 @@ public class PlayerConfigManager : MonoBehaviour
         {
             if(!GameManager.Instance.DebugMenu)
             {
-                if (GameManager.Instance.SceneToLoad != string.Empty)
+                var sceneToLoad = GameManager.Instance.SceneToLoad;
+                if ( sceneToLoad == string.Empty)
                 {
                     Debug.Log("All players ready, loading next scene.");
                     GameManager.Instance.SceneController.LoadNextScene();
@@ -35,7 +36,7 @@ public class PlayerConfigManager : MonoBehaviour
                 else
                 {
                     Debug.Log("All players ready, loading next scene.");
-                    GameManager.Instance.SceneController.LoadNextScene();
+                    GameManager.Instance.SceneController.LoadSceneByString(sceneToLoad);
                     GameManager.Instance.playersReady = true;
                 }
             }

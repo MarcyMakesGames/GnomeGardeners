@@ -7,9 +7,9 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
 {
     public static bool DEBUG = false;
 
-    [SerializeField] private Species species;
+    public Species species;
+
     private Stage currentStage;
-    private SpriteRenderer plantRenderer;
     private float currentGrowTime;
     private bool isOnArableGround;
     private bool isBeingCarried;
@@ -20,6 +20,8 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
     public GameObject GameObject => gameObject;
 
     public Stage CurrentStage { get => currentStage; }
+
+    public SpriteRenderer spriteRenderer;
 
     #region Unity Methods
 
@@ -33,11 +35,6 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
 
 #endif
 
-    private void Awake()
-    {
-        plantRenderer = GetComponent<SpriteRenderer>();
-    }
-
     private void Start()
     {
         Configure();
@@ -47,6 +44,12 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
     private void Update()
     {
         TryGrowing();
+    }
+
+    public void OnValidate()
+    {
+        currentStage = species.stages[0];
+        spriteRenderer.sprite = currentStage.sprite;
     }
 
     #endregion
@@ -104,7 +107,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
         if (!isOnArableGround)
             return;
 
-        if (GameManager.Instance.Time.GetTimeSince(currentGrowTime) >= currentStage.TimeToNextStage)
+        if (GameManager.Instance.Time.GetTimeSince(currentGrowTime) >= currentStage.timeToNextStage)
         {
             AdvanceStages();
         }
@@ -117,10 +120,10 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
         {
             return;
         }
-        currentStage = species.NextStage(currentStage.Index);
+        currentStage = species.NextStage(currentStage.index);
         Log("Grew into stage: " + currentStage.specifier.ToString());
         currentGrowTime = GameManager.Instance.Time.ElapsedTime;
-        plantRenderer.sprite = currentStage.sprite;
+        spriteRenderer.sprite = currentStage.sprite;
         name = currentStage.name + " " + species.name;
     }
 
@@ -144,13 +147,13 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
         else
             LogWarning("Plant.cs: Species not selected or set-up.");
         isOnArableGround = false;
-        plantRenderer.sprite = currentStage.sprite;
+        spriteRenderer.sprite = currentStage.sprite;
         name = currentStage.name+" "+species.name;
     }
 
     private void Dispose()
     {
-        plantRenderer.sprite = null;
+        spriteRenderer.sprite = null;
         name = species.name;
         currentStage = null;
     }

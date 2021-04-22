@@ -63,7 +63,6 @@ public class GnomeController : MonoBehaviour
 
     private void FixedUpdate() => Move();
 
-    private void Update() => Interact();
 
     private void Move()
     {

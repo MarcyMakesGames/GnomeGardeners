@@ -38,7 +38,7 @@ public class ScoringArea : MonoBehaviour, IInteractable
 
         if(tool.Type == ToolType.Harvesting && plant != null)
         {
-            var score = plant.CurrentStage.Score;
+            var score = plant.CurrentStage.pointValue;
             AddScore(score);
             AddSprite(plant.CurrentStage.sprite);
             ++plantCount;
