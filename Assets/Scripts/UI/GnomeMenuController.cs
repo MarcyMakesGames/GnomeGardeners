@@ -6,7 +6,10 @@ using UnityEngine.UI;
 
 public class GnomeMenuController : MonoBehaviour
 {
+    public bool debugMenu;
+
     private int PlayerIndex;
+    private GameObject canvasGroup;
 
     [SerializeField]
     private TextMeshProUGUI titleText;
@@ -74,12 +77,21 @@ public class GnomeMenuController : MonoBehaviour
 
     public void StartGame()
     {
-        GameManager.Instance.PlayerConfigManager.StartGameCheck();
+        if (!debugMenu)
+            GameManager.Instance.PlayerConfigManager.StartGameCheck();
+        else
+            canvasGroup.SetActive(false);
     }
 
     public void QuitGame()
     {
         GameManager.Instance.SceneController.QuitGame();
+    }
+
+    private void Start()
+    {
+        canvasGroup = transform.parent.gameObject;
+        debugMenu = GameManager.Instance.DebugMenu;
     }
 
     private void Update()

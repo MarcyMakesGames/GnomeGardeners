@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private static GameManager gameManager;
+    [SerializeField]
+    private bool debugMenu;
+    [SerializeField]
+    private string sceneToLoad;
+
+    private static GameManager gameManager;
     private GameTime gameTime;
     private LevelManager levelManager;
     private ObjectManager objectManager;
@@ -23,6 +28,8 @@ public class GameManager : MonoBehaviour
     public GridManager GridManager { get => gridManager; set => gridManager = value; }
     public SceneController SceneController { get => sceneController; set => sceneController = value; }
     public AudioManager AudioManager { get => audioManager; set => audioManager = value; }
+
+    public bool DebugMenu { get => debugMenu; }
 
     #region Unity Methods
 

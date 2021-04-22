@@ -14,6 +14,12 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene(CurrentSceneIndex + 1);
     }
 
+    public void LoadSceneByString(string sceneName)
+    {
+        if(SceneManager.GetSceneByName(sceneName) != null)
+            SceneManager.LoadScene(sceneName);
+    }
+
     public void LoadTitleScene()
     {
         SceneManager.LoadScene(0);
