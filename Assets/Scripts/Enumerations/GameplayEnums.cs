@@ -42,4 +42,6 @@ public enum PlantStage
     Flowering,
     Ripening,
     Decaying,
+
+    Count,
 }

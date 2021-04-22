@@ -37,11 +37,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
     private void Start()
     {
         Initialize();
-
-        if (DEBUG)
-        {
-            Debug.Log("Plant: Debug activated");
-        }
+        Log("Debugging");
     }
 
     private void Update()
@@ -124,11 +120,11 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
     {
         // to-do: check tile through grid manager
 
-        Vector3 localDirection = new Vector3(transform.position.x, -1f, transform.position.z);
-        Vector3 direction = transform.TransformDirection(localDirection);
-        Ray ray = new Ray(transform.position, direction);
-        RaycastHit hit;
-        Debug.DrawRay(transform.position, direction);
+        //Vector3 localDirection = new Vector3(transform.position.x, -1f, transform.position.z);
+        //Vector3 direction = transform.TransformDirection(localDirection);
+        //Ray ray = new Ray(transform.position, direction);
+        //RaycastHit hit;
+        //Debug.DrawRay(transform.position, direction);
 
 
         //if (Physics.Raycast(ray, out hit))
@@ -149,6 +145,18 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
         isOnArableGround = true;
         plantRenderer.sprite = currentStage.sprite;
         name = currentStage.name+" "+species.name;
+    }
+
+    private void Log(string msg)
+    {
+        if (!DEBUG) { return; }
+        Debug.Log("[Plant]: " + msg);
+    }
+
+    private void LogWarning(string msg)
+    {
+        if (!DEBUG) { return; }
+        Debug.LogWarning("[Plant]: " + msg);
     }
 
     #endregion
