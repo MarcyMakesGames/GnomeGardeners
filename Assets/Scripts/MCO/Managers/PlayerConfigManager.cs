@@ -22,7 +22,7 @@ public class PlayerConfigManager : MonoBehaviour
 
     public void StartGameCheck()
     {
-        if(playerConfigs.Count >= 2 && playerConfigs.All(x => x.IsReady))
+        if(playerConfigs.Count >= 1 && playerConfigs.All(x => x.IsReady))
         {
             Debug.Log("All players ready, loading next scene.");
             GameManager.Instance.SceneController.LoadNextScene();
