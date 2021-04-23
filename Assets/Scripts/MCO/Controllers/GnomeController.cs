@@ -63,6 +63,14 @@ public class GnomeController : MonoBehaviour
 
     private void FixedUpdate() => Move();
 
+    private void Update()
+    {
+        var currentCell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
+        var interactionPosition = currentCell.GridPosition + lookDir * interactRange;
+        var interactionCell = GameManager.Instance.GridManager.GetClosestCell(interactionPosition);
+        GameManager.Instance.GridManager.HighlightTile(interactionCell.GridPosition);
+    }
+
 
     private void Move()
     {
@@ -76,6 +84,7 @@ public class GnomeController : MonoBehaviour
         var currentCell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
         var interactionPosition = currentCell.GridPosition + lookDir * interactRange;
         var interactionCell = GameManager.Instance.GridManager.GetClosestCell(interactionPosition);
+        GameManager.Instance.GridManager.HighlightTile(interactionCell.GridPosition);
 
         if (tool != null)
         {

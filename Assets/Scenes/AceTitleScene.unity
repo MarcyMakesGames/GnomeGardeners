@@ -178,6 +178,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 8211363446641042184, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
+      propertyPath: OnLevelStart
+      value: 
+      objectReference: {fileID: 11400000, guid: 83192ecb83878a44dbac9e71753e3b74, type: 2}
+    - target: {fileID: 8211363446641042184, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
+      propertyPath: eventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: 83192ecb83878a44dbac9e71753e3b74, type: 2}
+    - target: {fileID: 8211363446641042184, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
+      propertyPath: worldObjects.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8211363446641042184, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
+      propertyPath: worldObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: cc78052275c10874b838d89a018852b0, type: 2}
+    - target: {fileID: 8211363446641042184, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
+      propertyPath: worldObjects.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 27b9e953bf731524ca9b42bc1226f77e, type: 2}
+    - target: {fileID: 8211363446641042184, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
+      propertyPath: worldObjects.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 870347fd175815b46828ebe329b768c9, type: 2}
+    - target: {fileID: 8211363446641042184, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
+      propertyPath: worldObjects.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1bc1e2742c712d0408390ba4b281463c, type: 2}
     - target: {fileID: 8584072150009934217, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
       propertyPath: debugMenu
       value: 0
@@ -186,6 +214,14 @@ PrefabInstance:
       propertyPath: sceneToLoad
       value: PaulWorkScene
       objectReference: {fileID: 0}
+    - target: {fileID: 8584072150009934217, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
+      propertyPath: OnLevelStart
+      value: 
+      objectReference: {fileID: 11400000, guid: 83192ecb83878a44dbac9e71753e3b74, type: 2}
+    - target: {fileID: 8584072150009934217, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
+      propertyPath: eventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: 83192ecb83878a44dbac9e71753e3b74, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
 --- !u!1001 &1157862239

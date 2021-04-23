@@ -20,9 +20,15 @@ public class GameManager : MonoBehaviour
     private GridManager gridManager;
     private SceneController sceneController;
     private AudioManager audioManager;
+    private WorldSetupController worldSetupController;
 
-    //Game variables
+    // Game variables
     public bool playersReady = false;
+    bool werePlayersReady = false;
+
+    // Events
+    public VoidEventChannelSO OnLevelStart;
+
 
     public static GameManager Instance { get => gameManager; }
     public GameTime Time { get => gameTime; set => gameTime = value; }
@@ -33,6 +39,7 @@ public class GameManager : MonoBehaviour
     public GridManager GridManager { get => gridManager; set => gridManager = value; }
     public SceneController SceneController { get => sceneController; set => sceneController = value; }
     public AudioManager AudioManager { get => audioManager; set => audioManager = value; }
+    public WorldSetupController WorldSetupController { get => worldSetupController; set => worldSetupController = value; }
 
     public bool DebugMenu { get => debugMenu; }
     public string SceneToLoad { get => sceneToLoad; }
@@ -50,6 +57,15 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         #endregion
+    }
+
+    private void Update()
+    {
+        if(werePlayersReady != playersReady)
+        {
+            OnLevelStart.RaiseEvent();
+        }
+        werePlayersReady = playersReady;
     }
 
     #endregion
