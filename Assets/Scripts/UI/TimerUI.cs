@@ -12,7 +12,7 @@ public class TimerUI : CoreUIElement<float>
 
     protected override bool ClearedIfEmpty(float newData)
     {
-        if (newData != null)
+        if (newData != 0)
         {
             return false;
         }
