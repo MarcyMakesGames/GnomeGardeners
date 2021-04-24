@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 8139805232451186611}
   - component: {fileID: 2831247730845476868}
   - component: {fileID: 3732606198476884276}
+  - component: {fileID: 3601729279842690175}
   m_Layer: 0
   m_Name: Gnome Prefab
   m_TagString: Untagged
@@ -169,6 +170,22 @@ MonoBehaviour:
   moveSpeed: 5
   interactRange: 1
   dropRange: 1
+--- !u!114 &3601729279842690175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5516764922074738928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7f97185142dfa24186e96dd8cddd7ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mustache: {fileID: 0}
+  hat: {fileID: 0}
+  body: {fileID: 0}
+  toolArm: {fileID: 6335585806058133947}
 --- !u!1 &6914463133206669315
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,13 +210,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6914463133206669315}
-  m_LocalRotation: {x: 0, y: 0, z: -0.5698534, w: 0.82174635}
-  m_LocalPosition: {x: 0.22, y: 1.32, z: -0.29}
-  m_LocalScale: {x: 2.5, y: 0.5, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.16177604, w: 0.9868275}
+  m_LocalPosition: {x: 0.483, y: 0.663, z: -0.514}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 344463214655828782}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -69.48}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 18.62}
 --- !u!212 &6335585806058133947
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -240,14 +257,14 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 3f348eb810d2ced4bb17f9f39150172b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 0.39, y: 1.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

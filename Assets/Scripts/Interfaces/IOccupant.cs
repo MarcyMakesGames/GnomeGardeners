@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IOccupant
 {
-    public GameObject GameObject { get; }
+    public GameObject AssociatedObject { get; }
 }

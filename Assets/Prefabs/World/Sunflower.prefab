@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -378496446210772951}
   - component: {fileID: 91581230841265698}
   m_Layer: 9
-  m_Name: Plant
+  m_Name: Sunflower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,5 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d36f0eae487c9244ab6651f5f080723, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
   species: {fileID: 11400000, guid: d62722e6edcb0734eb85e97c08576eb6, type: 2}
   spriteRenderer: {fileID: 6781855766866969407}
+  OnTileChanged: {fileID: 11400000, guid: 5c9235811ee9890478b55b3f6e2e720a, type: 2}

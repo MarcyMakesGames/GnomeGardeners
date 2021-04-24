@@ -16,23 +16,62 @@ public class WorldSetupController : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        Dispose();
+    }
+
     private void Configure()
     {
         GameManager.Instance.WorldSetupController = this;
         OnLevelStart.OnEventRaised += CreateWorld;
     }
 
+    private void Dispose()
+    {
+        OnLevelStart.OnEventRaised -= CreateWorld;
+    }
+
     private void CreateWorld()
     {
+
         foreach (SetupObject obj in worldObjects)
         {
-            var occupant = obj.occupant.GetComponent<IOccupant>();
-            if ( occupant == null)
-                break;
+            var gameObject = obj.gameObject;
+            if (gameObject == null)
+            {
+                LogWarning("A SetupObject does not have an associated GameObject.");
+                return;
+            }
+            var occupant = gameObject.GetComponent<IOccupant>();
+            if (occupant == null)
+            {
+                LogWarning("A SetupObject's GameObject does not have a MonoBehaviour inheriting from IOccupant.");
+                return;
+            }
 
             Vector3 worldPosition = (Vector2)obj.position;
-            Instantiate(obj.occupant, worldPosition, Quaternion.Euler(-20f, 0f, 0f));
-            GameManager.Instance.GridManager.ChangeTileOccupant(obj.position, occupant);
+            var clone = Instantiate(gameObject, worldPosition, Quaternion.Euler(-20f, 0f, 0f));
+            var occupantClone = clone.GetComponent<IOccupant>();
+            GameManager.Instance.GridManager.ChangeTileOccupant(obj.position, occupantClone);
         }
+
+        PaintWorld();
+    }
+
+    private void PaintWorld()
+    {
+        GameManager.Instance.GridManager.ChangeTile(new Vector2Int(0, 0), GroundType.FallowSoil);
+        GameManager.Instance.GridManager.ChangeTile(new Vector2Int(9, 9), GroundType.FallowSoil);
+        for (int i = 1; i < 9; ++i)
+        {
+            GameManager.Instance.GridManager.ChangeTile(new Vector2Int(i, 0), GroundType.Path);
+            GameManager.Instance.GridManager.ChangeTile(new Vector2Int(9, i), GroundType.Path);
+        }
+    }
+
+    private void LogWarning(string msg)
+    {
+        Debug.LogWarning("[WorldSetupController]: " + msg);
     }
 }

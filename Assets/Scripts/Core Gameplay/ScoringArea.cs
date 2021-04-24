@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoringArea : MonoBehaviour, IInteractable
+public class ScoringArea : MonoBehaviour, IScoringArea
 {
     public int TotalScore { get ; set; }
 
@@ -10,7 +10,7 @@ public class ScoringArea : MonoBehaviour, IInteractable
     private int plantCount;
     public Sprite[] Plants { set => plants = value; }
 
-    public GameObject GameObject => gameObject;
+    public GameObject AssociatedObject { get => gameObject; }
 
 
 

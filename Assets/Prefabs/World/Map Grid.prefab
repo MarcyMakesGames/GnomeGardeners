@@ -75,6 +75,17 @@ MonoBehaviour:
       bottomRightTile: {fileID: 11400000, guid: 1abd27d352755bd4cbb2b09d70a048af, type: 2}
   - groundType: 2
     tilePalette:
+      topLeftTile: {fileID: 11400000, guid: 3c35e5655c0c451469d40502c29e703a, type: 2}
+      topMiddleTile: {fileID: 11400000, guid: 23844ab0e8d649b41ab7c63011f1108b, type: 2}
+      topRightTile: {fileID: 11400000, guid: d0214f8f0bac3a546a53733c238dc682, type: 2}
+      leftTile: {fileID: 11400000, guid: bd17ea88b6506ea4bbd3910b96d467d0, type: 2}
+      middleTile: {fileID: 11400000, guid: 5a24b2b924d789b4ca8de5b4730f68a0, type: 2}
+      rightTile: {fileID: 11400000, guid: 64c3277e116f9bf49b407653f9f546bc, type: 2}
+      bottomLeftTile: {fileID: 11400000, guid: 1fe4a102081679f45b672a4c49a134ba, type: 2}
+      bottomMiddleTile: {fileID: 11400000, guid: b21e59381772f31438c573b1cfbe4bac, type: 2}
+      bottomRightTile: {fileID: 11400000, guid: c9856c39500779b4287a0d0cb4fa7490, type: 2}
+  - groundType: 3
+    tilePalette:
       topLeftTile: {fileID: 11400000, guid: d68d92fcccfcac1479367c8efc7a6e1c, type: 2}
       topMiddleTile: {fileID: 11400000, guid: d6fc67a9a83ea9c48b2ceed6a35e8877, type: 2}
       topRightTile: {fileID: 11400000, guid: ed36c432dc527d149a23e6217f569e8e, type: 2}
@@ -84,7 +95,7 @@ MonoBehaviour:
       bottomLeftTile: {fileID: 11400000, guid: fbdc58ed68c0a634aa41b6300ba00a6c, type: 2}
       bottomMiddleTile: {fileID: 11400000, guid: a3015d69f258eb444981f50dac929f20, type: 2}
       bottomRightTile: {fileID: 11400000, guid: 8612fc6961c45f14dae08e4e98f54a44, type: 2}
-  - groundType: 0
+  - groundType: 4
     tilePalette:
       topLeftTile: {fileID: 11400000, guid: 3c35e5655c0c451469d40502c29e703a, type: 2}
       topMiddleTile: {fileID: 11400000, guid: 23844ab0e8d649b41ab7c63011f1108b, type: 2}
@@ -97,6 +108,7 @@ MonoBehaviour:
       bottomRightTile: {fileID: 11400000, guid: c9856c39500779b4287a0d0cb4fa7490, type: 2}
   interactiveTilemap: {fileID: 5808462663023458859}
   hoverTile: {fileID: 11400000, guid: 7227f87083c3ed343a49af2322d826d2, type: 2}
+  OnTileChanged: {fileID: 11400000, guid: 5c9235811ee9890478b55b3f6e2e720a, type: 2}
 --- !u!1 &1457597352074648610
 GameObject:
   m_ObjectHideFlags: 0

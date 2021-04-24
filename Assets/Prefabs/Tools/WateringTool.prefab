@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
-  range: 1
 --- !u!1001 &4580856677884271771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69,6 +68,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: WateringTool
       objectReference: {fileID: 0}
+    - target: {fileID: 3213069140870901257, guid: a4c01c0d971ce554c928566ccad59364, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8971843156332383023, guid: a4c01c0d971ce554c928566ccad59364, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 092e211290a58c8438050f0f4b8efac2, type: 3}
     - target: {fileID: 8971843156332383023, guid: a4c01c0d971ce554c928566ccad59364, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -81,6 +88,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8971843156332383023, guid: a4c01c0d971ce554c928566ccad59364, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4c01c0d971ce554c928566ccad59364, type: 3}
 --- !u!1 &1370613523493008018 stripped

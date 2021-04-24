@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
 {
-    public static bool DEBUG = false;
+    public bool debug = false;
 
     public Species species;
 
@@ -15,25 +15,21 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
     private bool isBeingCarried;
     private GridCell occupyingCell;
 
-    bool IHoldable.IsBeingCarried { get => isBeingCarried; set => isBeingCarried = value; }
-
-    public GameObject GameObject => gameObject;
-
+    public bool IsBeingCarried { get => isBeingCarried; set => isBeingCarried = value; }
     public Stage CurrentStage { get => currentStage; }
+    public GameObject AssociatedObject { get => gameObject; }
 
     public SpriteRenderer spriteRenderer;
 
-    #region Unity Methods
+    public VoidEventChannelSO OnTileChanged;
 
-#if DEBUG
+    #region Unity Methods
 
     [ContextMenu("SatisfyCurrentNeed")]
     private void SatisfyAllNeeds()
     {
         currentStage.SatisfyNeeds(50f);
     }
-
-#endif
 
     private void Start()
     {
@@ -58,6 +54,12 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
             LogWarning("A plant requires a species.");
         }
     }
+
+    private void OnDisable()
+    {
+        Dispose();
+    }
+
 
     #endregion
 
@@ -98,11 +100,6 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
     }
 
     public void Hold()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void IsBeingCarried()
     {
         throw new NotImplementedException();
     }
@@ -147,6 +144,11 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
         }
     }
 
+    private void CheckOccupyingCell()
+    {
+        occupyingCell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
+    }
+
     private void Configure()
     {
         if (species.stages.Count > 0)
@@ -156,6 +158,9 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
         isOnArableGround = false;
         spriteRenderer.sprite = currentStage.sprite;
         name = currentStage.name+" "+species.name;
+
+        OnTileChanged.OnEventRaised += CheckOccupyingCell;
+        OnTileChanged.OnEventRaised += CheckArableGround;
     }
 
     private void Dispose()
@@ -163,17 +168,20 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
         spriteRenderer.sprite = null;
         name = species.name;
         currentStage = null;
+
+        OnTileChanged.OnEventRaised -= CheckOccupyingCell;
+        OnTileChanged.OnEventRaised -= CheckArableGround;
     }
 
     private void Log(string msg)
     {
-        if (!DEBUG) { return; }
+        if (!debug) { return; }
         Debug.Log("[Plant]: " + msg);
     }
 
     private void LogWarning(string msg)
     {
-        if (!DEBUG) { return; }
+        if (!debug) { return; }
         Debug.LogWarning("[Plant]: " + msg);
     }
 

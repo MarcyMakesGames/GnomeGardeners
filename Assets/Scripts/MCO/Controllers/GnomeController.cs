@@ -29,12 +29,22 @@ public class GnomeController : MonoBehaviour
     {
         if (context.action.name == inputs.PlayerMovement.Movement.name)
             OnInputMove(context);
+        if (context.action.name == inputs.PlayerMovement.Interact.name)
+            OnInputInteract(context);
     }
 
     private void OnInputMove(CallbackContext context)
     {
         moveDir = context.ReadValue<Vector2>();
     }
+
+    private void OnInputInteract(CallbackContext context)
+    {
+        Log("Input action triggered.");
+        if (context.started)
+            Interact();
+    }
+
     #endregion
 
     #region Initialization
@@ -43,6 +53,7 @@ public class GnomeController : MonoBehaviour
         this.playerConfig = playerConfig;
         //This is where we would initialize the gnome skin.
         //skin = playerConfig.skin;
+        skin = gameObject.GetComponent<GnomeSkin>();
 
         playerConfig.Input.onActionTriggered += OnInputAction;
     }
@@ -81,63 +92,91 @@ public class GnomeController : MonoBehaviour
 
     private void Interact()
     {
+        Log("Interacting.");
         var currentCell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
         var interactionPosition = currentCell.GridPosition + lookDir * interactRange;
         var interactionCell = GameManager.Instance.GridManager.GetClosestCell(interactionPosition);
-        GameManager.Instance.GridManager.HighlightTile(interactionCell.GridPosition);
+        var occupant = interactionCell.Occupant;
+        GameManager.Instance.GridManager.FlashHighlightTile(interactionCell.GridPosition);
 
-        if (tool != null)
+        if(tool != null && occupant == null) // note: tool equipped and interacting on empty ground
         {
             tool.UseTool(interactionCell);
-            return;
+        }
+        else if (tool != null && occupant != null) // note: tool equipped and interacting on occupant
+        {
+            Tool toolOnGround = null;
+            if (occupant.AssociatedObject.GetComponent<Tool>() != null)
+            {
+                toolOnGround = (Tool)occupant;
+            }
+
+            if (toolOnGround != null)
+            {
+                Log("Cannot equip tool when already wearing one.");
+            }
+            else
+            {
+                tool.UseTool(interactionCell);
+            }
 
         }
-        else if (tool == null)
+        else if (tool == null && occupant != null) // note: no Tool equipped and interacting on occupant
         {
-            Tool interactTool = null;
-            if (interactionCell.Occupant.GameObject.GetComponent<Tool>() != null)
+            Tool toolOnGround = null;
+            if (occupant.AssociatedObject.GetComponent<Tool>() != null)
             {
-                interactTool = (Tool)interactionCell.Occupant;
+                toolOnGround = (Tool)occupant;
             }
 
-            if (interactTool != null)
+            if (toolOnGround != null)
             {
-                DropTool();
-                ChangeArm(interactTool);
+                EquipTool(toolOnGround, interactionCell);
             }
 
-            IInteractable interactable = null;
-            if (interactionCell.Occupant.GameObject.GetComponent<IInteractable>() != null)
+            IInteractable interactableOnGround = null;
+            if (occupant.AssociatedObject.GetComponent<IInteractable>() != null)
             {
-                interactable = (IInteractable)interactionCell.Occupant;
+                interactableOnGround = (IInteractable)occupant;
             }
-            if (interactable != null)
+            if (interactableOnGround != null)
             {
-                interactable.Interact();
+                interactableOnGround.Interact();
             }
         }
     }
 
-    private void ChangeArm(Tool tool)
+    private void EquipTool(Tool tool, GridCell cell)
     {
         // todo: change animation sprite
         this.tool = tool;
         var renderer = tool.GetComponent<SpriteRenderer>();
         skin.ChangeArm(renderer);
+        tool.Equip(cell);
     }
 
-    private void DropTool()
+    private void UnequipTool()
     {
         if (tool == null)
-        {
             return;
-        }
 
         var dropPosition = transform.position + (Vector3)lookDir * dropRange;
         var dropCell = GameManager.Instance.GridManager.GetClosestCell(dropPosition);
         tool.Unequip(dropCell);
         skin.ResetArm();
         tool = null;
+    }
+
+    private void Log(string msg)
+    {
+        if (debug)
+            Debug.Log("[GnomeController]: " + msg);
+    }
+
+    private void LogWarning(string msg)
+    {
+        if (debug)
+            Debug.LogWarning("[GnomeController]: " + msg);
     }
 
     #endregion

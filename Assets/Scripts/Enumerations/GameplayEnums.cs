@@ -15,6 +15,7 @@ public enum WeatherType
 
 public enum GroundType
 {
+    None,
     Grass,
     Path,
     FallowSoil,

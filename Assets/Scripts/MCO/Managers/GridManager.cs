@@ -22,6 +22,7 @@ public class GridManager : MonoBehaviour
 
     public List<GridCell> GridCells { get => gridCells; }
 
+    public VoidEventChannelSO OnTileChanged;
 
     #region Unity Methods
 
@@ -102,6 +103,8 @@ public class GridManager : MonoBehaviour
 
         PaintTile(gridPosition, targetCell.MapPosition, targetTilePalette);
         targetCell.GroundType = groundType;
+
+        OnTileChanged.RaiseEvent();
     }
 
     public void ChangeTileOccupant(Vector2Int gridPosition, IOccupant occupant)
@@ -158,6 +161,16 @@ public class GridManager : MonoBehaviour
         {
             interactiveTilemap.PaintTile(previousGridPosition, null); // Remove old hoverTile
             interactiveTilemap.PaintTile(gridPosition, hoverTile);
+            previousGridPosition = gridPosition;
+        }
+    }
+
+    public void FlashHighlightTile(Vector2Int gridPosition)
+    {
+        if (!gridPosition.Equals(previousGridPosition))
+        {
+            interactiveTilemap.color = Color.white;
+            interactiveTilemap.color = Color.red;
             previousGridPosition = gridPosition;
         }
     }

@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class CoreObjectDispenser : MonoBehaviour, IInteractable
 {
-    public GameObject GameObject => gameObject;
+    public GameObject AssociatedObject { get => gameObject; }
+
+    private void Start()
+    {
+    }
 
     #region Public Methods
     public void DispenseItem(Tool tool, string itemName)
     {
-        
+        throw new System.NotImplementedException();
     }
 
     public void DispenseItem(Vector3 dropLocation, string itemName)

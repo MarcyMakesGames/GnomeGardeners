@@ -6,19 +6,16 @@ public class PrepareCommand : ICommand
 {
     public void Execute(GridCell cell, Tool tool)
     {
-        /* if in front of fallow ground
-         *  make ground arable
-         *  
-         * if in front of obstacle
-         *  remove obstacle
-         */
+        Debug.Log("Executing Prepare Command.");
 
         /*if (cell.CellOccupant.Equals(Obstacle)){
          * cell.RemoveCellOccupant();
         *
         */
+
+
         if (cell.GroundType.Equals(GroundType.FallowSoil)){
-            cell.GroundType = GroundType.ArableSoil;
+            GameManager.Instance.GridManager.ChangeTile(cell.GridPosition, GroundType.ArableSoil);
         }
     }
 }
