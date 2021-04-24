@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
@@ -21,28 +22,40 @@ public class GnomeController : MonoBehaviour
     private CameraFollow cameraFollow;
     private bool interacting = false;
 
+    private GridCell interactionCell;
+
     public Vector2 LookDir { get => lookDir; }
     public Tool EquippedTool { get => tool; set => tool = value; }
 
     #region InputEvents
     public void OnInputAction(CallbackContext context)
     {
-        if (context.action.name == inputs.PlayerMovement.Movement.name)
+        if (context.action.name == inputs.Player.Move.name)
             OnInputMove(context);
-        if (context.action.name == inputs.PlayerMovement.Interact.name)
-            OnInputInteract(context);
+        if (context.action.name == inputs.Player.UseTool.name)
+            OnInputUseTool(context);
+        if (context.action.name == inputs.Player.EquipUnequip.name)
+            OnInputEquipUnequip(context);
     }
 
     private void OnInputMove(CallbackContext context)
     {
+        Log("Move action triggered.");
         moveDir = context.ReadValue<Vector2>();
     }
 
-    private void OnInputInteract(CallbackContext context)
+    private void OnInputEquipUnequip(CallbackContext context)
     {
-        Log("Input action triggered.");
+        Log("Equip/Unequip action triggered.");
         if (context.started)
-            Interact();
+            EquipUnequip(interactionCell);
+    }
+
+    private void OnInputUseTool(CallbackContext context)
+    {
+        Log("Use tool action triggered.");
+        if (context.started)
+            UseTool(interactionCell);
     }
 
     #endregion
@@ -76,9 +89,7 @@ public class GnomeController : MonoBehaviour
 
     private void Update()
     {
-        var currentCell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
-        var interactionPosition = currentCell.GridPosition + lookDir * interactRange;
-        var interactionCell = GameManager.Instance.GridManager.GetClosestCell(interactionPosition);
+        interactionCell = CalculateInteractionCell();
         GameManager.Instance.GridManager.HighlightTile(interactionCell.GridPosition);
     }
 
@@ -90,36 +101,50 @@ public class GnomeController : MonoBehaviour
         transform.position += (Vector3)moveDir * moveSpeed * Time.deltaTime;
     }
 
-    private void Interact()
+    private void UseTool(GridCell cell)
     {
         Log("Interacting.");
+        var occupant = cell.Occupant;
+        GameManager.Instance.GridManager.FlashHighlightTile(cell.GridPosition);
+
+        if (tool != null) // note: tool equipped and interacting on cell
+        {
+            tool.UseTool(cell);
+        }
+        else if (tool == null && occupant != null) // note: no Tool equipped and interacting on occupant
+        {
+            IInteractable interactableOnGround = null;
+            if (occupant.AssociatedObject.GetComponent<IInteractable>() != null)
+            {
+                interactableOnGround = (IInteractable)occupant;
+            }
+            if (interactableOnGround != null)
+            {
+                interactableOnGround.Interact();
+            }
+        }
+    }
+
+    private GridCell CalculateInteractionCell()
+    {
         var currentCell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
         var interactionPosition = currentCell.GridPosition + lookDir * interactRange;
         var interactionCell = GameManager.Instance.GridManager.GetClosestCell(interactionPosition);
-        var occupant = interactionCell.Occupant;
-        GameManager.Instance.GridManager.FlashHighlightTile(interactionCell.GridPosition);
+        return interactionCell;
+    }
 
-        if(tool != null && occupant == null) // note: tool equipped and interacting on empty ground
+    private void EquipUnequip(GridCell cell)
+    {
+        var occupant = cell.Occupant;
+        GameManager.Instance.GridManager.FlashHighlightTile(cell.GridPosition);
+
+        if(tool != null && occupant != null)
         {
-            tool.UseTool(interactionCell);
+            Log("Cannot drop tool on occupied tile.");
         }
-        else if (tool != null && occupant != null) // note: tool equipped and interacting on occupant
+        else if (tool != null && occupant == null)
         {
-            Tool toolOnGround = null;
-            if (occupant.AssociatedObject.GetComponent<Tool>() != null)
-            {
-                toolOnGround = (Tool)occupant;
-            }
-
-            if (toolOnGround != null)
-            {
-                Log("Cannot equip tool when already wearing one.");
-            }
-            else
-            {
-                tool.UseTool(interactionCell);
-            }
-
+            UnequipTool();
         }
         else if (tool == null && occupant != null) // note: no Tool equipped and interacting on occupant
         {
@@ -131,17 +156,7 @@ public class GnomeController : MonoBehaviour
 
             if (toolOnGround != null)
             {
-                EquipTool(toolOnGround, interactionCell);
-            }
-
-            IInteractable interactableOnGround = null;
-            if (occupant.AssociatedObject.GetComponent<IInteractable>() != null)
-            {
-                interactableOnGround = (IInteractable)occupant;
-            }
-            if (interactableOnGround != null)
-            {
-                interactableOnGround.Interact();
+                EquipTool(toolOnGround, cell);
             }
         }
     }

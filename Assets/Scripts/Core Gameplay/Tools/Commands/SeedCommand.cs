@@ -9,15 +9,7 @@ public class SeedCommand : ICommand
     public void Execute(GridCell cell, Tool tool)
     {
         Debug.Log("Executing Seed Command.");
-        /*
-         * if IHoldable != seed
-         *  return;
-         * 
-         * if seed && in front of seed || in front of seed bag:
-         *  pick up seed
-         * if carrying seed && above arable ground:
-         *  plant seed
-         */
+
         var seedBag = cell.Occupant.AssociatedObject.GetComponent<CoreObjectDispenser>();
         if (seed == null && seedBag != null)
         {
