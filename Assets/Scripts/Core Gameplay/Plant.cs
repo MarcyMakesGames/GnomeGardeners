@@ -10,6 +10,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
     public Species species;
 
     private Stage currentStage;
+    private float lastStageTimeStamp;
     private float currentGrowTime;
     private bool isOnArableGround;
     private bool isBeingCarried;
@@ -24,12 +25,6 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
     public VoidEventChannelSO OnTileChanged;
 
     #region Unity Methods
-
-    [ContextMenu("SatisfyCurrentNeed")]
-    private void SatisfyAllNeeds()
-    {
-        currentStage.SatisfyNeeds(50f);
-    }
 
     private void Start()
     {
@@ -75,10 +70,9 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
         Dispose();
     }
 
-    public void WaterPlant()
+    public void WaterPlant(float amount)
     {
-        // water this plant
-        throw new NotImplementedException();
+        currentStage.SatisfyNeed(NeedType.Water, amount);
     }
 
     public void PlantSeed(GridCell cell)
@@ -111,7 +105,9 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
         if (!isOnArableGround)
             return;
 
-        if (GameManager.Instance.Time.GetTimeSince(currentGrowTime) >= currentStage.timeToNextStage)
+        currentGrowTime = GameManager.Instance.Time.GetTimeSince(lastStageTimeStamp) * species.growMultiplier;
+
+        if ( currentGrowTime >= currentStage.timeToNextStage)
         {
             AdvanceStages();
         }
@@ -126,7 +122,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
         }
         currentStage = species.NextStage(currentStage.index);
         Log("Grew into stage: " + currentStage.specifier.ToString());
-        currentGrowTime = GameManager.Instance.Time.ElapsedTime;
+        lastStageTimeStamp = GameManager.Instance.Time.ElapsedTime;
         spriteRenderer.sprite = currentStage.sprite;
         name = currentStage.name + " " + species.name;
     }

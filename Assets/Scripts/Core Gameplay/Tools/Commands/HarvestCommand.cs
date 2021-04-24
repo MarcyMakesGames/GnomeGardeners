@@ -20,6 +20,7 @@ public class HarvestCommand : ICommand
         if(scoringArea != null)
         {
             scoringArea.Interact(tool);
+            tool.heldItem = null;
         }
     }
 }

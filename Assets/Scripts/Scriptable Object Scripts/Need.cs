@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Need", menuName = "Plants/Need")]
 public class Need : ScriptableObject
 {
-    public string needName;
+    public NeedType type;
     public float threshold;
     public Sprite popUp;
 

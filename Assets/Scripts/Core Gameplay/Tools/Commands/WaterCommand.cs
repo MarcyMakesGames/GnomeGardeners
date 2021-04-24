@@ -16,7 +16,7 @@ public class WaterCommand : ICommand
         var plant = cell.Occupant.AssociatedObject.GetComponent<Plant>();
         if (plant != null)
         {
-            plant.WaterPlant();
+            plant.WaterPlant(tool.waterAmount);
         }
 
         //var pest = cell.Occupant.GameObject.GetComponent<Pest>();

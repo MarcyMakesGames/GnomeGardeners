@@ -46,3 +46,9 @@ public enum PlantStage
 
     Count,
 }
+
+public enum NeedType
+{
+    Water,
+    Fertilizer,
+}

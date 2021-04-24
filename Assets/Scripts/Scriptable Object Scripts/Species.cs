@@ -11,6 +11,7 @@ public class Species : ScriptableObject
     public bool isDamaging;
     public bool isSpawning;
     public bool isFragile;
+    public float growMultiplier;
 
     public Stage NextStage(int current)
     {

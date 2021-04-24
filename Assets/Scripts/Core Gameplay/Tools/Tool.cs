@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Tool : MonoBehaviour, IOccupant
 {
-    private bool debug = true;
+    bool debug = true;
 
+    public float waterAmount;
     [SerializeField] private ToolType type;
 
     public IHoldable heldItem;
-
     private ICommand use;
+
     private bool isEquipped;
 
     public GameObject AssociatedObject { get => gameObject; }

@@ -9,32 +9,18 @@ public class Stage : ScriptableObject
     public PlantStage specifier;
     public int index;
     public Sprite sprite;
-    public List<Need> needs;
+    public Need need;
     public float timeToNextStage;
     public bool isDeliverable;
     public int pointValue;
     public bool IsReady()
     {
-        foreach (Need need in needs)
-        {
-            if (!need.IsFulfilled)
-            {
-                return false;
-            }
-        }
-        return true;
+        return need.IsFulfilled;
     }
 
-    public void SatisfyNeed(int index, float value)
+    public void SatisfyNeed(NeedType type, float value)
     {
-        needs[index].Satisfy(value);
-    }
-
-    public void SatisfyNeeds(float value)
-    {
-        foreach (Need need in needs)
-        {
+        if(need.type == type)
             need.Satisfy(value);
-        }
     }
 }
