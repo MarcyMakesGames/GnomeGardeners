@@ -30,12 +30,12 @@ public class GnomeController : MonoBehaviour
     #region InputEvents
     public void OnInputAction(CallbackContext context)
     {
-        if (context.action.name == inputs.Player.Move.name)
-            OnInputMove(context);
-        if (context.action.name == inputs.Player.UseTool.name)
-            OnInputUseTool(context);
-        if (context.action.name == inputs.Player.EquipUnequip.name)
-            OnInputEquipUnequip(context);
+        //if (context.action.name == inputs.Player.Move.name)
+        //    OnInputMove(context);
+        //if (context.action.name == inputs.Player.UseTool.name)
+        //    OnInputUseTool(context);
+        //if (context.action.name == inputs.Player.EquipUnequip.name)
+        //    OnInputEquipUnequip(context);
     }
 
     private void OnInputMove(CallbackContext context)
