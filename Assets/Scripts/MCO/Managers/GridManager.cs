@@ -13,6 +13,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private List<GroundTileAssociation> groundTiles;
     [SerializeField] private Tilemap interactiveTilemap;
     [SerializeField] private Tile hoverTile;
+    [SerializeField] private bool createEmptyTileMap;
 
     private List<GridCell> gridCells = new List<GridCell>();
     private GridCell targetCell;
@@ -40,7 +41,10 @@ public class GridManager : MonoBehaviour
 
     private void Start()
     {
-        CreateTileMap(halfMapSize);
+        if (createEmptyTileMap)
+            CreateEmptyTileMap(halfMapSize);
+        else
+            CreateTileMap(halfMapSize);
     }
 
     #endregion
@@ -208,6 +212,18 @@ public class GridManager : MonoBehaviour
                 gridCells.Add(cell);
 
                 PaintTile(cell.GridPosition, cell.MapPosition, groundTiles[0].tilePalette);
+            }
+    }
+    private void CreateEmptyTileMap(int mapSize)
+    {
+        for (int i = -mapSize; i <= mapSize; i++)
+            for (int j = -mapSize; j <= mapSize; j++)
+            {
+                Vector2Int gridPosition = new Vector2Int(i, j);
+                Vector3 worldPosition = gridMap.CellToWorld((Vector3Int)gridPosition);
+
+                GridCell cell = CreateCell(gridPosition, worldPosition, groundTiles[0].groundType, mapSize);
+                gridCells.Add(cell);
             }
     }
 

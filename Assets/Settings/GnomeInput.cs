@@ -36,8 +36,16 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Tool Use"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""73b4adcc-7a3f-4673-a7d6-14a96b03da37"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""dd544541-3d5c-4fea-9226-3c9c7097c5b9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -147,10 +155,21 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""cebae20b-16f1-4a03-a7aa-d68a378b17dc"",
                     ""path"": ""<Keyboard>/q"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Tool Use"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""574500f7-bcc6-4db2-9495-7189987bbee2"",
+                    ""path"": ""<keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -164,6 +183,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_ToolUse = m_Player.FindAction("Tool Use", throwIfNotFound: true);
+        m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -216,6 +236,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_ToolUse;
+    private readonly InputAction m_Player_Escape;
     public struct PlayerActions
     {
         private @GnomeInput m_Wrapper;
@@ -223,6 +244,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @ToolUse => m_Wrapper.m_Player_ToolUse;
+        public InputAction @Escape => m_Wrapper.m_Player_Escape;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -241,6 +263,9 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 @ToolUse.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToolUse;
                 @ToolUse.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToolUse;
                 @ToolUse.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToolUse;
+                @Escape.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
+                @Escape.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
+                @Escape.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -254,6 +279,9 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 @ToolUse.started += instance.OnToolUse;
                 @ToolUse.performed += instance.OnToolUse;
                 @ToolUse.canceled += instance.OnToolUse;
+                @Escape.started += instance.OnEscape;
+                @Escape.performed += instance.OnEscape;
+                @Escape.canceled += instance.OnEscape;
             }
         }
     }
@@ -263,5 +291,6 @@ public class @GnomeInput : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnToolUse(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
     }
 }

@@ -23,8 +23,16 @@
                 },
                 {
                     "name": "Tool Use",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "73b4adcc-7a3f-4673-a7d6-14a96b03da37",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "dd544541-3d5c-4fea-9226-3c9c7097c5b9",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -134,10 +142,21 @@
                     "name": "",
                     "id": "cebae20b-16f1-4a03-a7aa-d68a378b17dc",
                     "path": "<Keyboard>/q",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Tool Use",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "574500f7-bcc6-4db2-9495-7189987bbee2",
+                    "path": "<keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

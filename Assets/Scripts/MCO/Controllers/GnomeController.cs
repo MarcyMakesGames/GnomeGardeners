@@ -5,7 +5,7 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class GnomeController : MonoBehaviour
 {
-    private bool debug = false;
+    private bool debug = true;
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float interactRange = 1f;
@@ -30,28 +30,34 @@ public class GnomeController : MonoBehaviour
     #region InputEvents
     public void OnInputAction(CallbackContext context)
     {
-        Debug.Log("R/x input");
+        // Log("R/x input");
         if (context.action.name == inputs.Player.Movement.name)
             OnInputMove(context);
+        if (context.action.name == inputs.Player.Interact.name)
+            OnInputEquipUnequip(context);
+        if (context.action.name == inputs.Player.ToolUse.name)
+            OnInputUseTool(context);
+        if (context.action.name == inputs.Player.Escape.name)
+            Application.Quit();
     }
 
     private void OnInputMove(CallbackContext context)
     {
-        Debug.Log("R/x move input");
+        // Log("R/x move input");
         moveDir = context.ReadValue<Vector2>();
     }
 
     private void OnInputEquipUnequip(CallbackContext context)
     {
         Log("Equip/Unequip action triggered.");
-        if (context.started)
+        if (context.performed)
             EquipUnequip(interactionCell);
     }
 
     private void OnInputUseTool(CallbackContext context)
     {
         Log("Use tool action triggered.");
-        if (context.started)
+        if (context.performed)
             UseTool(interactionCell);
     }
 
