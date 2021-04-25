@@ -27,12 +27,14 @@ public class GnomeController : MonoBehaviour
     #region InputEvents
     public void OnInputAction(CallbackContext context)
     {
+        Debug.Log("R/x input");
         if (context.action.name == inputs.Player.Movement.name)
             OnInputMove(context);
     }
 
     private void OnInputMove(CallbackContext context)
     {
+        Debug.Log("R/x move input");
         moveDir = context.ReadValue<Vector2>();
     }
     #endregion
@@ -40,6 +42,7 @@ public class GnomeController : MonoBehaviour
     #region Initialization
     public void InitializePlayer(PlayerConfig playerConfig)
     {
+        Debug.Log("Initializing gnome.");
         this.playerConfig = playerConfig;
         //This is where we would initialize the gnome skin.
         //skin = playerConfig.skin;
@@ -78,36 +81,36 @@ public class GnomeController : MonoBehaviour
         var interactionPosition = currentCell.GridPosition + lookDir * interactRange;
         var interactionCell = GameManager.Instance.GridManager.GetClosestCell(interactionPosition);
 
-        if (tool != null)
-        {
-            tool.UseTool(interactionCell);
-            return;
+        //if (tool != null)
+        //{
+        //    tool.UseTool(interactionCell);
+        //    return;
 
-        }
-        else if (tool == null)
-        {
-            Tool interactTool = null;
-            if (interactionCell.Occupant.GameObject.GetComponent<Tool>() != null)
-            {
-                interactTool = (Tool)interactionCell.Occupant;
-            }
+        //}
+        //else if (tool == null)
+        //{
+        //    Tool interactTool = null;
+        //    if (interactionCell.Occupant.GameObject.GetComponent<Tool>() != null)
+        //    {
+        //        interactTool = (Tool)interactionCell.Occupant;
+        //    }
 
-            if (interactTool != null)
-            {
-                DropTool();
-                ChangeArm(interactTool);
-            }
+        //    if (interactTool != null)
+        //    {
+        //        DropTool();
+        //        ChangeArm(interactTool);
+        //    }
 
-            IInteractable interactable = null;
-            if (interactionCell.Occupant.GameObject.GetComponent<IInteractable>() != null)
-            {
-                interactable = (IInteractable)interactionCell.Occupant;
-            }
-            if (interactable != null)
-            {
-                interactable.Interact();
-            }
-        }
+        //    IInteractable interactable = null;
+        //    if (interactionCell.Occupant.GameObject.GetComponent<IInteractable>() != null)
+        //    {
+        //        interactable = (IInteractable)interactionCell.Occupant;
+        //    }
+        //    if (interactable != null)
+        //    {
+        //        interactable.Interact();
+        //    }
+        //}
     }
 
     private void ChangeArm(Tool tool)

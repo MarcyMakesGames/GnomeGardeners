@@ -68,11 +68,13 @@ public struct KeyboardRightState : IInputStateTypeInfo
     // Assume a 16bit field of buttons. Create one button that is tied to
     // bit #3 (zero-based). Note that buttons do not need to be stored as bits.
     // They can also be stored as floats or shorts, for example.
-    [InputControl(name = "button", layout = "Button", bit = 3)]
+    
+    //[InputControl(name = "button", layout = "Button", bit = 3)]
     //public ushort buttons;
 
     // Create a floating-point axis. The name, if not supplied, is taken from
     // the field.
-    [InputControl(layout = "Axis")]
+    
+    //[InputControl(layout = "Axis")]
     //public short axis;
 }
