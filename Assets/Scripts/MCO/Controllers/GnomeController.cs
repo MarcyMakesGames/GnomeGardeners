@@ -30,17 +30,14 @@ public class GnomeController : MonoBehaviour
     #region InputEvents
     public void OnInputAction(CallbackContext context)
     {
-        //if (context.action.name == inputs.Player.Move.name)
-        //    OnInputMove(context);
-        //if (context.action.name == inputs.Player.UseTool.name)
-        //    OnInputUseTool(context);
-        //if (context.action.name == inputs.Player.EquipUnequip.name)
-        //    OnInputEquipUnequip(context);
+        Debug.Log("R/x input");
+        if (context.action.name == inputs.Player.Movement.name)
+            OnInputMove(context);
     }
 
     private void OnInputMove(CallbackContext context)
     {
-        Log("Move action triggered.");
+        Debug.Log("R/x move input");
         moveDir = context.ReadValue<Vector2>();
     }
 
@@ -63,6 +60,7 @@ public class GnomeController : MonoBehaviour
     #region Initialization
     public void InitializePlayer(PlayerConfig playerConfig)
     {
+        Debug.Log("Initializing gnome.");
         this.playerConfig = playerConfig;
         //This is where we would initialize the gnome skin.
         //skin = playerConfig.skin;
