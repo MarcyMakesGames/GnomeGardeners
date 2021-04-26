@@ -11,12 +11,19 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Tilemap groundTilemap;
     [SerializeField] private int halfMapSize;
     [SerializeField] private List<GroundTileAssociation> groundTiles;
+    [SerializeField] private Tilemap interactiveTilemap;
+    [SerializeField] private Tile hoverTile;
+    [SerializeField] private bool createEmptyTileMap;
 
     private List<GridCell> gridCells = new List<GridCell>();
     private GridCell targetCell;
     private TilePaletteObject targetTilePalette;
 
+    Vector2Int previousGridPosition = new Vector2Int();
+
     public List<GridCell> GridCells { get => gridCells; }
+
+    public VoidEventChannelSO OnTileChanged;
 
     #region Unity Methods
 
@@ -25,14 +32,19 @@ public class GridManager : MonoBehaviour
         if (gridMap == null)
             gridMap = GetComponent<Grid>();
         if (groundTilemap == null)
-            throw new System.NotImplementedException("Did not assign the tilemap.");
+            throw new System.NotImplementedException("Did not assign the ground tilemap.");
+        if (interactiveTilemap == null)
+            throw new System.NotImplementedException("Did not assign the interactive tilemap.");
 
         GameManager.Instance.GridManager = this;
     }
 
     private void Start()
     {
-        CreateTileMap(halfMapSize);
+        if (createEmptyTileMap)
+            CreateEmptyTileMap(halfMapSize);
+        else
+            CreateTileMap(halfMapSize);
     }
 
     #endregion
@@ -95,6 +107,8 @@ public class GridManager : MonoBehaviour
 
         PaintTile(gridPosition, targetCell.MapPosition, targetTilePalette);
         targetCell.GroundType = groundType;
+
+        OnTileChanged.RaiseEvent();
     }
 
     public void ChangeTileOccupant(Vector2Int gridPosition, IOccupant occupant)
@@ -145,6 +159,26 @@ public class GridManager : MonoBehaviour
         return null;
     }
 
+    public void HighlightTile(Vector2Int gridPosition)
+    {
+        if (!gridPosition.Equals(previousGridPosition))
+        {
+            interactiveTilemap.PaintTile(previousGridPosition, null); // Remove old hoverTile
+            interactiveTilemap.PaintTile(gridPosition, hoverTile);
+            previousGridPosition = gridPosition;
+        }
+    }
+
+    public void FlashHighlightTile(Vector2Int gridPosition)
+    {
+        if (!gridPosition.Equals(previousGridPosition))
+        {
+            interactiveTilemap.color = Color.white;
+            interactiveTilemap.color = Color.red;
+            previousGridPosition = gridPosition;
+        }
+    }
+
     #endregion
 
     #region Private Methods
@@ -178,6 +212,18 @@ public class GridManager : MonoBehaviour
                 gridCells.Add(cell);
 
                 PaintTile(cell.GridPosition, cell.MapPosition, groundTiles[0].tilePalette);
+            }
+    }
+    private void CreateEmptyTileMap(int mapSize)
+    {
+        for (int i = -mapSize; i <= mapSize; i++)
+            for (int j = -mapSize; j <= mapSize; j++)
+            {
+                Vector2Int gridPosition = new Vector2Int(i, j);
+                Vector3 worldPosition = gridMap.CellToWorld((Vector3Int)gridPosition);
+
+                GridCell cell = CreateCell(gridPosition, worldPosition, groundTiles[0].groundType, mapSize);
+                gridCells.Add(cell);
             }
     }
 

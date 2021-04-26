@@ -2,7 +2,7 @@
     "name": "GnomeInput",
     "maps": [
         {
-            "name": "PlayerMovement",
+            "name": "Player",
             "id": "dfd9b799-e391-41c6-a800-770be6f094b6",
             "actions": [
                 {
@@ -15,11 +15,27 @@
                 },
                 {
                     "name": "Interact",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "bf59ceba-2f07-49c3-88ae-a86e44116941",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
+                },
+                {
+                    "name": "Tool Use",
+                    "type": "Button",
+                    "id": "73b4adcc-7a3f-4673-a7d6-14a96b03da37",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "dd544541-3d5c-4fea-9226-3c9c7097c5b9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -36,7 +52,7 @@
                 },
                 {
                     "name": "WASD Movement",
-                    "id": "e44961cb-a65c-4edd-a8f5-793e2c8d7030",
+                    "id": "ce557ab0-65c9-42a3-8b4b-d5c49c8c0ed9",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -47,7 +63,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "2cfc012b-4b44-49d7-a575-b8905f58aafc",
+                    "id": "1a37a757-6872-4e90-9b57-051272f2d2aa",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
@@ -58,7 +74,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "d0cfd7bb-70d9-4b65-a67f-6d57b9047c0d",
+                    "id": "40032fbc-626f-4859-97b7-80a842c23484",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -69,7 +85,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "21f47e4b-0fe0-4164-95e8-94f1821fd7f3",
+                    "id": "e9b00d49-a9a0-4de8-a55b-cd1ae721ffee",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -80,7 +96,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "27d6bcfc-d094-4689-86cd-4da176b12e6a",
+                    "id": "4bf19463-3402-4d90-99b1-5160f025747b",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -91,9 +107,9 @@
                 },
                 {
                     "name": "",
-                    "id": "ef967d68-6b69-4b98-bdea-771f2d3f16a6",
-                    "path": "<Keyboard>/e",
-                    "interactions": "Press(behavior=2)",
+                    "id": "d17818b0-9e29-4d12-9e13-c294f138c2e1",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
@@ -102,12 +118,45 @@
                 },
                 {
                     "name": "",
-                    "id": "d17818b0-9e29-4d12-9e13-c294f138c2e1",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "Press(behavior=2)",
+                    "id": "2fc1ba4d-5528-4771-8972-84c098a45b78",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "af5848e4-78fb-4282-b048-887df7f94d63",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tool Use",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cebae20b-16f1-4a03-a7aa-d68a378b17dc",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tool Use",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "574500f7-bcc6-4db2-9495-7189987bbee2",
+                    "path": "<keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

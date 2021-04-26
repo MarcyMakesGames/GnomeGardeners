@@ -27,6 +27,11 @@ public class GridCell
 
     public void RemoveCellOccupant()
     {
-        occupant.GameObject.SetActive(false);
+        occupant = null;
+    }
+
+    public void AddCellOccupant(IOccupant occupant)
+    {
+        this.occupant = occupant;
     }
 }
