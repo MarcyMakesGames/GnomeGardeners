@@ -28,19 +28,19 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Interact"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""bf59ceba-2f07-49c3-88ae-a86e44116941"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Tool Use"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""73b4adcc-7a3f-4673-a7d6-14a96b03da37"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Escape"",
@@ -48,7 +48,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                     ""id"": ""dd544541-3d5c-4fea-9226-3c9c7097c5b9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -122,7 +122,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""d17818b0-9e29-4d12-9e13-c294f138c2e1"",
                     ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": ""Press(behavior=2)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interact"",

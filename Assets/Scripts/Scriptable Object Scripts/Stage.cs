@@ -11,7 +11,8 @@ public class Stage : ScriptableObject
     public Sprite sprite;
     public Need need;
     public float timeToNextStage;
-    public bool isDeliverable;
+    public bool isHarvestable;
+    public bool isPlantable;
     public int pointValue;
     public bool IsReady()
     {

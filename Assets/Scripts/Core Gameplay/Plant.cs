@@ -66,8 +66,11 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
     public void HarvestPlant()
     {
         // todo: object pool stash
-        gameObject.SetActive(false);
-        Dispose();
+        if (currentStage.isHarvestable)
+        {
+            gameObject.SetActive(false);
+            Dispose();
+        }
     }
 
     public void WaterPlant(float amount)
@@ -80,6 +83,8 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable, IOccupant
         if (currentStage.specifier != PlantStage.Seed)
             return;
 
+        gameObject.SetActive(true);
+        transform.position = cell.WorldPosition;
         cell.Occupant = this;
         occupyingCell = cell;
 

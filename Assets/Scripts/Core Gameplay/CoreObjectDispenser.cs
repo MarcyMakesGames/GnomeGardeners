@@ -4,26 +4,29 @@ using UnityEngine;
 
 public class CoreObjectDispenser : MonoBehaviour, IInteractable
 {
+    public GameObject dispensable;
     public GameObject AssociatedObject { get => gameObject; }
 
-    private void Start()
-    {
-    }
-
     #region Public Methods
-    public void DispenseItem(Tool tool, string itemName)
+    private void DispenseItem(Tool tool)
     {
-        throw new System.NotImplementedException();
+        var dispensedItem = Instantiate(dispensable, transform);
+        tool.heldItem = dispensedItem.GetComponent<IHoldable>();
+        dispensedItem.gameObject.SetActive(false);
     }
 
-    public void DispenseItem(Vector3 dropLocation, string itemName)
+    private void DispenseItem(Vector2Int dropLocation)
     {
         throw new System.NotImplementedException();
     }
 
     public void Interact(Tool tool = null)
     {
-        DispenseItem(tool, "Plant");
+        if (tool != null)
+            DispenseItem(tool);
+        else
+            return; // todo: implement drop on floor
+
     }
     #endregion
 }

@@ -5,7 +5,7 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class GnomeController : MonoBehaviour
 {
-    private bool debug = true;
+    private bool debug = false;
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float interactRange = 1f;
@@ -51,14 +51,20 @@ public class GnomeController : MonoBehaviour
     {
         Log("Equip/Unequip action triggered.");
         if (context.performed)
+        {
             EquipUnequip(interactionCell);
+            Log("Equip/Unequip action executed.");
+        }
     }
 
     private void OnInputUseTool(CallbackContext context)
     {
         Log("Use tool action triggered.");
         if (context.performed)
+        {
             UseTool(interactionCell);
+            Log("Use tool action executed.");
+        }
     }
 
     #endregion
