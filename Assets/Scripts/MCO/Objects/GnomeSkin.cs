@@ -13,12 +13,11 @@ public class GnomeSkin : MonoBehaviour
     public void ChangeArm(SpriteRenderer renderer)
     {
         toolArm.sprite = renderer.sprite;
-        toolArm.color = renderer.color;
     }
 
     public void ResetArm()
     {
-        toolArm.color = Color.white;
+        toolArm.sprite = null;
     }
     #endregion
 }

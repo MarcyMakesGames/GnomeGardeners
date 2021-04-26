@@ -34,14 +34,17 @@ public class ScoringArea : MonoBehaviour, IScoringArea
 
     public void Interact(Tool tool = null)
     {
-        var plant = (Plant)tool.heldItem;
+        Debug.Log("Interacted with scoring area");
+        var harvest = (Plant)tool.heldItem;
+        var harvestStage = harvest.CurrentStage;
 
-        if(tool.Type == ToolType.Harvesting && plant != null)
+        if(tool.Type == ToolType.Harvesting && harvestStage != null)
         {
-            var score = plant.CurrentStage.pointValue;
+            var score = harvestStage.pointValue;
             AddScore(score);
-            AddSprite(plant.CurrentStage.sprite);
+            AddSprite(harvestStage.sprite);
             ++plantCount;
+            Debug.Log("Delivered plant");
         }
     }
 

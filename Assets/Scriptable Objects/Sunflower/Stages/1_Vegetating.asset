@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: 1_Vegetating
   m_EditorClassIdentifier: 
   stageName: Vegetating
+  specifier: 1
   sprite: {fileID: 21300000, guid: c964319eb7c43c940bf2ba4b38f3b371, type: 3}
-  needs:
-  - {fileID: 11400000, guid: d0e28a439f5b38b48b9cfc767e2aae3d, type: 2}
+  need: {fileID: 11400000, guid: 81e545e685c7e4a44ae6e1df1d3d99ff, type: 2}
   timeToNextStage: 5
-  isDeliverable: 1
+  isHarvestable: 0
+  isPlantable: 0
   pointValue: 10

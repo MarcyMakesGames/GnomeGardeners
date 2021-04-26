@@ -4,19 +4,25 @@ using UnityEngine;
 
 public class WaterCommand : ICommand
 {
+    private bool debug = false;
     public void Execute(GridCell cell, Tool tool)
     {
-        Debug.Log("Executing Water Command.");
+        Log("Executing");
         /* if in front of plant
          *  water plant
          * if in front of pest
          *  add fright to pest
          */
+        var occupant = cell.Occupant;
+        if(occupant == null)
+        {
+            return;
+        }
 
         var plant = cell.Occupant.AssociatedObject.GetComponent<Plant>();
         if (plant != null)
         {
-            plant.WaterPlant(tool.waterAmount);
+            plant.AddToNeedValue(tool.waterAmount);
         }
 
         //var pest = cell.Occupant.GameObject.GetComponent<Pest>();
@@ -24,5 +30,17 @@ public class WaterCommand : ICommand
         //{
         //    pest.AddFright();
         //}
+    }
+
+    private void Log(string msg)
+    {
+        if (!debug) { return; }
+        Debug.Log("[WaterCommand]: " + msg);
+    }
+
+    private void LogWarning(string msg)
+    {
+        if (!debug) { return; }
+        Debug.LogWarning("[WaterCommand]: " + msg);
     }
 }
