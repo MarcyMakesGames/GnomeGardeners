@@ -6,5 +6,5 @@ public interface IHoldable
 {
     void Hold();
     void Drop(Vector2 position);
-    void IsBeingCarried();
+    bool IsBeingCarried { get; set; }
 }

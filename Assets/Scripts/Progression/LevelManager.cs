@@ -28,7 +28,9 @@ public class LevelManager : MonoBehaviour
     void Update()
     {
         activeLevel.Update();
-        timerUI.UpdateUI(activeLevel.RestTime);
+
+        if(timerUI != null)
+            timerUI.UpdateUI(activeLevel.RestTime);
     }
 
     #endregion
