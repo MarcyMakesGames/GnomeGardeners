@@ -113,7 +113,7 @@ public class GnomeController : MonoBehaviour
 
     private void UseTool(GridCell cell)
     {
-        Log("Interacting.");
+        Log("Using Tool.");
         var occupant = cell.Occupant;
         GameManager.Instance.GridManager.FlashHighlightTile(cell.GridPosition);
 

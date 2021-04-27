@@ -4,23 +4,45 @@ using UnityEngine;
 
 public class HarvestCommand : ICommand
 {
+    private bool debug = false;
+
     public void Execute(GridCell cell, Tool tool)
     {
-        Debug.Log("Executing Harvest Command.");
-
-        var plant = cell.Occupant.AssociatedObject.GetComponent<Plant>();
-
-        if ( plant != null){
-            plant.HarvestPlant();
-            tool.heldItem = plant;
-        }
-
-        var scoringArea = cell.Occupant.AssociatedObject.GetComponent<ScoringArea>();
-
-        if(scoringArea != null)
+        Log("Executing.");
+        var occupant = cell.Occupant;
+        if(occupant != null)
         {
-            scoringArea.Interact(tool);
-            tool.heldItem = null;
+            var associatedObject = occupant.AssociatedObject;
+            if(associatedObject != null)
+            {
+                var plant = associatedObject.GetComponent<Plant>();
+                var holdable = associatedObject.GetComponent<IHoldable>();
+                if (plant != null && tool.heldItem == null && holdable != null)
+                {
+                    tool.heldItem = holdable;
+                    plant.HarvestPlant(cell);
+                }
+
+                var scoringArea = associatedObject.GetComponent<ScoringArea>();
+                if (scoringArea != null && tool.heldItem != null)
+                {
+                    scoringArea.Interact(tool);
+                    tool.heldItem = null;
+                }
+            }
         }
+        
+    }
+
+    private void Log(string msg)
+    {
+        if (debug)
+            Debug.Log("[HarvestCommand]: " + msg);
+    }
+
+    private void LogWarning(string msg)
+    {
+        if (debug)
+            Debug.LogWarning("[HarvestCommand]: " + msg);
     }
 }
