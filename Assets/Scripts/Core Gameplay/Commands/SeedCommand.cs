@@ -4,19 +4,45 @@ using UnityEngine;
 
 public class SeedCommand : ICommand
 {
+    private bool debug = false;
+
     public void Execute(GridCell cell, Tool tool)
     {
-        Debug.Log("Executing Seed Command.");
+        Log("Executing.");
         var seed = (Plant)tool.heldItem;
 
-        var seedBag = cell.Occupant.AssociatedObject.GetComponent<CoreObjectDispenser>();
-        if (seed == null && seedBag != null)
+        var occupant = cell.Occupant;
+        if (occupant != null)
         {
-            seedBag.Interact(tool);
+            Log("Occupant found!");
+            var associatedObject = occupant.AssociatedObject;
+            var seedBag = associatedObject.GetComponent<CoreObjectDispenser>();
+            if (seed == null && seedBag != null)
+            {
+                Log("Seedbag found!");
+                seedBag.Interact(tool);
+            }
         }
-        else if (seed.CurrentStage.specifier == PlantStage.Seed && cell.GroundType == GroundType.ArableSoil)
+        else if(seed != null && occupant == null)
         {
-            seed.PlantSeed(cell);
+            Log("Seed in hand and no occupant found!");
+            if (seed.CurrentStage.isPlantable && cell.GroundType == GroundType.ArableSoil)
+            {
+                Log("ArableSoil found!");
+                seed.PlantSeed(cell);
+            }
         }
+    }
+
+    private void Log(string msg)
+    {
+        if(debug)
+            Debug.Log("[SeedCommand]: " + msg);
+    }
+
+    private void LogWarning(string msg)
+    {
+        if(debug)
+            Debug.LogWarning("[SeedCommand]: " + msg);
     }
 }

@@ -74,7 +74,7 @@ public class WorldSetupController : MonoBehaviour
         }
 
         Vector3 worldPosition = (Vector2)obj.position;
-        var clone = Instantiate(gameObject, worldPosition, Quaternion.Euler(-20f, 0f, 0f));
+        var clone = Instantiate(gameObject, worldPosition, gameObject.transform.rotation);
         var occupantClone = clone.GetComponent<IOccupant>();
         GameManager.Instance.GridManager.ChangeTileOccupant(obj.position, occupantClone);
     }
