@@ -48,12 +48,6 @@ public class Level
 
     private void OnLevelEnd()
     {
-#if UNITY_STANDALONE
-        Application.Quit();
-#endif
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
     }
 
     private void CalculateTime()
