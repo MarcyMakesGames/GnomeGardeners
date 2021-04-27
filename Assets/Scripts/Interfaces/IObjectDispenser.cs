@@ -4,7 +4,6 @@ using UnityEngine;
 
 public interface IObjectDispenser : IInteractable
 {
-    void DispenseItem(ITool tool, string itemName);
-
-    void DispenseItem(Vector3 dropLocation, string itemName);
+    void DispenseItem(Tool tool, string itemName);
+    void DispenseItem(Vector2Int dropLocation, string itemName);
 }
