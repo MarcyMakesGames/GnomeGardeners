@@ -21,4 +21,14 @@ public class Obstacle : MonoBehaviour, IInteractable
             isRemoved = true;
         }
     }
+
+    public void AssignOccupant()
+    {
+        GameManager.Instance.GridManager.ChangeTileOccupant(GameManager.Instance.GridManager.GetClosestGrid(AssociatedObject.transform.position), this);
+    }
+
+    private void Start()
+    {
+        AssignOccupant();
+    }
 }

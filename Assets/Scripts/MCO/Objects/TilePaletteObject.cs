@@ -6,23 +6,45 @@ using UnityEngine.Tilemaps;
 [System.Serializable]
 public class TilePaletteObject
 {
-    [SerializeField] private Tile topLeftTile;
-    [SerializeField] private Tile topMiddleTile;
-    [SerializeField] private Tile topRightTile;
-    [SerializeField] private Tile leftTile;
-    [SerializeField] private Tile middleTile;
-    [SerializeField] private Tile rightTile;
-    [SerializeField] private Tile bottomLeftTile;
-    [SerializeField] private Tile bottomMiddleTile;
-    [SerializeField] private Tile bottomRightTile;
+    [SerializeField] private TileBase topLeftTile;
+    [SerializeField] private TileBase topMiddleTile;
+    [SerializeField] private TileBase topRightTile;
+    [SerializeField] private TileBase leftTile;
+    [SerializeField] private TileBase middleTile;
+    [SerializeField] private TileBase rightTile;
+    [SerializeField] private TileBase bottomLeftTile;
+    [SerializeField] private TileBase bottomMiddleTile;
+    [SerializeField] private TileBase bottomRightTile;
 
-    public Tile TopLeft { get => topLeftTile; set => topLeftTile = value; }
-    public Tile TopMiddle { get => topMiddleTile; set => topMiddleTile = value; }
-    public Tile TopRight { get => topRightTile; set => topRightTile = value; }
-    public Tile Left { get => leftTile; set => leftTile = value; }
-    public Tile Middle { get => middleTile; set => middleTile = value; }
-    public Tile Right { get => rightTile; set => bottomLeftTile = value; }
-    public Tile BottomLeft { get => bottomLeftTile; set => topLeftTile = value; }
-    public Tile BottomMiddle { get => bottomMiddleTile; set => bottomMiddleTile = value; }
-    public Tile BottomRight { get => bottomRightTile; set => bottomRightTile = value; }
+    public TileBase TopLeft { get => topLeftTile; set => topLeftTile = value; }
+    public TileBase TopMiddle { get => topMiddleTile; set => topMiddleTile = value; }
+    public TileBase TopRight { get => topRightTile; set => topRightTile = value; }
+    public TileBase Left { get => leftTile; set => leftTile = value; }
+    public TileBase Middle { get => middleTile; set => middleTile = value; }
+    public TileBase Right { get => rightTile; set => bottomLeftTile = value; }
+    public TileBase BottomLeft { get => bottomLeftTile; set => topLeftTile = value; }
+    public TileBase BottomMiddle { get => bottomMiddleTile; set => bottomMiddleTile = value; }
+    public TileBase BottomRight { get => bottomRightTile; set => bottomRightTile = value; }
+
+    public bool CheckTile(TileBase checkTile)
+    {
+        List<TileBase> groundTiles = new List<TileBase>
+        {
+            TopLeft,
+            TopMiddle,
+            TopRight,
+            Left,
+            Middle,
+            Right,
+            BottomLeft,
+            BottomMiddle,
+            BottomRight
+        };
+
+        foreach (TileBase tile in groundTiles)
+            if (checkTile == tile)
+                return true;
+
+        return false;
+    }
 }

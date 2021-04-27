@@ -16,5 +16,10 @@ namespace TilemapExtensions
         {
             map.SetTile((Vector3Int)gridPosition, fill);
         }
+
+        public static void PaintTile(this Tilemap map, Vector2Int gridPosition, TileBase fill)
+        {
+            map.SetTile((Vector3Int)gridPosition, fill);
+        }
     }
 }

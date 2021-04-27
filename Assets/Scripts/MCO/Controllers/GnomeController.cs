@@ -72,7 +72,6 @@ public class GnomeController : MonoBehaviour
     #region Initialization
     public void InitializePlayer(PlayerConfig playerConfig)
     {
-        Debug.Log("Initializing gnome.");
         this.playerConfig = playerConfig;
         //This is where we would initialize the gnome skin.
         //skin = playerConfig.skin;
