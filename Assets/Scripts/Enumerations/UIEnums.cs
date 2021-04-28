@@ -10,3 +10,9 @@ public enum MenuPanel
     GnomeSelection,
     GameOver,
 }
+
+public enum SceneState
+{
+    MainMenu,
+    Game,
+}

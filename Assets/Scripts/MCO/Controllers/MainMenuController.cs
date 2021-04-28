@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainMenuManager : MonoBehaviour
+public class MainMenuController : MonoBehaviour
 {
     private bool debug = true;
 
@@ -11,11 +12,23 @@ public class MainMenuManager : MonoBehaviour
     public GameObject settingsPanel;
     public GameObject gnomeSelectionPanel;
     public GameObject gameOverPanel;
-    public MenuPanel ActivePanel { get; set; }
+    private MenuPanel newPanel;
+    private MenuPanel activePanel;
+
+    public MenuPanel ActivePanel { get => activePanel; }
+
+    public MenuPanelEventChannelSO OnPanelChanged;
+
 
     private List<GameObject> allPanels;
 
     #region Unity Methods
+
+    private void Awake()
+    {
+        Configure();
+    }
+
 
     private void Start()
     {
@@ -29,7 +42,12 @@ public class MainMenuManager : MonoBehaviour
 
     private void Update()
     {
-        SetPanelActive(ActivePanel);
+        SetPanelActive(newPanel);
+    }
+
+    private void OnDestroy()
+    {
+        Dispose();
     }
 
 
@@ -43,36 +61,36 @@ public class MainMenuManager : MonoBehaviour
         switch (panelIndex)
         {
             case 0:
-                ActivePanel = MenuPanel.Title;
+                newPanel = MenuPanel.Title;
                 break;
             case 1:
-                ActivePanel = MenuPanel.Main;
+                newPanel = MenuPanel.Main;
                 break;
             case 2:
-                ActivePanel = MenuPanel.Settings;
+                newPanel = MenuPanel.Settings;
                 break;
             case 3:
-                ActivePanel = MenuPanel.GnomeSelection;
+                newPanel = MenuPanel.GnomeSelection;
                 break;
             case 4:
-                ActivePanel = MenuPanel.GameOver;
+                newPanel = MenuPanel.GameOver;
                 break;
         }
     }
 
     public void QuitGame()
     {
-#if UNITY_STANDALONE
-        Application.Quit();
-#endif
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
+        GameManager.Instance.SceneController.QuitGame();
     }
 
     #endregion
 
     #region Private Methods
+
+    private void Configure()
+    {
+        OnPanelChanged.OnEventRaised += SetNewPanel;
+    }
 
     private void SetPanelActive(MenuPanel panel)
     {
@@ -102,7 +120,7 @@ public class MainMenuManager : MonoBehaviour
                 break;
         }
 
-        ActivePanel = panel;
+        activePanel = panel;
     }
 
     private void DeactivateAllPanels()
@@ -112,16 +130,28 @@ public class MainMenuManager : MonoBehaviour
             panel.SetActive(false);
         }
     }
+
+    private void SetNewPanel(MenuPanel panel)
+    {
+        Log("Received OnPanelChanged");
+        newPanel = panel;
+    }
+
     private void Log(string msg)
     {
         if (!debug) { return; }
-        Debug.Log("[MainMenuManager]: " + msg);
+        Debug.Log("[MainMenuController]: " + msg);
     }
 
     private void LogWarning(string msg)
     {
         if (!debug) { return; }
-        Debug.LogWarning("[MainMenuManager]: " + msg);
+        Debug.LogWarning("[MainMenuController]: " + msg);
+    }
+
+    private void Dispose()
+    {
+        OnPanelChanged.OnEventRaised -= SetNewPanel;
     }
 
     #endregion
