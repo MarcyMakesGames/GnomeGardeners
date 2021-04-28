@@ -15,10 +15,10 @@ public class ScoringArea : MonoBehaviour, IScoringArea
 
 
     #region Unity Methods
-
     void Start()
     {
         TotalScore = 0;
+        AssignOccupant();
     }
 
     #endregion
@@ -48,10 +48,13 @@ public class ScoringArea : MonoBehaviour, IScoringArea
         }
     }
 
+    public void AssignOccupant()
+    {
+        GameManager.Instance.GridManager.ChangeTileOccupant(GameManager.Instance.GridManager.GetClosestGrid(AssociatedObject.transform.position), this);
+    }
     #endregion
 
     #region Private Methods
-
     private void AddSprite(Sprite sprite)
     {
         plants[plantCount] = sprite;

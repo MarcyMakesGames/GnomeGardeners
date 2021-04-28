@@ -33,6 +33,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
     {
         Configure();
         Log("Debugging");
+        AssignOccupant();
     }
 
     private void Update()
@@ -110,6 +111,11 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
     public void Hold()
     {
         throw new NotImplementedException();
+    }
+
+    public void AssignOccupant()
+    {
+        GameManager.Instance.GridManager.ChangeTileOccupant(GameManager.Instance.GridManager.GetClosestGrid(AssociatedObject.transform.position), this);
     }
     #endregion
 

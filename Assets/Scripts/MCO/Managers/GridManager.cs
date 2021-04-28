@@ -13,7 +13,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private List<GroundTileAssociation> groundTiles;
     [SerializeField] private Tilemap interactiveTilemap;
     [SerializeField] private Tile hoverTile;
-    [SerializeField] private bool createEmptyTileMap;
+    [SerializeField] private bool createTilemap;
 
     private List<GridCell> gridCells = new List<GridCell>();
     private GridCell targetCell;
@@ -41,10 +41,10 @@ public class GridManager : MonoBehaviour
 
     private void Start()
     {
-        if (createEmptyTileMap)
-            CreateEmptyTileMap(halfMapSize);
-        else
+        if (createTilemap)
             CreateTileMap(halfMapSize);
+        else
+            LogTileMap(halfMapSize);
     }
 
     #endregion
@@ -214,7 +214,8 @@ public class GridManager : MonoBehaviour
                 PaintTile(cell.GridPosition, cell.MapPosition, groundTiles[0].tilePalette);
             }
     }
-    private void CreateEmptyTileMap(int mapSize)
+
+    private void LogTileMap(int mapSize)
     {
         for (int i = -mapSize; i <= mapSize; i++)
             for (int j = -mapSize; j <= mapSize; j++)
@@ -222,7 +223,10 @@ public class GridManager : MonoBehaviour
                 Vector2Int gridPosition = new Vector2Int(i, j);
                 Vector3 worldPosition = gridMap.CellToWorld((Vector3Int)gridPosition);
 
-                GridCell cell = CreateCell(gridPosition, worldPosition, groundTiles[0].groundType, mapSize);
+                TileBase tile = groundTilemap.GetTile((Vector3Int)gridPosition);
+                GroundType groundType = GetTileType(tile);
+
+                GridCell cell = CreateCell(gridPosition, worldPosition, groundType, mapSize);
                 gridCells.Add(cell);
             }
     }
@@ -294,6 +298,15 @@ public class GridManager : MonoBehaviour
                 groundTilemap.PaintTile(gridPosition, tilePalette.BottomRight);
                 break;
         }
+    }
+
+    private GroundType GetTileType(TileBase checkTile)
+    {
+        foreach (GroundTileAssociation tileset in groundTiles)
+            if (tileset.tilePalette.CheckTile(checkTile))
+                return tileset.groundType;
+
+        return GroundType.None;
     }
     #endregion
 }

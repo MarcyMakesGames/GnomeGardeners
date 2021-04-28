@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     //Cached references
     private static GameManager gameManager;
     private GameTime gameTime;
-    private LevelManager levelManager;
     private PlayerConfigManager playerConfigManager;
     private IInteractionController interactionController;
     private GridManager gridManager;
@@ -25,13 +24,10 @@ public class GameManager : MonoBehaviour
     public bool playersReady = false;
     bool werePlayersReady = false;
 
-    // Events
-    public VoidEventChannelSO OnLevelStart;
 
 
     public static GameManager Instance { get => gameManager; }
     public GameTime Time { get => gameTime; set => gameTime = value; }
-    public LevelManager LevelManager { get => levelManager; set => levelManager = value; }
     public PlayerConfigManager PlayerConfigManager { get => playerConfigManager; set => playerConfigManager = value; }
     public IInteractionController InteractionController { get => interactionController; set => interactionController = value; }
     public GridManager GridManager { get => gridManager; set => gridManager = value; }
@@ -61,7 +57,6 @@ public class GameManager : MonoBehaviour
     {
         if(werePlayersReady != playersReady)
         {
-            OnLevelStart.RaiseEvent();
         }
         werePlayersReady = playersReady;
     }
@@ -69,12 +64,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Private Methods
-
-    [ContextMenu("Start Level")]
-    private void StartLevel()
-    {
-        Instance.LevelManager.SetLevelActive(0);
-    }
 
     [ContextMenu("Announce Times")]
     private void AnnounceTimes()
