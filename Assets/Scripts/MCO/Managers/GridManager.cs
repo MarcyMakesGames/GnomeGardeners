@@ -37,10 +37,7 @@ public class GridManager : MonoBehaviour
             throw new System.NotImplementedException("Did not assign the interactive tilemap.");
 
         GameManager.Instance.GridManager = this;
-    }
 
-    private void Start()
-    {
         if (createTilemap)
             CreateTileMap(halfMapSize);
         else
