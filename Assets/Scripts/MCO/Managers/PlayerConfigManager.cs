@@ -61,8 +61,11 @@ public class PlayerConfigManager : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.Instance.PlayerConfigManager = this;
-        playerConfigs = new List<PlayerConfig>();
+        if(GameManager.Instance.PlayerConfigManager == null)
+        {
+            GameManager.Instance.PlayerConfigManager = this;
+            playerConfigs = new List<PlayerConfig>();
+        }
     }
 }
 
