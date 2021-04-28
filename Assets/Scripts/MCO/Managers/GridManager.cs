@@ -214,6 +214,7 @@ public class GridManager : MonoBehaviour
                 PaintTile(cell.GridPosition, cell.MapPosition, groundTiles[0].tilePalette);
             }
     }
+
     private void LogTileMap(int mapSize)
     {
         for (int i = -mapSize; i <= mapSize; i++)
