@@ -24,8 +24,25 @@ public class PlayerConfigManager : MonoBehaviour
     {
         if(playerConfigs.Count >= 1 && playerConfigs.All(x => x.IsReady))
         {
-            Debug.Log("All players ready, loading next scene.");
-            GameManager.Instance.SceneController.LoadNextScene();
+            if(!GameManager.Instance.DebugMenu)
+            {
+                var sceneToLoad = GameManager.Instance.SceneToLoad;
+                if ( sceneToLoad == string.Empty)
+                {
+                    GameManager.Instance.SceneController.LoadNextScene();
+                    GameManager.Instance.playersReady = true;
+                }
+                else
+                {
+                    GameManager.Instance.SceneController.LoadSceneByString(sceneToLoad);
+                    GameManager.Instance.playersReady = true;
+                }
+            }
+            else
+            {
+                GameObject.Find("Title Canvas").SetActive(false);
+                GameManager.Instance.playersReady = true;
+            }
         }
     }
 
@@ -44,8 +61,11 @@ public class PlayerConfigManager : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.Instance.PlayerConfigManager = this;
-        playerConfigs = new List<PlayerConfig>();
+        if(GameManager.Instance.PlayerConfigManager == null)
+        {
+            GameManager.Instance.PlayerConfigManager = this;
+            playerConfigs = new List<PlayerConfig>();
+        }
     }
 }
 

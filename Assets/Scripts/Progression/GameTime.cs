@@ -13,7 +13,10 @@ public class GameTime : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.Instance.Time = this;
+        if(GameManager.Instance.Time == null)
+        {
+            GameManager.Instance.Time = this;
+        }
     }
 
     private void Update()

@@ -51,8 +51,6 @@ public class GnomeMenuController : MonoBehaviour
         if (!inputEnabled)
             return;
 
-        Debug.Log("Selected the gnome skin: " + skinIndex);
-
         readyPanel.gameObject.SetActive(true);
         skinPanel.gameObject.SetActive(false);
 
@@ -77,10 +75,7 @@ public class GnomeMenuController : MonoBehaviour
 
     public void StartGame()
     {
-        if (!debugMenu)
-            GameManager.Instance.PlayerConfigManager.StartGameCheck();
-        else
-            canvasGroup.SetActive(false);
+        GameManager.Instance.PlayerConfigManager.StartGameCheck();
     }
 
     public void QuitGame()
