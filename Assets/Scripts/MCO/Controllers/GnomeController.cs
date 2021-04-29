@@ -5,7 +5,7 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class GnomeController : MonoBehaviour
 {
-    private bool debug = true;
+    private bool debug = false;
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float interactRange = 1f;
@@ -96,7 +96,7 @@ public class GnomeController : MonoBehaviour
     private void Update()
     {
         interactionCell = CalculateInteractionCell();
-        //GameManager.Instance.GridManager.HighlightTile(interactionCell.GridPosition);
+        GameManager.Instance.GridManager.HighlightTile(interactionCell.GridPosition);
     }
 
 
@@ -111,7 +111,7 @@ public class GnomeController : MonoBehaviour
     {
         Log("Using Tool.");
         var occupant = cell.Occupant;
-        //GameManager.Instance.GridManager.FlashHighlightTile(cell.GridPosition);
+        GameManager.Instance.GridManager.FlashHighlightTile(cell.GridPosition);
 
         if (tool != null) // note: tool equipped and interacting on cell
         {
