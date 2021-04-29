@@ -15,4 +15,6 @@ public enum SceneState
 {
     MainMenu,
     Game,
+    TestingMainMenu,
+    TestingGame,
 }

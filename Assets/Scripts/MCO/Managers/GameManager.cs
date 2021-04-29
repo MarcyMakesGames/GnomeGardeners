@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private bool debugMenu;
     [SerializeField]
     private string sceneToLoad;
+    public bool loadTestingScenes;
 
     //Cached references
     private static GameManager gameManager;

@@ -56,19 +56,42 @@ public class SceneController : MonoBehaviour
 
     public void LoadSceneGameplay()
     {
-        StartCoroutine(LoadSceneAsync(SceneState.Game));
+        
+        if (GameManager.Instance.loadTestingScenes)
+        {
+            StartCoroutine(LoadSceneAsync(SceneState.TestingGame));
+        }
+        else
+        {
+            StartCoroutine(LoadSceneAsync(SceneState.Game));
+        }
     }
 
     public void LoadTitleMenu()
     {
-        StartCoroutine(LoadSceneAsync(SceneState.MainMenu));
+        if (GameManager.Instance.loadTestingScenes)
+        {
+            StartCoroutine(LoadSceneAsync(SceneState.TestingMainMenu));
+        }
+        else
+        {
+            StartCoroutine(LoadSceneAsync(SceneState.MainMenu));
+        }
+
         activePanel = MenuPanel.Title;
         OnPanelChanged.RaiseEvent(activePanel);
     }
 
     public void LoadGameOverMenu()
     {
-        StartCoroutine(LoadSceneAsync(0));
+        if (GameManager.Instance.loadTestingScenes)
+        {
+            StartCoroutine(LoadSceneAsync(SceneState.TestingMainMenu));
+        }
+        else
+        {
+            StartCoroutine(LoadSceneAsync(SceneState.MainMenu));
+        }
         activePanel = MenuPanel.GameOver;
         OnPanelChanged.RaiseEvent(activePanel);
         Log("Dispatched OnPanelChanged");
