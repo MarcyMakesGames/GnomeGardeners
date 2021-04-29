@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
     private GridManager gridManager;
     private SceneController sceneController;
     private AudioManager audioManager;
-    private WorldSetupController worldSetupController;
     private LevelManager levelManager;
 
     // Game variables
@@ -35,7 +34,6 @@ public class GameManager : MonoBehaviour
     public GridManager GridManager { get => gridManager; set => gridManager = value; }
     public SceneController SceneController { get => sceneController; set => sceneController = value; }
     public AudioManager AudioManager { get => audioManager; set => audioManager = value; }
-    public WorldSetupController WorldSetupController { get => worldSetupController; set => worldSetupController = value; }
     public LevelManager LevelManager { get => levelManager; set => levelManager = value; }
 
     public bool DebugMenu { get => debugMenu; }

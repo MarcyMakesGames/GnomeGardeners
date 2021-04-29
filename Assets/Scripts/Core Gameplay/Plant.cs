@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Plant : MonoBehaviour, IInteractable, IHoldable
 {
-    public bool debug = true;
+    public bool debug = false;
 
     public Species species;
 

@@ -11,11 +11,10 @@ public class SceneController : MonoBehaviour
     private SceneState currentScene;
     private MenuPanel activePanel;
 
-    public MenuPanel ActivePanel { get => activePanel; }
+    public MenuPanel ActivePanel { get => activePanel; set => activePanel = value; }
 
     // Event Dispatcher
     public VoidEventChannelSO OnSceneLoaded;
-    public MenuPanelEventChannelSO OnPanelChanged;
     // Event Receiver
     public VoidEventChannelSO OnLevelLoseEvent;
     public VoidEventChannelSO OnLevelWinEvent;
@@ -79,7 +78,6 @@ public class SceneController : MonoBehaviour
         }
 
         activePanel = MenuPanel.Title;
-        OnPanelChanged.RaiseEvent(activePanel);
     }
 
     public void LoadGameOverMenu()
@@ -93,8 +91,6 @@ public class SceneController : MonoBehaviour
             StartCoroutine(LoadSceneAsync(SceneState.MainMenu));
         }
         activePanel = MenuPanel.GameOver;
-        OnPanelChanged.RaiseEvent(activePanel);
-        Log("Dispatched OnPanelChanged");
     }
 
     public void QuitGame()

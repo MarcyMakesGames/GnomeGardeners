@@ -16,23 +16,15 @@ public class MainMenuController : MonoBehaviour
     public Scoreboard totalScoreboard;
     public Scoreboard requiredScoreboard;
 
-    private MenuPanel newPanel;
+    private MenuPanel nextPanel;
     private MenuPanel activePanel;
 
     public MenuPanel ActivePanel { get => activePanel; }
-
-    public MenuPanelEventChannelSO OnPanelChanged;
 
 
     private List<GameObject> allPanels;
 
     #region Unity Methods
-
-    private void Awake()
-    {
-        Configure();
-    }
-
 
     private void Start()
     {
@@ -46,12 +38,14 @@ public class MainMenuController : MonoBehaviour
 
     private void Update()
     {
-        SetPanelActive(newPanel);
+        UpdateNextPanel();
+
+        SetPanelActive(nextPanel);
     }
 
-    private void OnDestroy()
+    private void UpdateNextPanel()
     {
-        Dispose();
+        nextPanel = GameManager.Instance.SceneController.ActivePanel;
     }
 
 
@@ -65,19 +59,24 @@ public class MainMenuController : MonoBehaviour
         switch (panelIndex)
         {
             case 0:
-                newPanel = MenuPanel.Title;
+                GameManager.Instance.SceneController.ActivePanel = MenuPanel.Title;
+                nextPanel = MenuPanel.Title;
                 break;
             case 1:
-                newPanel = MenuPanel.Main;
+                GameManager.Instance.SceneController.ActivePanel = MenuPanel.Main;
+                nextPanel = MenuPanel.Main;
                 break;
             case 2:
-                newPanel = MenuPanel.Settings;
+                GameManager.Instance.SceneController.ActivePanel = MenuPanel.Settings;
+                nextPanel = MenuPanel.Settings;
                 break;
             case 3:
-                newPanel = MenuPanel.GnomeSelection;
+                GameManager.Instance.SceneController.ActivePanel = MenuPanel.GnomeSelection;
+                nextPanel = MenuPanel.GnomeSelection;
                 break;
             case 4:
-                newPanel = MenuPanel.GameOver;
+                GameManager.Instance.SceneController.ActivePanel = MenuPanel.GameOver;
+                nextPanel = MenuPanel.GameOver;
                 break;
         }
     }
@@ -90,11 +89,6 @@ public class MainMenuController : MonoBehaviour
     #endregion
 
     #region Private Methods
-
-    private void Configure()
-    {
-        OnPanelChanged.OnEventRaised += SetNewPanel;
-    }
 
     private void SetPanelActive(MenuPanel panel)
     {
@@ -137,10 +131,9 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
-    private void SetNewPanel(MenuPanel panel)
+    private void SetNextPanel(MenuPanel panel)
     {
-        Log("Received OnPanelChanged");
-        newPanel = panel;
+        nextPanel = panel;
     }
 
     private void Log(string msg)
@@ -154,11 +147,5 @@ public class MainMenuController : MonoBehaviour
         if (!debug) { return; }
         Debug.LogWarning("[MainMenuController]: " + msg);
     }
-
-    private void Dispose()
-    {
-        OnPanelChanged.OnEventRaised -= SetNewPanel;
-    }
-
     #endregion
 }

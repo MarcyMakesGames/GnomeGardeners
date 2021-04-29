@@ -16,7 +16,6 @@ public class LevelController : MonoBehaviour
     private float timeAtStart;
     private TimerUI timerUI;
     private Scoreboard scoreboardUI;
-    private LevelManager levelManager;
 
     public VoidEventChannelSO OnLevelStartEvent;
     public VoidEventChannelSO OnLevelLoseEvent;
@@ -40,7 +39,6 @@ public class LevelController : MonoBehaviour
         timerUI = FindObjectOfType<TimerUI>();
         scoreboardUI = FindObjectOfType<Scoreboard>();
         totalScore = 0;
-        levelManager = FindObjectOfType<LevelManager>();
 
         OnLevelStartEvent.RaiseEvent();
 
@@ -83,8 +81,8 @@ public class LevelController : MonoBehaviour
     {
         if (totalScore >= requiredScore)
         {
-            levelManager.lastTotalScore = totalScore;
-            levelManager.lastRequiredScore = requiredScore;
+            GameManager.Instance.LevelManager.lastTotalScore = totalScore;
+            GameManager.Instance.LevelManager.lastRequiredScore = requiredScore;
             OnLevelWinEvent.RaiseEvent();
             Log("Level won!");
         }
@@ -94,8 +92,8 @@ public class LevelController : MonoBehaviour
     {
         if (restTime <= 0f)
         {
-            levelManager.lastTotalScore = totalScore;
-            levelManager.lastRequiredScore = requiredScore;
+            GameManager.Instance.LevelManager.lastTotalScore = totalScore;
+            GameManager.Instance.LevelManager.lastRequiredScore = requiredScore;
             OnLevelLoseEvent.RaiseEvent();
             Log("Level lost!");
         }

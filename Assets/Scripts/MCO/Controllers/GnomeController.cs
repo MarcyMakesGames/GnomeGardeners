@@ -5,7 +5,7 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class GnomeController : MonoBehaviour
 {
-    private bool debug = true;
+    private bool debug = false;
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float interactRange = 1f;

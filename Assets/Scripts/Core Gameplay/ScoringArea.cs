@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ScoringArea : MonoBehaviour, IScoringArea
 {
+    private bool debug = false;
+
     private Sprite[] plants;
     private int plantCount;
 
@@ -24,6 +26,7 @@ public class ScoringArea : MonoBehaviour, IScoringArea
 
     #region Public Methods
 
+    [ContextMenu("Debug: Add Score")]
     public void AddScore(int score)
     {
         OnScoreAddEvent.RaiseEvent(score);
@@ -31,7 +34,7 @@ public class ScoringArea : MonoBehaviour, IScoringArea
 
     public void Interact(Tool tool = null)
     {
-        Debug.Log("Interacted with scoring area");
+        Log("Interacted with scoring area");
         var harvest = (Plant)tool.heldItem;
         var harvestStage = harvest.CurrentStage;
 
@@ -41,7 +44,7 @@ public class ScoringArea : MonoBehaviour, IScoringArea
             AddScore(score);
             AddSprite(harvestStage.sprite);
             ++plantCount;
-            Debug.Log("Delivered plant");
+            Log("Delivered plant");
         }
     }
 
@@ -55,6 +58,12 @@ public class ScoringArea : MonoBehaviour, IScoringArea
     private void AddSprite(Sprite sprite)
     {
         plants[plantCount] = sprite;
+    }
+
+    private void Log(string msg)
+    {
+        if (!debug) { return; }
+        Debug.Log("[ScoringArea]: " + msg);
     }
 
     #endregion
