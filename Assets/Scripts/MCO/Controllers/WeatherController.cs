@@ -52,7 +52,6 @@ public class WeatherController : MonoBehaviour
             int selectedWeather = Random.Range(0, weatherTypes.Count);
             currentWeather = weatherTypes[selectedWeather];
 
-            WeatherChanged();
             currentWeatherTimer = GameManager.Instance.Time.ElapsedTime;
         }
     }
