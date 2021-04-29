@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private SceneController sceneController;
     private AudioManager audioManager;
     private WorldSetupController worldSetupController;
+    private LevelManager levelManager;
 
     // Game variables
     public bool playersReady = false;
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour
     public SceneController SceneController { get => sceneController; set => sceneController = value; }
     public AudioManager AudioManager { get => audioManager; set => audioManager = value; }
     public WorldSetupController WorldSetupController { get => worldSetupController; set => worldSetupController = value; }
+    public LevelManager LevelManager { get => levelManager; set => levelManager = value; }
 
     public bool DebugMenu { get => debugMenu; }
     public string SceneToLoad { get => sceneToLoad; }
