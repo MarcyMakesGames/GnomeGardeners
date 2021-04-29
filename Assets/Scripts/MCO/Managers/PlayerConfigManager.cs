@@ -29,13 +29,11 @@ public class PlayerConfigManager : MonoBehaviour
                 var sceneToLoad = GameManager.Instance.SceneToLoad;
                 if ( sceneToLoad == string.Empty)
                 {
-                    Debug.Log("All players ready, loading next scene.");
                     GameManager.Instance.SceneController.LoadNextScene();
                     GameManager.Instance.playersReady = true;
                 }
                 else
                 {
-                    Debug.Log("All players ready, loading next scene.");
                     GameManager.Instance.SceneController.LoadSceneByString(sceneToLoad);
                     GameManager.Instance.playersReady = true;
                 }
@@ -63,8 +61,11 @@ public class PlayerConfigManager : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.Instance.PlayerConfigManager = this;
-        playerConfigs = new List<PlayerConfig>();
+        if(GameManager.Instance.PlayerConfigManager == null)
+        {
+            GameManager.Instance.PlayerConfigManager = this;
+            playerConfigs = new List<PlayerConfig>();
+        }
     }
 }
 

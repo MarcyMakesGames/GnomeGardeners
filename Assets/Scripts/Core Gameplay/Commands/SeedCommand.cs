@@ -30,6 +30,7 @@ public class SeedCommand : ICommand
             {
                 Log("ArableSoil found!");
                 seed.PlantSeed(cell);
+                tool.heldItem = null;
             }
         }
     }

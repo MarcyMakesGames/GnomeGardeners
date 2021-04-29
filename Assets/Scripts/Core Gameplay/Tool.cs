@@ -40,6 +40,8 @@ public class Tool : MonoBehaviour, IOccupant
                 Log("Harvesting Tool initialized.");
                 break;
         }
+
+        AssignOccupant();
     }
 
     public void UseTool(GridCell cell)
@@ -77,6 +79,11 @@ public class Tool : MonoBehaviour, IOccupant
         cell.RemoveCellOccupant();
 
         Log("Equipped " + type.ToString() + " Tool");
+    }
+
+    public void AssignOccupant()
+    {
+        GameManager.Instance.GridManager.ChangeTileOccupant(GameManager.Instance.GridManager.GetClosestGrid(AssociatedObject.transform.position), this);
     }
 
     #region Private Methods

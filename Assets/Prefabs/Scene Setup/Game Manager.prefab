@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6771955404163415833}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &277402378935686903
 MonoBehaviour:
@@ -99,6 +99,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b852b30c239187d46a011cfb7510f622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &648885671793261319
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6419546128892621404}
+  - component: {fileID: 902534589978491829}
+  m_Layer: 0
+  m_Name: Level Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6419546128892621404
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648885671793261319}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6771955404163415833}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &902534589978491829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648885671793261319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee70ccfa40d92f448de045cb58728ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastTotalScore: 0
+  lastRequiredScore: 0
 --- !u!1 &1710493967696318679
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +173,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6771955404163415833}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8363439846943829204
 MonoBehaviour:
@@ -142,6 +187,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4105b22ff93b6ac4e829b523e904ebb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnSceneLoaded: {fileID: 11400000, guid: 2d99ccd445b1253479517420751b8dd8, type: 2}
+  OnLevelLoseEvent: {fileID: 11400000, guid: 58432f8545a32924f8cc9c3137af0033, type: 2}
+  OnLevelWinEvent: {fileID: 11400000, guid: 4c5ce725500d877458dbd9a16d526c9b, type: 2}
 --- !u!1 &2000410267699781097
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +219,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6771955404163415833}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1417577383008825336
 MonoBehaviour:
@@ -187,95 +235,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   tracks: []
---- !u!1 &5027599226740842406
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4162437139744545185}
-  - component: {fileID: 1899296201983895321}
-  m_Layer: 0
-  m_Name: Level Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4162437139744545185
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5027599226740842406}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6771955404163415833}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1899296201983895321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5027599226740842406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e3fb4c08d6eb82458636bb5d26a4662, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &5469993078048450937
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 210565290815282304}
-  - component: {fileID: 8211363446641042184}
-  m_Layer: 0
-  m_Name: World Setup Controller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &210565290815282304
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5469993078048450937}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6771955404163415833}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8211363446641042184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5469993078048450937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c57b8a55f30e85a4ea7efaa4d4a4d357, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  worldObjects:
-  - {fileID: 11400000, guid: e05341d59242ae94cab8ec362162fc77, type: 2}
-  OnLevelStart: {fileID: 0}
 --- !u!1 &6771955404163415835
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,12 +264,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6771955404369908314}
-  - {fileID: 4162437139744545185}
   - {fileID: 277402378935686898}
   - {fileID: 7069069833921655869}
   - {fileID: 2636812308820026854}
-  - {fileID: 210565290815282304}
   - {fileID: 3166553468030538081}
+  - {fileID: 6419546128892621404}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -327,9 +285,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugMenu: 0
-  sceneToLoad: 
+  sceneToLoad: Scenes/Build/Gameplay
   playersReady: 0
-  OnLevelStart: {fileID: 0}
 --- !u!1 &6771955404369908315
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,7 +341,7 @@ GameObject:
   - component: {fileID: 3166553468030538081}
   - component: {fileID: 702235921304730574}
   m_Layer: 0
-  m_Name: PoolController
+  m_Name: Pool Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -402,7 +359,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6771955404163415833}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &702235921304730574
 MonoBehaviour:

@@ -14,14 +14,13 @@ public class GnomeInitController : MonoBehaviour
 
     private void InitPlayerGnomes()
     {
-        Debug.Log(GameManager.Instance.PlayerConfigManager.PlayerConfigs.Count);
         foreach(PlayerConfig player in GameManager.Instance.PlayerConfigManager.PlayerConfigs)
         {
-            Debug.Log("Spawning a gnome");
             GameObject newGnome = Instantiate(gnomePrefab, playerSpawnLocations[player.PlayerIndex].position, gnomePrefab.transform.rotation, transform);
             //We would build the gnomeSkin here.
 
             newGnome.GetComponent<GnomeController>().InitializePlayer(player);
+            Debug.Log("Player " + player.Input.playerIndex + " device: " + player.Input.devices);
         }
 
         hasSpawned = true;

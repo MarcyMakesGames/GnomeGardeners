@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 using static UnityEngine.InputSystem.InputAction;
 
 public class GnomeController : MonoBehaviour
@@ -20,7 +20,6 @@ public class GnomeController : MonoBehaviour
     private PlayerConfig playerConfig;
     private GnomeInput inputs;
     private CameraFollow cameraFollow;
-    private bool interacting = false;
 
     private GridCell interactionCell;
 
@@ -30,7 +29,6 @@ public class GnomeController : MonoBehaviour
     #region InputEvents
     public void OnInputAction(CallbackContext context)
     {
-        // Log("R/x input");
         if (context.action.name == inputs.Player.Movement.name)
             OnInputMove(context);
         if (context.action.name == inputs.Player.Interact.name)
@@ -70,14 +68,12 @@ public class GnomeController : MonoBehaviour
     #endregion
 
     #region Initialization
-    public void InitializePlayer(PlayerConfig playerConfig)
+    public void InitializePlayer(PlayerConfig incomingPlayer)
     {
-        Debug.Log("Initializing gnome.");
-        this.playerConfig = playerConfig;
         //This is where we would initialize the gnome skin.
         //skin = playerConfig.skin;
         skin = gameObject.GetComponent<GnomeSkin>();
-
+        playerConfig = incomingPlayer;
         playerConfig.Input.onActionTriggered += OnInputAction;
     }
 
@@ -195,7 +191,7 @@ public class GnomeController : MonoBehaviour
     private void Log(string msg)
     {
         if (debug)
-            Debug.Log("[GnomeController]: " + msg);
+            Debug.Log("[GnomeController]: " + playerConfig.Input.playerIndex + " " + msg);
     }
 
     private void LogWarning(string msg)

@@ -4,37 +4,37 @@ using UnityEngine;
 
 public class ScoringArea : MonoBehaviour, IScoringArea
 {
-    public int TotalScore { get ; set; }
+    private bool debug = false;
 
     private Sprite[] plants;
     private int plantCount;
-    public Sprite[] Plants { set => plants = value; }
 
+    public IntEventChannelSO OnScoreAddEvent;
+
+    public Sprite[] Plants { set => plants = value; }
     public GameObject AssociatedObject { get => gameObject; }
 
 
 
     #region Unity Methods
-
     void Start()
     {
-        TotalScore = 0;
+        AssignOccupant();
     }
 
     #endregion
 
     #region Public Methods
 
+    [ContextMenu("Debug: Add Score")]
     public void AddScore(int score)
     {
-        TotalScore += score;
-
-        FindObjectOfType<Scoreboard>().UpdateUI(TotalScore);
+        OnScoreAddEvent.RaiseEvent(score);
     }
 
     public void Interact(Tool tool = null)
     {
-        Debug.Log("Interacted with scoring area");
+        Log("Interacted with scoring area");
         var harvest = (Plant)tool.heldItem;
         var harvestStage = harvest.CurrentStage;
 
@@ -44,17 +44,26 @@ public class ScoringArea : MonoBehaviour, IScoringArea
             AddScore(score);
             AddSprite(harvestStage.sprite);
             ++plantCount;
-            Debug.Log("Delivered plant");
+            Log("Delivered plant");
         }
     }
 
+    public void AssignOccupant()
+    {
+        GameManager.Instance.GridManager.ChangeTileOccupant(GameManager.Instance.GridManager.GetClosestGrid(AssociatedObject.transform.position), this);
+    }
     #endregion
 
     #region Private Methods
-
     private void AddSprite(Sprite sprite)
     {
         plants[plantCount] = sprite;
+    }
+
+    private void Log(string msg)
+    {
+        if (!debug) { return; }
+        Debug.Log("[ScoringArea]: " + msg);
     }
 
     #endregion
