@@ -17,7 +17,8 @@ public class SceneController : MonoBehaviour
     public VoidEventChannelSO OnSceneLoaded;
     public MenuPanelEventChannelSO OnPanelChanged;
     // Event Receiver
-    public VoidEventChannelSO OnLevelEndEvent;
+    public VoidEventChannelSO OnLevelLoseEvent;
+    public VoidEventChannelSO OnLevelWinEvent;
 
     public SceneState CurrentSceneState => currentScene;
 
@@ -93,7 +94,8 @@ public class SceneController : MonoBehaviour
         if(GameManager.Instance.SceneController == null)
         {
             GameManager.Instance.SceneController = this;
-            OnLevelEndEvent.OnEventRaised += LoadGameOverMenu;
+            OnLevelLoseEvent.OnEventRaised += LoadGameOverMenu;
+            OnLevelWinEvent.OnEventRaised += LoadGameOverMenu;
             OnSceneLoaded.OnEventRaised += UpdateState;
         }
         currentScene = (SceneState)SceneManager.GetActiveScene().buildIndex;
@@ -141,7 +143,8 @@ public class SceneController : MonoBehaviour
 
     private void Dispose()
     {
-        OnLevelEndEvent.OnEventRaised -= LoadGameOverMenu;
+        OnLevelLoseEvent.OnEventRaised -= LoadGameOverMenu;
+        OnLevelWinEvent.OnEventRaised -= LoadGameOverMenu;
         OnSceneLoaded.OnEventRaised -= UpdateState;
     }
 

@@ -8,14 +8,10 @@ public class Scoreboard : CoreUIElement<int>
 {
     [SerializeField] private TMP_Text scoreText;
 
-    private int currentScore;
-
     public override void UpdateUI(int primaryData)
     {
         if (ClearedIfEmpty(primaryData))
             return;
-
-        currentScore += primaryData;
 
         UpdateNumericText(scoreText, "{0}", primaryData);
     }

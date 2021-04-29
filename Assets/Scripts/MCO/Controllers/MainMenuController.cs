@@ -12,6 +12,10 @@ public class MainMenuController : MonoBehaviour
     public GameObject settingsPanel;
     public GameObject gnomeSelectionPanel;
     public GameObject gameOverPanel;
+
+    public Scoreboard totalScoreboard;
+    public Scoreboard requiredScoreboard;
+
     private MenuPanel newPanel;
     private MenuPanel activePanel;
 
@@ -101,6 +105,7 @@ public class MainMenuController : MonoBehaviour
         {
             case MenuPanel.Title:
                 titlePanel.SetActive(true);
+
                 break;
             case MenuPanel.Main:
                 mainPanel.SetActive(true);
@@ -116,7 +121,8 @@ public class MainMenuController : MonoBehaviour
                 break;
             case MenuPanel.GameOver:
                 gameOverPanel.SetActive(true);
-
+                totalScoreboard.UpdateUI(GameManager.Instance.LevelManager.lastTotalScore);
+                requiredScoreboard.UpdateUI(GameManager.Instance.LevelManager.lastRequiredScore);
                 break;
         }
 

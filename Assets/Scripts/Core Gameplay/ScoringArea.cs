@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ScoringArea : MonoBehaviour, IScoringArea
 {
-    public int TotalScore { get ; set; }
-
     private Sprite[] plants;
     private int plantCount;
-    public Sprite[] Plants { set => plants = value; }
 
+    public IntEventChannelSO OnScoreAddEvent;
+
+    public Sprite[] Plants { set => plants = value; }
     public GameObject AssociatedObject { get => gameObject; }
 
 
@@ -17,7 +17,6 @@ public class ScoringArea : MonoBehaviour, IScoringArea
     #region Unity Methods
     void Start()
     {
-        TotalScore = 0;
         AssignOccupant();
     }
 
@@ -27,9 +26,7 @@ public class ScoringArea : MonoBehaviour, IScoringArea
 
     public void AddScore(int score)
     {
-        TotalScore += score;
-
-        FindObjectOfType<Scoreboard>().UpdateUI(TotalScore);
+        OnScoreAddEvent.RaiseEvent(score);
     }
 
     public void Interact(Tool tool = null)

@@ -2,28 +2,46 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
+using System;
 
 public class LevelController : MonoBehaviour
 {
     private bool debug = true;
 
-    public float availableTime;
+    public float availableTime = 120f;
+    public int requiredScore = 1000;
+
+    private int totalScore;
     private float restTime;
     private float timeAtStart;
     private TimerUI timerUI;
+    private Scoreboard scoreboardUI;
+    private LevelManager levelManager;
 
     public VoidEventChannelSO OnLevelStartEvent;
-    public VoidEventChannelSO OnLevelEndEvent;
+    public VoidEventChannelSO OnLevelLoseEvent;
+    public VoidEventChannelSO OnLevelWinEvent;
+    public IntEventChannelSO OnScoreAddEvent;
 
     public float RestTime { get => restTime; }
+    public int TotalScore { get => totalScore; set => totalScore = value; }
 
     #region Unity Methods
+
+    private void Awake()
+    {
+        OnScoreAddEvent.OnEventRaised += AddToScore;
+    }
 
     private void Start()
     {
         timeAtStart = GameManager.Instance.Time.ElapsedTime;
         restTime = availableTime;
         timerUI = FindObjectOfType<TimerUI>();
+        scoreboardUI = FindObjectOfType<Scoreboard>();
+        totalScore = 0;
+        levelManager = FindObjectOfType<LevelManager>();
+
         OnLevelStartEvent.RaiseEvent();
 
         Log("Level Start.");
@@ -33,12 +51,14 @@ public class LevelController : MonoBehaviour
     {
         CalculateTime();
 
-        if (restTime <= 0f)
-        {
-            // on level end event
-            OnLevelEndEvent.RaiseEvent();
-            Log("Level End.");
-        }
+        CheckLoseCondition();
+
+        CheckWinCondition();
+    }
+
+    private void OnDestroy()
+    {
+        OnScoreAddEvent.OnEventRaised -= AddToScore;
     }
 
     #endregion
@@ -51,6 +71,34 @@ public class LevelController : MonoBehaviour
 
         if (timerUI != null)
             timerUI.UpdateUI(RestTime);
+    }
+
+    private void AddToScore(int value)
+    {
+        totalScore += value;
+        scoreboardUI.UpdateUI(totalScore);
+    }
+
+    private void CheckWinCondition()
+    {
+        if (totalScore >= requiredScore)
+        {
+            levelManager.lastTotalScore = totalScore;
+            levelManager.lastRequiredScore = requiredScore;
+            OnLevelWinEvent.RaiseEvent();
+            Log("Level won!");
+        }
+    }
+
+    private void CheckLoseCondition()
+    {
+        if (restTime <= 0f)
+        {
+            levelManager.lastTotalScore = totalScore;
+            levelManager.lastRequiredScore = requiredScore;
+            OnLevelLoseEvent.RaiseEvent();
+            Log("Level lost!");
+        }
     }
 
     private void Log(string msg)
