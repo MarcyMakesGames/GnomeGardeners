@@ -20,6 +20,7 @@ public class GnomeInitController : MonoBehaviour
             //We would build the gnomeSkin here.
 
             newGnome.GetComponent<GnomeController>().InitializePlayer(player);
+            Debug.Log("Player " + player.Input.playerIndex + " device: " + player.Input.devices);
         }
 
         hasSpawned = true;
