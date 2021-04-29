@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour, IInteractable
 {
+    public bool debug = true;
+
     [SerializeField] private bool canBeRemoved;
 
     [SerializeField] private ToolType removeTool;
-    private bool isRemoved;
+    private bool isRemoved = false;
     public GameObject AssociatedObject => gameObject;
 
     public void Interact(Tool tool = null)
     {
+        Log("Being interacted with.");
         if (!canBeRemoved) { return; }
+        if(tool == null) { return; }
         if(tool.Type == removeTool)
         {
             gameObject.SetActive(false);
             var gridPosition = GameManager.Instance.GridManager.GetClosestCell(transform.position).GridPosition;
             GameManager.Instance.GridManager.ChangeTileOccupant(gridPosition, null);
             isRemoved = true;
+            Log("Obstacle removed.");
         }
     }
 
@@ -30,5 +35,10 @@ public class Obstacle : MonoBehaviour, IInteractable
     private void Start()
     {
         AssignOccupant();
+    }
+
+    private void Log(string msg)
+    {
+        Debug.Log("[Obstacle]: " + msg);
     }
 }

@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class PrepareCommand : ICommand
 {
-    private bool debug = false;
+    private bool debug = true;
 
     public void Execute(GridCell cell, Tool tool)
     {
         Log("Executing");
+        var occupant = cell.Occupant;
+        if (occupant != null)
+        {
+            Log("Occupant found!");
+            var associatedObject = occupant.AssociatedObject;
+            var obstacle = associatedObject.GetComponent<Obstacle>();
+            if(obstacle != null )
+            {
+                Log("Obstacle found!");
+                obstacle.Interact(tool);
+                cell.RemoveCellOccupant();
+            }
+        }
 
-        /*if (cell.CellOccupant.Equals(Obstacle)){
-         * cell.RemoveCellOccupant();
-        *
-        */
-
-
-        if (cell.GroundType.Equals(GroundType.FallowSoil)){
+        if (occupant == null && cell.GroundType.Equals(GroundType.FallowSoil))
+        {
             GameManager.Instance.GridManager.ChangeTile(cell.GridPosition, GroundType.ArableSoil);
         }
     }
