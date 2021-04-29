@@ -2718,7 +2718,7 @@ GameObject:
   - component: {fileID: 8334690214939048571}
   - component: {fileID: 1047372450264388676}
   m_Layer: 0
-  m_Name: Fence Vertical 1(Clone)
+  m_Name: Fence Vertical RightSide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2732,7 +2732,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7426536382857140891}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 19.26, y: 0.22, z: 0}
+  m_LocalPosition: {x: 19.65, y: 0.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6158130831579878787}
@@ -2819,6 +2819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100b54498b9e31641b73da6a15c39c31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 1
   canBeRemoved: 0
   removeTool: 0
 --- !u!1 &7612094513168370750
