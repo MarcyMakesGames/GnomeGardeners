@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Plant : MonoBehaviour, IInteractable, IHoldable
 {
-    public bool debug = false;
+    public bool debug = true;
 
     public Species species;
 
@@ -14,7 +14,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
     private float currentGrowTime;
     private bool isOnArableGround;
     private bool isBeingCarried;
-    private bool isAtLastStage;
+    private bool isDecayed;
     private GridCell occupyingCell;
     private float currentNeedValue;
     private bool isNeedFulfilled;
@@ -38,7 +38,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
 
     private void Update()
     {
-        if (isAtLastStage) { return; }
+        if (isDecayed) { return; }
         TryGrowing();
     }
 
@@ -130,32 +130,37 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         LogUpdate("Tries Growing on arable ground.");
         currentGrowTime = GameManager.Instance.Time.GetTimeSince(lastStageTimeStamp) * species.growMultiplier;
 
-        if ( currentGrowTime >= currentStage.timeToNextStage && isNeedFulfilled)
+        if ( currentGrowTime >= currentStage.timeToNextStage)
         {
-            AdvanceStages();
+            if (isNeedFulfilled)
+                AdvanceStages();
+            else
+                AdvanceToDecayedStage();
         }
     }
+
+    private void AdvanceToDecayedStage()
+    {
+        Log("Grew into decayed stage.");
+        currentStage = species.decayedStage;
+        lastStageTimeStamp = GameManager.Instance.Time.ElapsedTime;
+        spriteRenderer.sprite = species.decayedStage.sprite;
+        name = "Decayed" + species.name;
+        currentNeedValue = 0f;
+        isNeedFulfilled = false;
+        isDecayed = true;
+    }
+
     private void AdvanceStages()
     {
+        Log("Grew into stage: " + currentStage.specifier.ToString());
         var currentStageIndex = species.stages.IndexOf(currentStage);
         currentStage = species.NextStage(currentStageIndex);
-        Log("Grew into stage: " + currentStage.specifier.ToString());
         lastStageTimeStamp = GameManager.Instance.Time.ElapsedTime;
         spriteRenderer.sprite = currentStage.sprite;
         name = currentStage.name + " " + species.name;
         currentNeedValue = 0f;
         isNeedFulfilled = false;
-
-        CheckIsAtLastStage();
-    }
-
-    private void CheckIsAtLastStage()
-    {
-        if(currentStage == species.stages[species.stages.Count - 1])
-        {
-            isAtLastStage = true;
-            currentGrowTime = 0f;
-        }
     }
 
     private void CheckArableGround()
