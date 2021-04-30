@@ -9,18 +9,25 @@ public class HazardController : MonoBehaviour
     [SerializeField]
     private bool randomizeHazards;
     [SerializeField]
+    private float hazardDelayTime;
+
     private float timeBetweenHazards;
 
     private int currentHazardIndex = 0;
 
     private float currentHazardTimer = 0f;
 
-    public Hazard CurrentHazard { get => hazards[currentHazardIndex]; }
+    public ScriptableObject CurrentHazard { get => hazards[currentHazardIndex]; }
 
     public delegate void OnHazardChange();
     public event OnHazardChange HazardChanged;
 
     #region Unity Methods
+    private void Awake()
+    {
+        GameManager.Instance.HazardController = this;
+    }
+
     private void Start()
     {
         currentHazardTimer = GameManager.Instance.Time.ElapsedTime;
@@ -35,6 +42,15 @@ public class HazardController : MonoBehaviour
     #region Private Methods
     private void HazardCountdown()
     {
+        if(hazardDelayTime > 0f)
+        {
+            hazardDelayTime -= Time.deltaTime;
+            return;
+        }
+
+        if (!randomizeHazards && currentHazardIndex == hazards.Count - 1)
+            return; 
+
         if (GameManager.Instance.Time.GetTimeSince(currentHazardTimer) >= timeBetweenHazards)
         {
             if(randomizeHazards)
@@ -44,6 +60,7 @@ public class HazardController : MonoBehaviour
 
             HazardChanged();
             currentHazardTimer = GameManager.Instance.Time.ElapsedTime;
+            timeBetweenHazards = hazards[currentHazardIndex].HazardDuration;
         }
     }
 
