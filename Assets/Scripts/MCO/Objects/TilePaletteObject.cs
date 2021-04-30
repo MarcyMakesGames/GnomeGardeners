@@ -15,6 +15,7 @@ public class TilePaletteObject
     [SerializeField] private TileBase bottomLeftTile;
     [SerializeField] private TileBase bottomMiddleTile;
     [SerializeField] private TileBase bottomRightTile;
+    [SerializeField] private List<TileBase> singleTileList;
 
     public TileBase TopLeft { get => topLeftTile; set => topLeftTile = value; }
     public TileBase TopMiddle { get => topMiddleTile; set => topMiddleTile = value; }
@@ -40,6 +41,9 @@ public class TilePaletteObject
             BottomMiddle,
             BottomRight
         };
+
+        foreach (TileBase tile in singleTileList)
+            groundTiles.Add(tile);
 
         foreach (TileBase tile in groundTiles)
             if (checkTile == tile)
