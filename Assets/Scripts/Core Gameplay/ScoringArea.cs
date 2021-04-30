@@ -36,13 +36,14 @@ public class ScoringArea : MonoBehaviour, IScoringArea
     {
         Log("Interacted with scoring area");
         var harvest = (Plant)tool.heldItem;
-        var harvestStage = harvest.CurrentStage;
+        if(harvest == null) { return; }
 
+        var harvestStage = harvest.CurrentStage;
         if(tool.Type == ToolType.Harvesting && harvestStage != null)
         {
             var score = harvestStage.pointValue;
             AddScore(score);
-            AddSprite(harvestStage.sprite);
+            // AddSprite(harvestStage.sprite);
             ++plantCount;
             Log("Delivered plant");
         }
