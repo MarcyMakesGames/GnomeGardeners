@@ -27,20 +27,39 @@ public class GnomeController : MonoBehaviour
     private GridCell interactionCell;
     private GridCell currentCell;
 
+    private bool receiveGameInput = true;
+
     public Vector2 LookDir { get => lookDir; }
     public Tool EquippedTool { get => tool; set => tool = value; }
 
     #region InputEvents
     public void OnInputAction(CallbackContext context)
     {
+        CheckInputReception();
+
+        if (context.action.name == inputs.Player.Escape.name)
+            OnInputEscape(context);
+
+        if (!receiveGameInput) { return; }
+
         if (context.action.name == inputs.Player.Movement.name)
             OnInputMove(context);
         if (context.action.name == inputs.Player.Interact.name)
             OnInputEquipUnequip(context);
         if (context.action.name == inputs.Player.ToolUse.name)
             OnInputUseTool(context);
-        if (context.action.name == inputs.Player.Escape.name)
-            Application.Quit();
+    }
+
+    private void CheckInputReception()
+    {
+        if(GameManager.Instance.SceneController.ActiveInGameUI == InGameUIMode.HUD)
+        {
+            receiveGameInput = true;
+        }
+        else
+        {
+            receiveGameInput = false;
+        }
     }
 
     private void OnInputMove(CallbackContext context)
@@ -66,6 +85,24 @@ public class GnomeController : MonoBehaviour
         {
             UseTool(interactionCell);
             Log("Use tool action executed.");
+        }
+    }
+    private void OnInputEscape(CallbackContext context)
+    {
+        Log("Escape action triggered.");
+        if (context.performed)
+        {
+            var activeInGamePanel = GameManager.Instance.SceneController.ActiveInGameUI;
+            if (activeInGamePanel != InGameUIMode.PauseMenu)
+            {
+                activeInGamePanel = InGameUIMode.PauseMenu;
+            }
+            else
+            {
+                activeInGamePanel = InGameUIMode.HUD;
+            }
+            GameManager.Instance.SceneController.ActiveInGameUI = activeInGamePanel;
+            Log("Escape action executed.");
         }
     }
 

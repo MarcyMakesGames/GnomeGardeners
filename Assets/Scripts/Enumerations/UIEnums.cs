@@ -18,3 +18,11 @@ public enum SceneState
     TestingMainMenu,
     TestingGame,
 }
+
+public enum InGameUIMode
+{
+    HUD,
+    PauseMenu,
+    SettingsMenu,
+    TutorialMenu,
+}

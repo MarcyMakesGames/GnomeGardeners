@@ -43,11 +43,6 @@ public class MainMenuController : MonoBehaviour
         SetPanelActive(nextPanel);
     }
 
-    private void UpdateNextPanel()
-    {
-        nextPanel = GameManager.Instance.SceneController.ActivePanel;
-    }
-
 
     #endregion
 
@@ -59,23 +54,23 @@ public class MainMenuController : MonoBehaviour
         switch (panelIndex)
         {
             case 0:
-                GameManager.Instance.SceneController.ActivePanel = MenuPanel.Title;
+                GameManager.Instance.SceneController.ActiveMenuPanel = MenuPanel.Title;
                 nextPanel = MenuPanel.Title;
                 break;
             case 1:
-                GameManager.Instance.SceneController.ActivePanel = MenuPanel.Main;
+                GameManager.Instance.SceneController.ActiveMenuPanel = MenuPanel.Main;
                 nextPanel = MenuPanel.Main;
                 break;
             case 2:
-                GameManager.Instance.SceneController.ActivePanel = MenuPanel.Settings;
+                GameManager.Instance.SceneController.ActiveMenuPanel = MenuPanel.Settings;
                 nextPanel = MenuPanel.Settings;
                 break;
             case 3:
-                GameManager.Instance.SceneController.ActivePanel = MenuPanel.GnomeSelection;
+                GameManager.Instance.SceneController.ActiveMenuPanel = MenuPanel.GnomeSelection;
                 nextPanel = MenuPanel.GnomeSelection;
                 break;
             case 4:
-                GameManager.Instance.SceneController.ActivePanel = MenuPanel.GameOver;
+                GameManager.Instance.SceneController.ActiveMenuPanel = MenuPanel.GameOver;
                 nextPanel = MenuPanel.GameOver;
                 break;
         }
@@ -134,6 +129,11 @@ public class MainMenuController : MonoBehaviour
     private void SetNextPanel(MenuPanel panel)
     {
         nextPanel = panel;
+    }
+
+    private void UpdateNextPanel()
+    {
+        nextPanel = GameManager.Instance.SceneController.ActiveMenuPanel;
     }
 
     private void Log(string msg)

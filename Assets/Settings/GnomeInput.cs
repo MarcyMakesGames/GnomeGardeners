@@ -28,7 +28,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Interact"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""bf59ceba-2f07-49c3-88ae-a86e44116941"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",

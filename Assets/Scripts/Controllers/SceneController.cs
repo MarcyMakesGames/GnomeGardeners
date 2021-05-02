@@ -6,12 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    private bool debug = false;
+    private bool debug = true;
 
     private SceneState currentScene;
-    private MenuPanel activePanel;
+    private MenuPanel activeMenuPanel;
+    private InGameUIMode activeInGameUI;
 
-    public MenuPanel ActivePanel { get => activePanel; set => activePanel = value; }
+    public MenuPanel ActiveMenuPanel { get => activeMenuPanel; set => activeMenuPanel = value; }
+    public InGameUIMode ActiveInGameUI { get => activeInGameUI; set => activeInGameUI = value; }
 
     // Event Dispatcher
     public VoidEventChannelSO OnSceneLoaded;
@@ -20,6 +22,7 @@ public class SceneController : MonoBehaviour
     public VoidEventChannelSO OnLevelWinEvent;
 
     public SceneState CurrentSceneState => currentScene;
+
 
     #region Unity Methods
 
@@ -33,6 +36,7 @@ public class SceneController : MonoBehaviour
     {
         currentScene = (SceneState) SceneManager.GetActiveScene().buildIndex;
     }
+
     private void OnDestroy()
     {
         Dispose();
@@ -45,6 +49,11 @@ public class SceneController : MonoBehaviour
     public void LoadNextScene()
     {
         StartCoroutine(LoadSceneAsync((int)currentScene + 1));
+    }
+
+    public void LoadPreviousScene()
+    {
+        StartCoroutine(LoadSceneAsync((int)currentScene - 1));
     }
 
     public void LoadSceneByString(string sceneName)
@@ -77,7 +86,7 @@ public class SceneController : MonoBehaviour
             StartCoroutine(LoadSceneAsync(SceneState.MainMenu));
         }
 
-        activePanel = MenuPanel.Title;
+        activeMenuPanel = MenuPanel.Title;
     }
 
     public void LoadGameOverMenu()
@@ -90,7 +99,7 @@ public class SceneController : MonoBehaviour
         {
             StartCoroutine(LoadSceneAsync(SceneState.MainMenu));
         }
-        activePanel = MenuPanel.GameOver;
+        activeMenuPanel = MenuPanel.GameOver;
     }
 
     public void QuitGame()
@@ -102,6 +111,21 @@ public class SceneController : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
+    }
+
+    public void RestartLevel()
+    {
+        var scene = SceneManager.GetActiveScene();
+        SceneManager.UnloadSceneAsync(scene);
+
+        if (GameManager.Instance.loadTestingScenes)
+        {
+            StartCoroutine(LoadSceneAsync(SceneState.TestingGame));
+        }
+        else
+        {
+            StartCoroutine(LoadSceneAsync(SceneState.Game));
+        }
     }
 
     #endregion
@@ -118,7 +142,7 @@ public class SceneController : MonoBehaviour
             OnSceneLoaded.OnEventRaised += UpdateState;
         }
         currentScene = (SceneState)SceneManager.GetActiveScene().buildIndex;
-        activePanel = MenuPanel.Title;
+        activeMenuPanel = MenuPanel.Title;
     }
 
     private void UpdateState()

@@ -49,7 +49,7 @@ public abstract class CoreUIElement<T> : MonoBehaviour
     {
         int minutes = (int)Mathf.Floor(timeRemaining / 60f);
         int seconds = (int)Mathf.Floor(timeRemaining % 60f);
-        UpdateText(target, minutes.ToString() + ":" + seconds.ToString());
+        UpdateText(target, minutes.ToString() + ":" + seconds.ToString("D2"));
     }
 }
 

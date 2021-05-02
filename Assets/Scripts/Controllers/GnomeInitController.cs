@@ -1,6 +1,8 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 
 public class GnomeInitController : MonoBehaviour
 {
@@ -21,6 +23,8 @@ public class GnomeInitController : MonoBehaviour
 
             newGnome.GetComponent<GnomeController>().InitializePlayer(player);
             Debug.Log("Player " + player.Input.playerIndex + " device: " + player.Input.devices);
+
+            player.Input.uiInputModule = FindObjectOfType<InputSystemUIInputModule>();
         }
 
         hasSpawned = true;
