@@ -11,11 +11,11 @@ public class Hazard : ScriptableObject
     
     public float HazardDuration { get => hazardDuration; }
 
-    public void SpawnHazard() 
+    public void SpawnHazard(Vector3 spawnLocation, Vector3 despawnLocation) 
     {
         foreach (HazardElement element in hazardElements)
         {
-            element.SpawnElement();
+            element.SpawnElement(spawnLocation, despawnLocation);
 
             if(hazardDuration == 0f || element.Duration > hazardDuration)
                 hazardDuration = element.Duration;
