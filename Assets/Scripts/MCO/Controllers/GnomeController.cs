@@ -5,9 +5,11 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class GnomeController : MonoBehaviour
 {
-    private bool debug = false;
+    private bool debug = true;
 
-    [SerializeField] private float moveSpeed;
+    [SerializeField] private float minimumSpeed = 5f;
+    [SerializeField] private float pathSpeed = 7f;
+    [SerializeField] private float slowdownFactor = 0.01f;
     [SerializeField] private float interactRange = 1f;
     [SerializeField] private float dropRange = 1f;
     //Here we want a skin for the gnomes
@@ -16,12 +18,14 @@ public class GnomeController : MonoBehaviour
     private Tool tool;
     private Vector2 moveDir = Vector2.zero;
     private Vector2 lookDir;
+    private float moveSpeed;
 
     private PlayerConfig playerConfig;
     private GnomeInput inputs;
     private CameraFollow cameraFollow;
 
     private GridCell interactionCell;
+    private GridCell currentCell;
 
     public Vector2 LookDir { get => lookDir; }
     public Tool EquippedTool { get => tool; set => tool = value; }
@@ -86,19 +90,33 @@ public class GnomeController : MonoBehaviour
     private void Start()
     {
         cameraFollow.target = this.transform;
+        moveSpeed = minimumSpeed;
     }
     #endregion
 
     #region Private Methods
 
-    private void FixedUpdate() => Move();
+    private void FixedUpdate() 
+    {
+        if (moveSpeed > minimumSpeed)
+        {
+            moveSpeed -= moveSpeed * slowdownFactor;
+        }
+        currentCell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
+        if (currentCell.GroundType.Equals(GroundType.Path))
+        {
+            moveSpeed = pathSpeed;
+        }
+        Move();
+    }
 
     private void Update()
     {
-        interactionCell = CalculateInteractionCell();
+        var interactionPosition = (Vector2)transform.position + lookDir * interactRange;
+        interactionCell = GameManager.Instance.GridManager.GetClosestCell(interactionPosition);
         GameManager.Instance.GridManager.HighlightTile(interactionCell.GridPosition);
-    }
 
+    }
 
     private void Move()
     {
@@ -129,14 +147,6 @@ public class GnomeController : MonoBehaviour
                 interactableOnGround.Interact();
             }
         }
-    }
-
-    private GridCell CalculateInteractionCell()
-    {
-        var currentCell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
-        var interactionPosition = currentCell.GridPosition + lookDir * interactRange;
-        var interactionCell = GameManager.Instance.GridManager.GetClosestCell(interactionPosition);
-        return interactionCell;
     }
 
     private void EquipUnequip(GridCell cell)
