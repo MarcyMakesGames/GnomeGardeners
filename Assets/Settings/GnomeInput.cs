@@ -28,7 +28,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Interact"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""bf59ceba-2f07-49c3-88ae-a86e44116941"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -166,6 +166,17 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""574500f7-bcc6-4db2-9495-7189987bbee2"",
                     ""path"": ""<keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e28b5c2-1779-461e-b5c0-1499857b1667"",
+                    ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
