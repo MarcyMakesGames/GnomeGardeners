@@ -30,7 +30,7 @@ public class WindSpawnController : HazardSpawnController
         spawnTime = GameManager.Instance.Time.ElapsedTime;
 
         transform.position = spawnLocation;
-        transform.position = Vector3.RotateTowards(transform.position, despawnLocation, 10000f, 1000f);
+        transform.position = Vector3.RotateTowards(transform.position, despawnLocation, 10000f * Time.deltaTime, 1000f);
     }
 
     private void CountdownTimer()
