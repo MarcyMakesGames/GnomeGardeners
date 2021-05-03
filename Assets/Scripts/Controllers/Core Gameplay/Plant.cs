@@ -38,7 +38,6 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
 
     private void Update()
     {
-        if (isDecayed) { return; }
         TryGrowing();
     }
 
@@ -122,10 +121,9 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
     #region Private Methods
     private void TryGrowing()
     {
-        if (!isOnArableGround)
-        {
-            return;
-        }
+        if (isDecayed) { return; }
+
+        if (!isOnArableGround) { return; }
 
         LogUpdate("Tries Growing on arable ground.");
         currentGrowTime = GameManager.Instance.Time.GetTimeSince(lastStageTimeStamp) * species.growMultiplier;

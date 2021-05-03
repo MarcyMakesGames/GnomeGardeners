@@ -24,6 +24,7 @@ public class GnomeController : MonoBehaviour
     private GnomeInput inputs;
     private CameraFollow cameraFollow;
 
+    Vector2Int previousGridPosition = new Vector2Int();
     private GridCell interactionCell;
     private GridCell currentCell;
 
@@ -151,8 +152,8 @@ public class GnomeController : MonoBehaviour
     {
         var interactionPosition = (Vector2)transform.position + lookDir * interactRange;
         interactionCell = GameManager.Instance.GridManager.GetClosestCell(interactionPosition);
-        GameManager.Instance.GridManager.HighlightTile(interactionCell.GridPosition);
-
+        GameManager.Instance.GridManager.HighlightTile(interactionCell.GridPosition, previousGridPosition);
+        previousGridPosition = interactionCell.GridPosition;
     }
 
     private void Move()
@@ -166,7 +167,6 @@ public class GnomeController : MonoBehaviour
     {
         Log("Using Tool.");
         var occupant = cell.Occupant;
-        GameManager.Instance.GridManager.FlashHighlightTile(cell.GridPosition);
 
         if (tool != null) // note: tool equipped and interacting on cell
         {
@@ -189,7 +189,6 @@ public class GnomeController : MonoBehaviour
     private void EquipUnequip(GridCell cell)
     {
         var occupant = cell.Occupant;
-        GameManager.Instance.GridManager.FlashHighlightTile(cell.GridPosition);
 
         if(tool != null && occupant != null)
         {

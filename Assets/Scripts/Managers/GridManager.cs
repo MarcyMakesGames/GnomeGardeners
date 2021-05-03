@@ -19,7 +19,6 @@ public class GridManager : MonoBehaviour
     private GridCell targetCell;
     private TilePaletteObject targetTilePalette;
 
-    Vector2Int previousGridPosition = new Vector2Int();
 
     public List<GridCell> GridCells { get => gridCells; }
 
@@ -156,23 +155,12 @@ public class GridManager : MonoBehaviour
         return null;
     }
 
-    public void HighlightTile(Vector2Int gridPosition)
+    public void HighlightTile(Vector2Int gridPosition, Vector2Int previousGridPosition)
     {
         if (!gridPosition.Equals(previousGridPosition))
         {
             interactiveTilemap.PaintTile(previousGridPosition, null); // Remove old hoverTile
             interactiveTilemap.PaintTile(gridPosition, hoverTile);
-            previousGridPosition = gridPosition;
-        }
-    }
-
-    public void FlashHighlightTile(Vector2Int gridPosition)
-    {
-        if (!gridPosition.Equals(previousGridPosition))
-        {
-            interactiveTilemap.color = Color.white;
-            interactiveTilemap.color = Color.red;
-            previousGridPosition = gridPosition;
         }
     }
 
