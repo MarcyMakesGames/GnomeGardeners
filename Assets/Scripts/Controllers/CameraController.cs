@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     public List<Transform> targets;
     public Vector3 offset;
     public float smoothTime = 0.5f;
+    public float zoomSpeed = 1f;
     public float minZoom = 40f;
     public float maxZoom = 10f;
     public float zoomLimiter = 50f;
@@ -46,7 +47,7 @@ public class CameraController : MonoBehaviour
     private void Zoom()
     {
         float newZoom = Mathf.Lerp(maxZoom, minZoom, GetGreatestDistance() / zoomLimiter);
-        camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, newZoom, Time.deltaTime);
+        camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, newZoom, zoomSpeed);
     }
 
     private float GetGreatestDistance()
