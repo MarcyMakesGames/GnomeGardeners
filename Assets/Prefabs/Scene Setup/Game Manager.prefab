@@ -399,23 +399,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6186467860654849777}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c57730c811360b46bcf11c8e3654ea7, type: 3}
+  m_Script: {fileID: 11500000, guid: 1547a6fea586f0a4f8e0ec3069158253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hazards:
   - {fileID: 11400000, guid: 02a8ec84e0131864c977684eefefd9b7, type: 2}
-  randomizeHazards: 0
-  hazardDelayTime: 0
+  randomizeHazards: 1
+  hazardDelayTime: 1
   spawnLocations:
   - {fileID: 1530279300}
-  - {fileID: 474051020}
-  - {fileID: 1190902634}
-  - {fileID: 398419281}
   despawnLocations:
   - {fileID: 398419281}
-  - {fileID: 1190902634}
-  - {fileID: 474051020}
-  - {fileID: 1530279300}
 --- !u!1 &6771955404163415835
 GameObject:
   m_ObjectHideFlags: 0

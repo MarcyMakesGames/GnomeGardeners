@@ -31,7 +31,10 @@ public class HazardController : MonoBehaviour
     #region Unity Methods
     private void Awake()
     {
-        GameManager.Instance.HazardController = this;
+        if(GameManager.Instance.HazardController == null)
+        {
+            GameManager.Instance.HazardController = this;
+        }
     }
 
     private void Start()
