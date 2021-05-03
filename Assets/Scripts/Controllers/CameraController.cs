@@ -19,6 +19,7 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         camera = GetComponent<Camera>();
+        targets = new List<Transform>();
     }
 
     private void LateUpdate()
