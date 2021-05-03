@@ -8,8 +8,6 @@ public class WindSpawnController : HazardSpawnController
     private GameObject windPrefab;
     [SerializeField]
     private List<Transform> spawnAreas;
-    [SerializeField]
-    private float timeBetweenGusts;
 
     private float startTime;
     private float spawnTime;
@@ -38,7 +36,7 @@ public class WindSpawnController : HazardSpawnController
         if (GameManager.Instance.Time.GetTimeSince(startTime) >= hazardDuration)
             Destroy(gameObject);
 
-        if (GameManager.Instance.Time.GetTimeSince(spawnTime) >= timeBetweenGusts)
+        if (GameManager.Instance.Time.GetTimeSince(spawnTime) >= timeBetweenSpawns)
         {
             SpawnWindObject();
             Debug.Log("Spawning an object");
@@ -53,6 +51,8 @@ public class WindSpawnController : HazardSpawnController
         var targetDespawn = despawnLocation + positionDifferential;
 
         GameObject windGust = Instantiate(windPrefab, randomSpawnPos.position, transform.rotation);
-        windGust.GetComponent<WindObjectController>().despawnLocation = targetDespawn;
+        WindObjectController windObjController = windGust.GetComponent<WindObjectController>();
+        windObjController.despawnLocation = targetDespawn;
+        windObjController.moveSpeed = spawnObjMoveSpeed;
     }
 }

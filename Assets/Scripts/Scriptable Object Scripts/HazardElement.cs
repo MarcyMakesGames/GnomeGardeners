@@ -15,6 +15,10 @@ public class HazardElement : ScriptableObject
     private int hazardCount;
     [SerializeField]
     private float hazardDuration;
+    [SerializeField] 
+    private float timeBetweenSpawns;
+    [SerializeField]
+    private float spawnedObjMoveSpeed;
 
     public int UniqueID { get => uniqueID; }
     public Direction Direction { get => direction; }
@@ -34,9 +38,7 @@ public class HazardElement : ScriptableObject
             GameObject hazard = Instantiate(hazardElement, spawnLocation, Quaternion.identity, GameManager.Instance.HazardController.gameObject.transform);
             hazard.transform.position = spawnLocation;
             HazardSpawnController hazardObjectController = hazard.GetComponent<HazardSpawnController>();
-            hazardObjectController.SpawnLocation = spawnLocation;
-            hazardObjectController.DespawnLocation = despawnLocation;
-            hazardObjectController.HazardDuration = hazardDuration;
+            hazardObjectController.InitSpawner(spawnLocation, despawnLocation, hazardDuration, timeBetweenSpawns, spawnedObjMoveSpeed);
         }
     }
 }
