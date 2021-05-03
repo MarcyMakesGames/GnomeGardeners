@@ -10,10 +10,6 @@ public class HazardElement : ScriptableObject
     [SerializeField]
     private Direction direction;
     [SerializeField]
-    private List<Transform> spawnLocations;
-    [SerializeField]
-    private List<Transform> despawnLocations;
-    [SerializeField]
     private GameObject hazardElement;
     [SerializeField]
     private int hazardCount;
@@ -24,12 +20,9 @@ public class HazardElement : ScriptableObject
     public Direction Direction { get => direction; }
     public float Duration { get => hazardDuration;  }
 
-    public void SpawnElement() 
+    public void SpawnElement(Vector3 spawnLocation, Vector3 despawnLocation) 
     {
-        var spawnLoc = GetRandomSpawn();
-        var despawnLoc = GetRandomDespawn();
-
-        if(hazardElement.GetComponent<HazardObjectController>() == null)
+        if(hazardElement.GetComponent<HazardSpawnController>() == null)
         {
             Debug.Log("Hazard element " + hazardElement.name + " does not have a HazardObject script attached to it and did not spawn.");
             return;
@@ -38,21 +31,12 @@ public class HazardElement : ScriptableObject
         for(int i = 0; i < hazardCount; i++)
         {
             //THIS NEEDS TO BE GOTTEN FROM THE OBJECT POOL IN THE FUTURE
-            GameObject hazard = Instantiate(hazardElement, spawnLoc.position, Quaternion.identity, GameManager.Instance.HazardController.gameObject.transform);
-            HazardObjectController hazardObjectController = hazard.GetComponent<HazardObjectController>();
-            hazardObjectController.SpawnLocation = spawnLoc;
-            hazardObjectController.DespawnLocation = despawnLoc;
+            GameObject hazard = Instantiate(hazardElement, spawnLocation, Quaternion.identity, GameManager.Instance.HazardController.gameObject.transform);
+            hazard.transform.position = spawnLocation;
+            HazardSpawnController hazardObjectController = hazard.GetComponent<HazardSpawnController>();
+            hazardObjectController.SpawnLocation = spawnLocation;
+            hazardObjectController.DespawnLocation = despawnLocation;
             hazardObjectController.HazardDuration = hazardDuration;
         }
-    }
-
-    private Transform GetRandomSpawn()
-    {
-        return spawnLocations[Random.Range(0, spawnLocations.Count)];
-    }
-
-    private Transform GetRandomDespawn()
-    {
-        return despawnLocations[Random.Range(0, despawnLocations.Count)];
     }
 }
