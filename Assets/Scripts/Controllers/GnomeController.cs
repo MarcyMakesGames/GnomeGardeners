@@ -22,7 +22,7 @@ public class GnomeController : MonoBehaviour
 
     private PlayerConfig playerConfig;
     private GnomeInput inputs;
-    private CameraFollow cameraFollow;
+    private CameraController cameraController;
 
     Vector2Int previousGridPosition = new Vector2Int();
     private GridCell interactionCell;
@@ -122,12 +122,12 @@ public class GnomeController : MonoBehaviour
     private void Awake()
     {
         inputs = new GnomeInput();
-        cameraFollow = FindObjectOfType<CameraFollow>();
+        cameraController = FindObjectOfType<CameraController>();
     }
 
     private void Start()
     {
-        cameraFollow.target = this.transform;
+        cameraController.AddTarget(transform);
         moveSpeed = minimumSpeed;
     }
     #endregion
