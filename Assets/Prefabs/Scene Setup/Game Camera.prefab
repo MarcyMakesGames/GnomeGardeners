@@ -96,15 +96,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7340a6eb5ee801e43934cb6f21bf5936, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targets:
-  - {fileID: 0}
-  offset: {x: 0, y: 0, z: -20}
+  targets: []
+  offset: {x: 0, y: 0, z: -30}
   smoothTime: 0.3
-  zoomSpeed: 1
-  minZoom: 80
+  minZoom: 60
   maxZoom: 20
   zoomLimiter: 50
-  northBound: 10
-  eastBound: 23
-  southBound: -10
-  westBound: -25
+  northBound: 17
+  eastBound: 29
+  southBound: -13
+  westBound: -30

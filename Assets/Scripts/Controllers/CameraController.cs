@@ -9,9 +9,8 @@ public class CameraController : MonoBehaviour
     public List<Transform> targets;
     public Vector3 offset;
     public float smoothTime = 0.5f;
-    public float zoomSpeed = 1f;
-    public float minZoom = 40f;
-    public float maxZoom = 10f;
+    public float maxFOV = 40f;
+    public float minFOV = 10f;
     public float zoomLimiter = 50f;
 
     [Header("Boundaries")]
@@ -20,13 +19,35 @@ public class CameraController : MonoBehaviour
     public float southBound = -50f;
     public float westBound = -50f;
 
+    private Vector3 topLeftScreen;
+    private Vector3 topRightScreen;
+    private Vector3 bottomLeftScreen;
+    private Vector3 bottomRightScreen;
+
+    private Vector3 topLeftOcclusionPoint;
+    private Vector3 topRightOcclusionPoint;
+    private Vector3 bottomLeftOcclusionPoint;
+    private Vector3 bottomRightOcclusionPoint;
+
+    private float northPositionBound;
+    private float eastPositionBound;
+    private float southPositionBound;
+    private float westPositionBound;
+
+    private float FOVBound;
+
     private Vector3 velocity;
-    private Camera camera;
+    private Camera cam;
 
     private void Start()
     {
-        camera = GetComponent<Camera>();
+        cam = GetComponent<Camera>();
         targets = new List<Transform>();
+        topLeftScreen = new Vector3(0f, Screen.height, -offset.z);
+        topRightScreen = new Vector3(Screen.width, Screen.height, -offset.z);
+        bottomLeftScreen = new Vector3(0f, 0f, -offset.z);
+        bottomRightScreen = new Vector3(Screen.width, 0f, -offset.z);
+        FOVBound = maxFOV;
     }
 
     private void LateUpdate()
@@ -47,21 +68,30 @@ public class CameraController : MonoBehaviour
 
         Vector3 newPosition = centerPoint + offset;
 
-        if (newPosition.y > northBound)
+        topLeftOcclusionPoint = cam.ScreenToWorldPoint(topLeftScreen);
+        topRightOcclusionPoint = cam.ScreenToWorldPoint(topRightScreen);
+        bottomLeftOcclusionPoint = cam.ScreenToWorldPoint(bottomLeftScreen);
+        bottomRightOcclusionPoint = cam.ScreenToWorldPoint(bottomRightScreen);
+
+        if (topLeftOcclusionPoint.y > northBound)
         {
-            newPosition.y = northBound;
+            northPositionBound = transform.position.y;
+            newPosition.y = northPositionBound;
         }
-        if (newPosition.x > eastBound)
+        if (bottomRightOcclusionPoint.x > eastBound)
         {
-            newPosition.x = eastBound;
+            eastPositionBound = transform.position.x;
+            newPosition.x = eastPositionBound;
         }
-        if (newPosition.y < southBound)
+        if (topLeftOcclusionPoint.y < southBound)
         {
-            newPosition.y = southBound;
+            southPositionBound = transform.position.y;
+            newPosition.y = southPositionBound;
         }
-        if (newPosition.x < westBound)
+        if (bottomRightOcclusionPoint.x < westBound)
         {
-            newPosition.x = westBound;
+            westPositionBound = transform.position.x;
+            newPosition.x = westPositionBound;
         }
 
 
@@ -70,8 +100,30 @@ public class CameraController : MonoBehaviour
 
     private void Zoom()
     {
-        float newZoom = Mathf.Lerp(maxZoom, minZoom, GetGreatestDistance() / zoomLimiter);
-        camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, newZoom, zoomSpeed);
+        float newZoom = Mathf.Lerp(minFOV, maxFOV, GetGreatestDistance() / zoomLimiter);
+
+        if (topLeftOcclusionPoint.y > northBound)
+        {
+            FOVBound = cam.fieldOfView;
+            newZoom = FOVBound;
+        }
+        if (bottomRightOcclusionPoint.x > eastBound)
+        {
+            FOVBound = cam.fieldOfView;
+            newZoom = FOVBound;
+        }
+        if (topLeftOcclusionPoint.y < southBound)
+        {
+            FOVBound = cam.fieldOfView;
+            newZoom = FOVBound;
+        }
+        if (bottomRightOcclusionPoint.x < westBound)
+        {
+            FOVBound = cam.fieldOfView;
+            newZoom = FOVBound;
+        }
+
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, newZoom, Time.deltaTime);
     }
 
     private float GetGreatestDistance()
