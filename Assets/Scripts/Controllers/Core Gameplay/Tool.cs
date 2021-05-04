@@ -44,9 +44,9 @@ public class Tool : MonoBehaviour, IOccupant
         AssignOccupant();
     }
 
-    public void UseTool(GridCell cell)
+    public void UseTool(GridCell cell, GnomeController gnome)
     {
-        use.Execute(cell, this);
+        use.Execute(cell, this, gnome);
     }
 
     public void Unequip(GridCell cell)

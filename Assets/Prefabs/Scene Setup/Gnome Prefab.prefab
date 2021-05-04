@@ -173,6 +173,7 @@ MonoBehaviour:
   slowdownFactor: 0.01
   interactRange: 1
   dropRange: 1
+  seedSprite: {fileID: 21300000, guid: e35d5b5a435e8b6429cfc286f58fbfda, type: 3}
 --- !u!114 &3601729279842690175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,10 +186,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7f97185142dfa24186e96dd8cddd7ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mustache: {fileID: 0}
-  hat: {fileID: 0}
-  body: {fileID: 0}
-  toolArm: {fileID: 6335585806058133947}
 --- !u!1 &6914463133206669315
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +198,7 @@ GameObject:
   - component: {fileID: 6335585806058133947}
   m_Layer: 0
   m_Name: ToolArm
-  m_TagString: Untagged
+  m_TagString: ToolArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -260,7 +257,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bc3c0c00922eeb64aae3f878926187cd, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -268,7 +265,7 @@ SpriteRenderer:
   m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &9085933631780269537
@@ -282,8 +279,8 @@ GameObject:
   - component: {fileID: 7284970449220619201}
   - component: {fileID: 8220417177603278040}
   m_Layer: 0
-  m_Name: Carriable
-  m_TagString: Untagged
+  m_Name: ItemArm
+  m_TagString: ItemArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -295,13 +292,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9085933631780269537}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.16341203, w: 0.9865579}
   m_LocalPosition: {x: -0.763, y: 0.346, z: 0.126}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1463813168675800980}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 18.81}
 --- !u!212 &8220417177603278040
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -342,14 +339,14 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: e35d5b5a435e8b6429cfc286f58fbfda, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.28, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

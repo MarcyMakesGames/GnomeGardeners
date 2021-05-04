@@ -6,7 +6,7 @@ public class HarvestCommand : ICommand
 {
     private bool debug = false;
 
-    public void Execute(GridCell cell, Tool tool)
+    public void Execute(GridCell cell, Tool tool, GnomeController gnome)
     {
         Log("Executing.");
         var occupant = cell.Occupant;
@@ -21,6 +21,7 @@ public class HarvestCommand : ICommand
                 {
                     tool.heldItem = holdable;
                     plant.HarvestPlant(cell);
+                    gnome.SetItemSprite(plant.spriteRenderer.sprite);
                 }
 
                 var scoringArea = associatedObject.GetComponent<ScoringArea>();
@@ -28,6 +29,7 @@ public class HarvestCommand : ICommand
                 {
                     scoringArea.Interact(tool);
                     tool.heldItem = null;
+                    gnome.RemoveItemSprite();
                 }
             }
         }

@@ -92,7 +92,6 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         if (currentStage.specifier != PlantStage.Seed)
             return;
 
-        gameObject.SetActive(true);
         transform.position = cell.WorldPosition;
         cell.Occupant = this;
         occupyingCell = cell;

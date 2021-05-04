@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaterCommand : ICommand
 {
     private bool debug = false;
-    public void Execute(GridCell cell, Tool tool)
+    public void Execute(GridCell cell, Tool tool, GnomeController gnome)
     {
         Log("Executing");
         /* if in front of plant

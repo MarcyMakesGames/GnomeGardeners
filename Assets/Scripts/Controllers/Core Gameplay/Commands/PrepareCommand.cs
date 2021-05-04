@@ -6,7 +6,7 @@ public class PrepareCommand : ICommand
 {
     private bool debug = true;
 
-    public void Execute(GridCell cell, Tool tool)
+    public void Execute(GridCell cell, Tool tool, GnomeController gnome)
     {
         Log("Executing");
         var occupant = cell.Occupant;
