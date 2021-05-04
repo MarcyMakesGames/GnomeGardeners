@@ -6,7 +6,7 @@ public class SeedCommand : ICommand
 {
     private bool debug = false;
 
-    public void Execute(GridCell cell, Tool tool)
+    public void Execute(GridCell cell, Tool tool, GnomeController gnome)
     {
         Log("Executing.");
         var seed = (Plant)tool.heldItem;
@@ -21,6 +21,7 @@ public class SeedCommand : ICommand
             {
                 Log("Seedbag found!");
                 seedBag.Interact(tool);
+                gnome.SetItemSpriteToSeed(); 
             }
         }
         else if(seed != null && occupant == null)
@@ -30,6 +31,7 @@ public class SeedCommand : ICommand
             {
                 Log("ArableSoil found!");
                 seed.PlantSeed(cell);
+                gnome.RemoveItemSprite();
                 tool.heldItem = null;
             }
         }

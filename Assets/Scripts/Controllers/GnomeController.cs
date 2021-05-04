@@ -12,8 +12,9 @@ public class GnomeController : MonoBehaviour
     [SerializeField] private float slowdownFactor = 0.01f;
     [SerializeField] private float interactRange = 1f;
     [SerializeField] private float dropRange = 1f;
+    [SerializeField] private Sprite seedSprite;
     //Here we want a skin for the gnomes
-    private GnomeSkin skin;
+    // private GnomeSkin skin;
 
     private Tool tool;
     private Vector2 moveDir = Vector2.zero;
@@ -30,10 +31,63 @@ public class GnomeController : MonoBehaviour
 
     private bool receiveGameInput = true;
 
+    private SpriteRenderer toolRenderer;
+    private SpriteRenderer itemRenderer;
+
     public Vector2 LookDir { get => lookDir; }
     public Tool EquippedTool { get => tool; set => tool = value; }
 
-    #region InputEvents
+    #region Unity Methods
+
+    private void Awake()
+    {
+        inputs = new GnomeInput();
+        cameraController = FindObjectOfType<CameraController>();
+    }
+
+    private void Start()
+    {
+        cameraController.AddTarget(transform);
+        moveSpeed = minimumSpeed;
+        Transform[] children = gameObject.GetComponentsInChildren<Transform>();
+        foreach(Transform child in children)
+        {
+            if (child.CompareTag("ItemArm"))
+            {
+                itemRenderer = child.GetComponent<SpriteRenderer>();
+            }
+            if (child.CompareTag("ToolArm"))
+            {
+                toolRenderer = child.GetComponent<SpriteRenderer>();
+            }
+        }
+    }
+    private void FixedUpdate()
+    {
+        if (moveSpeed > minimumSpeed)
+        {
+            moveSpeed -= moveSpeed * slowdownFactor;
+        }
+        currentCell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
+        if (currentCell.GroundType.Equals(GroundType.Path))
+        {
+            moveSpeed = pathSpeed;
+        }
+        Move();
+    }
+
+    private void Update()
+    {
+        var interactionPosition = (Vector2)transform.position + lookDir * interactRange;
+        interactionCell = GameManager.Instance.GridManager.GetClosestCell(interactionPosition);
+        GameManager.Instance.GridManager.HighlightTile(interactionCell.GridPosition, previousGridPosition);
+        previousGridPosition = interactionCell.GridPosition;
+    }
+
+    #endregion
+
+    #region Public Methods
+
     public void OnInputAction(CallbackContext context)
     {
         CheckInputReception();
@@ -50,10 +104,36 @@ public class GnomeController : MonoBehaviour
         if (context.action.name == inputs.Player.ToolUse.name)
             OnInputUseTool(context);
     }
+    public void InitializePlayer(PlayerConfig incomingPlayer)
+    {
+        //This is where we would initialize the gnome skin.
+        //skin = playerConfig.skin;
+        playerConfig = incomingPlayer;
+        playerConfig.Input.onActionTriggered += OnInputAction;
+    }
+
+    public void SetItemSprite(Sprite sprite)
+    {
+        itemRenderer.sprite = sprite;
+    }
+
+    public void SetItemSpriteToSeed()
+    {
+        itemRenderer.sprite = seedSprite;
+    }
+
+    public void RemoveItemSprite()
+    {
+        itemRenderer.sprite = null;
+    }
+
+    #endregion
+
+    #region Private Methods
 
     private void CheckInputReception()
     {
-        if(GameManager.Instance.SceneController.ActiveInGameUI == InGameUIMode.HUD)
+        if (GameManager.Instance.SceneController.ActiveInGameUI == InGameUIMode.HUD)
         {
             receiveGameInput = true;
         }
@@ -107,55 +187,6 @@ public class GnomeController : MonoBehaviour
         }
     }
 
-    #endregion
-
-    #region Initialization
-    public void InitializePlayer(PlayerConfig incomingPlayer)
-    {
-        //This is where we would initialize the gnome skin.
-        //skin = playerConfig.skin;
-        skin = gameObject.GetComponent<GnomeSkin>();
-        playerConfig = incomingPlayer;
-        playerConfig.Input.onActionTriggered += OnInputAction;
-    }
-
-    private void Awake()
-    {
-        inputs = new GnomeInput();
-        cameraController = FindObjectOfType<CameraController>();
-    }
-
-    private void Start()
-    {
-        cameraController.AddTarget(transform);
-        moveSpeed = minimumSpeed;
-    }
-    #endregion
-
-    #region Private Methods
-
-    private void FixedUpdate() 
-    {
-        if (moveSpeed > minimumSpeed)
-        {
-            moveSpeed -= moveSpeed * slowdownFactor;
-        }
-        currentCell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
-        if (currentCell.GroundType.Equals(GroundType.Path))
-        {
-            moveSpeed = pathSpeed;
-        }
-        Move();
-    }
-
-    private void Update()
-    {
-        var interactionPosition = (Vector2)transform.position + lookDir * interactRange;
-        interactionCell = GameManager.Instance.GridManager.GetClosestCell(interactionPosition);
-        GameManager.Instance.GridManager.HighlightTile(interactionCell.GridPosition, previousGridPosition);
-        previousGridPosition = interactionCell.GridPosition;
-    }
-
     private void Move()
     {
         if (moveDir != Vector2.zero)
@@ -170,7 +201,7 @@ public class GnomeController : MonoBehaviour
 
         if (tool != null) // note: tool equipped and interacting on cell
         {
-            tool.UseTool(cell);
+            tool.UseTool(cell, this);
         }
         else if (tool == null && occupant != null) // note: no Tool equipped and interacting on occupant
         {
@@ -215,11 +246,35 @@ public class GnomeController : MonoBehaviour
 
     private void EquipTool(Tool tool, GridCell cell)
     {
-        // todo: change animation sprite
+        if (tool == null)
+            return;
+
         this.tool = tool;
         var renderer = tool.GetComponent<SpriteRenderer>();
-        skin.ChangeArm(renderer);
+        toolRenderer.sprite = renderer.sprite;
         tool.Equip(cell);
+        if(tool.Type == ToolType.Seeding)
+        {
+            if(tool.heldItem != null)
+            {
+                var plant = (Plant)tool.heldItem;
+                if(plant != null)
+                {
+                    itemRenderer.sprite = seedSprite;
+                }
+            }
+        }
+        else if(tool.Type == ToolType.Harvesting)
+        {
+            if(tool.heldItem != null)
+            {
+                var harvest = (Plant)tool.heldItem;
+                if(harvest != null)
+                {
+                    itemRenderer.sprite = harvest.spriteRenderer.sprite;
+                }
+            }
+        }
     }
 
     private void UnequipTool()
@@ -230,7 +285,8 @@ public class GnomeController : MonoBehaviour
         var dropPosition = transform.position + (Vector3)lookDir * dropRange;
         var dropCell = GameManager.Instance.GridManager.GetClosestCell(dropPosition);
         tool.Unequip(dropCell);
-        skin.ResetArm();
+        toolRenderer.sprite = null;
+        itemRenderer.sprite = null;
         tool = null;
     }
 
