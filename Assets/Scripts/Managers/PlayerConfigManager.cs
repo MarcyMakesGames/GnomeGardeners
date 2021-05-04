@@ -5,8 +5,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerConfigManager : MonoBehaviour
 {
+    public bool canJoinPlayers;
+
+    private PlayerInputManager inputManager;
     private List<PlayerConfig> playerConfigs;
     private int maxPlayers = 4;
+    private int playerCount;
 
     public List<PlayerConfig> PlayerConfigs { get => playerConfigs; }
 
@@ -42,6 +46,7 @@ public class PlayerConfigManager : MonoBehaviour
             {
                 GameObject.Find("Title Canvas").SetActive(false);
                 GameManager.Instance.playersReady = true;
+                canJoinPlayers = false;
             }
         }
     }
@@ -59,9 +64,44 @@ public class PlayerConfigManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        ListenJoinPlayer();
+    }
+
+    private void ListenJoinPlayer()
+    {
+        if (canJoinPlayers && Keyboard.current.spaceKey.wasPressedThisFrame && playerCount <= maxPlayers - 1)
+        {
+            switch(playerCount)
+            {
+                case 0:
+                    inputManager.JoinPlayer(playerCount, playerCount, "KeyboardLeft", Keyboard.current);
+                    playerCount++;
+                    break;
+                case 1:
+                    inputManager.JoinPlayer(playerCount, playerCount, "KeyboardRight", Keyboard.current);
+                    playerCount++;
+                    break;
+                case 2:
+                    inputManager.JoinPlayer(playerCount, playerCount, "Gamepad");
+                    playerCount++;
+                    break;
+                case 3:
+                    inputManager.JoinPlayer(playerCount, playerCount, "Gamepad");
+                    playerCount++;
+                    break;
+            }
+
+            Debug.Log(playerCount);
+        }
+    }
+
     private void Awake()
     {
-        if(GameManager.Instance.PlayerConfigManager == null)
+        inputManager = GetComponent<PlayerInputManager>();
+
+        if (GameManager.Instance.PlayerConfigManager == null)
         {
             GameManager.Instance.PlayerConfigManager = this;
             playerConfigs = new List<PlayerConfig>();

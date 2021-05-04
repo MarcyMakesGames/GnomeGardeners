@@ -68,6 +68,7 @@ public class MainMenuController : MonoBehaviour
             case 3:
                 GameManager.Instance.SceneController.ActiveMenuPanel = MenuPanel.GnomeSelection;
                 nextPanel = MenuPanel.GnomeSelection;
+                GameManager.Instance.PlayerConfigManager.canJoinPlayers = true;
                 break;
             case 4:
                 GameManager.Instance.SceneController.ActiveMenuPanel = MenuPanel.GameOver;
