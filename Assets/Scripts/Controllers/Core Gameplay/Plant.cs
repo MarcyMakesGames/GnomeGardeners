@@ -146,6 +146,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         currentNeedValue = 0f;
         isNeedFulfilled = false;
         isDecayed = true;
+        GameManager.Instance.GridManager.ChangeTile(occupyingCell.GridPosition, GroundType.FallowSoil);
     }
 
     private void AdvanceStages()
