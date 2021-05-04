@@ -14,6 +14,12 @@ public class CameraController : MonoBehaviour
     public float maxZoom = 10f;
     public float zoomLimiter = 50f;
 
+    [Header("Boundaries")]
+    public float northBound = 50f;
+    public float eastBound = 50f;
+    public float southBound = -50f;
+    public float westBound = -50f;
+
     private Vector3 velocity;
     private Camera camera;
 
@@ -40,6 +46,24 @@ public class CameraController : MonoBehaviour
         Vector3 centerPoint = GetCenterPoint();
 
         Vector3 newPosition = centerPoint + offset;
+
+        if (newPosition.y > northBound)
+        {
+            newPosition.y = northBound;
+        }
+        if (newPosition.x > eastBound)
+        {
+            newPosition.x = eastBound;
+        }
+        if (newPosition.y < southBound)
+        {
+            newPosition.y = southBound;
+        }
+        if (newPosition.x < westBound)
+        {
+            newPosition.x = westBound;
+        }
+
 
         transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
     }
