@@ -19,9 +19,21 @@ public class HarvestCommand : ICommand
                 var holdable = associatedObject.GetComponent<IHoldable>();
                 if (plant != null && tool.heldItem == null && holdable != null)
                 {
+                    if (!plant.CurrentStage.isHarvestable) { return; }
                     tool.heldItem = holdable;
                     plant.HarvestPlant(cell);
-                    gnome.SetItemSprite(plant.spriteRenderer.sprite);
+                    if(plant.CurrentStage.specifier == PlantStage.Ripening)
+                    {
+                        gnome.SetItemSprite(plant.species.harvestSprite);
+                    }
+                    else if (plant.CurrentStage.specifier == PlantStage.Decaying)
+                    {
+                        gnome.SetItemSprite(plant.species.deadSprite);
+                    }
+                    else
+                    {
+                        gnome.SetItemSprite(plant.species.prematureSprite);
+                    }
                 }
 
                 var scoringArea = associatedObject.GetComponent<ScoringArea>();

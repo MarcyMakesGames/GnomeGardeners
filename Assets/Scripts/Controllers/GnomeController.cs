@@ -271,7 +271,18 @@ public class GnomeController : MonoBehaviour
                 var harvest = (Plant)tool.heldItem;
                 if(harvest != null)
                 {
-                    itemRenderer.sprite = harvest.spriteRenderer.sprite;
+                    if (harvest.CurrentStage.specifier == PlantStage.Ripening)
+                    {
+                        SetItemSprite(harvest.species.harvestSprite);
+                    }
+                    else if (harvest.CurrentStage.specifier == PlantStage.Decaying)
+                    {
+                        SetItemSprite(harvest.species.deadSprite);
+                    }
+                    else
+                    {
+                        SetItemSprite(harvest.species.prematureSprite);
+                    }
                 }
             }
         }
