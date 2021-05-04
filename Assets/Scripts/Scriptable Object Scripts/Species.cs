@@ -5,13 +5,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Species", menuName = "Plants/Species")]
 public class Species : ScriptableObject
 {
+    [Header("Gameplay Variables")]
     public string speciesName;
     public List<Stage> stages;
-    public Sprite decayedSprite;
+    public Stage decayedStage;
     public bool isDamaging;
     public bool isSpawning;
     public bool isFragile;
     public float growMultiplier;
+    [Header("Visuals on Gnome")]
+    public Sprite deadSprite;
+    public Sprite prematureSprite;
+    public Sprite harvestSprite;
+
 
     public Stage NextStage(int current)
     {
