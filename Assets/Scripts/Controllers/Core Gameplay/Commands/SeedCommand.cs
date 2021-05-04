@@ -23,6 +23,13 @@ public class SeedCommand : ICommand
                 seedBag.Interact(tool);
                 gnome.SetItemSpriteToSeed(); 
             }
+            else if (seed != null && seedBag != null)
+            {
+                Log("Seed discarded.");
+                tool.heldItem = null;
+                GameObject.Destroy(seed.gameObject);
+                gnome.RemoveItemSprite();
+            }
         }
         else if(seed != null && occupant == null)
         {
