@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MainMenuController : MonoBehaviour
 {
-    private bool debug = false;
+    private readonly bool debug = false;
 
     public GameObject titlePanel;
     public GameObject mainPanel;
@@ -13,8 +13,8 @@ public class MainMenuController : MonoBehaviour
     public GameObject gnomeSelectionPanel;
     public GameObject gameOverPanel;
 
-    public Scoreboard totalScoreboard;
-    public Scoreboard requiredScoreboard;
+    private Animator transition;
+    public float transitionTime = 1f;
 
     private MenuPanel nextPanel;
     private MenuPanel activePanel;
@@ -28,12 +28,15 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
-        allPanels = new List<GameObject>();
-        allPanels.Add(titlePanel);
-        allPanels.Add(mainPanel);
-        allPanels.Add(settingsPanel);
-        allPanels.Add(gnomeSelectionPanel);
-        allPanels.Add(gameOverPanel);
+        allPanels = new List<GameObject>
+        {
+            titlePanel,
+            mainPanel,
+            settingsPanel,
+            gnomeSelectionPanel,
+            gameOverPanel
+        };
+        transition = GameManager.Instance.SceneController.Transition;
     }
 
     private void Update()
@@ -70,10 +73,6 @@ public class MainMenuController : MonoBehaviour
                 nextPanel = MenuPanel.GnomeSelection;
                 GameManager.Instance.PlayerConfigManager.canJoinPlayers = true;
                 break;
-            case 4:
-                GameManager.Instance.SceneController.ActiveMenuPanel = MenuPanel.GameOver;
-                nextPanel = MenuPanel.GameOver;
-                break;
         }
     }
 
@@ -94,25 +93,20 @@ public class MainMenuController : MonoBehaviour
         switch (panel)
         {
             case MenuPanel.Title:
-                titlePanel.SetActive(true);
+                StartCoroutine(TransitionIntoPanel(titlePanel));
 
                 break;
             case MenuPanel.Main:
-                mainPanel.SetActive(true);
+                StartCoroutine(TransitionIntoPanel(mainPanel));
 
                 break;
             case MenuPanel.Settings:
-                settingsPanel.SetActive(true);
+                StartCoroutine(TransitionIntoPanel(settingsPanel));
 
                 break;
             case MenuPanel.GnomeSelection:
-                gnomeSelectionPanel.SetActive(true);
+                StartCoroutine(TransitionIntoPanel(gnomeSelectionPanel));
 
-                break;
-            case MenuPanel.GameOver:
-                gameOverPanel.SetActive(true);
-                totalScoreboard.UpdateUI(GameManager.Instance.LevelManager.lastTotalScore);
-                requiredScoreboard.UpdateUI(GameManager.Instance.LevelManager.lastRequiredScore);
                 break;
         }
 
@@ -127,14 +121,22 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
-    private void SetNextPanel(MenuPanel panel)
-    {
-        nextPanel = panel;
-    }
-
     private void UpdateNextPanel()
     {
         nextPanel = GameManager.Instance.SceneController.ActiveMenuPanel;
+    }
+
+    private IEnumerator TransitionIntoPanel(GameObject panel)
+    {
+        transition.SetTrigger("FadeIn");
+
+        yield return new WaitForSeconds(transitionTime);
+
+        panel.SetActive(true);
+
+        transition.SetTrigger("FadeOut");
+
+        yield break;
     }
 
     private void Log(string msg)
@@ -143,10 +145,5 @@ public class MainMenuController : MonoBehaviour
         Debug.Log("[MainMenuController]: " + msg);
     }
 
-    private void LogWarning(string msg)
-    {
-        if (!debug) { return; }
-        Debug.LogWarning("[MainMenuController]: " + msg);
-    }
     #endregion
 }

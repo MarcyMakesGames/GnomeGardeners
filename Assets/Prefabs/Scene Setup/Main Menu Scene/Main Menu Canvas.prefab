@@ -124,8 +124,7 @@ MonoBehaviour:
   settingsPanel: {fileID: 6163225569063592671}
   gnomeSelectionPanel: {fileID: 449287923070146286}
   gameOverPanel: {fileID: 1244811583486994235}
-  totalScoreboard: {fileID: 5419358278704215414}
-  requiredScoreboard: {fileID: 7579923888310539151}
+  transitionTime: 0.5
 --- !u!114 &3972938794694469426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -711,27 +710,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7403107433675460249, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7403107433675460249, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7403107433675460249, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7403107433675460249, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7403107433675460249, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7403107433675460249, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7403107433675460249, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -813,28 +812,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7403107433675460249, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
   m_PrefabInstance: {fileID: 7785757134705263559}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5419358278704215414 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2826568938243929777, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
-  m_PrefabInstance: {fileID: 7785757134705263559}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76704e5d36cb3ca4c8d305f6a126cddf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7579923888310539151 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 377700114471145544, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
-  m_PrefabInstance: {fileID: 7785757134705263559}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76704e5d36cb3ca4c8d305f6a126cddf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8252397527404927262
 PrefabInstance:
   m_ObjectHideFlags: 0

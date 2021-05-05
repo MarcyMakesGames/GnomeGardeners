@@ -3,27 +3,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InGameUIManager : MonoBehaviour
+public class GameMenuController : MonoBehaviour
 {
     public GameObject hud;
     public GameObject pauseMenu;
     public GameObject settingsMenu;
     public GameObject tutorialMenu;
+    public GameObject gameOverMenu;
+
+    public Scoreboard totalScoreboard;
+    public Scoreboard requiredScoreboard;
 
     private List<GameObject> allPanels;
 
     private InGameUIMode activePanel;
     private InGameUIMode nextPanel;
 
+    public VoidEventChannelSO OnLevelLoseEvent;
+    public VoidEventChannelSO OnLevelWinEvent;
+
     #region Unity Methods
+
+    private void Awake()
+    {
+        Configure();
+    }
 
     private void Start()
     {
-        allPanels = new List<GameObject>();
-        allPanels.Add(hud);
-        allPanels.Add(pauseMenu);
-        allPanels.Add(settingsMenu);
-        allPanels.Add(tutorialMenu);
+        allPanels = new List<GameObject>
+        {
+            hud,
+            pauseMenu,
+            settingsMenu,
+            tutorialMenu,
+            gameOverMenu
+        };
     }
 
     private void Update()
@@ -31,6 +46,11 @@ public class InGameUIManager : MonoBehaviour
         UpdateNextPanel();
 
         SetPanelActive(nextPanel);
+    }
+
+    private void OnDestroy()
+    {
+        Dispose();
     }
 
     #endregion
@@ -49,6 +69,14 @@ public class InGameUIManager : MonoBehaviour
     public void SetSettingsMenuActive()
     {
         GameManager.Instance.SceneController.ActiveInGameUI = InGameUIMode.SettingsMenu;
+    }
+
+    public void SetGameOverMenuActive()
+    {
+        GameManager.Instance.SceneController.ActiveInGameUI = InGameUIMode.GameOverMenu;
+
+        totalScoreboard.UpdateUI(GameManager.Instance.LevelManager.lastTotalScore);
+        requiredScoreboard.UpdateUI(GameManager.Instance.LevelManager.lastRequiredScore);
     }
 
     public void RestartLevel()
@@ -80,11 +108,12 @@ public class InGameUIManager : MonoBehaviour
                 break;
             case InGameUIMode.SettingsMenu:
                 settingsMenu.SetActive(true);
-
                 break;
             case InGameUIMode.TutorialMenu:
                 tutorialMenu.SetActive(true);
-
+                break;
+            case InGameUIMode.GameOverMenu:
+                gameOverMenu.SetActive(true);
                 break;
         }
 
@@ -103,6 +132,18 @@ public class InGameUIManager : MonoBehaviour
     private void UpdateNextPanel()
     {
         nextPanel = GameManager.Instance.SceneController.ActiveInGameUI;
+    }
+
+    private void Configure()
+    {
+        OnLevelLoseEvent.OnEventRaised += SetGameOverMenuActive;
+        OnLevelWinEvent.OnEventRaised += SetGameOverMenuActive;
+    }
+
+    private void Dispose()
+    {
+        OnLevelLoseEvent.OnEventRaised -= SetGameOverMenuActive;
+        OnLevelWinEvent.OnEventRaised -= SetGameOverMenuActive;
     }
 
     #endregion
