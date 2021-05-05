@@ -4,7 +4,6 @@ using UnityEngine;
 
 public interface IHoldable
 {
-    void Hold();
-    void Drop(Vector2 position);
     bool IsBeingCarried { get; set; }
+    Sprite SpriteInHand { get; set; }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MainMenuController : MonoBehaviour
 {
-    private bool debug = true;
+    private bool debug = false;
 
     public GameObject titlePanel;
     public GameObject mainPanel;

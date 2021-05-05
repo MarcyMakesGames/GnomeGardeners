@@ -5,7 +5,7 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class GnomeController : MonoBehaviour
 {
-    private bool debug = true;
+    private bool debug = false;
 
     [SerializeField] private float minimumSpeed = 5f;
     [SerializeField] private float pathSpeed = 7f;
@@ -13,6 +13,7 @@ public class GnomeController : MonoBehaviour
     [SerializeField] private float interactRange = 1f;
     [SerializeField] private float dropRange = 1f;
     [SerializeField] private Sprite seedSprite;
+    [SerializeField] private Sprite fertilizerSprite;
     //Here we want a skin for the gnomes
     // private GnomeSkin skin;
 
@@ -260,7 +261,7 @@ public class GnomeController : MonoBehaviour
                 var plant = (Plant)tool.heldItem;
                 if(plant != null)
                 {
-                    itemRenderer.sprite = seedSprite;
+                    SetItemSprite(seedSprite);
                 }
             }
         }
@@ -271,18 +272,7 @@ public class GnomeController : MonoBehaviour
                 var harvest = (Plant)tool.heldItem;
                 if(harvest != null)
                 {
-                    if (harvest.CurrentStage.specifier == PlantStage.Ripening)
-                    {
-                        SetItemSprite(harvest.species.harvestSprite);
-                    }
-                    else if (harvest.CurrentStage.specifier == PlantStage.Decaying)
-                    {
-                        SetItemSprite(harvest.species.deadSprite);
-                    }
-                    else
-                    {
-                        SetItemSprite(harvest.species.prematureSprite);
-                    }
+                    SetItemSprite(harvest.SpriteInHand);
                 }
             }
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HarvestCommand : ICommand
 {
-    private bool debug = false;
+    private bool debug = true;
 
     public void Execute(GridCell cell, Tool tool, GnomeController gnome)
     {
@@ -22,18 +22,7 @@ public class HarvestCommand : ICommand
                     if (!plant.CurrentStage.isHarvestable) { return; }
                     tool.heldItem = holdable;
                     plant.HarvestPlant(cell);
-                    if(plant.CurrentStage.specifier == PlantStage.Ripening)
-                    {
-                        gnome.SetItemSprite(plant.species.harvestSprite);
-                    }
-                    else if (plant.CurrentStage.specifier == PlantStage.Decaying)
-                    {
-                        gnome.SetItemSprite(plant.species.deadSprite);
-                    }
-                    else
-                    {
-                        gnome.SetItemSprite(plant.species.prematureSprite);
-                    }
+                    gnome.SetItemSprite(plant.SpriteInHand);
                 }
 
                 var scoringArea = associatedObject.GetComponent<ScoringArea>();
@@ -43,6 +32,19 @@ public class HarvestCommand : ICommand
                     tool.heldItem = null;
                     gnome.RemoveItemSprite();
                 }
+
+                var compost = associatedObject.GetComponent<Compost>();
+                if (compost != null)
+                {
+                    Log("Compost found!");
+                    compost.Interact(tool);
+                    var fertilizer = tool.heldItem;
+                    gnome.SetItemSprite(fertilizer.SpriteInHand);
+                }
+            }
+            else
+            {
+                LogWarning("Occupant does not have an associated object.");
             }
         }
         
