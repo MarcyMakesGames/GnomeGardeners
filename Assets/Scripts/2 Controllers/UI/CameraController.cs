@@ -9,52 +9,33 @@ public class CameraController : MonoBehaviour
     public List<Transform> targets;
     public Vector3 offset;
     public float smoothTime = 0.5f;
-    public float maxFOV = 40f;
-    public float minFOV = 10f;
-    public float zoomLimiter = 50f;
-
-    [Header("Boundaries")]
-    public float northBound = 50f;
-    public float eastBound = 50f;
-    public float southBound = -50f;
-    public float westBound = -50f;
-
-    private Vector3 topLeftScreen;
-    private Vector3 topRightScreen;
-    private Vector3 bottomLeftScreen;
-    private Vector3 bottomRightScreen;
-
-    private Vector3 topLeftOcclusionPoint;
-    private Vector3 topRightOcclusionPoint;
-    private Vector3 bottomLeftOcclusionPoint;
-    private Vector3 bottomRightOcclusionPoint;
-
-    private float northPositionBound;
-    private float eastPositionBound;
-    private float southPositionBound;
-    private float westPositionBound;
-
-    private float FOVBound;
+    public float maxDistance = -40f;
+    public float minDistance = -10f;
+    public float zoomLimiter = 25f;
+    public float minPlayArea = 20f;
+    public float maxPlayArea = 40f;
+    public float boxLimiter = 25f;
 
     private Vector3 velocity;
     private Camera cam;
+    private BoxCollider box;
+    private Rigidbody rb;
+    private float aspectRatio;
 
     private void Start()
     {
         cam = GetComponent<Camera>();
+        box = GetComponent<BoxCollider>();
+        rb = GetComponent<Rigidbody>();
         targets = new List<Transform>();
-        topLeftScreen = new Vector3(0f, Screen.height, -offset.z);
-        topRightScreen = new Vector3(Screen.width, Screen.height, -offset.z);
-        bottomLeftScreen = new Vector3(0f, 0f, -offset.z);
-        bottomRightScreen = new Vector3(Screen.width, 0f, -offset.z);
-        FOVBound = maxFOV;
+        box.center = new Vector3(box.center.x, box.center.y, -transform.position.z);
+        aspectRatio = Screen.currentResolution.width / Screen.currentResolution.height;
     }
 
     private void LateUpdate()
     {
         if(targets.Count == 0) { return; }
         Move();
-        Zoom();
     }
 
     public void AddTarget(Transform target)
@@ -68,62 +49,16 @@ public class CameraController : MonoBehaviour
 
         Vector3 newPosition = centerPoint + offset;
 
-        topLeftOcclusionPoint = cam.ScreenToWorldPoint(topLeftScreen);
-        topRightOcclusionPoint = cam.ScreenToWorldPoint(topRightScreen);
-        bottomLeftOcclusionPoint = cam.ScreenToWorldPoint(bottomLeftScreen);
-        bottomRightOcclusionPoint = cam.ScreenToWorldPoint(bottomRightScreen);
+        float newZ = Mathf.Lerp(minDistance, maxDistance, GetGreatestDistance() / zoomLimiter);
 
-        if (topLeftOcclusionPoint.y > northBound)
-        {
-            northPositionBound = transform.position.y;
-            newPosition.y = northPositionBound;
-        }
-        if (bottomRightOcclusionPoint.x > eastBound)
-        {
-            eastPositionBound = transform.position.x;
-            newPosition.x = eastPositionBound;
-        }
-        if (topLeftOcclusionPoint.y < southBound)
-        {
-            southPositionBound = transform.position.y;
-            newPosition.y = southPositionBound;
-        }
-        if (bottomRightOcclusionPoint.x < westBound)
-        {
-            westPositionBound = transform.position.x;
-            newPosition.x = westPositionBound;
-        }
+        newPosition.z = newZ;
 
+        // Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
+        rb.MovePosition(newPosition);
 
-        transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
-    }
+        box.center = new Vector3(box.center.x, box.center.y, -transform.position.z);
 
-    private void Zoom()
-    {
-        float newZoom = Mathf.Lerp(minFOV, maxFOV, GetGreatestDistance() / zoomLimiter);
-
-        if (topLeftOcclusionPoint.y > northBound)
-        {
-            FOVBound = cam.fieldOfView;
-            newZoom = FOVBound;
-        }
-        if (bottomRightOcclusionPoint.x > eastBound)
-        {
-            FOVBound = cam.fieldOfView;
-            newZoom = FOVBound;
-        }
-        if (topLeftOcclusionPoint.y < southBound)
-        {
-            FOVBound = cam.fieldOfView;
-            newZoom = FOVBound;
-        }
-        if (bottomRightOcclusionPoint.x < westBound)
-        {
-            FOVBound = cam.fieldOfView;
-            newZoom = FOVBound;
-        }
-
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, newZoom, Time.deltaTime);
+        box.size = new Vector3(Mathf.Lerp(minPlayArea, maxPlayArea, GetGreatestDistance() / boxLimiter) * aspectRatio, Mathf.Lerp(minPlayArea, maxPlayArea, GetGreatestDistance() / boxLimiter), 1f);
     }
 
     private float GetGreatestDistance()
