@@ -6,7 +6,7 @@ using System;
 
 public class LevelController : MonoBehaviour
 {
-    private bool debug = true;
+    private bool debug = false;
 
     public float availableTime = 120f;
     public int requiredScore = 1000;

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    private bool debug = true;
+    private bool debug = false;
 
     private SceneState currentScene;
     private MenuPanel activeMenuPanel;
