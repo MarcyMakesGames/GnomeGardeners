@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem.Users;
+using Cinemachine;
 using static UnityEngine.InputSystem.InputAction;
 
 public class GnomeController : MonoBehaviour
@@ -24,7 +25,7 @@ public class GnomeController : MonoBehaviour
 
     private PlayerConfig playerConfig;
     private GnomeInput inputs;
-    private CameraController cameraController;
+    private CinemachineTargetGroup targetGroup;
 
     Vector2Int previousGridPosition = new Vector2Int();
     private GridCell interactionCell;
@@ -43,12 +44,12 @@ public class GnomeController : MonoBehaviour
     private void Awake()
     {
         inputs = new GnomeInput();
-        cameraController = FindObjectOfType<CameraController>();
+        targetGroup = FindObjectOfType<CinemachineTargetGroup>();
     }
 
     private void Start()
     {
-        cameraController.AddTarget(transform);
+        targetGroup.AddMember(transform, 1f, 1f);
         moveSpeed = minimumSpeed;
         Transform[] children = gameObject.GetComponentsInChildren<Transform>();
         foreach(Transform child in children)
