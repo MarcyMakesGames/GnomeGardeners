@@ -92,8 +92,6 @@ public class TilePaletteObject
         foreach (TileBase tile in extraTiles)
             checkTiles.Add(tile);
 
-        compiledTileList = true;
-
         TilePositionDict.Add(TopLeft, TilePosition.TopLeft);
         TilePositionDict.Add(TopMiddle, TilePosition.TopMiddle);
         TilePositionDict.Add(TopRight, TilePosition.TopRight);
@@ -110,5 +108,7 @@ public class TilePaletteObject
         TilePositionDict.Add(RowMiddle, TilePosition.RowMiddle);
         TilePositionDict.Add(RowRight, TilePosition.RowRight);
         TilePositionDict.Add(Single, TilePosition.Single);
+
+        compiledTileList = true;
     }
 }
