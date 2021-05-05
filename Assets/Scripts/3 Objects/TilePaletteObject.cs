@@ -44,7 +44,7 @@ public class TilePaletteObject
     public TileBase RowLeft { get => rowLeft; set => rowLeft = value; }
     public TileBase RowMiddle { get => rowMiddle; set => rowMiddle = value; }
     public TileBase RowRight { get => rowRight; set => rowRight = value; }
-    public TileBase Single { get => Single; set => Single = value; }
+    public TileBase Single { get => single; set => single = value; }
 
 
     public bool CheckContainsTile(TileBase checkTile)
