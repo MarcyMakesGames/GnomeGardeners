@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7834420968690297034}
   - component: {fileID: 4148396494308210224}
   m_Layer: 0
-  m_Name: Obstacle
+  m_Name: Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,12 +73,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4807250085253083838, guid: 0e66ec2ca4817e6439c77da00ae07261, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 41ee8c3ae56334644995c8d8531e5e17, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1.0002441}
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100b54498b9e31641b73da6a15c39c31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 1
   canBeRemoved: 1
   removeTool: 0
 --- !u!61 &4148396494308210224
@@ -115,8 +116,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.0002441}
-    newSize: {x: 1, y: 1.0002441}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

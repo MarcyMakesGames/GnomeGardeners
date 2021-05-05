@@ -6,20 +6,21 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    private bool debug = false;
+    private readonly bool debug = false;
 
     private SceneState currentScene;
     private MenuPanel activeMenuPanel;
     private InGameUIMode activeInGameUI;
 
+    public Canvas canvas;
+    public Animator transition;
+    public float transitionTime = 1f;
+
     public MenuPanel ActiveMenuPanel { get => activeMenuPanel; set => activeMenuPanel = value; }
     public InGameUIMode ActiveInGameUI { get => activeInGameUI; set => activeInGameUI = value; }
+    public Animator Transition { get => transition; }
 
-    // Event Dispatcher
     public VoidEventChannelSO OnSceneLoaded;
-    // Event Receiver
-    public VoidEventChannelSO OnLevelLoseEvent;
-    public VoidEventChannelSO OnLevelWinEvent;
 
     public SceneState CurrentSceneState => currentScene;
 
@@ -89,19 +90,6 @@ public class SceneController : MonoBehaviour
         activeMenuPanel = MenuPanel.Title;
     }
 
-    public void LoadGameOverMenu()
-    {
-        if (GameManager.Instance.loadTestingScenes)
-        {
-            StartCoroutine(LoadSceneAsync(SceneState.TestingMainMenu));
-        }
-        else
-        {
-            StartCoroutine(LoadSceneAsync(SceneState.MainMenu));
-        }
-        activeMenuPanel = MenuPanel.GameOver;
-    }
-
     public void QuitGame()
     {
         //We should save any player prefs before this point.
@@ -137,12 +125,19 @@ public class SceneController : MonoBehaviour
         if(GameManager.Instance.SceneController == null)
         {
             GameManager.Instance.SceneController = this;
-            OnLevelLoseEvent.OnEventRaised += LoadGameOverMenu;
-            OnLevelWinEvent.OnEventRaised += LoadGameOverMenu;
             OnSceneLoaded.OnEventRaised += UpdateState;
         }
         currentScene = (SceneState)SceneManager.GetActiveScene().buildIndex;
         activeMenuPanel = MenuPanel.Title;
+        FindCameraForCanvas();
+    }
+
+    private void FindCameraForCanvas()
+    {
+        if (canvas.worldCamera == null)
+        {
+            canvas.worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        }
     }
 
     private void UpdateState()
@@ -153,11 +148,18 @@ public class SceneController : MonoBehaviour
 
     private IEnumerator LoadSceneAsync(int index)
     {
+        transition.SetTrigger("FadeIn");
+
+        yield return new WaitForSeconds(transitionTime);
+
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(index);
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
+
+        transition.SetTrigger("FadeOut");
+
         OnSceneLoaded.RaiseEvent();
         Log("Scene Loaded");
     }
@@ -186,8 +188,6 @@ public class SceneController : MonoBehaviour
 
     private void Dispose()
     {
-        OnLevelLoseEvent.OnEventRaised -= LoadGameOverMenu;
-        OnLevelWinEvent.OnEventRaised -= LoadGameOverMenu;
         OnSceneLoaded.OnEventRaised -= UpdateState;
     }
 
