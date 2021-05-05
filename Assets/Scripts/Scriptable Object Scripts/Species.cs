@@ -7,7 +7,7 @@ public class Species : ScriptableObject
 {
     public string speciesName;
     public List<Stage> stages;
-    public Sprite decayedSprite;
+    public Stage decayedStage;
     public bool isDamaging;
     public bool isSpawning;
     public bool isFragile;

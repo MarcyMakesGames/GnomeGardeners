@@ -126,7 +126,6 @@ MonoBehaviour:
   gameOverPanel: {fileID: 1244811583486994235}
   totalScoreboard: {fileID: 5419358278704215414}
   requiredScoreboard: {fileID: 7579923888310539151}
-  OnPanelChanged: {fileID: 11400000, guid: 18ae96c1ad963fc44b52cd3e60de39fb, type: 2}
 --- !u!114 &3972938794694469426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,7 +266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4902362203433947070, guid: 005bc8aac48a5ca489f7db68396d2f22, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 005bc8aac48a5ca489f7db68396d2f22, type: 3}
@@ -800,7 +799,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9028280565775377660, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
