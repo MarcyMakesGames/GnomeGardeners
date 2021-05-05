@@ -18,18 +18,12 @@ public class CameraController : MonoBehaviour
 
     private Vector3 velocity;
     private Camera cam;
-    private BoxCollider box;
-    private Rigidbody rb;
     private float aspectRatio;
 
     private void Start()
     {
         cam = GetComponent<Camera>();
-        box = GetComponent<BoxCollider>();
-        rb = GetComponent<Rigidbody>();
         targets = new List<Transform>();
-        box.center = new Vector3(box.center.x, box.center.y, -transform.position.z);
-        aspectRatio = Screen.currentResolution.width / Screen.currentResolution.height;
     }
 
     private void LateUpdate()
@@ -53,12 +47,7 @@ public class CameraController : MonoBehaviour
 
         newPosition.z = newZ;
 
-        // Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
-        rb.MovePosition(newPosition);
-
-        box.center = new Vector3(box.center.x, box.center.y, -transform.position.z);
-
-        box.size = new Vector3(Mathf.Lerp(minPlayArea, maxPlayArea, GetGreatestDistance() / boxLimiter) * aspectRatio, Mathf.Lerp(minPlayArea, maxPlayArea, GetGreatestDistance() / boxLimiter), 1f);
+        Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
     }
 
     private float GetGreatestDistance()
