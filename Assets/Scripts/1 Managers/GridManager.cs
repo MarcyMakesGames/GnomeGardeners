@@ -173,13 +173,11 @@ public class GridManager : MonoBehaviour
         targetCell = null;
 
         foreach (GridCell cell in gridCells)
-        {
             if (cell.GridPosition == gridPosition)
             {
                 targetCell = cell;
                 break;
             }
-        }
     }
 
     #endregion
@@ -209,89 +207,90 @@ public class GridManager : MonoBehaviour
                 Vector3 worldPosition = gridMap.CellToWorld((Vector3Int)gridPosition);
 
                 TileBase tile = groundTilemap.GetTile((Vector3Int)gridPosition);
-                GroundType groundType = GetTileType(tile);
+                GroundType groundType = GetTileGroundType(tile);
+                TilePosition tilePosition = GetTilePosition(tile);
 
-                GridCell cell = CreateCell(gridPosition, worldPosition, groundType, mapSize);
+                GridCell cell = CreateCell(gridPosition, worldPosition, groundType, tilePosition);
                 gridCells.Add(cell);
             }
     }
 
-    private GridCell CreateCell(Vector2Int gridPosition, Vector3 worldPosition, GroundType typeOfGround, int mapSize)
+    private GridCell CreateCell(Vector2Int gridPosition, Vector3 worldPosition, GroundType typeOfGround, TilePosition tilePosition)
     {
-        return new GridCell(gridPosition, worldPosition, typeOfGround, GetMapPosition(gridPosition, mapSize), null);
+        return new GridCell(gridPosition, worldPosition, typeOfGround, tilePosition, null);
     }
 
-    private MapPosition GetMapPosition(Vector2Int gridPosition, int mapSize)
-    {
-
-        if (gridPosition.x == mapSize && gridPosition.y == mapSize)
-            return MapPosition.TopRight;
-
-        else if (gridPosition.x == mapSize && gridPosition.y == -mapSize)
-            return MapPosition.BottomRight;
-
-        else if (gridPosition.x == -mapSize && gridPosition.y == mapSize)
-            return MapPosition.TopLeft;
-
-        else if (gridPosition.x == -mapSize && gridPosition.y == -mapSize)
-            return MapPosition.BottomLeft;
-
-        else if (gridPosition.x == mapSize)
-            return MapPosition.Right;
-
-        else if (gridPosition.x == -mapSize)
-            return MapPosition.Left;
-
-        else if (gridPosition.y == mapSize)
-            return MapPosition.TopMiddle;
-
-        else if (gridPosition.y == -mapSize)
-            return MapPosition.BottomMiddle;
-
-        return MapPosition.Middle;
-    }
-
-    private void PaintTile(Vector2Int gridPosition, MapPosition mapPosition, TilePaletteObject tilePalette)
+    private void PaintTile(Vector2Int gridPosition, TilePosition mapPosition, TilePaletteObject tilePalette)
     {
         switch(mapPosition)
         {
-            case MapPosition.TopLeft:
+            case TilePosition.TopLeft:
                 groundTilemap.PaintTile(gridPosition, tilePalette.TopLeft);
                 break;
-            case MapPosition.TopMiddle:
+            case TilePosition.TopMiddle:
                 groundTilemap.PaintTile(gridPosition, tilePalette.TopMiddle);
                 break;
-            case MapPosition.TopRight:
+            case TilePosition.TopRight:
                 groundTilemap.PaintTile(gridPosition, tilePalette.TopRight);
                 break;
-            case MapPosition.Left:
+            case TilePosition.Left:
                 groundTilemap.PaintTile(gridPosition, tilePalette.Left);
                 break;
-            case MapPosition.Middle:
+            case TilePosition.Middle:
                 groundTilemap.PaintTile(gridPosition, tilePalette.Middle);
                 break;
-            case MapPosition.Right:
+            case TilePosition.Right:
                 groundTilemap.PaintTile(gridPosition, tilePalette.Right);
                 break;
-            case MapPosition.BottomLeft:
+            case TilePosition.BottomLeft:
                 groundTilemap.PaintTile(gridPosition, tilePalette.BottomLeft);
                 break;
-            case MapPosition.BottomMiddle:
+            case TilePosition.BottomMiddle:
                 groundTilemap.PaintTile(gridPosition, tilePalette.BottomMiddle);
                 break;
-            case MapPosition.BottomRight:
+            case TilePosition.BottomRight:
                 groundTilemap.PaintTile(gridPosition, tilePalette.BottomRight);
+                break;
+            case TilePosition.ColumnTop:
+                groundTilemap.PaintTile(gridPosition, tilePalette.ColumnTop);
+                break;
+            case TilePosition.ColumnMiddle:
+                groundTilemap.PaintTile(gridPosition, tilePalette.ColumnMiddle);
+                break;
+            case TilePosition.ColumnBottom:
+                groundTilemap.PaintTile(gridPosition, tilePalette.ColumnBottom);
+                break;
+            case TilePosition.RowLeft:
+                groundTilemap.PaintTile(gridPosition, tilePalette.RowLeft);
+                break;
+            case TilePosition.RowMiddle:
+                groundTilemap.PaintTile(gridPosition, tilePalette.RowMiddle);
+                break;
+            case TilePosition.RowRight:
+                groundTilemap.PaintTile(gridPosition, tilePalette.RowRight);
+                break;
+            case TilePosition.Single:
+                groundTilemap.PaintTile(gridPosition, tilePalette.Single);
                 break;
         }
     }
 
-    private GroundType GetTileType(TileBase checkTile)
+    private GroundType GetTileGroundType(TileBase checkTile)
     {
         foreach (GroundTileAssociation tileset in groundTiles)
-            if (tileset.tilePalette.CheckTile(checkTile))
+            if (tileset.tilePalette.CheckContainsTile(checkTile))
                 return tileset.groundType;
 
         return GroundType.None;
+    }
+
+    private TilePosition GetTilePosition(TileBase checkTile)
+    {
+        foreach (GroundTileAssociation tileset in groundTiles)
+            if (tileset.tilePalette.CheckContainsTile(checkTile))
+                return tileset.tilePalette.GetMapPosition(checkTile);
+
+        return TilePosition.NotSwappable;
     }
     #endregion
 }
