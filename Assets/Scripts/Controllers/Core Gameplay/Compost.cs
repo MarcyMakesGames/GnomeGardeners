@@ -2,13 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoreObjectDispenser : MonoBehaviour, IInteractable
+public class Compost : CoreObjectDispenser
 {
-    public bool debug = true;
-
-    public GameObject dispensable;
-    public GameObject AssociatedObject { get => gameObject; }
-
     #region Unity Methods
 
     private void Start()
@@ -19,10 +14,11 @@ public class CoreObjectDispenser : MonoBehaviour, IInteractable
     #endregion
 
     #region Public Methods
-    public void Interact(Tool tool = null)
+
+    public new void Interact(Tool tool = null)
     {
         Log("Interacting.");
-        if (tool != null)
+        if (tool != null && tool.Type == ToolType.Harvesting)
         {
             DispenseItem(tool);
         }
@@ -30,10 +26,9 @@ public class CoreObjectDispenser : MonoBehaviour, IInteractable
         {
             return; // todo: implement drop on floor
         }
-
     }
 
-    public void AssignOccupant()
+    public new void AssignOccupant()
     {
         GameManager.Instance.GridManager.ChangeTileOccupant(GameManager.Instance.GridManager.GetClosestGrid(AssociatedObject.transform.position), this);
     }
@@ -57,11 +52,11 @@ public class CoreObjectDispenser : MonoBehaviour, IInteractable
 
     private void Log(string msg)
     {
-        Debug.Log("[CoreObjectDispenser]: " + msg);
+        Debug.Log("[Compost]: " + msg);
     }
     private void LogWarning(string msg)
     {
-        Debug.LogWarning("[CoreObjectDispenser]: " + msg);
+        Debug.LogWarning("[Compost]: " + msg);
     }
 
     #endregion

@@ -8,6 +8,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
     public bool debug = true;
 
     public Species species;
+    private Sprite spriteInHand;
 
     private Stage currentStage;
     private float lastStageTimeStamp;
@@ -22,6 +23,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
     public bool IsBeingCarried { get => isBeingCarried; set => isBeingCarried = value; }
     public Stage CurrentStage { get => currentStage; }
     public GameObject AssociatedObject { get => gameObject; }
+    public Sprite SpriteInHand { get => spriteInHand; set => spriteInHand = value; }
 
     public SpriteRenderer spriteRenderer;
 
@@ -74,6 +76,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         {
             cell.RemoveCellOccupant();
             gameObject.SetActive(false);
+            isBeingCarried = true;
         }
     }
 
@@ -95,20 +98,9 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         transform.position = cell.WorldPosition;
         cell.Occupant = this;
         occupyingCell = cell;
+        isBeingCarried = false;
 
         CheckArableGround();
-    }
-
-    public void Drop(Vector2 position)
-    {
-        gameObject.SetActive(true);
-        transform.position = position;
-        Debug.Log("Planted at " + transform.position);
-    }
-
-    public void Hold()
-    {
-        throw new NotImplementedException();
     }
 
     public void AssignOccupant()
@@ -146,6 +138,8 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         currentNeedValue = 0f;
         isNeedFulfilled = false;
         isDecayed = true;
+        GameManager.Instance.GridManager.ChangeTile(occupyingCell.GridPosition, GroundType.FallowSoil);
+        spriteInHand = species.deadSprite;
     }
 
     private void AdvanceStages()
@@ -158,6 +152,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         name = currentStage.name + " " + species.name;
         currentNeedValue = 0f;
         isNeedFulfilled = false;
+        if(currentStage.specifier == PlantStage.Ripening) { spriteInHand = species.harvestSprite; }
     }
 
     private void CheckArableGround()
@@ -189,6 +184,8 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         spriteRenderer.sprite = currentStage.sprite;
         name = currentStage.name+" "+species.name;
         currentNeedValue = 0f;
+        isBeingCarried = true;
+        spriteInHand = species.prematureSprite;
 
         OnTileChanged.OnEventRaised += CheckOccupyingCell;
         OnTileChanged.OnEventRaised += CheckArableGround;
