@@ -13,7 +13,6 @@ public class GridManager : MonoBehaviour
     [SerializeField] private List<GroundTileAssociation> groundTiles;
     [SerializeField] private Tilemap interactiveTilemap;
     [SerializeField] private Tile hoverTile;
-    [SerializeField] private bool createTilemap;
 
     private List<GridCell> gridCells = new List<GridCell>();
     private GridCell targetCell;
@@ -36,11 +35,7 @@ public class GridManager : MonoBehaviour
             throw new System.NotImplementedException("Did not assign the interactive tilemap.");
 
         GameManager.Instance.GridManager = this;
-
-        if (createTilemap)
-            CreateTileMap(halfMapSize);
-        else
-            LogTileMap(halfMapSize);
+        LogTileMap(halfMapSize);
     }
 
     #endregion
@@ -183,21 +178,6 @@ public class GridManager : MonoBehaviour
     #endregion
 
     #region MapGeneration
-    private void CreateTileMap(int mapSize)
-    {
-        for (int i = -mapSize; i <= mapSize; i++)
-            for (int j = -mapSize; j <= mapSize; j++)
-            {
-                Vector2Int gridPosition = new Vector2Int(i, j);
-                Vector3 worldPosition = gridMap.CellToWorld((Vector3Int)gridPosition);
-
-                GridCell cell = CreateCell(gridPosition, worldPosition, groundTiles[0].groundType, mapSize);
-                gridCells.Add(cell);
-
-                PaintTile(cell.GridPosition, cell.MapPosition, groundTiles[0].tilePalette);
-            }
-    }
-
     private void LogTileMap(int mapSize)
     {
         for (int i = -mapSize; i <= mapSize; i++)

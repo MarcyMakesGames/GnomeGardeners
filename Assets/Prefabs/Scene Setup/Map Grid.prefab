@@ -58,57 +58,82 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c277c46ab78405469c65df802150e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridMap: {fileID: 1457597351873758864}
-  groundTilemap: {fileID: 1457597352074648623}
+  gridMap: {fileID: 0}
+  groundTilemap: {fileID: 0}
   halfMapSize: 30
   groundTiles:
-  - groundType: 1
-    tilePalette:
-      topLeftTile: {fileID: 11400000, guid: a86810137ad93b04387a955e6d6a2e68, type: 2}
-      topMiddleTile: {fileID: 11400000, guid: 77a886fc840ec1d4c966eec48e2d398f, type: 2}
-      topRightTile: {fileID: 11400000, guid: f95c6054694df0d459861477a38b8194, type: 2}
-      leftTile: {fileID: 11400000, guid: c987138e8822d2841a246efea3e2e3b3, type: 2}
-      middleTile: {fileID: 11400000, guid: dd1d7698e735bd8418bb1f1d0af300a2, type: 2}
-      rightTile: {fileID: 11400000, guid: 49ceacdf904efb1488c0aa68b585284c, type: 2}
-      bottomLeftTile: {fileID: 11400000, guid: 725bcee06c5995f4ea8174d3bd57d326, type: 2}
-      bottomMiddleTile: {fileID: 11400000, guid: 58376065363c1594886a1fb1bfd2357f, type: 2}
-      bottomRightTile: {fileID: 11400000, guid: 1abd27d352755bd4cbb2b09d70a048af, type: 2}
   - groundType: 2
     tilePalette:
-      topLeftTile: {fileID: 11400000, guid: f19b8c6246900444bb3d312096394baa, type: 2}
-      topMiddleTile: {fileID: 11400000, guid: 7dfc7ca1f606f1846b12ea6f7962df38, type: 2}
-      topRightTile: {fileID: 11400000, guid: b000650227dab794a9cdb9d937644f77, type: 2}
-      leftTile: {fileID: 11400000, guid: 6b94224b883f87f43bc9ceac2fb3641b, type: 2}
-      middleTile: {fileID: 11400000, guid: fd113f9780b403b42b6eb62eac12502e, type: 2}
-      rightTile: {fileID: 11400000, guid: ebd8ebc9f79d2c640a19598107de78b3, type: 2}
-      bottomLeftTile: {fileID: 11400000, guid: 4667d5e59da887c40b53c489b4099167, type: 2}
-      bottomMiddleTile: {fileID: 11400000, guid: 6603700f1e4fa2042ba5a94937ab55e0, type: 2}
-      bottomRightTile: {fileID: 11400000, guid: 8c292fdb588bb1647bbe53b9827558ec, type: 2}
+      topLeft: {fileID: 11400000, guid: f19b8c6246900444bb3d312096394baa, type: 2}
+      topMiddle: {fileID: 11400000, guid: 7dfc7ca1f606f1846b12ea6f7962df38, type: 2}
+      topRight: {fileID: 11400000, guid: b000650227dab794a9cdb9d937644f77, type: 2}
+      left: {fileID: 11400000, guid: 6b94224b883f87f43bc9ceac2fb3641b, type: 2}
+      middle: {fileID: 11400000, guid: fd113f9780b403b42b6eb62eac12502e, type: 2}
+      right: {fileID: 11400000, guid: ebd8ebc9f79d2c640a19598107de78b3, type: 2}
+      bottomLeft: {fileID: 11400000, guid: 4667d5e59da887c40b53c489b4099167, type: 2}
+      bottomMiddle: {fileID: 11400000, guid: 6603700f1e4fa2042ba5a94937ab55e0, type: 2}
+      bottomRight: {fileID: 11400000, guid: 8c292fdb588bb1647bbe53b9827558ec, type: 2}
+      columnTop: {fileID: 11400000, guid: 72179f8e6e08ae2429e06d4fd7e700ce, type: 2}
+      columnMiddle: {fileID: 11400000, guid: 4890544505522654e9175ee6541e5d64, type: 2}
+      columnBottom: {fileID: 11400000, guid: 3fe739afe2bf41f4db175052fa737b07, type: 2}
+      rowLeft: {fileID: 11400000, guid: ab0661f52f835b44baffd901fe35939d, type: 2}
+      rowMiddle: {fileID: 11400000, guid: 7090f0b8cb6b1cb43a3669709c2f2d87, type: 2}
+      rowRight: {fileID: 11400000, guid: 6f7691cfcbe0c1a458209caeb7c523ec, type: 2}
+      single: {fileID: 11400000, guid: a5bc7ee9a6121484eafc8a6dfa072fed, type: 2}
+      extraTiles:
+      - {fileID: 11400000, guid: a66769e65e551ac4b84a058240a4a900, type: 2}
+      - {fileID: 11400000, guid: 0991ec3e13ef42543a6eca27ddd1b491, type: 2}
+      - {fileID: 11400000, guid: 6bad40a2212674342ba5ad2eb9c604e6, type: 2}
+      - {fileID: 11400000, guid: cedd7330cdb02284ebcb758bc107f625, type: 2}
+      - {fileID: 11400000, guid: ec46855eccc6d9e4bbac495f244526f0, type: 2}
+      - {fileID: 11400000, guid: 48bcad5c4c37f7f4f9c0ed08e84d1fd5, type: 2}
+      - {fileID: 11400000, guid: e7234fc9d1a3f334e9049de810d37ae0, type: 2}
+      - {fileID: 11400000, guid: e6ecb235c04e618499d29e9f9a305916, type: 2}
+      - {fileID: 11400000, guid: c66707a5cd26f514384d01f0bac6f309, type: 2}
+      - {fileID: 11400000, guid: 51ac3cc4ed6d6cd409c610d2fbe941e8, type: 2}
+      - {fileID: 11400000, guid: f261987ec1bcb5f4dbe0a8041f15d56a, type: 2}
+      - {fileID: 11400000, guid: 4b285e21d24be3e4a881656556481b78, type: 2}
+      - {fileID: 11400000, guid: a685dfcf9c918024c97da22abe9b219b, type: 2}
   - groundType: 3
     tilePalette:
-      topLeftTile: {fileID: 11400000, guid: ff957ec085cb10c40b927764b4abd47b, type: 2}
-      topMiddleTile: {fileID: 11400000, guid: 9c07b96259d9d5649baa13cbcbb09447, type: 2}
-      topRightTile: {fileID: 11400000, guid: 476af3044ef89cf4bb18d0934c37edf0, type: 2}
-      leftTile: {fileID: 11400000, guid: 995309f55a3247949809f409a825cfa9, type: 2}
-      middleTile: {fileID: 11400000, guid: 218eb40e6f7501249bb4201aa4c010e3, type: 2}
-      rightTile: {fileID: 11400000, guid: 628b778ec7cbc034fbc267c4ffe137ed, type: 2}
-      bottomLeftTile: {fileID: 11400000, guid: 3307e09e03f8fbb4382128e965eb951d, type: 2}
-      bottomMiddleTile: {fileID: 11400000, guid: d010e817c132e9c4894ccfec01bd64fc, type: 2}
-      bottomRightTile: {fileID: 11400000, guid: b11a7d4e1fdd25549a982ae6683f011a, type: 2}
+      topLeft: {fileID: 11400000, guid: ff957ec085cb10c40b927764b4abd47b, type: 2}
+      topMiddle: {fileID: 11400000, guid: 9c07b96259d9d5649baa13cbcbb09447, type: 2}
+      topRight: {fileID: 11400000, guid: 476af3044ef89cf4bb18d0934c37edf0, type: 2}
+      left: {fileID: 11400000, guid: 995309f55a3247949809f409a825cfa9, type: 2}
+      middle: {fileID: 11400000, guid: 218eb40e6f7501249bb4201aa4c010e3, type: 2}
+      right: {fileID: 11400000, guid: 628b778ec7cbc034fbc267c4ffe137ed, type: 2}
+      bottomLeft: {fileID: 11400000, guid: 3307e09e03f8fbb4382128e965eb951d, type: 2}
+      bottomMiddle: {fileID: 11400000, guid: d010e817c132e9c4894ccfec01bd64fc, type: 2}
+      bottomRight: {fileID: 11400000, guid: 628b778ec7cbc034fbc267c4ffe137ed, type: 2}
+      columnTop: {fileID: 11400000, guid: 92bbcafc7849de643b8b3b7c7ba8f4f7, type: 2}
+      columnMiddle: {fileID: 11400000, guid: b582396c932ff9841a475cf135729954, type: 2}
+      columnBottom: {fileID: 11400000, guid: 0f289caac071e084b84b2697a5647b49, type: 2}
+      rowLeft: {fileID: 11400000, guid: ddfb9ad149a159c4cb80640f04f6e8be, type: 2}
+      rowMiddle: {fileID: 11400000, guid: 5cb154e539b74b14a85c2b48032fca84, type: 2}
+      rowRight: {fileID: 11400000, guid: 7dda599d7463df2459091f7ac1b1f389, type: 2}
+      single: {fileID: 11400000, guid: fb810ce1b2ace054689a402f0b75e21f, type: 2}
+      extraTiles: []
   - groundType: 4
     tilePalette:
-      topLeftTile: {fileID: 11400000, guid: 3b621834b634a6f4d8a5d2608a71e9b5, type: 2}
-      topMiddleTile: {fileID: 11400000, guid: 9ec95227c39e3b846a96ab68863f82fc, type: 2}
-      topRightTile: {fileID: 11400000, guid: a33c15958fcf34a48aa51f30cd557786, type: 2}
-      leftTile: {fileID: 11400000, guid: 96c9e59666775424e8a330fa634b34e8, type: 2}
-      middleTile: {fileID: 11400000, guid: f0bfd3d9e88dd7d4a95258e9761886d7, type: 2}
-      rightTile: {fileID: 11400000, guid: 3cf7929b4a05bfc419ff8538eb7ab4cd, type: 2}
-      bottomLeftTile: {fileID: 11400000, guid: 5e0c871c7773edc43b25f88626ec820b, type: 2}
-      bottomMiddleTile: {fileID: 11400000, guid: a460601c9447ea64499ce4d9ea5d45e9, type: 2}
-      bottomRightTile: {fileID: 11400000, guid: 15546fb31b9aedc4fbb853757737595f, type: 2}
-  interactiveTilemap: {fileID: 5808462663023458859}
+      topLeft: {fileID: 11400000, guid: 3b621834b634a6f4d8a5d2608a71e9b5, type: 2}
+      topMiddle: {fileID: 11400000, guid: 9ec95227c39e3b846a96ab68863f82fc, type: 2}
+      topRight: {fileID: 11400000, guid: a33c15958fcf34a48aa51f30cd557786, type: 2}
+      left: {fileID: 11400000, guid: 96c9e59666775424e8a330fa634b34e8, type: 2}
+      middle: {fileID: 11400000, guid: f0bfd3d9e88dd7d4a95258e9761886d7, type: 2}
+      right: {fileID: 11400000, guid: 3cf7929b4a05bfc419ff8538eb7ab4cd, type: 2}
+      bottomLeft: {fileID: 11400000, guid: 5e0c871c7773edc43b25f88626ec820b, type: 2}
+      bottomMiddle: {fileID: 11400000, guid: a460601c9447ea64499ce4d9ea5d45e9, type: 2}
+      bottomRight: {fileID: 11400000, guid: 15546fb31b9aedc4fbb853757737595f, type: 2}
+      columnTop: {fileID: 11400000, guid: 92bbcafc7849de643b8b3b7c7ba8f4f7, type: 2}
+      columnMiddle: {fileID: 11400000, guid: 43920d366f13767439a1ea0653be0e07, type: 2}
+      columnBottom: {fileID: 11400000, guid: 6f53e827ce6249342badd3e2ddaabd46, type: 2}
+      rowLeft: {fileID: 11400000, guid: 8b0d076fea4adc649a2be7d38b05141c, type: 2}
+      rowMiddle: {fileID: 11400000, guid: ef86639f13382f645b20313c9c04a8b0, type: 2}
+      rowRight: {fileID: 11400000, guid: e951b22cfb57b2049ba36247b52d3c40, type: 2}
+      single: {fileID: 11400000, guid: bee664fa443e32545bdd0755ebc46f33, type: 2}
+      extraTiles: []
+  interactiveTilemap: {fileID: 0}
   hoverTile: {fileID: 11400000, guid: 7227f87083c3ed343a49af2322d826d2, type: 2}
-  createTilemap: 0
   OnTileChanged: {fileID: 11400000, guid: 5c9235811ee9890478b55b3f6e2e720a, type: 2}
 --- !u!1 &1457597352074648610
 GameObject:
