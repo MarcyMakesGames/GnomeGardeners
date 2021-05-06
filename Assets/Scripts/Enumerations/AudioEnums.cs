@@ -15,6 +15,7 @@ public enum AudioType
 
     SFX_01,
     SFX_02,
-    BG_01
+    BGM_01,
+    BGM_02,
 }
 
