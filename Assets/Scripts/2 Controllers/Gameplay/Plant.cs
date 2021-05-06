@@ -19,11 +19,13 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
     private GridCell occupyingCell;
     private float currentNeedValue;
     private bool isNeedFulfilled;
+    private ItemType type;
 
     public bool IsBeingCarried { get => isBeingCarried; set => isBeingCarried = value; }
     public Stage CurrentStage { get => currentStage; }
     public GameObject AssociatedObject { get => gameObject; }
     public Sprite SpriteInHand { get => spriteInHand; set => spriteInHand = value; }
+    public ItemType Type { get => type; set => type = value; }
 
     public SpriteRenderer spriteRenderer;
 
@@ -80,8 +82,13 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         }
     }
 
-    public void AddToNeedValue(float amount)
+    public void AddToNeedValue(NeedType type, float amount)
     {
+        if(type != currentStage.need.type)
+        {
+            Log("Incorrect need type.");
+            return;
+        }
         Log("Adding" + amount.ToString() + " to need value.");
         currentNeedValue += amount;
         if(currentNeedValue >= currentStage.need.threshold)
@@ -152,7 +159,14 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         name = currentStage.name + " " + species.name;
         currentNeedValue = 0f;
         isNeedFulfilled = false;
-        if(currentStage.specifier == PlantStage.Ripening) { spriteInHand = species.harvestSprite; }
+        if(currentStage.specifier == PlantStage.Ripening) 
+        { 
+            spriteInHand = species.harvestSprite;
+        }
+        if(type == ItemType.Seed) 
+        {
+            type = ItemType.Harvest;
+        }
     }
 
     private void CheckArableGround()
@@ -186,6 +200,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         currentNeedValue = 0f;
         isBeingCarried = true;
         spriteInHand = species.prematureSprite;
+        type = ItemType.Seed;
 
         OnTileChanged.OnEventRaised += CheckOccupyingCell;
         OnTileChanged.OnEventRaised += CheckArableGround;

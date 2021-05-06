@@ -22,7 +22,7 @@ public class WaterCommand : ICommand
         var plant = cell.Occupant.AssociatedObject.GetComponent<Plant>();
         if (plant != null)
         {
-            plant.AddToNeedValue(tool.waterAmount);
+            plant.AddToNeedValue(NeedType.Water, tool.waterAmount);
         }
 
         //var pest = cell.Occupant.GameObject.GetComponent<Pest>();
