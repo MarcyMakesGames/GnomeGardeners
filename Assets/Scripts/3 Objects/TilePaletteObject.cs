@@ -44,7 +44,7 @@ public class TilePaletteObject
     public TileBase RowLeft { get => rowLeft; set => rowLeft = value; }
     public TileBase RowMiddle { get => rowMiddle; set => rowMiddle = value; }
     public TileBase RowRight { get => rowRight; set => rowRight = value; }
-    public TileBase Single { get => Single; set => Single = value; }
+    public TileBase Single { get => single; set => single = value; }
 
 
     public bool CheckContainsTile(TileBase checkTile)
@@ -92,8 +92,6 @@ public class TilePaletteObject
         foreach (TileBase tile in extraTiles)
             checkTiles.Add(tile);
 
-        compiledTileList = true;
-
         TilePositionDict.Add(TopLeft, TilePosition.TopLeft);
         TilePositionDict.Add(TopMiddle, TilePosition.TopMiddle);
         TilePositionDict.Add(TopRight, TilePosition.TopRight);
@@ -110,5 +108,7 @@ public class TilePaletteObject
         TilePositionDict.Add(RowMiddle, TilePosition.RowMiddle);
         TilePositionDict.Add(RowRight, TilePosition.RowRight);
         TilePositionDict.Add(Single, TilePosition.Single);
+
+        compiledTileList = true;
     }
 }
