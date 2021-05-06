@@ -267,12 +267,18 @@ public class GnomeController : MonoBehaviour
         }
         else if(tool.Type == ToolType.Harvesting)
         {
-            if(tool.heldItem != null)
+            var item = tool.heldItem;
+            if(item != null)
             {
-                var harvest = (Plant)tool.heldItem;
-                if(harvest != null)
+                if(item.Type == ItemType.Harvest || item.Type == ItemType.Seed)
                 {
+                    var harvest = (Plant)item;
                     SetItemSprite(harvest.SpriteInHand);
+                }
+                if (item.Type == ItemType.Fertilizer)
+                {
+                    var fertilizer = (Fertilizer)item;
+                    SetItemSprite(fertilizer.SpriteInHand);
                 }
             }
         }
