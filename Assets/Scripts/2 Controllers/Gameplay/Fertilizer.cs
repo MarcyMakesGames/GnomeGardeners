@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Fertilizer : MonoBehaviour, IHoldable
 {
+    [SerializeField] private float strength = 50f;
     [SerializeField] private Sprite spriteInHand;
     private bool isBeingCarried;
-    public bool IsBeingCarried { get => isBeingCarried; set => isBeingCarried = value; }
+    private ItemType type = ItemType.Fertilizer;
+
+    public float Strength { get => strength; }
     public Sprite SpriteInHand { get => spriteInHand; set => spriteInHand = value; }
+    public bool IsBeingCarried { get => isBeingCarried; set => isBeingCarried = value; }
+    public ItemType Type { get => type; set => type = value; }
 }
