@@ -7,16 +7,16 @@ public class GridCell
     private Vector2Int gridPosition;
     private Vector3 worldPosition;
     private GroundType groundType;
-    private MapPosition mapPosition;
+    private TilePosition mapPosition;
     private IOccupant occupant;
     
     public Vector2Int GridPosition { get => gridPosition; }
     public Vector3 WorldPosition { get => worldPosition; }
     public GroundType GroundType { get => groundType; set => groundType = value; }
-    public MapPosition MapPosition { get => mapPosition; }
+    public TilePosition MapPosition { get => mapPosition; }
     public IOccupant Occupant { get => occupant; set => occupant = value; }
 
-    public GridCell(Vector2Int positionOnGrid, Vector3 positionInWorld, GroundType typeOfGround, MapPosition positionOnMap, IOccupant objectInCell)
+    public GridCell(Vector2Int positionOnGrid, Vector3 positionInWorld, GroundType typeOfGround, TilePosition positionOnMap, IOccupant objectInCell)
     {
         gridPosition = positionOnGrid;
         worldPosition = positionInWorld;

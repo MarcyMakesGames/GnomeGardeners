@@ -8,7 +8,6 @@ public enum MenuPanel
     Main,
     Settings,
     GnomeSelection,
-    GameOver,
 }
 
 public enum SceneState
@@ -25,4 +24,5 @@ public enum InGameUIMode
     PauseMenu,
     SettingsMenu,
     TutorialMenu,
+    GameOverMenu,
 }

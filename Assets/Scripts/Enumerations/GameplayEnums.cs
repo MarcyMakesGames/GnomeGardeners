@@ -22,8 +22,9 @@ public enum GroundType
     ArableSoil,
 }
 
-public enum MapPosition
+public enum TilePosition
 {
+    NotSwappable,
     TopLeft,
     TopMiddle,
     TopRight,
@@ -33,6 +34,13 @@ public enum MapPosition
     BottomLeft,
     BottomMiddle,
     BottomRight,
+    ColumnBottom,
+    ColumnMiddle,
+    ColumnTop,
+    RowMiddle,
+    RowRight,
+    RowLeft,
+    Single
 }
 
 public enum PlantStage
@@ -51,4 +59,11 @@ public enum NeedType
 {
     Water,
     Fertilizer,
+}
+public enum Direction
+{
+    North,
+    East,
+    South,
+    West
 }
