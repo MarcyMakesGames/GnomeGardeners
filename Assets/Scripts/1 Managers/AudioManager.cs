@@ -50,11 +50,7 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        if(GameManager.Instance.AudioManager == null)
-        {
-            Configure();
-        }
-        
+        Configure();
     }
 
     private void OnDisable()
@@ -88,10 +84,14 @@ public class AudioManager : MonoBehaviour
 
     private void Configure()
     {
-        GameManager.Instance.AudioManager = this;
-        audioTable = new Hashtable();
-        jobTable = new Hashtable();
-        GenerateAudioTable();
+
+        if (GameManager.Instance.AudioManager == null)
+        {
+            GameManager.Instance.AudioManager = this;
+            audioTable = new Hashtable();
+            jobTable = new Hashtable();
+            GenerateAudioTable();
+        }
     }
 
     private void Dispose()
@@ -218,18 +218,6 @@ public class AudioManager : MonoBehaviour
         return null;
     }
 
-    private void Log(string msg)
-    {
-        if (!debug) return;
-        Debug.Log("[AudioController]: " + msg);
-    }
-
-    private void LogWarning(string msg)
-    {
-        if (!debug) return;
-        Debug.LogWarning("[AudioController]: " + msg);
-    }
-
 
     private void GenerateAudioTable()
     {
@@ -258,6 +246,18 @@ public class AudioManager : MonoBehaviour
             return null;
         }
         return (AudioTrack)audioTable[type];
+    }
+
+    private void Log(string msg)
+    {
+        if (!debug) return;
+        Debug.Log("[AudioController]: " + msg);
+    }
+
+    private void LogWarning(string msg)
+    {
+        if (!debug) return;
+        Debug.LogWarning("[AudioController]: " + msg);
     }
 
     #endregion
