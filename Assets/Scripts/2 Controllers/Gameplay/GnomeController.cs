@@ -48,7 +48,7 @@ public class GnomeController : MonoBehaviour
 
     private void Start()
     {
-        cameraController.AddTarget(transform);
+        //cameraController.AddTarget(transform);
         moveSpeed = minimumSpeed;
         Transform[] children = gameObject.GetComponentsInChildren<Transform>();
         foreach(Transform child in children)
