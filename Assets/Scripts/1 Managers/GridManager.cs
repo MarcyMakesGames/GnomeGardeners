@@ -8,11 +8,12 @@ using TilemapExtensions;
 public class GridManager : MonoBehaviour
 {
     [SerializeField] private Grid gridMap;
-    [SerializeField] private Tilemap groundTilemap;
     [SerializeField] private int halfMapSize;
-    [SerializeField] private List<GroundTileAssociation> groundTiles;
+    [SerializeField] private Tilemap groundTilemap;
     [SerializeField] private Tilemap interactiveTilemap;
     [SerializeField] private Tile hoverTile;
+    [SerializeField] private List<GroundTileAssociation> groundTiles;
+    [SerializeField] private GameObject cellPrefab;
 
     private List<GridCell> gridCells = new List<GridCell>();
     private GridCell targetCell;
@@ -97,7 +98,6 @@ public class GridManager : MonoBehaviour
 
 
         PaintTile(gridPosition, targetCell.MapPosition, targetTilePalette);
-        targetCell.GroundType = groundType;
 
         OnTileChanged.RaiseEvent();
     }
@@ -112,7 +112,8 @@ public class GridManager : MonoBehaviour
             return;
         }
 
-        targetCell.Occupant = occupant;
+        targetCell.RemoveCellOccupant();
+        targetCell.AddCellOccupant(occupant);
     }
 
     public Vector2Int GetClosestGrid(Vector3 origin)
@@ -189,15 +190,19 @@ public class GridManager : MonoBehaviour
                 TileBase tile = groundTilemap.GetTile((Vector3Int)gridPosition);
                 GroundType groundType = GetTileGroundType(tile);
                 TilePosition tilePosition = GetTilePosition(tile);
+                Sprite spriteMask = GetTilePaletteObject(groundType).SpriteMask;
 
-                GridCell cell = CreateCell(gridPosition, worldPosition, groundType, tilePosition);
-                gridCells.Add(cell);
+                gridCells.Add(CreateCell(gridPosition, worldPosition, groundType, tilePosition, spriteMask));
             }
     }
 
-    private GridCell CreateCell(Vector2Int gridPosition, Vector3 worldPosition, GroundType typeOfGround, TilePosition tilePosition)
+    private GridCell CreateCell(Vector2Int gridPosition, Vector3 worldPosition, GroundType typeOfGround, TilePosition tilePosition, Sprite spriteMask)
     {
-        return new GridCell(gridPosition, worldPosition, typeOfGround, tilePosition, null);
+        GameObject newCell = Instantiate(cellPrefab, worldPosition, Quaternion.identity, transform);
+        GridCell cell = newCell.GetComponent<GridCell>();
+        cell.InitGridCell(gridPosition, worldPosition, typeOfGround, tilePosition, null, spriteMask);
+
+        return cell;
     }
 
     private void PaintTile(Vector2Int gridPosition, TilePosition mapPosition, TilePaletteObject tilePalette)
@@ -271,6 +276,15 @@ public class GridManager : MonoBehaviour
                 return tileset.tilePalette.GetMapPosition(checkTile);
 
         return TilePosition.NotSwappable;
+    }
+
+    private TilePaletteObject GetTilePaletteObject(GroundType groundType)
+    {
+        foreach (GroundTileAssociation groundTileAssociation in groundTiles)
+            if (groundType == groundTileAssociation.groundType)
+                return groundTileAssociation.tilePalette;
+
+        return null;
     }
     #endregion
 }

@@ -96,7 +96,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
             return;
 
         transform.position = cell.WorldPosition;
-        cell.Occupant = this;
+        cell.AddCellOccupant(this);
         occupyingCell = cell;
         isBeingCarried = false;
 

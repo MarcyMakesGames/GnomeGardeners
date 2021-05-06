@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 [System.Serializable]
 public class TilePaletteObject
 {
+    [SerializeField] private Sprite spriteMask;
     [SerializeField] private TileBase topLeft;
     [SerializeField] private TileBase topMiddle;
     [SerializeField] private TileBase topRight;
@@ -29,22 +30,23 @@ public class TilePaletteObject
 
     private Dictionary<TileBase, TilePosition> TilePositionDict = new Dictionary<TileBase, TilePosition>();
 
-    public TileBase TopLeft { get => topLeft; set => topLeft = value; }
-    public TileBase TopMiddle { get => topMiddle; set => topMiddle = value; }
-    public TileBase TopRight { get => topRight; set => topRight = value; }
-    public TileBase Left { get => left; set => left = value; }
-    public TileBase Middle { get => middle; set => middle = value; }
-    public TileBase Right { get => right; set => bottomLeft = value; }
-    public TileBase BottomLeft { get => bottomLeft; set => topLeft = value; }
-    public TileBase BottomMiddle { get => bottomMiddle; set => bottomMiddle = value; }
-    public TileBase BottomRight { get => bottomRight; set => bottomRight = value; }
-    public TileBase ColumnTop { get => columnTop; set => columnTop = value; }
-    public TileBase ColumnMiddle { get => columnMiddle; set => columnMiddle = value; }
-    public TileBase ColumnBottom { get => columnBottom; set => columnBottom = value; }
-    public TileBase RowLeft { get => rowLeft; set => rowLeft = value; }
-    public TileBase RowMiddle { get => rowMiddle; set => rowMiddle = value; }
-    public TileBase RowRight { get => rowRight; set => rowRight = value; }
-    public TileBase Single { get => single; set => single = value; }
+    public Sprite SpriteMask { get => SpriteMask; }
+    public TileBase TopLeft { get => topLeft; }
+    public TileBase TopMiddle { get => topMiddle; }
+    public TileBase TopRight { get => topRight; }
+    public TileBase Left { get => left; }
+    public TileBase Middle { get => middle; }
+    public TileBase Right { get => right; }
+    public TileBase BottomLeft { get => bottomLeft; }
+    public TileBase BottomMiddle { get => bottomMiddle; }
+    public TileBase BottomRight { get => bottomRight; }
+    public TileBase ColumnTop { get => columnTop; }
+    public TileBase ColumnMiddle { get => columnMiddle; }
+    public TileBase ColumnBottom { get => columnBottom; }
+    public TileBase RowLeft { get => rowLeft; }
+    public TileBase RowMiddle { get => rowMiddle; }
+    public TileBase RowRight { get => rowRight; }
+    public TileBase Single { get => single; }
 
 
     public bool CheckContainsTile(TileBase checkTile)
@@ -92,6 +94,8 @@ public class TilePaletteObject
         foreach (TileBase tile in extraTiles)
             checkTiles.Add(tile);
 
+        compiledTileList = true;
+
         TilePositionDict.Add(TopLeft, TilePosition.TopLeft);
         TilePositionDict.Add(TopMiddle, TilePosition.TopMiddle);
         TilePositionDict.Add(TopRight, TilePosition.TopRight);
@@ -108,7 +112,5 @@ public class TilePaletteObject
         TilePositionDict.Add(RowMiddle, TilePosition.RowMiddle);
         TilePositionDict.Add(RowRight, TilePosition.RowRight);
         TilePositionDict.Add(Single, TilePosition.Single);
-
-        compiledTileList = true;
     }
 }
