@@ -67,3 +67,10 @@ public enum Direction
     South,
     West
 }
+
+public enum ItemType
+{
+    Fertilizer,
+    Harvest,
+    Seed
+}
