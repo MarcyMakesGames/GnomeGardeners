@@ -22,6 +22,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
     private float currentNeedValue;
     private bool isNeedFulfilled;
     private ItemType type;
+    private float randomizedTimeToGrow;
 
     public bool IsBeingCarried { get => isBeingCarried; set => isBeingCarried = value; }
     public Stage CurrentStage { get => currentStage; }
@@ -128,9 +129,9 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         LogUpdate("Tries Growing on arable ground.");
         currentGrowTime = GameManager.Instance.Time.GetTimeSince(lastStageTimeStamp) * species.growMultiplier;
 
-        if ( currentGrowTime >= currentStage.timeToFulfillNeed)
+        if (currentGrowTime >= currentStage.timeToFulfillNeed)
         {
-            var randomizedTimeToGrow = currentStage.timeToGrow + UnityEngine.Random.Range(-timeToGrowVariation, timeToGrowVariation);
+            
             if (isNeedFulfilled)
             {
                 if(currentGrowTime >= currentStage.timeToFulfillNeed + randomizedTimeToGrow)
@@ -177,6 +178,8 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         {
             type = ItemType.Harvest;
         }
+        randomizedTimeToGrow = currentStage.timeToGrow + UnityEngine.Random.Range(-timeToGrowVariation, timeToGrowVariation);
+
     }
 
     private void CheckArableGround()
@@ -211,6 +214,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         isBeingCarried = true;
         spriteInHand = species.prematureSprite;
         type = ItemType.Seed;
+        randomizedTimeToGrow = currentStage.timeToGrow + UnityEngine.Random.Range(-timeToGrowVariation, timeToGrowVariation);
 
         OnTileChanged.OnEventRaised += CheckOccupyingCell;
         OnTileChanged.OnEventRaised += CheckArableGround;
