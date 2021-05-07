@@ -8,6 +8,8 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
     public bool debug = true;
 
     public Species species;
+    public float timeToGrowVariation = 1f;
+
     private Sprite spriteInHand;
 
     private Stage currentStage;
@@ -126,12 +128,20 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         LogUpdate("Tries Growing on arable ground.");
         currentGrowTime = GameManager.Instance.Time.GetTimeSince(lastStageTimeStamp) * species.growMultiplier;
 
-        if ( currentGrowTime >= currentStage.timeToNextStage)
+        if ( currentGrowTime >= currentStage.timeToFulfillNeed)
         {
+            var randomizedTimeToGrow = currentStage.timeToGrow + UnityEngine.Random.Range(-timeToGrowVariation, timeToGrowVariation);
             if (isNeedFulfilled)
-                AdvanceStages();
+            {
+                if(currentGrowTime >= currentStage.timeToFulfillNeed + randomizedTimeToGrow)
+                {
+                    AdvanceStages();
+                }
+            }
             else
+            {
                 AdvanceToDecayedStage();
+            }
         }
     }
 

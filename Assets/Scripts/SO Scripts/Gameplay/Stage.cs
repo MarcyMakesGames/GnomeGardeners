@@ -9,7 +9,8 @@ public class Stage : ScriptableObject
     public PlantStage specifier;
     public Sprite sprite;
     public Need need;
-    public float timeToNextStage;
+    public float timeToFulfillNeed;
+    public float timeToGrow;
     public bool isHarvestable;
     public bool isPlantable;
     public int pointValue;
