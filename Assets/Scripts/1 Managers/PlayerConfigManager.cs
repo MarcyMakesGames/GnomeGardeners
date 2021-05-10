@@ -33,20 +33,16 @@ public class PlayerConfigManager : MonoBehaviour
                 var sceneToLoad = GameManager.Instance.SceneToLoad;
                 if ( sceneToLoad == string.Empty)
                 {
+                    canJoinPlayers = false;
                     GameManager.Instance.SceneController.LoadNextScene();
                     GameManager.Instance.playersReady = true;
                 }
                 else
                 {
+                    canJoinPlayers = false;
                     GameManager.Instance.SceneController.LoadSceneByString(sceneToLoad);
                     GameManager.Instance.playersReady = true;
                 }
-            }
-            else
-            {
-                GameObject.Find("Title Canvas").SetActive(false);
-                GameManager.Instance.playersReady = true;
-                canJoinPlayers = false;
             }
         }
     }
@@ -92,8 +88,6 @@ public class PlayerConfigManager : MonoBehaviour
                     playerCount++;
                     break;
             }
-
-            Debug.Log(playerCount);
         }
     }
 
