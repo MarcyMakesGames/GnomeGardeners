@@ -39,7 +39,6 @@ public class WindSpawnController : HazardSpawnController
         if (GameManager.Instance.Time.GetTimeSince(spawnTime) >= timeBetweenSpawns)
         {
             SpawnWindObject();
-            Debug.Log("Spawning an object");
             spawnTime = GameManager.Instance.Time.ElapsedTime;
         }
     }

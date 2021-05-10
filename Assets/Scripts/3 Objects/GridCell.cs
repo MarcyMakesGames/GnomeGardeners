@@ -21,10 +21,11 @@ public class GridCell : MonoBehaviour
     {
         gridPosition = positionOnGrid;
         worldPosition = positionInWorld;
+        transform.position = worldPosition;
         groundType = typeOfGround;
         mapPosition = positionOnMap;
-        occupant = objectInCell;
-        targetMask = spriteMask;
+        AddCellOccupant(objectInCell);
+        ChangeSpriteTarget(spriteMask);
     }
 
     public void RemoveCellOccupant()
@@ -39,6 +40,9 @@ public class GridCell : MonoBehaviour
 
     public void ChangeSpriteTarget(Sprite spriteMask)
     {
-        targetMask = spriteMask;
+        SpriteMask mask = GetComponent<SpriteMask>();
+
+        if (spriteMask != null)
+            mask.sprite = spriteMask;
     }
 }
