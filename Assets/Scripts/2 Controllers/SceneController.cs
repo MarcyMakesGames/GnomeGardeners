@@ -15,6 +15,7 @@ public class SceneController : MonoBehaviour
     public Canvas canvas;
     public Animator transition;
     public float transitionTime = 1f;
+    private bool isInTransition = false;
 
     public MenuPanel ActiveMenuPanel { get => activeMenuPanel; set => activeMenuPanel = value; }
     public InGameUIMode ActiveInGameUI { get => activeInGameUI; set => activeInGameUI = value; }
@@ -49,22 +50,29 @@ public class SceneController : MonoBehaviour
 
     public void LoadNextScene()
     {
+        if (isInTransition) { return; }
+
         StartCoroutine(LoadSceneAsync((int)currentScene + 1));
     }
 
     public void LoadPreviousScene()
     {
+        if (isInTransition) { return; }
+
         StartCoroutine(LoadSceneAsync((int)currentScene - 1));
     }
 
     public void LoadSceneByString(string sceneName)
     {
+        if (isInTransition) { return; }
+
         if (SceneManager.GetSceneByName(sceneName) != null)
             StartCoroutine(LoadSceneAsync(sceneName));
     }
 
     public void LoadSceneGameplay()
     {
+        if (isInTransition) { return; }
         
         if (GameManager.Instance.loadTestingScenes)
         {
@@ -78,6 +86,8 @@ public class SceneController : MonoBehaviour
 
     public void LoadTitleMenu()
     {
+        if (isInTransition) { return; }
+
         if (GameManager.Instance.loadTestingScenes)
         {
             StartCoroutine(LoadSceneAsync(SceneState.TestingMainMenu));
@@ -103,6 +113,8 @@ public class SceneController : MonoBehaviour
 
     public void RestartLevel()
     {
+        if (isInTransition) { return; }
+
         var scene = SceneManager.GetActiveScene();
         SceneManager.UnloadSceneAsync(scene);
 
@@ -144,13 +156,12 @@ public class SceneController : MonoBehaviour
     {
         Log("Scene loaded, updating state.");
         currentScene = (SceneState) SceneManager.GetActiveScene().buildIndex;
-
-        // note: quick fix for transition scene stuck after load. (probably due to multiple calling of coroutines)
-        transition.SetTrigger("FadeOut");
     }
 
     private IEnumerator LoadSceneAsync(int index)
     {
+        isInTransition = true;
+
         transition.SetTrigger("FadeIn");
 
         yield return new WaitForSeconds(transitionTime);
@@ -161,14 +172,16 @@ public class SceneController : MonoBehaviour
             yield return null;
         }
 
-        transition.SetTrigger("FadeOut");
-
-        OnSceneLoaded.RaiseEvent();
         Log("Scene Loaded");
+        isInTransition = false;
+        OnSceneLoaded.RaiseEvent();
+        transition.SetTrigger("FadeOut");
     }
 
     private IEnumerator LoadSceneAsync(SceneState index)
     {
+        isInTransition = true;
+
         transition.SetTrigger("FadeIn");
 
         yield return new WaitForSeconds(transitionTime);
@@ -179,14 +192,16 @@ public class SceneController : MonoBehaviour
             yield return null;
         }
 
-        transition.SetTrigger("FadeOut");
 
-        OnSceneLoaded.RaiseEvent();
         Log("Scene Loaded");
+        isInTransition = false;
+        OnSceneLoaded.RaiseEvent();
+        transition.SetTrigger("FadeOut");
     }
 
     private IEnumerator LoadSceneAsync(string sceneName)
     {
+        isInTransition = true;
         transition.SetTrigger("FadeIn");
 
         yield return new WaitForSeconds(transitionTime);
@@ -197,10 +212,10 @@ public class SceneController : MonoBehaviour
             yield return null;
         }
 
-        transition.SetTrigger("FadeOut");
-
-        OnSceneLoaded.RaiseEvent();
         Log("Scene Loaded");
+        isInTransition = false;
+        OnSceneLoaded.RaiseEvent();
+        transition.SetTrigger("FadeOut");
     }
 
     private void Dispose()
