@@ -144,6 +144,9 @@ public class SceneController : MonoBehaviour
     {
         Log("Scene loaded, updating state.");
         currentScene = (SceneState) SceneManager.GetActiveScene().buildIndex;
+
+        // note: quick fix for transition scene stuck after load. (probably due to multiple calling of coroutines)
+        transition.SetTrigger("FadeOut");
     }
 
     private IEnumerator LoadSceneAsync(int index)
@@ -166,22 +169,36 @@ public class SceneController : MonoBehaviour
 
     private IEnumerator LoadSceneAsync(SceneState index)
     {
+        transition.SetTrigger("FadeIn");
+
+        yield return new WaitForSeconds(transitionTime);
+
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync((int)index);
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
+
+        transition.SetTrigger("FadeOut");
+
         OnSceneLoaded.RaiseEvent();
         Log("Scene Loaded");
     }
 
     private IEnumerator LoadSceneAsync(string sceneName)
     {
+        transition.SetTrigger("FadeIn");
+
+        yield return new WaitForSeconds(transitionTime);
+
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
+
+        transition.SetTrigger("FadeOut");
+
         OnSceneLoaded.RaiseEvent();
         Log("Scene Loaded");
     }
