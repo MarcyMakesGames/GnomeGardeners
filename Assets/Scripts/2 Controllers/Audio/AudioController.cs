@@ -35,10 +35,10 @@ public class AudioController : MonoBehaviour
         bgmAudioSource.loop = true;
         ambienceSource.loop = true;
 
-        MasterVolume = GameManager.Instance.Config.MasterVolume;
-        SFXVolume = GameManager.Instance.Config.SFXVolume;
-        BGMVolume = GameManager.Instance.Config.BGMVolume;
-        ambienceSource.volume = sfxAudioVolume;
+        //MasterVolume = GameManager.Instance.Config.MasterVolume;
+        //SFXVolume = GameManager.Instance.Config.SFXVolume;
+        //BGMVolume = GameManager.Instance.Config.BGMVolume;
+        //ambienceSource.volume = sfxAudioVolume;
     }
 
     #endregion
