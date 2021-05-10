@@ -163,10 +163,6 @@ namespace TilePaletteObjects
                 if (pair.Value == position)
                     return pair.Key;
 
-            foreach (KeyValuePair<TileBase, TilePosition> pair in OutlinePositionDict)
-                if (pair.Value == position)
-                    return pair.Key;
-
             return null;
         }
 
@@ -241,7 +237,7 @@ namespace TilePaletteObjects
             OutlinePositionDict.Add(topRightOutline, TilePosition.TopRight);
             OutlinePositionDict.Add(leftOutline, TilePosition.Left);
             OutlinePositionDict.Add(middleOutline, TilePosition.Middle);
-            OutlinePositionDict.Add(right, TilePosition.Right);
+            OutlinePositionDict.Add(rightOutline, TilePosition.Right);
             OutlinePositionDict.Add(bottomLeftOutline, TilePosition.BottomLeft);
             OutlinePositionDict.Add(bottomMiddleOutline, TilePosition.BottomMiddle);
             OutlinePositionDict.Add(bottomRightOutline, TilePosition.BottomRight);
