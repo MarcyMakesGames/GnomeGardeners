@@ -40,7 +40,20 @@ public enum TilePosition
     RowMiddle,
     RowRight,
     RowLeft,
-    Single
+    Single,
+    RoundedTopLeft,
+    RoundedTopMiddle,
+    RoundedTopRight,
+    RoundedLeft,
+    RoundedMiddle,
+    RoundedRight,
+    RoundedBottomLeft,
+    RoundedBottomMiddle,
+    RoundedBottomRight,
+    Juncture1,
+    Juncture2,
+    Juncture3,
+    Juncture4
 }
 
 public enum PlantStage

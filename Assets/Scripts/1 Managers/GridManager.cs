@@ -101,6 +101,11 @@ public class GridManager : MonoBehaviour
             return;
         }
 
+        targetCell.ChangeSpriteTarget(targetTilePalette.GetSpriteMask(targetCell.MapPosition));
+
+        targetCell.transform.parent =   targetTilePalette.SpriteLayer == "Arable" ? arableWaterColor.transform :
+                                        targetTilePalette.SpriteLayer == "Fallow" ? fallowWaterColor.transform :
+                                        targetTilePalette.SpriteLayer == "Path" ? pathWaterColor.transform : grassWaterColor.transform;
 
         PaintTile(gridPosition, targetCell.MapPosition, targetTilePalette);
 

@@ -76,16 +76,65 @@ namespace TilePaletteObjects
         [SerializeField] private TileBase singleOutline;
         [SerializeField] private Sprite singleSprite;
 
-        [SerializeField] private List<TileBase> extraTiles;
-        [SerializeField] private List<TileBase> extraOutlines;
-        [SerializeField] private List<Sprite> extraSprites;
 
+        [SerializeField] private TileBase roundedTopLeft;
+        [SerializeField] private TileBase roundedTopLeftOutline;
+        [SerializeField] private Sprite roundedTopLeftSprite;
+
+        [SerializeField] private TileBase roundedTopMiddle;
+        [SerializeField] private TileBase roundedTopMiddleOutline;
+        [SerializeField] private Sprite roundedTopMiddleSprite;
+
+        [SerializeField] private TileBase roundedTopRight;
+        [SerializeField] private TileBase roundedTopRightOutline;
+        [SerializeField] private Sprite roundedTopRightSprite;
+
+        [SerializeField] private TileBase roundedLeft;
+        [SerializeField] private TileBase roundedLeftOutline;
+        [SerializeField] private Sprite roundedLeftSprite;
+
+        [SerializeField] private TileBase roundedMiddle;
+        [SerializeField] private TileBase roundedMiddleOutline;
+        [SerializeField] private Sprite roundedMiddleSprite;
+
+        [SerializeField] private TileBase roundedRight;
+        [SerializeField] private TileBase roundedRightOutline;
+        [SerializeField] private Sprite roundedRightSprite;
+
+        [SerializeField] private TileBase roundedBottomLeft;
+        [SerializeField] private TileBase roundedBottomLeftOutline;
+        [SerializeField] private Sprite roundedBottomLeftSprite;
+
+        [SerializeField] private TileBase roundedBottomMiddle;
+        [SerializeField] private TileBase roundedBottomMiddleOutline;
+        [SerializeField] private Sprite roundedBottomMiddleSprite;
+
+        [SerializeField] private TileBase roundedBottomRight;
+        [SerializeField] private TileBase roundedBottomRightOutline;
+        [SerializeField] private Sprite roundedBottomRightSprite;
+
+        [SerializeField] private TileBase juncture1;
+        [SerializeField] private TileBase juncture1Outline;
+        [SerializeField] private Sprite juncture1Sprite;
+
+        [SerializeField] private TileBase juncture2;
+        [SerializeField] private TileBase juncture2Outline;
+        [SerializeField] private Sprite juncture2Sprite;
+
+        [SerializeField] private TileBase juncture3;
+        [SerializeField] private TileBase juncture3Outline;
+        [SerializeField] private Sprite juncture3Sprite;
+
+        [SerializeField] private TileBase juncture4;
+        [SerializeField] private TileBase juncture4Outline;
+        [SerializeField] private Sprite juncture4Sprite;
 
         private bool compiledTileList = false;
 
         private Dictionary<TileBase, TilePosition> TilePositionDict = new Dictionary<TileBase, TilePosition>();
         private Dictionary<TileBase, TilePosition> OutlinePositionDict = new Dictionary<TileBase, TilePosition>();
         private Dictionary<Sprite, TilePosition> SpritePositionDict = new Dictionary<Sprite, TilePosition>();
+
 
 
         public string SpriteLayer { get => spriteLayer; }
@@ -160,6 +209,33 @@ namespace TilePaletteObjects
             TilePositionDict.Add(rowRight, TilePosition.RowRight);
             TilePositionDict.Add(single, TilePosition.Single);
 
+            if (roundedBottomLeft != null)
+                TilePositionDict.Add(roundedBottomLeft, TilePosition.BottomLeft);
+            if (roundedBottomMiddle != null)
+                TilePositionDict.Add(roundedBottomMiddle, TilePosition.BottomMiddle);
+            if (roundedBottomRight != null)
+                TilePositionDict.Add(roundedBottomRight, TilePosition.BottomRight);
+            if (roundedLeft != null)
+                TilePositionDict.Add(roundedLeft, TilePosition.RoundedLeft);
+            if (roundedMiddle != null)
+                TilePositionDict.Add(roundedMiddle, TilePosition.RoundedMiddle);
+            if (roundedRight != null)
+                TilePositionDict.Add(roundedRight, TilePosition.RoundedRight);
+            if (roundedTopLeft != null)
+                TilePositionDict.Add(roundedTopLeft, TilePosition.RoundedTopLeft);
+            if (roundedTopMiddle != null)
+                TilePositionDict.Add(roundedTopMiddle, TilePosition.RoundedTopMiddle);
+            if (roundedTopRight != null)
+                TilePositionDict.Add(roundedTopRight, TilePosition.RoundedTopRight);
+            if (juncture1 != null)
+                TilePositionDict.Add(juncture1, TilePosition.Juncture1);
+            if (juncture2 != null)
+                TilePositionDict.Add(juncture2, TilePosition.Juncture2);
+            if (juncture3 != null)
+                TilePositionDict.Add(juncture3, TilePosition.Juncture3);
+            if (juncture4 != null)
+                TilePositionDict.Add(juncture4, TilePosition.Juncture4);
+
             OutlinePositionDict.Add(topLeftOutline, TilePosition.TopLeft);
             OutlinePositionDict.Add(topMiddleOutline, TilePosition.TopMiddle);
             OutlinePositionDict.Add(topRightOutline, TilePosition.TopRight);
@@ -177,6 +253,33 @@ namespace TilePaletteObjects
             OutlinePositionDict.Add(rowRightOutline, TilePosition.RowRight);
             OutlinePositionDict.Add(singleOutline, TilePosition.Single);
 
+            if (roundedBottomLeftOutline != null)
+                OutlinePositionDict.Add(roundedBottomLeftOutline, TilePosition.RoundedBottomLeft);
+            if (roundedBottomMiddleOutline != null)
+                OutlinePositionDict.Add(roundedBottomMiddleOutline, TilePosition.RoundedBottomMiddle);
+            if (roundedBottomRight != null)
+                OutlinePositionDict.Add(roundedBottomRightOutline, TilePosition.RoundedBottomRight);
+            if (roundedLeftOutline != null)
+                OutlinePositionDict.Add(roundedLeftOutline, TilePosition.RoundedLeft);
+            if (roundedMiddleOutline != null)
+                OutlinePositionDict.Add(roundedMiddleOutline, TilePosition.RoundedMiddle);
+            if (roundedRightOutline != null)
+                OutlinePositionDict.Add(roundedRightOutline, TilePosition.RoundedRight);
+            if (roundedTopLeftOutline != null)
+                OutlinePositionDict.Add(roundedTopLeftOutline, TilePosition.RoundedTopLeft);
+            if (roundedTopMiddleOutline != null)
+                OutlinePositionDict.Add(roundedTopMiddleOutline, TilePosition.RoundedTopMiddle);
+            if (roundedTopRightOutline != null)
+                OutlinePositionDict.Add(roundedTopRightOutline, TilePosition.RoundedTopRight);
+            if (juncture1Outline != null)
+                OutlinePositionDict.Add(juncture1Outline, TilePosition.Juncture1);
+            if (juncture2Outline != null)
+                OutlinePositionDict.Add(juncture2Outline, TilePosition.Juncture2);
+            if (juncture3Outline != null)
+                OutlinePositionDict.Add(juncture3Outline, TilePosition.Juncture3);
+            if (juncture4Outline != null)
+                OutlinePositionDict.Add(juncture4Outline, TilePosition.Juncture4);
+
             SpritePositionDict.Add(topLeftSprite, TilePosition.TopLeft);
             SpritePositionDict.Add(topMiddleSprite, TilePosition.TopMiddle);
             SpritePositionDict.Add(topRightSprite, TilePosition.TopRight);
@@ -193,6 +296,33 @@ namespace TilePaletteObjects
             SpritePositionDict.Add(rowMiddleSprite, TilePosition.RowMiddle);
             SpritePositionDict.Add(rowRightSprite, TilePosition.RowRight);
             SpritePositionDict.Add(singleSprite, TilePosition.Single);
+
+            if (roundedBottomLeftSprite != null)
+                SpritePositionDict.Add(roundedBottomLeftSprite, TilePosition.BottomLeft);
+            if (roundedBottomMiddleSprite != null)
+                SpritePositionDict.Add(roundedBottomMiddleSprite, TilePosition.BottomMiddle);
+            if (roundedBottomRightSprite != null)
+                SpritePositionDict.Add(roundedBottomRightSprite, TilePosition.BottomRight);
+            if (roundedLeft != null)
+                SpritePositionDict.Add(roundedLeftSprite, TilePosition.RoundedLeft);
+            if (roundedMiddleSprite != null)
+                SpritePositionDict.Add(roundedMiddleSprite, TilePosition.RoundedMiddle);
+            if (roundedRightSprite != null)
+                SpritePositionDict.Add(roundedRightSprite, TilePosition.RoundedRight);
+            if (roundedTopLeftSprite != null)
+                SpritePositionDict.Add(roundedTopLeftSprite, TilePosition.RoundedTopLeft);
+            if (roundedTopMiddleSprite != null)
+                SpritePositionDict.Add(roundedTopMiddleSprite, TilePosition.RoundedTopMiddle);
+            if (roundedTopRightSprite != null)
+                SpritePositionDict.Add(roundedTopRightSprite, TilePosition.RoundedTopRight);
+            if (juncture1Sprite != null)
+                SpritePositionDict.Add(juncture1Sprite, TilePosition.Juncture1);
+            if (juncture2Sprite != null)
+                SpritePositionDict.Add(juncture2Sprite, TilePosition.Juncture2);
+            if (juncture3Sprite != null)
+                SpritePositionDict.Add(juncture3Sprite, TilePosition.Juncture3);
+            if (juncture4Sprite != null)
+                SpritePositionDict.Add(juncture4Sprite, TilePosition.Juncture4);
         }
     }
 }
