@@ -4,15 +4,21 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using TilemapExtensions;
+using TilePaletteObjects;
 
 public class GridManager : MonoBehaviour
 {
     [SerializeField] private Grid gridMap;
-    [SerializeField] private Tilemap groundTilemap;
     [SerializeField] private int halfMapSize;
-    [SerializeField] private List<GroundTileAssociation> groundTiles;
+    [SerializeField] private Tilemap groundTilemap;
     [SerializeField] private Tilemap interactiveTilemap;
     [SerializeField] private Tile hoverTile;
+    [SerializeField] private List<TilePaletteObject> groundTiles;
+    [SerializeField] private GameObject cellPrefab;
+    [SerializeField] private GameObject grassWaterColor;
+    [SerializeField] private GameObject arableWaterColor;
+    [SerializeField] private GameObject fallowWaterColor;
+    [SerializeField] private GameObject pathWaterColor;
 
     private List<GridCell> gridCells = new List<GridCell>();
     private GridCell targetCell;
@@ -82,10 +88,10 @@ public class GridManager : MonoBehaviour
 
         targetTilePalette = null;
 
-        foreach(GroundTileAssociation groundTileAssociation in groundTiles)
-            if(groundType == groundTileAssociation.groundType)
+        foreach(TilePaletteObject tilePalette in groundTiles)
+            if(groundType == tilePalette.GroundType)
             {
-                targetTilePalette = groundTileAssociation.tilePalette;
+                targetTilePalette = tilePalette;
                 break;
             }
         
@@ -97,7 +103,6 @@ public class GridManager : MonoBehaviour
 
 
         PaintTile(gridPosition, targetCell.MapPosition, targetTilePalette);
-        targetCell.GroundType = groundType;
 
         OnTileChanged.RaiseEvent();
     }
@@ -112,7 +117,8 @@ public class GridManager : MonoBehaviour
             return;
         }
 
-        targetCell.Occupant = occupant;
+        targetCell.RemoveCellOccupant();
+        targetCell.AddCellOccupant(occupant);
     }
 
     public Vector2Int GetClosestGrid(Vector3 origin)
@@ -187,17 +193,55 @@ public class GridManager : MonoBehaviour
                 Vector3 worldPosition = gridMap.CellToWorld((Vector3Int)gridPosition);
 
                 TileBase tile = groundTilemap.GetTile((Vector3Int)gridPosition);
-                GroundType groundType = GetTileGroundType(tile);
-                TilePosition tilePosition = GetTilePosition(tile);
+                TilePaletteObject tilePalette = GetTilePaletteObject(tile);
 
-                GridCell cell = CreateCell(gridPosition, worldPosition, groundType, tilePosition);
-                gridCells.Add(cell);
+                if (tilePalette != null)
+                {
+                    GroundType tileType = tilePalette.GroundType;
+                    TilePosition position = tilePalette.GetMapPosition(tile);
+                    string spriteLayer = tilePalette.SpriteLayer;
+                    Sprite spriteMask = tilePalette.GetSpriteMask(position);
+
+                    PaintTile(gridPosition, position, tilePalette);
+                    gridCells.Add(CreateCell(gridPosition, worldPosition, tileType, position, spriteMask, spriteLayer));
+                }
+                else
+                {
+                    GroundType tileType = GroundType.Grass;
+                    TilePosition position = TilePosition.NotSwappable;
+                    string spriteLayer = "Grass";
+
+                    gridCells.Add(CreateCell(gridPosition, worldPosition, tileType, position, null, spriteLayer));
+                }
             }
     }
 
-    private GridCell CreateCell(Vector2Int gridPosition, Vector3 worldPosition, GroundType typeOfGround, TilePosition tilePosition)
+    GameObject newCell;
+    private GridCell CreateCell(Vector2Int gridPosition, Vector3 worldPosition, GroundType typeOfGround, TilePosition tilePosition, Sprite spriteMask, string spriteLayer)
     {
-        return new GridCell(gridPosition, worldPosition, typeOfGround, tilePosition, null);
+
+        switch(spriteLayer)
+        {
+            case "Grass":
+                newCell = Instantiate(cellPrefab, worldPosition, Quaternion.identity, grassWaterColor.transform);
+                newCell.GetComponent<SpriteMask>().enabled = false;
+                break;
+            case "Arable":
+                newCell = Instantiate(cellPrefab, worldPosition, Quaternion.identity, arableWaterColor.transform);
+                break;
+            case "Fallow":
+                newCell = Instantiate(cellPrefab, worldPosition, Quaternion.identity, fallowWaterColor.transform);
+                break;
+            case "Path":
+                newCell = Instantiate(cellPrefab, worldPosition, Quaternion.identity, pathWaterColor.transform);
+                break;
+        }
+
+        GridCell cell = newCell.GetComponent<GridCell>();
+
+        cell.InitGridCell(gridPosition, worldPosition, typeOfGround, tilePosition, null, spriteMask);
+
+        return cell;
     }
 
     private void PaintTile(Vector2Int gridPosition, TilePosition mapPosition, TilePaletteObject tilePalette)
@@ -205,72 +249,63 @@ public class GridManager : MonoBehaviour
         switch(mapPosition)
         {
             case TilePosition.TopLeft:
-                groundTilemap.PaintTile(gridPosition, tilePalette.TopLeft);
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.TopLeft));
                 break;
             case TilePosition.TopMiddle:
-                groundTilemap.PaintTile(gridPosition, tilePalette.TopMiddle);
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.TopMiddle));
                 break;
             case TilePosition.TopRight:
-                groundTilemap.PaintTile(gridPosition, tilePalette.TopRight);
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.TopRight));
                 break;
             case TilePosition.Left:
-                groundTilemap.PaintTile(gridPosition, tilePalette.Left);
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.Left));
                 break;
             case TilePosition.Middle:
-                groundTilemap.PaintTile(gridPosition, tilePalette.Middle);
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.Middle));
                 break;
             case TilePosition.Right:
-                groundTilemap.PaintTile(gridPosition, tilePalette.Right);
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.Right));
                 break;
             case TilePosition.BottomLeft:
-                groundTilemap.PaintTile(gridPosition, tilePalette.BottomLeft);
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.BottomLeft));
                 break;
             case TilePosition.BottomMiddle:
-                groundTilemap.PaintTile(gridPosition, tilePalette.BottomMiddle);
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.BottomMiddle));
                 break;
             case TilePosition.BottomRight:
-                groundTilemap.PaintTile(gridPosition, tilePalette.BottomRight);
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.BottomRight));
                 break;
             case TilePosition.ColumnTop:
-                groundTilemap.PaintTile(gridPosition, tilePalette.ColumnTop);
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.ColumnTop));
                 break;
             case TilePosition.ColumnMiddle:
-                groundTilemap.PaintTile(gridPosition, tilePalette.ColumnMiddle);
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.ColumnMiddle));
                 break;
             case TilePosition.ColumnBottom:
-                groundTilemap.PaintTile(gridPosition, tilePalette.ColumnBottom);
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.ColumnBottom));
                 break;
             case TilePosition.RowLeft:
-                groundTilemap.PaintTile(gridPosition, tilePalette.RowLeft);
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.RowLeft));
                 break;
             case TilePosition.RowMiddle:
-                groundTilemap.PaintTile(gridPosition, tilePalette.RowMiddle);
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.RowMiddle));
                 break;
             case TilePosition.RowRight:
-                groundTilemap.PaintTile(gridPosition, tilePalette.RowRight);
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.RowRight));
                 break;
             case TilePosition.Single:
-                groundTilemap.PaintTile(gridPosition, tilePalette.Single);
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.Single));
                 break;
         }
     }
 
-    private GroundType GetTileGroundType(TileBase checkTile)
+    private TilePaletteObject GetTilePaletteObject(TileBase tile)
     {
-        foreach (GroundTileAssociation tileset in groundTiles)
-            if (tileset.tilePalette.CheckContainsTile(checkTile))
-                return tileset.groundType;
+        foreach (TilePaletteObject tilePalette in groundTiles)
+            if (tilePalette.CheckContainsTile(tile))
+                return tilePalette;
 
-        return GroundType.None;
-    }
-
-    private TilePosition GetTilePosition(TileBase checkTile)
-    {
-        foreach (GroundTileAssociation tileset in groundTiles)
-            if (tileset.tilePalette.CheckContainsTile(checkTile))
-                return tileset.tilePalette.GetMapPosition(checkTile);
-
-        return TilePosition.NotSwappable;
+        return null;
     }
     #endregion
 }
