@@ -102,6 +102,7 @@ public class GridManager : MonoBehaviour
         }
 
         targetCell.ChangeSpriteTarget(targetTilePalette.GetSpriteMask(targetCell.MapPosition));
+        targetCell.ChangeGroundType(groundType);
 
         targetCell.transform.parent =   targetTilePalette.SpriteLayer == "Arable" ? arableWaterColor.transform :
                                         targetTilePalette.SpriteLayer == "Fallow" ? fallowWaterColor.transform :
@@ -225,19 +226,19 @@ public class GridManager : MonoBehaviour
     private GridCell CreateCell(Vector2Int gridPosition, Vector3 worldPosition, GroundType typeOfGround, TilePosition tilePosition, Sprite spriteMask, string spriteLayer)
     {
 
-        switch(spriteLayer)
+        switch(typeOfGround)
         {
-            case "Grass":
+            case GroundType.Grass:
                 newCell = Instantiate(cellPrefab, worldPosition, Quaternion.identity, grassWaterColor.transform);
                 newCell.GetComponent<SpriteMask>().enabled = false;
                 break;
-            case "Arable":
+            case GroundType.ArableSoil:
                 newCell = Instantiate(cellPrefab, worldPosition, Quaternion.identity, arableWaterColor.transform);
                 break;
-            case "Fallow":
+            case GroundType.FallowSoil:
                 newCell = Instantiate(cellPrefab, worldPosition, Quaternion.identity, fallowWaterColor.transform);
                 break;
-            case "Path":
+            case GroundType.Path:
                 newCell = Instantiate(cellPrefab, worldPosition, Quaternion.identity, pathWaterColor.transform);
                 break;
         }
