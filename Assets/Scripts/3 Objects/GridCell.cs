@@ -45,4 +45,9 @@ public class GridCell : MonoBehaviour
         if (spriteMask != null)
             mask.sprite = spriteMask;
     }
+
+    public void ChangeGroundType(GroundType groundType)
+    {
+        this.groundType = groundType;
+    }
 }
