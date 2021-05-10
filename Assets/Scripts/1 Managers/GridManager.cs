@@ -302,6 +302,45 @@ public class GridManager : MonoBehaviour
             case TilePosition.Single:
                 groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.Single));
                 break;
+            case TilePosition.RoundedBottomLeft:
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.RoundedBottomLeft));
+                break;
+            case TilePosition.RoundedBottomMiddle:
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.RoundedBottomMiddle));
+                break;
+            case TilePosition.RoundedBottomRight:
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.RoundedBottomRight));
+                break;
+            case TilePosition.RoundedLeft:
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.RoundedLeft));
+                break;
+            case TilePosition.RoundedMiddle:
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.RoundedMiddle));
+                break;
+            case TilePosition.RoundedRight:
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.RoundedRight));
+                break;
+            case TilePosition.RoundedTopLeft:
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.RoundedTopLeft));
+                break;
+            case TilePosition.RoundedTopMiddle:
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.RoundedTopMiddle));
+                break;
+            case TilePosition.RoundedTopRight:
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.RoundedTopRight));
+                break;
+            case TilePosition.Juncture1:
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.Juncture1));
+                break;
+            case TilePosition.Juncture2:
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.Juncture2));
+                break;
+            case TilePosition.Juncture3:
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.Juncture3));
+                break;
+            case TilePosition.Juncture4:
+                groundTilemap.PaintTile(gridPosition, tilePalette.GetOutline(TilePosition.Juncture4));
+                break;
         }
     }
 

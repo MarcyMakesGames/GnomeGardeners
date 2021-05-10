@@ -163,6 +163,10 @@ namespace TilePaletteObjects
                 if (pair.Value == position)
                     return pair.Key;
 
+            foreach (KeyValuePair<TileBase, TilePosition> pair in OutlinePositionDict)
+                if (pair.Value == position)
+                    return pair.Key;
+
             return null;
         }
 
@@ -178,10 +182,6 @@ namespace TilePaletteObjects
         public TilePosition GetMapPosition(TileBase checkTile)
         {
             foreach (KeyValuePair<TileBase, TilePosition> pair in TilePositionDict)
-                if (checkTile == pair.Key)
-                    return pair.Value;
-
-            foreach (KeyValuePair<TileBase, TilePosition> pair in OutlinePositionDict)
                 if (checkTile == pair.Key)
                     return pair.Value;
 
