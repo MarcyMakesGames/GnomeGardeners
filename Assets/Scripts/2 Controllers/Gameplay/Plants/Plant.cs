@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Plant : MonoBehaviour, IInteractable, IHoldable
 {
-    public bool debug = true;
+    private bool debug = false;
 
     public Species species;
     public float timeToGrowVariation = 1f;
@@ -36,9 +36,13 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
 
     #region Unity Methods
 
-    private void Start()
+    private void Awake()
     {
         Configure();
+    }
+
+    private void Start()
+    {
         Log("Debugging");
         AssignOccupant();
     }

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoreObjectDispenser : MonoBehaviour, IInteractable
+public class Seedbag : MonoBehaviour, IInteractable
 {
-    public bool debug = true;
+    private bool debug = false;
 
     public GameObject[] dispensables;
     public GameObject AssociatedObject { get => gameObject; }
@@ -47,9 +47,8 @@ public class CoreObjectDispenser : MonoBehaviour, IInteractable
         Log("Dispensing.");
         var randomIndex = Random.Range(0, dispensables.Length);
         var randomDispensable = dispensables[randomIndex];
-        var dispensedItem = Instantiate(randomDispensable, transform.parent);
-        tool.heldItem = dispensedItem.GetComponent<IHoldable>();
-        Log(dispensedItem.ToString());
+        tool.heldItem = randomDispensable.GetComponent<IHoldable>();
+        Log(randomDispensable.ToString());
     }
 
     private void DispenseItem(Vector2Int dropLocation)
@@ -59,10 +58,12 @@ public class CoreObjectDispenser : MonoBehaviour, IInteractable
 
     private void Log(string msg)
     {
+        if (!debug) { return; }
         Debug.Log("[CoreObjectDispenser]: " + msg);
     }
     private void LogWarning(string msg)
     {
+        if (!debug) { return; }
         Debug.LogWarning("[CoreObjectDispenser]: " + msg);
     }
 

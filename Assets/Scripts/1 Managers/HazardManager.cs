@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HazardController : MonoBehaviour
+public class HazardManager : MonoBehaviour
 {
     [SerializeField]
-    private List<Hazard> hazards;
+    private List<HazardSO> hazards;
     [SerializeField]
     private bool randomizeHazards;
     [SerializeField]
@@ -16,25 +16,24 @@ public class HazardController : MonoBehaviour
     private List<Transform> despawnLocations;
 
     private int spawnDespawnIndex;
-
     private float timeBetweenHazards;
-
     private int currentHazardIndex = 0;
-
     private float currentHazardTimer = 0f;
+    private bool isSpawningHazards = false;
 
     public ScriptableObject CurrentHazard { get => hazards[currentHazardIndex]; }
 
     public delegate void OnHazardChange();
     public event OnHazardChange HazardChanged;
 
+    public VoidEventChannelSO OnLevelStart;
+    public VoidEventChannelSO OnLevelLose;
+    public VoidEventChannelSO OnLevelWin;
+
     #region Unity Methods
     private void Awake()
     {
-        if(GameManager.Instance.HazardController == null)
-        {
-            GameManager.Instance.HazardController = this;
-        }
+        Configure();
     }
 
     private void Start()
@@ -44,8 +43,18 @@ public class HazardController : MonoBehaviour
 
     private void Update()
     {
-        HazardCountdown();
+        if (isSpawningHazards)
+        {
+            HazardCountdown();
+        }
     }
+
+    private void OnDisable()
+    {
+        Dispose();
+    }
+
+
     #endregion
 
     #region Private Methods
@@ -79,17 +88,33 @@ public class HazardController : MonoBehaviour
         }
     }
 
-    private Hazard GetRandomHazard()
+    private void Configure()
+    {
+        if (GameManager.Instance.HazardManager == null)
+        {
+            GameManager.Instance.HazardManager = this;
+        }
+        OnLevelStart.OnEventRaised += StartSpawningHazards;
+        OnLevelLose.OnEventRaised += StopSpawningHazards;
+        OnLevelWin.OnEventRaised += StopSpawningHazards;
+    }
+    private void Dispose()
+    {
+        OnLevelStart.OnEventRaised -= StartSpawningHazards;
+        OnLevelLose.OnEventRaised -= StopSpawningHazards;
+        OnLevelWin.OnEventRaised -= StopSpawningHazards;
+    }
+
+    private HazardSO GetRandomHazard()
     {
         currentHazardIndex = Random.Range(0, hazards.Count);
         return hazards[currentHazardIndex];
     }
 
-    private Hazard GetNextHazard()
+    private HazardSO GetNextHazard()
     {
         return hazards[currentHazardIndex];
     }
-    #endregion
 
     private Vector3 GetRandomSpawn()
     {
@@ -101,4 +126,16 @@ public class HazardController : MonoBehaviour
     {
         return despawnLocations[spawnDespawnIndex].position;
     }
+
+    private void StartSpawningHazards()
+    {
+        isSpawningHazards = true;
+    }
+
+    private void StopSpawningHazards()
+    {
+        isSpawningHazards = false;
+    }
+
+    #endregion
 }

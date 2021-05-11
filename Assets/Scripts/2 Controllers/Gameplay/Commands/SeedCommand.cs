@@ -16,7 +16,7 @@ public class SeedCommand : ICommand
         {
             Log("Occupant found!");
             var associatedObject = occupant.AssociatedObject;
-            var seedBag = associatedObject.GetComponent<CoreObjectDispenser>();
+            var seedBag = associatedObject.GetComponent<Seedbag>();
             if (seed == null && seedBag != null)
             {
                 Log("Seedbag found!");
@@ -27,17 +27,17 @@ public class SeedCommand : ICommand
             {
                 Log("Seed discarded.");
                 tool.heldItem = null;
-                GameObject.Destroy(seed.gameObject);
                 gnome.RemoveItemSprite();
             }
         }
         else if(seed != null && occupant == null)
         {
             Log("Seed in hand and no occupant found!");
-            if (seed.CurrentStage.isPlantable && cell.GroundType == GroundType.ArableSoil)
+            if (cell.GroundType == GroundType.ArableSoil)
             {
                 Log("ArableSoil found!");
-                seed.PlantSeed(cell);
+                var seedObject = GameObject.Instantiate(seed.gameObject, cell.transform);
+                seedObject.GetComponent<Plant>().PlantSeed(cell);
                 gnome.RemoveItemSprite();
                 tool.heldItem = null;
             }

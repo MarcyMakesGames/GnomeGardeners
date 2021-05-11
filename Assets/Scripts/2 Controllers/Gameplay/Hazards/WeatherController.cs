@@ -24,7 +24,7 @@ public class WeatherController : MonoBehaviour
             if (weather.weatherType == WeatherType.Sunny)
             {
                 currentWeather = weather;
-                AnnounceWeather();
+                // AnnounceWeather();
                 break;
             }
         }

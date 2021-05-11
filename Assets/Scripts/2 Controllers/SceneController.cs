@@ -148,7 +148,11 @@ public class SceneController : MonoBehaviour
     {
         if (canvas.worldCamera == null)
         {
-            canvas.worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            var cameraGO = GameObject.FindGameObjectWithTag("MainCamera");
+            if(cameraGO != null)
+            {
+                canvas.worldCamera = cameraGO.GetComponent<Camera>();
+            }
         }
     }
 

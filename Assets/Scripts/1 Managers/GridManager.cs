@@ -171,6 +171,32 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    public GridCell GetRandomCellWithPlant()
+    {
+        var possibleCells = new List<GridCell>();
+        foreach(GridCell cell in gridCells)
+        {
+            var occupant = cell.Occupant;
+            if (cell.Occupant != null)
+            {
+                var associatedObject = occupant.AssociatedObject;
+                if (associatedObject != null)
+                {
+                    var plant = associatedObject.GetComponent<Plant>();
+                    if(plant != null)
+                    {
+                        possibleCells.Add(cell);
+                    }
+                }
+            }
+        }
+
+        if(possibleCells.Count == 0) { return null; }
+
+        int randomIndex = Random.Range(0, possibleCells.Count);
+        return possibleCells[randomIndex];
+    }
+
     #endregion
 
     #region Private Methods
