@@ -176,9 +176,18 @@ public class GridManager : MonoBehaviour
         var possibleCells = new List<GridCell>();
         foreach(GridCell cell in gridCells)
         {
-            if (cell.Occupant.AssociatedObject.GetComponent<Plant>())
+            var occupant = cell.Occupant;
+            if (cell.Occupant != null)
             {
-                possibleCells.Add(cell);
+                var associatedObject = occupant.AssociatedObject;
+                if (associatedObject != null)
+                {
+                    var plant = associatedObject.GetComponent<Plant>();
+                    if(plant != null)
+                    {
+                        possibleCells.Add(cell);
+                    }
+                }
             }
         }
         int randomIndex = Random.Range(0, possibleCells.Count);

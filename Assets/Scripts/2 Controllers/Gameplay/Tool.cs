@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tool : MonoBehaviour, IOccupant
 {
-    bool debug = true;
+    private bool debug = false;
 
     public float waterAmount;
     [SerializeField] private ToolType type;

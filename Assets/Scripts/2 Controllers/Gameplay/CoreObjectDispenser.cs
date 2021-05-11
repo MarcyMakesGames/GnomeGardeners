@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CoreObjectDispenser : MonoBehaviour, IInteractable
 {
-    public bool debug = true;
+    private bool debug = false;
 
     public GameObject[] dispensables;
     public GameObject AssociatedObject { get => gameObject; }

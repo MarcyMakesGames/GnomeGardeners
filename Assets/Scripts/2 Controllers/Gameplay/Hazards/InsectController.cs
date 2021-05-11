@@ -34,10 +34,12 @@ public class InsectController : MonoBehaviour
         FindTargetPlant();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (isSearchingPlant)
         {
+            FindTargetPlant();
+
             if (vectorToTarget.magnitude > rangeToEat)
             {
                 MoveToPlant();
@@ -63,7 +65,7 @@ public class InsectController : MonoBehaviour
 
         vectorToTarget = targetCell.WorldPosition - transform.position;
 
-        transform.Translate(vectorToTarget * movementSpeed);
+        transform.Translate(vectorToTarget * movementSpeed * Time.deltaTime);
     }
 
     private void FindTargetPlant()
@@ -92,7 +94,7 @@ public class InsectController : MonoBehaviour
 
         vectorToDespawn = despawnLocation - transform.position;
 
-        transform.Translate(vectorToDespawn * movementSpeed);
+        transform.Translate(vectorToDespawn * movementSpeed * Time.deltaTime);
     }
 
     #endregion

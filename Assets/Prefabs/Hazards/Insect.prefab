@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2311311509174026289}
   - component: {fileID: 4289192182483783318}
-  - component: {fileID: 4642722875040451461}
   - component: {fileID: 5111438112753358521}
   m_Layer: 0
   m_Name: Insect
@@ -84,22 +83,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &4642722875040451461
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8255225213472450197}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &5111438112753358521
 MonoBehaviour:
   m_ObjectHideFlags: 0
