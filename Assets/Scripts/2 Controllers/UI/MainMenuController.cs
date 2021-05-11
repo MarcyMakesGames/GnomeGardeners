@@ -89,7 +89,6 @@ public class MainMenuController : MonoBehaviour
     {
         if(panel == ActivePanel) { return; }
 
-        DeactivateAllPanels();
         switch (panel)
         {
             case MenuPanel.Title:
@@ -131,6 +130,8 @@ public class MainMenuController : MonoBehaviour
         transition.SetTrigger("FadeIn");
 
         yield return new WaitForSeconds(transitionTime);
+
+        DeactivateAllPanels();
 
         panel.SetActive(true);
 

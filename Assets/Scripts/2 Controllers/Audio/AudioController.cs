@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class AudioController : MonoBehaviour
 {
-    [SerializeField] protected AudioClip bgm;
-    protected AudioSource[] audioSources;
-    protected AudioSource sfxAudioSource;
-    protected AudioSource bgmAudioSource;
-    protected AudioSource ambienceSource;
+    [SerializeField] private AudioClip bgm;
+    private AudioSource[] audioSources;
+    private AudioSource sfxAudioSource;
+    private AudioSource bgmAudioSource;
+    private AudioSource ambienceSource;
 
-    protected float masterVolume = 1f;
-    protected float sfxAudioVolume = 1f;
-    protected float bgmAudioVolume = 1f;
+    private float masterVolume = 1f;
+    private float sfxAudioVolume = 1f;
+    private float bgmAudioVolume = 1f;
 
     public float MasterVolume { get => masterVolume; set => UpdateMasterVolume(value); }
     public float SFXVolume { get => SFXVolume; set => UpdateSFXVolume(value); }
@@ -19,22 +19,9 @@ public class AudioController : MonoBehaviour
     public bool PlayingAmbience { get => ambienceSource.isPlaying; }
     public AudioClip CurrentBGM { get => bgmAudioSource.clip; }
 
-    public void PlayMusic(AudioClip clipToPlay)
-    {
-        if (bgmAudioSource.clip == clipToPlay)
-            return;
+    #region Unity Methods
 
-        bgmAudioSource.clip = clipToPlay;
-        bgmAudioSource.Play();
-    }
-
-    public void PlayAmbience(AudioClip clipToPlay)
-    {
-        ambienceSource.clip = clipToPlay;
-        ambienceSource.Play();
-    }
-
-    protected void Awake()
+    private void Awake()
     {
         audioSources = GetComponents<AudioSource>();
         sfxAudioSource = audioSources[0];
@@ -42,19 +29,53 @@ public class AudioController : MonoBehaviour
         ambienceSource = audioSources[2];
     }
 
-    protected void Start()
+    private void Start()
     {
         PlayMusic(bgm);
         bgmAudioSource.loop = true;
         ambienceSource.loop = true;
 
-        MasterVolume = GameManager.Instance.Config.MasterVolume;
-        SFXVolume = GameManager.Instance.Config.SFXVolume;
-        BGMVolume = GameManager.Instance.Config.BGMVolume;
-        ambienceSource.volume = sfxAudioVolume;
+        //MasterVolume = GameManager.Instance.Config.MasterVolume;
+        //SFXVolume = GameManager.Instance.Config.SFXVolume;
+        //BGMVolume = GameManager.Instance.Config.BGMVolume;
+        //ambienceSource.volume = sfxAudioVolume;
     }
 
-    protected void UpdateMasterVolume(float value)
+    #endregion
+
+    #region Public Methods
+
+    public void PlayMusic(AudioClip clipToPlay)
+    {
+        if (bgmAudioSource.clip == clipToPlay) { return; }
+        bgmAudioSource.clip = clipToPlay;
+        bgmAudioSource.Play();
+    }
+
+    public void StopMusic()
+    {
+        if (!bgmAudioSource.isPlaying) { return; }
+        bgmAudioSource.Stop();
+    }
+
+    public void PlayAmbience(AudioClip clipToPlay)
+    {
+        if(ambienceSource.clip == clipToPlay) { return; }
+        ambienceSource.clip = clipToPlay;
+        ambienceSource.Play();
+    }
+
+    public void StopAmbience()
+    {
+        if (!ambienceSource.isPlaying) { return; }
+        ambienceSource.Stop();
+    }
+
+    #endregion
+
+    #region Private Methods
+
+    private void UpdateMasterVolume(float value)
     {
         masterVolume = value;
         sfxAudioSource.volume = sfxAudioVolume * masterVolume;
@@ -62,7 +83,7 @@ public class AudioController : MonoBehaviour
         GameManager.Instance.Config.MasterVolume = value;
     }
 
-    protected void UpdateSFXVolume(float value)
+    private void UpdateSFXVolume(float value)
     {
         sfxAudioVolume = value;
         sfxAudioSource.volume = sfxAudioVolume * masterVolume;
@@ -71,11 +92,12 @@ public class AudioController : MonoBehaviour
         ambienceSource.volume = sfxAudioVolume * masterVolume;
     }
 
-    protected void UpdateBGMVolume(float value)
+    private void UpdateBGMVolume(float value)
     {
         bgmAudioVolume = value;
         bgmAudioSource.volume = bgmAudioVolume * masterVolume;
         GameManager.Instance.Config.BGMVolume = value;
     }
 
+    #endregion
 }

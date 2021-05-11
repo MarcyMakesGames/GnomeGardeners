@@ -15,6 +15,7 @@ public class SceneController : MonoBehaviour
     public Canvas canvas;
     public Animator transition;
     public float transitionTime = 1f;
+    private bool isInTransition = false;
 
     public MenuPanel ActiveMenuPanel { get => activeMenuPanel; set => activeMenuPanel = value; }
     public InGameUIMode ActiveInGameUI { get => activeInGameUI; set => activeInGameUI = value; }
@@ -49,22 +50,29 @@ public class SceneController : MonoBehaviour
 
     public void LoadNextScene()
     {
+        if (isInTransition) { return; }
+
         StartCoroutine(LoadSceneAsync((int)currentScene + 1));
     }
 
     public void LoadPreviousScene()
     {
+        if (isInTransition) { return; }
+
         StartCoroutine(LoadSceneAsync((int)currentScene - 1));
     }
 
     public void LoadSceneByString(string sceneName)
     {
+        if (isInTransition) { return; }
+
         if (SceneManager.GetSceneByName(sceneName) != null)
             StartCoroutine(LoadSceneAsync(sceneName));
     }
 
     public void LoadSceneGameplay()
     {
+        if (isInTransition) { return; }
         
         if (GameManager.Instance.loadTestingScenes)
         {
@@ -78,6 +86,8 @@ public class SceneController : MonoBehaviour
 
     public void LoadTitleMenu()
     {
+        if (isInTransition) { return; }
+
         if (GameManager.Instance.loadTestingScenes)
         {
             StartCoroutine(LoadSceneAsync(SceneState.TestingMainMenu));
@@ -103,6 +113,8 @@ public class SceneController : MonoBehaviour
 
     public void RestartLevel()
     {
+        if (isInTransition) { return; }
+
         var scene = SceneManager.GetActiveScene();
         SceneManager.UnloadSceneAsync(scene);
 
@@ -136,7 +148,11 @@ public class SceneController : MonoBehaviour
     {
         if (canvas.worldCamera == null)
         {
-            canvas.worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            var cameraGO = GameObject.FindGameObjectWithTag("MainCamera");
+            if(cameraGO != null)
+            {
+                canvas.worldCamera = cameraGO.GetComponent<Camera>();
+            }
         }
     }
 
@@ -148,6 +164,8 @@ public class SceneController : MonoBehaviour
 
     private IEnumerator LoadSceneAsync(int index)
     {
+        isInTransition = true;
+
         transition.SetTrigger("FadeIn");
 
         yield return new WaitForSeconds(transitionTime);
@@ -158,32 +176,50 @@ public class SceneController : MonoBehaviour
             yield return null;
         }
 
-        transition.SetTrigger("FadeOut");
-
-        OnSceneLoaded.RaiseEvent();
         Log("Scene Loaded");
+        isInTransition = false;
+        OnSceneLoaded.RaiseEvent();
+        transition.SetTrigger("FadeOut");
     }
 
     private IEnumerator LoadSceneAsync(SceneState index)
     {
+        isInTransition = true;
+
+        transition.SetTrigger("FadeIn");
+
+        yield return new WaitForSeconds(transitionTime);
+
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync((int)index);
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
-        OnSceneLoaded.RaiseEvent();
+
+
         Log("Scene Loaded");
+        isInTransition = false;
+        OnSceneLoaded.RaiseEvent();
+        transition.SetTrigger("FadeOut");
     }
 
     private IEnumerator LoadSceneAsync(string sceneName)
     {
+        isInTransition = true;
+        transition.SetTrigger("FadeIn");
+
+        yield return new WaitForSeconds(transitionTime);
+
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
-        OnSceneLoaded.RaiseEvent();
+
         Log("Scene Loaded");
+        isInTransition = false;
+        OnSceneLoaded.RaiseEvent();
+        transition.SetTrigger("FadeOut");
     }
 
     private void Dispose()
