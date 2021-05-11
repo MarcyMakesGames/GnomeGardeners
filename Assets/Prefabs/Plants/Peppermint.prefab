@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -378496446210772951}
   - component: {fileID: 91581230841265698}
   m_Layer: 9
-  m_Name: Sunflower Seed
+  m_Name: Peppermint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,15 +73,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5be33e40ef139e941bc0479fa5ec5c07, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c5221da8fa34f92488b6c3614cd7735a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.28, y: 2.56}
+  m_Size: {x: 0.1796875, y: 0.3046875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!58 &-378496446210772951
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
-  species: {fileID: 11400000, guid: d62722e6edcb0734eb85e97c08576eb6, type: 2}
+  species: {fileID: 11400000, guid: 918d9346057928b41b73f7b12ba45599, type: 2}
   timeToGrowVariation: 2
   spriteRenderer: {fileID: 6781855766866969407}
   OnTileChanged: {fileID: 11400000, guid: 5c9235811ee9890478b55b3f6e2e720a, type: 2}
