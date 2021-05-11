@@ -33,6 +33,7 @@ public class HazardElementSO : ScriptableObject
             hazard.transform.position = spawnLocation;
 
             // to-do: this does not make sense for every hazard. it should probably happen inside the hazard that it just spawned
+            if(uniqueID != 0) { return; }
             HazardSpawnController hazardObjectController = hazard.GetComponent<HazardSpawnController>();
             hazardObjectController.InitSpawner(spawnLocation, despawnLocation, hazardDuration, timeBetweenSpawns, spawnedObjMoveSpeed);
         }

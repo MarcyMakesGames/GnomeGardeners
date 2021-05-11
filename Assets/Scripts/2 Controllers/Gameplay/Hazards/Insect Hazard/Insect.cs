@@ -21,6 +21,7 @@ public class Insect : MonoBehaviour
     private float timeAtReachedPlant;
     private Vector2 vectorToDespawn;
     private bool isSearchingPlant;
+    private bool isMovingToPlant;
     private bool isFleeing;
 
     private GridManager gridManager;
@@ -35,6 +36,8 @@ public class Insect : MonoBehaviour
     private void Start()
     {
         isSearchingPlant = true;
+        isMovingToPlant = false;
+        isFleeing = false;
         FindTargetPlant();
     }
 
@@ -43,7 +46,9 @@ public class Insect : MonoBehaviour
         if (isSearchingPlant)
         {
             FindTargetPlant();
-
+        }
+        else if(isMovingToPlant)
+        { 
             CalculateVectorToTarget();
 
             if (vectorToTarget.magnitude > rangeToEat)
@@ -68,6 +73,16 @@ public class Insect : MonoBehaviour
 
     #region Private Methods
 
+    private void FindTargetPlant()
+    {
+        if(targetPlant != null) { return; }
+        targetCell = gridManager.GetRandomCellWithPlant();
+        if(targetCell == null) { return; }
+        targetPlant = (Plant)targetCell.Occupant;
+        isMovingToPlant = true;
+        Log("Found target Plant");
+    }
+
     private void CalculateVectorToTarget()
     {
         if(targetPlant == null) { return; }
@@ -80,13 +95,6 @@ public class Insect : MonoBehaviour
         transform.Translate(vectorToTarget * movementSpeed * Time.deltaTime);
     }
 
-    private void FindTargetPlant()
-    {
-        if(targetPlant != null) { return; }
-        targetCell = gridManager.GetRandomCellWithPlant();
-        targetPlant = (Plant)targetCell.Occupant;
-        Log("Found target Plant");
-    }
 
     private void EatPlant()
     {

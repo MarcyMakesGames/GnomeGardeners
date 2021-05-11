@@ -190,6 +190,9 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+
+        if(possibleCells.Count == 0) { return null; }
+
         int randomIndex = Random.Range(0, possibleCells.Count);
         return possibleCells[randomIndex];
     }

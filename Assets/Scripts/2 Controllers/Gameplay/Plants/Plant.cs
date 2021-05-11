@@ -36,9 +36,13 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
 
     #region Unity Methods
 
-    private void Start()
+    private void Awake()
     {
         Configure();
+    }
+
+    private void Start()
+    {
         Log("Debugging");
         AssignOccupant();
     }

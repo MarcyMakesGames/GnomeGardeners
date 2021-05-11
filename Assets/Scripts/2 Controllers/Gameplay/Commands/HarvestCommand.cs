@@ -31,6 +31,7 @@ public class HarvestCommand : ICommand
                     Log("Harvesting plant!");
                     if (!plant.CurrentStage.isHarvestable) { return; }
                     tool.heldItem = holdable;
+                    plant.transform.parent = gnome.transform;
                     plant.HarvestPlant(cell);
                     gnome.SetItemSprite(plant.SpriteInHand);
                 }
@@ -40,6 +41,8 @@ public class HarvestCommand : ICommand
                 {
                     Log("Scoring Area found!");
                     scoringArea.Interact(tool);
+                    var harvest = (Plant)tool.heldItem;
+                    GameObject.Destroy(harvest.gameObject);
                     tool.heldItem = null;
                     gnome.RemoveItemSprite();
                 }
