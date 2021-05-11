@@ -6,7 +6,7 @@ public class CoreObjectDispenser : MonoBehaviour, IInteractable
 {
     public bool debug = true;
 
-    public GameObject dispensable;
+    public GameObject[] dispensables;
     public GameObject AssociatedObject { get => gameObject; }
 
     #region Unity Methods
@@ -45,7 +45,9 @@ public class CoreObjectDispenser : MonoBehaviour, IInteractable
     private void DispenseItem(Tool tool)
     {
         Log("Dispensing.");
-        var dispensedItem = Instantiate(dispensable, transform.parent);
+        var randomIndex = Random.Range(0, dispensables.Length);
+        var randomDispensable = dispensables[randomIndex];
+        var dispensedItem = Instantiate(randomDispensable, transform.parent);
         tool.heldItem = dispensedItem.GetComponent<IHoldable>();
         Log(dispensedItem.ToString());
     }
