@@ -48,19 +48,6 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         TryGrowing();
     }
 
-    private void OnValidate()
-    {
-        if(species != null)
-        {
-            currentStage = species.stages[0];
-            spriteRenderer.sprite = currentStage.sprite;
-        }
-        else
-        {
-            LogWarning("A plant requires a species.");
-        }
-    }
-
     void OnDestroy()
     {
         Dispose();
