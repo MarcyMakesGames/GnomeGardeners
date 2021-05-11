@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HazardController : MonoBehaviour
+public class HazardManager : MonoBehaviour
 {
     [SerializeField]
-    private List<Hazard> hazards;
+    private List<HazardSO> hazards;
     [SerializeField]
     private bool randomizeHazards;
     [SerializeField]
@@ -31,9 +31,9 @@ public class HazardController : MonoBehaviour
     #region Unity Methods
     private void Awake()
     {
-        if(GameManager.Instance.HazardController == null)
+        if(GameManager.Instance.HazardManager == null)
         {
-            GameManager.Instance.HazardController = this;
+            GameManager.Instance.HazardManager = this;
         }
     }
 
@@ -79,13 +79,13 @@ public class HazardController : MonoBehaviour
         }
     }
 
-    private Hazard GetRandomHazard()
+    private HazardSO GetRandomHazard()
     {
         currentHazardIndex = Random.Range(0, hazards.Count);
         return hazards[currentHazardIndex];
     }
 
-    private Hazard GetNextHazard()
+    private HazardSO GetNextHazard()
     {
         return hazards[currentHazardIndex];
     }

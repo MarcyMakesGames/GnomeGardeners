@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "HazardElementName", menuName = "Hazard Element")]
-public class HazardElement : ScriptableObject
+public class HazardElementSO : ScriptableObject
 {
     [SerializeField]
     private int uniqueID;
@@ -26,17 +26,13 @@ public class HazardElement : ScriptableObject
 
     public void SpawnElement(Vector3 spawnLocation, Vector3 despawnLocation) 
     {
-        if(hazardElement.GetComponent<HazardSpawnController>() == null)
-        {
-            Debug.Log("Hazard element " + hazardElement.name + " does not have a HazardObject script attached to it and did not spawn.");
-            return;
-        }
-        
         for(int i = 0; i < hazardCount; i++)
         {
             //THIS NEEDS TO BE GOTTEN FROM THE OBJECT POOL IN THE FUTURE
-            GameObject hazard = Instantiate(hazardElement, spawnLocation, Quaternion.identity, GameManager.Instance.HazardController.gameObject.transform);
+            GameObject hazard = Instantiate(hazardElement, spawnLocation, Quaternion.identity, GameManager.Instance.HazardManager.transform);
             hazard.transform.position = spawnLocation;
+
+            // to-do: this does not make sense for every hazard. it should probably happen inside the hazard that it just spawned
             HazardSpawnController hazardObjectController = hazard.GetComponent<HazardSpawnController>();
             hazardObjectController.InitSpawner(spawnLocation, despawnLocation, hazardDuration, timeBetweenSpawns, spawnedObjMoveSpeed);
         }

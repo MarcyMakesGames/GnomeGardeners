@@ -59,10 +59,12 @@ public class CoreObjectDispenser : MonoBehaviour, IInteractable
 
     private void Log(string msg)
     {
+        if (!debug) { return; }
         Debug.Log("[CoreObjectDispenser]: " + msg);
     }
     private void LogWarning(string msg)
     {
+        if (!debug) { return; }
         Debug.LogWarning("[CoreObjectDispenser]: " + msg);
     }
 

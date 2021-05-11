@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "HazardName", menuName = "Hazard")]
-public class Hazard : ScriptableObject
+public class HazardSO : ScriptableObject
 {
     [SerializeField]
-    private List<HazardElement> hazardElements;
+    private List<HazardElementSO> hazardElements;
     private float hazardDuration = 0f;
     
     public float HazardDuration { get => hazardDuration; }
 
     public void SpawnHazard(Vector3 spawnLocation, Vector3 despawnLocation) 
     {
-        foreach (HazardElement element in hazardElements)
+        foreach (HazardElementSO element in hazardElements)
         {
             element.SpawnElement(spawnLocation, despawnLocation);
 

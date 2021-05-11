@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PrepareCommand : ICommand
 {
-    private bool debug = true;
+    private bool debug = false;
 
     public void Execute(GridCell cell, Tool tool, GnomeController gnome)
     {

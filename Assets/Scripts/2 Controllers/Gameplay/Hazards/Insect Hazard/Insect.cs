@@ -3,14 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InsectController : MonoBehaviour
+public class Insect : MonoBehaviour
 {
-    [HideInInspector] public Vector3 despawnLocation;
+    private bool debug = true;
 
-    [SerializeField] private float movementSpeed = 5f;
+    [HideInInspector] public Vector3 despawnLocation = new Vector3(0f, 0f, 0f);
+
+    [SerializeField] private float movementSpeed = 0.1f;
     [SerializeField] private float timeToEatPlant = 5f;
     [SerializeField] private int timesToResistShooing = 3;
-    [SerializeField] private float rangeToEat = 2f;
+    [SerializeField] private float rangeToEat = 1f;
 
     private Vector2 velocity;
     private Vector2 vectorToTarget;
@@ -19,6 +21,7 @@ public class InsectController : MonoBehaviour
     private float timeAtReachedPlant;
     private Vector2 vectorToDespawn;
     private bool isSearchingPlant;
+    private bool isFleeing;
 
     private GridManager gridManager;
 
@@ -31,6 +34,7 @@ public class InsectController : MonoBehaviour
 
     private void Start()
     {
+        isSearchingPlant = true;
         FindTargetPlant();
     }
 
@@ -39,6 +43,8 @@ public class InsectController : MonoBehaviour
         if (isSearchingPlant)
         {
             FindTargetPlant();
+
+            CalculateVectorToTarget();
 
             if (vectorToTarget.magnitude > rangeToEat)
             {
@@ -51,7 +57,10 @@ public class InsectController : MonoBehaviour
         }
         else
         {
-            Flee();
+            if (isFleeing)
+            {
+                Flee();
+            }
         }
     }
 
@@ -59,32 +68,44 @@ public class InsectController : MonoBehaviour
 
     #region Private Methods
 
-    private void MoveToPlant()
+    private void CalculateVectorToTarget()
     {
-        if(targetPlant == null) { FindTargetPlant(); }
+        if(targetPlant == null) { return; }
 
         vectorToTarget = targetCell.WorldPosition - transform.position;
+    }
 
+    private void MoveToPlant()
+    {
         transform.Translate(vectorToTarget * movementSpeed * Time.deltaTime);
     }
 
     private void FindTargetPlant()
     {
+        if(targetPlant != null) { return; }
         targetCell = gridManager.GetRandomCellWithPlant();
         targetPlant = (Plant)targetCell.Occupant;
+        Log("Found target Plant");
     }
 
     private void EatPlant()
     {
         if (targetPlant == null) { FindTargetPlant(); }
 
-        timeAtReachedPlant = GameManager.Instance.Time.ElapsedTime;
-        if(GameManager.Instance.Time.ElapsedTime > timeAtReachedPlant + timeToEatPlant)
+        if(timeAtReachedPlant == 0f)
         {
-            Flee();
+            timeAtReachedPlant = GameManager.Instance.Time.ElapsedTime;
+            Log("Reached target Plant");
+        }
+
+        if (GameManager.Instance.Time.ElapsedTime > timeAtReachedPlant + timeToEatPlant)
+        {
             gridManager.ChangeTile(targetCell.GridPosition, GroundType.FallowSoil);
             gridManager.ChangeTileOccupant(targetCell.GridPosition, null);
             Destroy(targetPlant.gameObject);
+            Log("Ate Plant");
+            isSearchingPlant = false;
+            isFleeing = true;
         }
     }
 
@@ -95,8 +116,26 @@ public class InsectController : MonoBehaviour
         vectorToDespawn = despawnLocation - transform.position;
 
         transform.Translate(vectorToDespawn * movementSpeed * Time.deltaTime);
+
+        if(vectorToDespawn.magnitude < 1f)
+        {
+            isFleeing = false;
+        }
+
+        Log("Fled to exit");
     }
 
+    private void Log(string msg)
+    {
+        if (!debug) { return; }
+        Debug.Log("[Insect]: " + msg);
+    }
+
+    private void LogWarning(string msg)
+    {
+        if (!debug) { return; }
+        Debug.LogWarning("[Insect]: " + msg);
+    }
     #endregion
 
 }
