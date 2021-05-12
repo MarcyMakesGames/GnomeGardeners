@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     private LevelManager levelManager;
     private HazardManager hazardManager;
     private ConfigController configController;
+    private PoolController poolController;
 
     // Game variables
     public bool playersReady = false;
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
     public LevelManager LevelManager { get => levelManager; set => levelManager = value; }
     public HazardManager HazardManager { get => hazardManager; set => hazardManager = value; }
     public ConfigController Config { get => configController; set => configController = value; }
+    public PoolController PoolController { get => poolController; set => poolController = value; }
 
     public bool DebugMenu { get => debugMenu; }
     public string SceneToLoad { get => sceneToLoad; }

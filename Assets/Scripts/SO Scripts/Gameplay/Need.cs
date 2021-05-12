@@ -7,5 +7,5 @@ public class Need : ScriptableObject
 {
     public NeedType type;
     public float threshold;
-    public Sprite popUp;
+    public PoolKey popUpType;
 }

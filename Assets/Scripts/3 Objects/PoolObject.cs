@@ -7,12 +7,12 @@ public struct PoolObject
 {
     [SerializeField] private GameObject prefab;
     [SerializeField] private int amount;
-    [SerializeField] private ObjectPool key;
+    [SerializeField] private PoolKey key;
 
     private List<GameObject> gameObjects;
     private Transform parent;
 
-    public ObjectPool Key { get => key; }
+    public PoolKey Key { get => key; }
 
     public void Init(Transform parent)
     {

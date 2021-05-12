@@ -10,7 +10,7 @@ public class PoolController : MonoBehaviour
 
     public PoolObject[] PowerupTotal { get => poolObjects; }
 
-    public GameObject GetObjectFromPool(Vector2 position, Quaternion rotation, PoolObject key)
+    public GameObject GetObjectFromPool(Vector2 position, Quaternion rotation, PoolKey key)
     {
         GameObject objectToReturn = null;
 
@@ -42,6 +42,8 @@ public class PoolController : MonoBehaviour
         {
             poolObjects[i].Init(transform);
         }
+
+        GameManager.Instance.PoolController = this;
     }
 }
 

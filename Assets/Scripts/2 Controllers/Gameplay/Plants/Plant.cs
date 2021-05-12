@@ -23,6 +23,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
     private bool isNeedFulfilled;
     private ItemType type;
     private float randomizedTimeToGrow;
+    private GameObject popUp;
 
     public bool IsBeingCarried { get => isBeingCarried; set => isBeingCarried = value; }
     public Stage CurrentStage { get => currentStage; }
@@ -50,14 +51,13 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
     private void Update()
     {
         TryGrowing();
+        CheckNeedPopUp();
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         Dispose();
     }
-
-
     #endregion
 
     #region Public Methods
@@ -83,8 +83,10 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
             Log("Incorrect need type.");
             return;
         }
+
         Log("Adding" + amount.ToString() + " to need value.");
         currentNeedValue += amount;
+
         if(currentNeedValue >= currentStage.need.threshold)
         {
             isNeedFulfilled = true;
@@ -122,18 +124,28 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
 
         if (currentGrowTime >= currentStage.timeToFulfillNeed)
         {
-            
             if (isNeedFulfilled)
             {
-                if(currentGrowTime >= currentStage.timeToFulfillNeed + randomizedTimeToGrow)
-                {
+                if (currentGrowTime >= currentStage.timeToFulfillNeed + randomizedTimeToGrow)
                     AdvanceStages();
-                }
             }
             else
-            {
                 AdvanceToDecayedStage();
-            }
+        }
+    }
+
+    private void CheckNeedPopUp()
+    {
+        if (popUp == null && currentNeedValue < currentStage.need.threshold)
+        {
+            var popUpPosition = transform.position + currentStage.popUpPositionOffset;
+            popUp = GameManager.Instance.PoolController.GetObjectFromPool(popUpPosition, Quaternion.identity, currentStage.need.popUpType);
+        }
+
+        else if (popUp != null && isNeedFulfilled)
+        {
+            popUp.gameObject.SetActive(false);
+            popUp = null;
         }
     }
 
@@ -170,7 +182,8 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
             type = ItemType.Harvest;
         }
         randomizedTimeToGrow = currentStage.timeToGrow + UnityEngine.Random.Range(-timeToGrowVariation, timeToGrowVariation);
-
+        popUp.gameObject.SetActive(false);
+        popUp = null;
     }
 
     private void CheckArableGround()
@@ -205,6 +218,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         isBeingCarried = true;
         spriteInHand = species.prematureSprite;
         type = ItemType.Seed;
+        isNeedFulfilled = false;
         randomizedTimeToGrow = currentStage.timeToGrow + UnityEngine.Random.Range(-timeToGrowVariation, timeToGrowVariation);
 
         OnTileChanged.OnEventRaised += CheckOccupyingCell;

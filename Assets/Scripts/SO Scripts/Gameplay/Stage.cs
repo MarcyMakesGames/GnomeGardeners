@@ -9,6 +9,7 @@ public class Stage : ScriptableObject
     public PlantStage specifier;
     public Sprite sprite;
     public Need need;
+    public Vector3 popUpPositionOffset;
     public float timeToFulfillNeed;
     public float timeToGrow;
     public bool isHarvestable;
