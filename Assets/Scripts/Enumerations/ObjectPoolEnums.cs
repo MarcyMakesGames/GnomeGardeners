@@ -5,5 +5,5 @@ using UnityEngine;
 public enum ObjectPool
 {
     PopUp_Water,
-
+    PopUp_Pest,
 }
