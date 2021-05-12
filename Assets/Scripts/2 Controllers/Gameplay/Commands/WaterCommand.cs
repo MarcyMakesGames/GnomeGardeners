@@ -8,11 +8,6 @@ public class WaterCommand : ICommand
     public void Execute(GridCell cell, Tool tool, GnomeController gnome)
     {
         Log("Executing");
-        /* if in front of plant
-         *  water plant
-         * if in front of pest
-         *  add fright to pest
-         */
         var occupant = cell.Occupant;
         if(occupant == null)
         {
@@ -25,11 +20,11 @@ public class WaterCommand : ICommand
             plant.AddToNeedValue(NeedType.Water, tool.waterAmount);
         }
 
-        //var pest = cell.Occupant.GameObject.GetComponent<Pest>();
-        //if(pest != null)
-        //{
-        //    pest.AddFright();
-        //}
+        var insect = cell.Occupant.AssociatedObject.GetComponent<Insect>();
+        if(insect != null)
+        {
+            insect.IncrementShooedCount();
+        }
     }
 
     private void Log(string msg)

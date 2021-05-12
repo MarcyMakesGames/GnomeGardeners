@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83bdcc6aa0c37174085d280b63921d2a, type: 3}
-  m_Name: Element_OneInsect
+  m_Name: InsectElement
   m_EditorClassIdentifier: 
   uniqueID: 1
   direction: 1
-  hazardElement: {fileID: 8255225213472450197, guid: a635d5291e801494db040a9d26cffeb3, type: 3}
-  hazardCount: 1
-  hazardDuration: 0
-  timeBetweenSpawns: 0
-  spawnedObjMoveSpeed: 0
+  hazardSpawner: {fileID: 7006330780531453959, guid: c83044ed8dbe63b4aa40a97e09158595, type: 3}
+  hazardSpawnerAmount: 1
+  hazardDuration: 30
+  timeBetweenSpawns: 31
+  spawnedObjMoveSpeed: 1

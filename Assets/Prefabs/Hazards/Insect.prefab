@@ -96,7 +96,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   despawnLocation: {x: 0, y: 0, z: 0}
-  movementSpeed: 0.1
+  excludedPlants: []
+  movementSpeed: 1
   timeToEatPlant: 5
   timesToResistShooing: 3
-  rangeToEat: 1
+  isSearchingPlant: 0
+  isMovingToPlant: 0
+  isFleeing: 0
+  OnPlantTargeted: {fileID: 11400000, guid: f53761a92617f8249b5be45bbabd0ab4, type: 2}
+  OnPlantEaten: {fileID: 11400000, guid: bcb44e23a0fa9704ea9a449f0e6afa82, type: 2}
