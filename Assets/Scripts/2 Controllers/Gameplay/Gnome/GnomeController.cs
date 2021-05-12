@@ -27,6 +27,7 @@ public class GnomeController : MonoBehaviour
     private PlayerConfig playerConfig;
     private GnomeInput inputs;
     private CameraController cameraController;
+    private Rigidbody2D rigidBody;
 
     Vector2Int previousGridPosition = new Vector2Int();
     private GridCell interactionCell;
@@ -46,6 +47,7 @@ public class GnomeController : MonoBehaviour
     {
         inputs = new GnomeInput();
         cameraController = FindObjectOfType<CameraController>();
+        rigidBody = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -88,6 +90,21 @@ public class GnomeController : MonoBehaviour
     }
 
     private void Update()
+    {
+        CheckInteractGround();
+        HighlightInteractionCell();
+    }
+
+    private void CheckInteractGround()
+    {
+        var gnomePosition = (Vector2)transform.position;
+        var gnomeCell = GameManager.Instance.GridManager.GetClosestCell(gnomePosition);
+
+        if (gnomeCell.GroundType == GroundType.ArableSoil)
+            GameManager.Instance.GridManager.ChangeTile(gnomeCell.GridPosition, GroundType.FallowSoil);
+    }
+
+    private void HighlightInteractionCell()
     {
         var interactionPosition = (Vector2)transform.position + lookDir * interactRange;
         interactionCell = GameManager.Instance.GridManager.GetClosestCell(interactionPosition);
@@ -156,7 +173,6 @@ public class GnomeController : MonoBehaviour
 
     private void OnInputMove(CallbackContext context)
     {
-        // Log("R/x move input");
         moveDir = context.ReadValue<Vector2>();
     }
 
@@ -202,7 +218,7 @@ public class GnomeController : MonoBehaviour
     {
         if (moveDir != Vector2.zero)
             lookDir = moveDir;
-        transform.position += (Vector3)moveDir * moveSpeed * Time.deltaTime;
+        rigidBody.velocity = ((Vector3)moveDir * moveSpeed);
     }
 
     private void UseTool(GridCell cell)
