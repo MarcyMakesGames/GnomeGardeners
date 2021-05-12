@@ -104,8 +104,6 @@ public class GnomeController : MonoBehaviour
 
     private void UpdateAnimation()
     {
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x);
-
         if(lookDir.y < 0)
         {
             gnomeFront.SetActive(true);
@@ -196,17 +194,17 @@ public class GnomeController : MonoBehaviour
 
     public void SetItemSprite(Sprite sprite)
     {
-        itemRenderer.sprite = sprite;
+        //itemRenderer.sprite = sprite;
     }
 
     public void SetItemSpriteToSeed()
     {
-        itemRenderer.sprite = seedSprite;
+        //itemRenderer.sprite = seedSprite;
     }
 
     public void RemoveItemSprite()
     {
-        itemRenderer.sprite = null;
+        //itemRenderer.sprite = null;
     }
 
     #endregion
@@ -332,7 +330,7 @@ public class GnomeController : MonoBehaviour
 
         this.tool = tool;
         var renderer = tool.GetComponent<SpriteRenderer>();
-        toolRenderer.sprite = renderer.sprite;
+        // toolRenderer.sprite = renderer.sprite;
         tool.Equip(cell);
         if(tool.Type == ToolType.Seeding)
         {
@@ -372,8 +370,8 @@ public class GnomeController : MonoBehaviour
         var dropPosition = transform.position + (Vector3)lookDir * dropRange;
         var dropCell = GameManager.Instance.GridManager.GetClosestCell(dropPosition);
         tool.Unequip(dropCell);
-        toolRenderer.sprite = null;
-        itemRenderer.sprite = null;
+        // toolRenderer.sprite = null;
+        // itemRenderer.sprite = null;
         tool = null;
     }
 
