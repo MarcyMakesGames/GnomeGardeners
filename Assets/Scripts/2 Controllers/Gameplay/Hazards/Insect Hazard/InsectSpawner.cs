@@ -48,9 +48,7 @@ public class InsectSpawner : HazardSpawner
     {
         foreach(Insect insect in insects)
         {
-            insect.isFleeing = true;
-            insect.isMovingToPlant = false;
-            insect.isSearchingPlant = false;
+            insect.SetFleeing();
         }
         Destroy(gameObject);
     }

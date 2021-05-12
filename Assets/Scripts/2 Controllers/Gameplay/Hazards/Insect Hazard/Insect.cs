@@ -13,19 +13,21 @@ public class Insect : MonoBehaviour, IOccupant
     [SerializeField] private float movementSpeed = 0.1f;
     [SerializeField] private float timeToEatPlant = 5f;
     [SerializeField] private int timesToResistShooing = 3;
-    [SerializeField] private float rangeToEat = 1f;
 
-    private Vector2 velocity, vectorToTarget, vectorToNextCell, vectorToDespawn;
-    private Vector2Int nextGridPosition;
-    private GridCell currentCell, previousCell, nextCell, targetCell;
+    private GridCell currentCell, nextCell, targetCell;
     private Plant targetPlant;
+    private Vector2 vectorToTarget, vectorToDespawn;
+    private Vector2Int currentGridPosition, nextGridPosition, targetGridPosition;
     private float timeAtReachedPlant;
+    private bool isMoving;
+    private Direction direction;
+
+    private Vector2Int vectorIntToTarget;
 
     // State Machine (Behaviour)
     public bool isSearchingPlant;
     public bool isMovingToPlant;
     public bool isFleeing;
-    private bool isMoving;
 
     private GridManager gridManager;
 
@@ -46,14 +48,27 @@ public class Insect : MonoBehaviour, IOccupant
 
     private void Start()
     {
+        
+        excludedPlants = new List<Plant>();
+
+        currentCell = gridManager.GetClosestCell(transform.position);
+        nextCell = currentCell;
+        targetPlant = null;
+        vectorToTarget = new Vector2(0f, 0f);
+        vectorToDespawn = new Vector2(0f, 0f);
+        currentGridPosition = currentCell.GridPosition;
+        nextGridPosition = nextCell.GridPosition;
+        targetGridPosition = new Vector2Int(0, 0);
+        timeAtReachedPlant = 0f;
+        isMoving = false;
+        direction = Direction.North;
+
         isSearchingPlant = true;
         isMovingToPlant = false;
         isFleeing = false;
-        isMoving = false;
-        excludedPlants = new List<Plant>();
-        FindTargetPlant();
-        transform.position = gridManager.GetClosestCell(transform.position).WorldPosition;
-        nextGridPosition = currentCell.GridPosition;
+
+        transform.position = currentCell.WorldPosition;
+        AssignOccupant();
     }
 
     private void Update()
@@ -64,23 +79,12 @@ public class Insect : MonoBehaviour, IOccupant
         }
         else if(isMovingToPlant)
         {
-            CalculateVectorToTarget();
+            MoveToTarget(targetCell);
 
-            if (vectorToTarget.magnitude > rangeToEat)
-            {
-                MoveToPlant();
-            }
-            else
-            {
-                EatPlant();
-            }
         }
-        else
+        else if(isFleeing)
         {
-            if (isFleeing)
-            {
-                Flee();
-            }
+            MoveToTarget(targetCell);
         }
     }
 
@@ -90,6 +94,15 @@ public class Insect : MonoBehaviour, IOccupant
         OnPlantEaten.OnEventRaised -= ForgetPlant;
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(currentCell.WorldPosition, 0.1f);
+        Gizmos.DrawSphere(nextCell.WorldPosition, 0.1f);
+        if(targetCell)
+            Gizmos.DrawSphere(targetCell.WorldPosition, 0.1f);
+    }
+
     #endregion
 
     #region Public Methods
@@ -97,6 +110,14 @@ public class Insect : MonoBehaviour, IOccupant
     public void AssignOccupant()
     {
         gridManager.ChangeTileOccupant(gridManager.GetClosestGrid(transform.position), this);
+    }
+
+    public void SetFleeing()
+    {
+        isFleeing = true;
+        isMovingToPlant = false;
+        isSearchingPlant = false;
+        targetCell = gridManager.GetClosestCell(despawnLocation);
     }
 
     #endregion
@@ -109,6 +130,7 @@ public class Insect : MonoBehaviour, IOccupant
         targetCell = gridManager.GetRandomCellWithPlant();
         if(targetCell == null) { return; }
         targetPlant = (Plant)targetCell.Occupant;
+        targetGridPosition = targetCell.GridPosition;
 
         if(excludedPlants.Count > 0)
         {
@@ -129,79 +151,84 @@ public class Insect : MonoBehaviour, IOccupant
         Log("Found target Plant");
     }
 
-    private void CalculateVectorToTarget()
+    private void MoveToTarget(GridCell targetCell)
     {
-        if(targetPlant == null) { return; }
-
         vectorToTarget = targetCell.WorldPosition - transform.position;
-    }
 
-    private void MoveToPlant()
-    {
         if (!isMoving)
         {
             CalculateNextGridPosition();
         }
+
+        if(targetCell.Equals(nextCell))
+        {
+            if (isFleeing)
+            {
+                DespawnAtTargetCell();
+            }
+            else if (isMovingToPlant)
+            {
+                EatPlant();
+            }
+        }
         else
         {
-            MoveToGridPosition(nextGridPosition);
+            MoveToNextGridPosition();
         }
-
     }
 
     private void CalculateNextGridPosition()
     {
-        var vectorIntToTarget = targetCell.GridPosition - currentCell.GridPosition;
-        var moveHorizontally = UnityEngine.Random.Range(0, 1);
-        if (moveHorizontally == 0)
+        vectorIntToTarget = targetGridPosition - currentGridPosition;
+        Direction randomDirection = (Direction)UnityEngine.Random.Range(0, 4);
+        var nextGridPositionProbe = nextGridPosition;
+        switch (randomDirection)
         {
-            if (vectorIntToTarget.x > 0f)
-            {
-                nextGridPosition.x += 1;
-            }
-            else
-            {
-                nextGridPosition.x -= 1;
-            }
-        }
-        else
-        {
-            if (vectorIntToTarget.y > 0f)
-            {
-                nextGridPosition.y += 1;
-            }
-            else
-            {
-                nextGridPosition.y -= 1;
-            }
+            case Direction.North:
+                if (vectorIntToTarget.y > 0)
+                    nextGridPositionProbe.y += 1;
+                break;
+            case Direction.South:
+                if (vectorIntToTarget.y < 0)
+                    nextGridPositionProbe.y -= 1;
+                break;
+            case Direction.East:
+                if (vectorIntToTarget.x > 0)
+                    nextGridPositionProbe.x += 1;
+                break;
+            case Direction.West:
+                if (vectorIntToTarget.x < 0)
+                    nextGridPositionProbe.x -= 1;
+                break;
         }
 
-        nextCell = gridManager.GetGridCell(nextGridPosition);
+        nextCell = gridManager.GetGridCell(nextGridPositionProbe);
         if (nextCell.Occupant != null)
         {
             Log("Cannot move to occupied tile.");
             return;
         }
+        direction = randomDirection;
+        nextGridPosition = nextGridPositionProbe;
         isMoving = true;
     }
 
-    private void MoveToGridPosition(Vector2Int gridPosition)
+    private void MoveToNextGridPosition( )
     {
-        var direction = nextCell.WorldPosition - transform.position;
-        velocity = direction * movementSpeed;
-        transform.Translate(velocity * Time.deltaTime);
-        vectorToNextCell = nextCell.WorldPosition - transform.position;
-        if(vectorToNextCell.magnitude < movementSpeed)
+        transform.position = Vector3.MoveTowards(transform.position, nextCell.WorldPosition, movementSpeed * Time.deltaTime);
+        if(transform.position == nextCell.WorldPosition)
         {
             isMoving = false;
+            currentCell.RemoveCellOccupant();
+            nextCell.AddCellOccupant(this);
+            currentCell = nextCell;
+            currentGridPosition = currentCell.GridPosition;
         }
     }
 
 
     private void EatPlant()
     {
-        if (targetPlant == null) { FindTargetPlant(); }
-
         if(timeAtReachedPlant == 0f)
         {
             timeAtReachedPlant = GameManager.Instance.Time.ElapsedTime;
@@ -214,29 +241,24 @@ public class Insect : MonoBehaviour, IOccupant
             gridManager.ChangeTileOccupant(targetCell.GridPosition, null);
             OnPlantEaten.RaiseEvent(targetPlant);
             Destroy(targetPlant.gameObject);
-            Log("Ate Plant");
+            targetPlant = null;
             isSearchingPlant = false;
+            isMovingToPlant = false;
             isFleeing = true;
+            targetCell = gridManager.GetClosestCell(despawnLocation);
+            targetGridPosition = targetCell.GridPosition;
+            Log("Ate Plant");
         }
     }
 
-    private void Flee()
+    private void DespawnAtTargetCell()
     {
-        if(despawnLocation == null) { return; }
 
-        vectorToDespawn = despawnLocation - transform.position;
-
-        velocity = vectorToDespawn.normalized * movementSpeed;
-
-        transform.Translate(velocity * Time.deltaTime);
-
-        if(vectorToDespawn.magnitude < 1f)
-        {
-            isFleeing = false;
-            // to-do: replace with object pool
-            Destroy(gameObject);
-            Log("Fled to exit");
-        }
+        isFleeing = false;
+        // to-do: replace with object pool
+        currentCell.RemoveCellOccupant();
+        Destroy(gameObject);
+        Log("Fled to exit");
 
     }
 

@@ -171,6 +171,11 @@ public class GridManager : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// Returns a random cell with a Plant Occupant on it.
+    /// </summary>
+    /// <returns></returns>
     public GridCell GetRandomCellWithPlant()
     {
         var possibleCells = new List<GridCell>();
