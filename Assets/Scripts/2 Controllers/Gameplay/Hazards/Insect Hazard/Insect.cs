@@ -21,6 +21,7 @@ public class Insect : MonoBehaviour, IOccupant
     private float timeAtReachedPlant;
     private bool isMoving;
     private Direction direction;
+    private int timesShooed;
 
     private Vector2Int vectorIntToTarget;
 
@@ -62,6 +63,7 @@ public class Insect : MonoBehaviour, IOccupant
         timeAtReachedPlant = 0f;
         isMoving = false;
         direction = Direction.North;
+        timesShooed = 0;
 
         isSearchingPlant = true;
         isMovingToPlant = false;
@@ -79,6 +81,10 @@ public class Insect : MonoBehaviour, IOccupant
         }
         else if(isMovingToPlant)
         {
+            if(timesShooed >= timesToResistShooing)
+            {
+                SetFleeing();
+            }
             MoveToTarget(targetCell);
 
         }
@@ -118,6 +124,17 @@ public class Insect : MonoBehaviour, IOccupant
         isMovingToPlant = false;
         isSearchingPlant = false;
         targetCell = gridManager.GetClosestCell(despawnLocation);
+    }
+
+    public void IncrementShooedCount()
+    {
+        ++timesShooed;
+        if(timesShooed >= timesToResistShooing)
+        {
+            currentCell.RemoveCellOccupant();
+            Destroy(gameObject);
+            Log("Shooed Away");
+        }
     }
 
     #endregion
