@@ -10,25 +10,33 @@ public class Insect : MonoBehaviour, IOccupant
     [HideInInspector] public Vector3 despawnLocation = new Vector3(0f, 0f, 0f);
     [HideInInspector] public List<Plant> excludedPlants;
 
+    [Header("Designers")]
     [SerializeField] private float movementSpeed = 0.1f;
     [SerializeField] private float timeToEatPlant = 5f;
     [SerializeField] private int timesToResistShooing = 3;
+
+    [Header("Programmers")]
+    [SerializeField] private GameObject insectFront;
+    [SerializeField] private GameObject insectBack;
+    [SerializeField] private GameObject insectLeft;
+    [SerializeField] private GameObject insectRight;
 
     private GridCell currentCell, nextCell, targetCell;
     private Plant targetPlant;
     private Vector2 vectorToTarget, vectorToDespawn;
     private Vector2Int currentGridPosition, nextGridPosition, targetGridPosition;
     private float timeAtReachedPlant;
-    private bool isMoving;
+    private bool isMoving, isEating;
     private Direction direction;
     private int timesShooed;
 
     private Vector2Int vectorIntToTarget;
+    private Animator currentAnimator;
 
     // State Machine (Behaviour)
-    public bool isSearchingPlant;
-    public bool isMovingToPlant;
-    public bool isFleeing;
+    [HideInInspector]  public bool isSearchingPlant;
+    [HideInInspector]  public bool isMovingToPlant;
+    [HideInInspector]  public bool isFleeing;
 
     private GridManager gridManager;
 
@@ -62,6 +70,7 @@ public class Insect : MonoBehaviour, IOccupant
         targetGridPosition = new Vector2Int(0, 0);
         timeAtReachedPlant = 0f;
         isMoving = false;
+        isEating = false;
         direction = Direction.North;
         timesShooed = 0;
 
@@ -92,7 +101,11 @@ public class Insect : MonoBehaviour, IOccupant
         {
             MoveToTarget(targetCell);
         }
+
+        UpdateAnimation();
     }
+
+
 
     private void OnDisable()
     {
@@ -249,6 +262,7 @@ public class Insect : MonoBehaviour, IOccupant
         if(timeAtReachedPlant == 0f)
         {
             timeAtReachedPlant = GameManager.Instance.Time.ElapsedTime;
+            isEating = true;
             Log("Reached target Plant");
         }
 
@@ -264,8 +278,46 @@ public class Insect : MonoBehaviour, IOccupant
             isFleeing = true;
             targetCell = gridManager.GetClosestCell(despawnLocation);
             targetGridPosition = targetCell.GridPosition;
+            isEating = false;
             Log("Ate Plant");
         }
+    }
+    private void UpdateAnimation()
+    {
+        if (direction == Direction.South)
+        {
+            insectFront.SetActive(true);
+            insectLeft.SetActive(false);
+            insectBack.SetActive(false);
+            insectRight.SetActive(false);
+            currentAnimator = insectFront.GetComponent<Animator>();
+        }
+        else if (direction == Direction.West)
+        {
+            insectFront.SetActive(false);
+            insectLeft.SetActive(true);
+            insectBack.SetActive(false);
+            insectRight.SetActive(false);
+            currentAnimator = insectLeft.GetComponent<Animator>();
+        }
+        else if (direction == Direction.North)
+        {
+            insectFront.SetActive(false);
+            insectLeft.SetActive(false);
+            insectBack.SetActive(true);
+            insectRight.SetActive(false);
+            currentAnimator = insectBack.GetComponent<Animator>();
+        }
+        else if (direction == Direction.East)
+        {
+            insectFront.SetActive(false);
+            insectLeft.SetActive(false);
+            insectBack.SetActive(false);
+            insectRight.SetActive(true);
+            currentAnimator = insectRight.GetComponent<Animator>();
+        }
+
+        currentAnimator.SetBool("IsEating", isEating);
     }
 
     private void DespawnAtTargetCell()
