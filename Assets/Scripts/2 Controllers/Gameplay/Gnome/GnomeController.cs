@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem.Users;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using static UnityEngine.InputSystem.InputAction;
 
 public class GnomeController : MonoBehaviour
 {
     private readonly bool debug = false;
 
+    [SerializeField] private bool isTestGnome = false;
     [SerializeField] private float minimumSpeed = 5f;
     [SerializeField] private float pathSpeed = 7f;
     [SerializeField] private float slowdownFactor = 0.01f;
@@ -48,6 +50,14 @@ public class GnomeController : MonoBehaviour
 
     private void Start()
     {
+        if (isTestGnome)
+        {
+            var testPlayerInput = GetComponent<PlayerInput>();
+            var testPlayerConfig = new PlayerConfig(testPlayerInput);
+            InitializePlayer(testPlayerConfig);
+            testPlayerInput.uiInputModule = FindObjectOfType<InputSystemUIInputModule>();
+        }
+
         //cameraController.AddTarget(transform);
         moveSpeed = minimumSpeed;
         Transform[] children = gameObject.GetComponentsInChildren<Transform>();
