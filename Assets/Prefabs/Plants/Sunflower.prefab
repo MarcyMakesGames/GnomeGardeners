@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 148511127972733769}
   - component: {fileID: 6781855766866969407}
-  - component: {fileID: -378496446210772951}
   - component: {fileID: 91581230841265698}
   m_Layer: 9
   m_Name: Sunflower
@@ -84,22 +83,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &-378496446210772951
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8107983885071440429}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.15}
-  serializedVersion: 2
-  m_Radius: 0.2
 --- !u!114 &91581230841265698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d36f0eae487c9244ab6651f5f080723, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
   species: {fileID: 11400000, guid: d62722e6edcb0734eb85e97c08576eb6, type: 2}
   timeToGrowVariation: 2
   spriteRenderer: {fileID: 6781855766866969407}

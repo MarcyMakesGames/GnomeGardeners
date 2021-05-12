@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WindObjectController : MonoBehaviour
+public class Wind : MonoBehaviour
 {
     public Vector3 despawnLocation;
     public float moveSpeed;

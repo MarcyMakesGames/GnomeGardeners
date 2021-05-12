@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WindSpawnController : HazardSpawnController
+public class WindSpawner : HazardSpawner
 {
     [SerializeField]
     private GameObject windPrefab;
@@ -27,8 +27,8 @@ public class WindSpawnController : HazardSpawnController
         startTime = GameManager.Instance.Time.ElapsedTime;
         spawnTime = GameManager.Instance.Time.ElapsedTime;
 
-        transform.position = spawnLocation;
-        transform.position = Vector3.RotateTowards(transform.position, despawnLocation, 10000f * Time.deltaTime, 1000f);
+        transform.position = spawnPosition;
+        transform.position = Vector3.RotateTowards(transform.position, despawnPosition, 10000f * Time.deltaTime, 1000f);
     }
 
     private void CountdownTimer()
@@ -47,11 +47,11 @@ public class WindSpawnController : HazardSpawnController
     {
         var randomSpawnPos = spawnAreas[Random.Range(0, spawnAreas.Count)];
         var positionDifferential = randomSpawnPos.position - transform.position;
-        var targetDespawn = despawnLocation + positionDifferential;
+        var targetDespawn = despawnPosition + positionDifferential;
 
-        GameObject windGust = Instantiate(windPrefab, randomSpawnPos.position, transform.rotation);
-        WindObjectController windObjController = windGust.GetComponent<WindObjectController>();
-        windObjController.despawnLocation = targetDespawn;
-        windObjController.moveSpeed = spawnObjMoveSpeed;
+        var windObject = Instantiate(windPrefab, randomSpawnPos.position, transform.rotation);
+        var wind = windObject.GetComponent<Wind>();
+        wind.despawnLocation = targetDespawn;
+        wind.moveSpeed = spawnObjMoveSpeed;
     }
 }

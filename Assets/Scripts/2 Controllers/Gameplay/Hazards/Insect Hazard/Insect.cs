@@ -3,34 +3,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Insect : MonoBehaviour
+public class Insect : MonoBehaviour, IOccupant
 {
     private bool debug = true;
 
     [HideInInspector] public Vector3 despawnLocation = new Vector3(0f, 0f, 0f);
+    [HideInInspector] public List<Plant> excludedPlants;
 
     [SerializeField] private float movementSpeed = 0.1f;
     [SerializeField] private float timeToEatPlant = 5f;
     [SerializeField] private int timesToResistShooing = 3;
     [SerializeField] private float rangeToEat = 1f;
 
-    private Vector2 velocity;
-    private Vector2 vectorToTarget;
-    private GridCell targetCell;
+    private Vector2 velocity, vectorToTarget, vectorToNextCell, vectorToDespawn;
+    private Vector2Int nextGridPosition;
+    private GridCell currentCell, previousCell, nextCell, targetCell;
     private Plant targetPlant;
     private float timeAtReachedPlant;
-    private Vector2 vectorToDespawn;
-    private bool isSearchingPlant;
-    private bool isMovingToPlant;
-    private bool isFleeing;
+
+    // State Machine (Behaviour)
+    public bool isSearchingPlant;
+    public bool isMovingToPlant;
+    public bool isFleeing;
+    private bool isMoving;
 
     private GridManager gridManager;
+
+    // Event Channels
+    public PlantEventChannelSO OnPlantTargeted;
+    public PlantEventChannelSO OnPlantEaten;
+
+    public GameObject AssociatedObject => gameObject;
 
     #region Unity Methods
 
     private void Awake()
     {
         gridManager = GameManager.Instance.GridManager;
+        OnPlantTargeted.OnEventRaised += ExcludePlant;
+        OnPlantEaten.OnEventRaised += ForgetPlant;
     }
 
     private void Start()
@@ -38,7 +49,11 @@ public class Insect : MonoBehaviour
         isSearchingPlant = true;
         isMovingToPlant = false;
         isFleeing = false;
+        isMoving = false;
+        excludedPlants = new List<Plant>();
         FindTargetPlant();
+        transform.position = gridManager.GetClosestCell(transform.position).WorldPosition;
+        nextGridPosition = currentCell.GridPosition;
     }
 
     private void Update()
@@ -48,7 +63,7 @@ public class Insect : MonoBehaviour
             FindTargetPlant();
         }
         else if(isMovingToPlant)
-        { 
+        {
             CalculateVectorToTarget();
 
             if (vectorToTarget.magnitude > rangeToEat)
@@ -69,6 +84,21 @@ public class Insect : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        OnPlantTargeted.OnEventRaised -= ExcludePlant;
+        OnPlantEaten.OnEventRaised -= ForgetPlant;
+    }
+
+    #endregion
+
+    #region Public Methods
+
+    public void AssignOccupant()
+    {
+        gridManager.ChangeTileOccupant(gridManager.GetClosestGrid(transform.position), this);
+    }
+
     #endregion
 
     #region Private Methods
@@ -79,6 +109,22 @@ public class Insect : MonoBehaviour
         targetCell = gridManager.GetRandomCellWithPlant();
         if(targetCell == null) { return; }
         targetPlant = (Plant)targetCell.Occupant;
+
+        if(excludedPlants.Count > 0)
+        {
+            foreach(Plant excludedPlant in excludedPlants)
+            {
+                if (targetPlant.Equals(excludedPlant))
+                {
+                    targetCell = null;
+                    targetPlant = null;
+                    return;
+                }
+            }
+        }
+        OnPlantTargeted.RaiseEvent(targetPlant);
+
+        isSearchingPlant = false;
         isMovingToPlant = true;
         Log("Found target Plant");
     }
@@ -92,7 +138,63 @@ public class Insect : MonoBehaviour
 
     private void MoveToPlant()
     {
-        transform.Translate(vectorToTarget * movementSpeed * Time.deltaTime);
+        if (!isMoving)
+        {
+            CalculateNextGridPosition();
+        }
+        else
+        {
+            MoveToGridPosition(nextGridPosition);
+        }
+
+    }
+
+    private void CalculateNextGridPosition()
+    {
+        var vectorIntToTarget = targetCell.GridPosition - currentCell.GridPosition;
+        var moveHorizontally = UnityEngine.Random.Range(0, 1);
+        if (moveHorizontally == 0)
+        {
+            if (vectorIntToTarget.x > 0f)
+            {
+                nextGridPosition.x += 1;
+            }
+            else
+            {
+                nextGridPosition.x -= 1;
+            }
+        }
+        else
+        {
+            if (vectorIntToTarget.y > 0f)
+            {
+                nextGridPosition.y += 1;
+            }
+            else
+            {
+                nextGridPosition.y -= 1;
+            }
+        }
+
+        nextCell = gridManager.GetGridCell(nextGridPosition);
+        if (nextCell.Occupant != null)
+        {
+            Log("Cannot move to occupied tile.");
+            return;
+        }
+        isMoving = true;
+    }
+
+    private void MoveToGridPosition(Vector2Int gridPosition)
+    {
+        var direction = nextCell.WorldPosition - transform.position;
+        velocity = direction * movementSpeed;
+        transform.Translate(velocity * Time.deltaTime);
+        vectorToNextCell = nextCell.WorldPosition - transform.position;
+        if(vectorToNextCell.magnitude < movementSpeed)
+        {
+            isMoving = false;
+        }
     }
 
 
@@ -110,6 +212,7 @@ public class Insect : MonoBehaviour
         {
             gridManager.ChangeTile(targetCell.GridPosition, GroundType.FallowSoil);
             gridManager.ChangeTileOccupant(targetCell.GridPosition, null);
+            OnPlantEaten.RaiseEvent(targetPlant);
             Destroy(targetPlant.gameObject);
             Log("Ate Plant");
             isSearchingPlant = false;
@@ -123,14 +226,29 @@ public class Insect : MonoBehaviour
 
         vectorToDespawn = despawnLocation - transform.position;
 
-        transform.Translate(vectorToDespawn * movementSpeed * Time.deltaTime);
+        velocity = vectorToDespawn.normalized * movementSpeed;
+
+        transform.Translate(velocity * Time.deltaTime);
 
         if(vectorToDespawn.magnitude < 1f)
         {
             isFleeing = false;
+            // to-do: replace with object pool
+            Destroy(gameObject);
+            Log("Fled to exit");
         }
 
-        Log("Fled to exit");
+    }
+
+    private void ExcludePlant(Plant plant)
+    {
+        excludedPlants.Add(plant);
+    }
+
+    private void ForgetPlant(Plant plant)
+    {
+        if(excludedPlants.Contains(plant))
+            excludedPlants.Remove(plant);
     }
 
     private void Log(string msg)
@@ -144,6 +262,7 @@ public class Insect : MonoBehaviour
         if (!debug) { return; }
         Debug.LogWarning("[Insect]: " + msg);
     }
+
     #endregion
 
 }

@@ -10,9 +10,9 @@ public class HazardElementSO : ScriptableObject
     [SerializeField]
     private Direction direction;
     [SerializeField]
-    private GameObject hazardElement;
+    private GameObject hazardSpawner;
     [SerializeField]
-    private int hazardCount;
+    private int hazardSpawnerAmount;
     [SerializeField]
     private float hazardDuration;
     [SerializeField] 
@@ -26,16 +26,14 @@ public class HazardElementSO : ScriptableObject
 
     public void SpawnElement(Vector3 spawnLocation, Vector3 despawnLocation) 
     {
-        for(int i = 0; i < hazardCount; i++)
+        for(int i = 0; i < hazardSpawnerAmount; ++i)
         {
             //THIS NEEDS TO BE GOTTEN FROM THE OBJECT POOL IN THE FUTURE
-            GameObject hazard = Instantiate(hazardElement, spawnLocation, Quaternion.identity, GameManager.Instance.HazardManager.transform);
-            hazard.transform.position = spawnLocation;
+            var hazardSpawnerInstance = Instantiate(this.hazardSpawner, spawnLocation, Quaternion.identity, GameManager.Instance.HazardManager.transform);
+            hazardSpawnerInstance.transform.position = spawnLocation;
 
-            // to-do: this does not make sense for every hazard. it should probably happen inside the hazard that it just spawned
-            if(uniqueID != 0) { return; }
-            HazardSpawnController hazardObjectController = hazard.GetComponent<HazardSpawnController>();
-            hazardObjectController.InitSpawner(spawnLocation, despawnLocation, hazardDuration, timeBetweenSpawns, spawnedObjMoveSpeed);
+            var hazardSpawner = hazardSpawnerInstance.GetComponent<HazardSpawner>();
+            hazardSpawner.InitSpawner(spawnLocation, despawnLocation, hazardDuration, timeBetweenSpawns, spawnedObjMoveSpeed);
         }
     }
 }
