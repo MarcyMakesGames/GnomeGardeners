@@ -16,6 +16,10 @@ public class GnomeController : MonoBehaviour
     [SerializeField] private float dropRange = 1f;
     [SerializeField] private Sprite seedSprite;
     [SerializeField] private Sprite fertilizerSprite;
+    [SerializeField] private GameObject gnomeFront;
+    [SerializeField] private GameObject gnomeBack;
+    [SerializeField] private GameObject gnomeLeft;
+    [SerializeField] private GameObject gnomeRight;
     //Here we want a skin for the gnomes
     // private GnomeSkin skin;
 
@@ -37,6 +41,8 @@ public class GnomeController : MonoBehaviour
 
     private SpriteRenderer toolRenderer;
     private SpriteRenderer itemRenderer;
+
+    private Animator currentAnimator;
 
     public Vector2 LookDir { get => lookDir; }
     public Tool EquippedTool { get => tool; set => tool = value; }
@@ -93,6 +99,54 @@ public class GnomeController : MonoBehaviour
     {
         CheckInteractGround();
         HighlightInteractionCell();
+        UpdateAnimation();
+    }
+
+    private void UpdateAnimation()
+    {
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x);
+
+        if(lookDir.y < 0)
+        {
+            gnomeFront.SetActive(true);
+            gnomeLeft.SetActive(false);
+            gnomeBack.SetActive(false);
+            gnomeRight.SetActive(false);
+            currentAnimator = gnomeFront.GetComponent<Animator>();
+        }
+        else if(lookDir.y == 0 && lookDir.x < 0)
+        {
+            gnomeFront.SetActive(false);
+            gnomeLeft.SetActive(true);
+            gnomeBack.SetActive(false);
+            gnomeRight.SetActive(false);
+            currentAnimator = gnomeLeft.GetComponent<Animator>();
+        }
+        else if(lookDir.y > 0)
+        {
+            gnomeFront.SetActive(false);
+            gnomeLeft.SetActive(false);
+            gnomeBack.SetActive(true);
+            gnomeRight.SetActive(false);
+            currentAnimator = gnomeBack.GetComponent<Animator>();
+        }
+        else
+        {
+            gnomeFront.SetActive(false);
+            gnomeLeft.SetActive(false);
+            gnomeBack.SetActive(false);
+            gnomeRight.SetActive(true);
+            currentAnimator = gnomeRight.GetComponent<Animator>();
+        }
+
+        if(moveDir.magnitude != 0)
+        {
+            currentAnimator.SetBool("IsWalking", true);
+        }
+        else
+        {
+            currentAnimator.SetBool("IsWalking", false);
+        }
     }
 
     private void CheckInteractGround()
