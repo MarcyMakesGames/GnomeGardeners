@@ -18,11 +18,11 @@ public class GameManager : MonoBehaviour
     private IInteractionController interactionController;
     private GridManager gridManager;
     private SceneController sceneController;
-    private AudioManager audioManager;
     private LevelManager levelManager;
     private HazardManager hazardManager;
     private ConfigController configController;
     private PoolController poolController;
+    private AudioManager audioManager;
 
     // Game variables
     public bool playersReady = false;
@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
     public IInteractionController InteractionController { get => interactionController; set => interactionController = value; }
     public GridManager GridManager { get => gridManager; set => gridManager = value; }
     public SceneController SceneController { get => sceneController; set => sceneController = value; }
-    public AudioManager AudioManager { get => audioManager; set => audioManager = value; }
     public LevelManager LevelManager { get => levelManager; set => levelManager = value; }
     public HazardManager HazardManager { get => hazardManager; set => hazardManager = value; }
     public ConfigController Config { get => configController; set => configController = value; }
@@ -44,6 +43,7 @@ public class GameManager : MonoBehaviour
 
     public bool DebugMenu { get => debugMenu; }
     public string SceneToLoad { get => sceneToLoad; }
+    public AudioManager AudioManager { get => audioManager; set => audioManager = value; }
 
     #region Unity Methods
 
