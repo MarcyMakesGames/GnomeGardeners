@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour, IInteractable
 {
-    public bool debug = true;
+    public bool debug = false;
 
-    [SerializeField] private bool canBeRemoved;
+    [Header("Designers")]
+    [SerializeField] private bool canBeRemoved = true;
+    [SerializeField] private ToolType removeTool = ToolType.Preparing;
+    [SerializeField] private int numberOfHits = 3;
+    [Header("Programmers")]
+    [SerializeField] private Sprite spriteOnSoil;
+    [SerializeField] private Sprite spriteOnRest;
 
-    [SerializeField] private ToolType removeTool;
-    private bool isRemoved = false;
+    private GridCell cell;
+
+    private int hitCounter;
     public GameObject AssociatedObject => gameObject;
 
     public void Interact(Tool tool = null)
@@ -19,21 +26,40 @@ public class Obstacle : MonoBehaviour, IInteractable
         if(tool == null) { return; }
         if(tool.Type == removeTool)
         {
-            gameObject.SetActive(false);
-            var gridPosition = GameManager.Instance.GridManager.GetClosestCell(transform.position).GridPosition;
-            GameManager.Instance.GridManager.ChangeTileOccupant(gridPosition, null);
-            isRemoved = true;
-            Log("Obstacle removed.");
+            if(hitCounter < numberOfHits)
+            {
+                ++hitCounter;
+            }
+            else
+            {
+                gameObject.SetActive(false);
+                var gridPosition = GameManager.Instance.GridManager.GetClosestCell(transform.position).GridPosition;
+                GameManager.Instance.GridManager.ChangeTileOccupant(gridPosition, null);
+                Log("Obstacle removed.");
+            }
         }
     }
 
     public void AssignOccupant()
     {
-        GameManager.Instance.GridManager.ChangeTileOccupant(GameManager.Instance.GridManager.GetClosestGrid(AssociatedObject.transform.position), this);
+        cell.AddCellOccupant(this);
     }
 
     private void Start()
     {
+        cell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
+        hitCounter = 1;
+        var spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if(cell.GroundType.Equals(GroundType.ArableSoil) || cell.GroundType.Equals(GroundType.FallowSoil))
+        {
+            spriteRenderer.sprite = spriteOnSoil;
+        }
+        else
+        {
+            spriteRenderer.sprite = spriteOnRest;
+        }
+
         AssignOccupant();
     }
 

@@ -19,7 +19,6 @@ public class PrepareCommand : ICommand
             {
                 Log("Obstacle found!");
                 obstacle.Interact(tool);
-                cell.RemoveCellOccupant();
             }
         }
 
