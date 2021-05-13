@@ -48,6 +48,7 @@ public class Seedbag : MonoBehaviour, IInteractable
         var randomIndex = Random.Range(0, dispensables.Length);
         var randomDispensable = dispensables[randomIndex];
         tool.heldItem = randomDispensable.GetComponent<IHoldable>();
+        GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_seedbag_dispense, GetComponent<AudioSource>());
         Log(randomDispensable.ToString());
     }
 

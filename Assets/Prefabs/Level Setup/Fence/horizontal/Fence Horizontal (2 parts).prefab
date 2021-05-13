@@ -502,9 +502,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1157389721916975827}
   - component: {fileID: 988876304670296161}
-  - component: {fileID: 903527151698818567}
   m_Layer: 0
-  m_Name: Fence Horizontal
+  m_Name: Fence Horizontal (2 parts)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -562,21 +561,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 23.04, y: 1.0561919}
   m_EdgeRadius: 0
---- !u!114 &903527151698818567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5104912024678752052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 100b54498b9e31641b73da6a15c39c31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 1
-  canBeRemoved: 0
-  removeTool: 0
 --- !u!1 &5377585223992940711
 GameObject:
   m_ObjectHideFlags: 0

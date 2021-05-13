@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5969859828107837889}
   - component: {fileID: 5724037679207555955}
   - component: {fileID: 4135621559625253929}
-  - component: {fileID: 5647255667436625173}
   m_Layer: 0
   m_Name: Fence Horizontal short 6 tiles
   m_TagString: Untagged
@@ -101,21 +100,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 23.04, y: 1.28}
   m_EdgeRadius: 0
---- !u!114 &5647255667436625173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 292353833125442598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 100b54498b9e31641b73da6a15c39c31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 1
-  canBeRemoved: 0
-  removeTool: 0
 --- !u!1 &610212970329256885
 GameObject:
   m_ObjectHideFlags: 0

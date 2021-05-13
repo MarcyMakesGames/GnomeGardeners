@@ -713,7 +713,7 @@ GameObject:
   - component: {fileID: 1445782505248529847}
   - component: {fileID: 3499233884869508495}
   m_Layer: 0
-  m_Name: Audio Controller
+  m_Name: Audio Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -746,6 +746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgm: {fileID: 8300000, guid: 9354eee0f900c2a42906353f9616e5b6, type: 3}
+  soundEffects: []
 --- !u!82 &4105714204617158487
 AudioSource:
   m_ObjectHideFlags: 0
