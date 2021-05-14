@@ -150,15 +150,11 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
     private void CheckNeedPopUp()
     {
         if (popUp == null && currentNeedValue < currentStage.need.threshold)
-        {
-            var popUpPosition = transform.position + currentStage.popUpPositionOffset;
-            popUp = GameManager.Instance.PoolController.GetObjectFromPool(popUpPosition, Quaternion.identity, currentStage.need.popUpType);
-        }
+            GetPopUp(currentStage.need.popUpType);
 
         else if (popUp != null && isNeedFulfilled)
         {
-            popUp.gameObject.SetActive(false);
-            popUp = null;
+            ClearPopUp();
         }
     }
 
@@ -175,6 +171,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         GameManager.Instance.GridManager.ChangeTile(occupyingCell.GridPosition, GroundType.FallowSoil);
         spriteInHand = species.deadSprite;
         GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_plant_wilting, audioSource);
+        GetPopUp(PoolKey.PopUp_Recycle);
     }
 
     private void AdvanceStages()
@@ -202,8 +199,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         {
             popUp.gameObject.SetActive(false);
             popUp = null;
-        }
-        GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_plants_growth_rustle, audioSource);
+        }        
     }
 
     private void CheckArableGround()
@@ -248,6 +244,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
     private void Dispose()
     {
         Log("Being disposed of.");
+        ClearPopUp();
         spriteRenderer.sprite = null;
         name = species.name;
         currentStage = null;
@@ -276,6 +273,22 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         }
     }
 
+    private void GetPopUp(PoolKey popUpType)
+    {
+        ClearPopUp();
+
+        GameObject newPopUp = GameManager.Instance.PoolController.GetObjectFromPool(transform.position + currentStage.popUpPositionOffset, Quaternion.identity, popUpType);
+        popUp = newPopUp;
+    }
+
+    private void ClearPopUp()
+    {
+        if(popUp != null)
+        {
+            popUp.gameObject.SetActive(false);
+            popUp = null;
+        }        
+    }
 
     #endregion
 }
