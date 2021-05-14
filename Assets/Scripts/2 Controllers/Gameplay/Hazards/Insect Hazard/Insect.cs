@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Insect : MonoBehaviour, IOccupant
 {
-    private bool debug = true;
+    private bool debug = false;
 
     [HideInInspector] public Vector3 despawnLocation = new Vector3(0f, 0f, 0f);
     [HideInInspector] public List<Plant> excludedPlants;

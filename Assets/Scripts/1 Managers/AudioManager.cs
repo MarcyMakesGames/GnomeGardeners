@@ -11,7 +11,7 @@ public class AudioManager : MonoBehaviour
     private AudioSource ambienceSource;
 
     // temp: set masterVolume to 1 on build
-    private float masterVolume = 0.01f;
+    private float masterVolume = 0.2f;
     private float soundVolume = 1f;
     private float musicVolume = 1f;
     private float ambienceVolume = 1f;
@@ -52,7 +52,6 @@ public class AudioManager : MonoBehaviour
         MasterVolume = GameManager.Instance.ConfigController.MasterVolume;
         SoundVolume = GameManager.Instance.ConfigController.SoundVolume;
         MusicVolume = GameManager.Instance.ConfigController.MusicVolume;
-        ambienceSource.volume = soundVolume;
     }
 
     #endregion

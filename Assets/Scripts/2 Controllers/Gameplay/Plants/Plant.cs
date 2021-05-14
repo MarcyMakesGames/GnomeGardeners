@@ -65,14 +65,21 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
     {
     }
 
+    public void Destroy()
+    {
+        occupyingCell.RemoveCellOccupant();
+        Destroy(gameObject);
+    }
+
     public void HarvestPlant(GridCell cell)
     {
         // todo: object pool stash
         if (currentStage.isHarvestable)
         {
             cell.RemoveCellOccupant();
-            gameObject.SetActive(false);
             isBeingCarried = true;
+            GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_tool_cutting_plant);
+            gameObject.SetActive(false);
         }
     }
 
@@ -225,7 +232,6 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         type = ItemType.Seed;
         isNeedFulfilled = false;
         randomizedTimeToGrow = currentStage.timeToGrow + UnityEngine.Random.Range(-timeToGrowVariation, timeToGrowVariation);
-
         OnTileChanged.OnEventRaised += CheckOccupyingCell;
         OnTileChanged.OnEventRaised += CheckArableGround;
     }
