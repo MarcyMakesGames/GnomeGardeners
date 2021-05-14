@@ -181,9 +181,14 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         {
             type = ItemType.Harvest;
         }
+
         randomizedTimeToGrow = currentStage.timeToGrow + UnityEngine.Random.Range(-timeToGrowVariation, timeToGrowVariation);
-        popUp.gameObject.SetActive(false);
-        popUp = null;
+
+        if(popUp != null)
+        {
+            popUp.gameObject.SetActive(false);
+            popUp = null;
+        }        
     }
 
     private void CheckArableGround()
