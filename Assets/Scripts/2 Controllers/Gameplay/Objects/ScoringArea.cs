@@ -8,6 +8,7 @@ public class ScoringArea : MonoBehaviour, IScoringArea
 
     private Sprite[] plants;
     private int plantCount;
+    private AudioSource basketSource;
 
     public IntEventChannelSO OnScoreAddEvent;
 
@@ -19,6 +20,7 @@ public class ScoringArea : MonoBehaviour, IScoringArea
     #region Unity Methods
     void Start()
     {
+        basketSource = GetComponent<AudioSource>();
         AssignOccupant();
     }
 
@@ -45,6 +47,7 @@ public class ScoringArea : MonoBehaviour, IScoringArea
             AddScore(score);
             // AddSprite(harvestStage.sprite);
             ++plantCount;
+            GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_basket_receive, basketSource);
             Log("Delivered plant");
         }
     }

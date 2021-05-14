@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     public SceneController SceneController { get => sceneController; set => sceneController = value; }
     public LevelManager LevelManager { get => levelManager; set => levelManager = value; }
     public HazardManager HazardManager { get => hazardManager; set => hazardManager = value; }
-    public ConfigController Config { get => configController; set => configController = value; }
+    public ConfigController ConfigController { get => configController; set => configController = value; }
     public PoolController PoolController { get => poolController; set => poolController = value; }
 
     public bool DebugMenu { get => debugMenu; }

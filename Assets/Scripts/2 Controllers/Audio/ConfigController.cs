@@ -2,27 +2,37 @@ using UnityEngine;
 
 public class ConfigController : MonoBehaviour
 {
-    protected float masterVolume = 1f;
-    protected float bgmVolume = 1f;
-    protected float sfxVolume = 1f;
+    private float masterVolume = 1f;
+    private float musicVolume = 1f;
+    private float soundVolume = 1f;
+    private float ambienceVolume = 1f;
 
     public float MasterVolume { get => masterVolume; set => masterVolume = value; }
-    public float BGMVolume { get => bgmVolume; set => bgmVolume = value; }
-    public float SFXVolume { get => sfxVolume; set => sfxVolume = value; }
+    public float MusicVolume { get => musicVolume; set => musicVolume = value; }
+    public float SoundVolume { get => soundVolume; set => soundVolume = value; }
+    public float AmbienceVolume { get => ambienceVolume; set => ambienceVolume = value; }
+
+    private void Awake()
+    {
+        if (GameManager.Instance.ConfigController == null)
+        {
+            GameManager.Instance.ConfigController = this;
+        }
+
+        masterVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
+        musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
+        soundVolume = PlayerPrefs.GetFloat("SoundVolume", 1f);
+        ambienceVolume = PlayerPrefs.GetFloat("AmbienceVolume", 1f);
+    }
 
     private void OnApplicationQuit()
     {
-        PlayerPrefs.SetFloat("Master_Volume", masterVolume);
-        PlayerPrefs.SetFloat("BGM_Volume", bgmVolume);
-        PlayerPrefs.SetFloat("SFX_Volume", sfxVolume);
+        PlayerPrefs.SetFloat("MasterVolume", masterVolume);
+        PlayerPrefs.SetFloat("MusicVolume", musicVolume);
+        PlayerPrefs.SetFloat("SoundVolume", soundVolume);
+        PlayerPrefs.SetFloat("AmbienceVolume", ambienceVolume);
 
         PlayerPrefs.Save();
-    }
-    private void Awake()
-    {
-        masterVolume = PlayerPrefs.GetFloat("Master_Volume", 1f);
-        bgmVolume = PlayerPrefs.GetFloat("BGM_Volume", 1f);
-        sfxVolume = PlayerPrefs.GetFloat("SFX_Volume", 1f);
     }
 
     public void SavePlayerPrefs()
