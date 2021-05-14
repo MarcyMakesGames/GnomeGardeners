@@ -6,20 +6,23 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip bgm;
     [SerializeField] private List<SoundEffect> soundEffects;
     private AudioSource[] audioSources;
-    private AudioSource sfxAudioSource;
-    private AudioSource bgmAudioSource;
+    private AudioSource soundSource;
+    private AudioSource musicSource;
     private AudioSource ambienceSource;
 
-    private float masterVolume = 1f;
-    private float sfxAudioVolume = 1f;
-    private float bgmAudioVolume = 1f;
+    // temp: set masterVolume to 1 on build
+    private float masterVolume = 0.01f;
+    private float soundVolume = 1f;
+    private float musicVolume = 1f;
+    private float ambienceVolume = 1f;
 
     public float MasterVolume { get => masterVolume; set => UpdateMasterVolume(value); }
-    public float SFXVolume { get => SFXVolume; set => UpdateSFXVolume(value); }
-    public float BGMVolume { get => BGMVolume; set => UpdateBGMVolume(value); }
-    public void PlaySound(AudioClip clipToPlay) => sfxAudioSource.PlayOneShot(clipToPlay);
+    public float SoundVolume { get => soundVolume; set => UpdateSoundVolume(value); }
+    public float MusicVolume { get => musicVolume; set => UpdateMusicVolume(value); }
+    public float AmbienceVolume { get => ambienceVolume; set => UpdateAmbienceVolume(value); }
+    public void PlaySound(AudioClip clipToPlay) => soundSource.PlayOneShot(clipToPlay);
     public bool PlayingAmbience { get => ambienceSource.isPlaying; }
-    public AudioClip CurrentBGM { get => bgmAudioSource.clip; }
+    public AudioClip CurrentBGM { get => musicSource.clip; }
 
     #region Unity Methods
 
@@ -31,21 +34,25 @@ public class AudioManager : MonoBehaviour
         }
 
         audioSources = GetComponents<AudioSource>();
-        sfxAudioSource = audioSources[0];
-        bgmAudioSource = audioSources[1];
+        soundSource = audioSources[0];
+        musicSource = audioSources[1];
         ambienceSource = audioSources[2];
     }
 
     private void Start()
     {
         PlayMusic(bgm);
-        bgmAudioSource.loop = true;
+        musicSource.loop = true;
         ambienceSource.loop = true;
+        UpdateMasterVolume(masterVolume);
+        UpdateSoundVolume(soundVolume);
+        UpdateMusicVolume(musicVolume);
+        UpdateAmbienceVolume(ambienceVolume);
 
-        //MasterVolume = GameManager.Instance.Config.MasterVolume;
-        //SFXVolume = GameManager.Instance.Config.SFXVolume;
-        //BGMVolume = GameManager.Instance.Config.BGMVolume;
-        //ambienceSource.volume = sfxAudioVolume;
+        MasterVolume = GameManager.Instance.ConfigController.MasterVolume;
+        SoundVolume = GameManager.Instance.ConfigController.SoundVolume;
+        MusicVolume = GameManager.Instance.ConfigController.MusicVolume;
+        ambienceSource.volume = soundVolume;
     }
 
     #endregion
@@ -54,22 +61,49 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic(AudioClip clipToPlay)
     {
-        if (bgmAudioSource.clip == clipToPlay) { return; }
-        bgmAudioSource.clip = clipToPlay;
-        bgmAudioSource.Play();
+        if (musicSource.clip == clipToPlay) { return; }
+        musicSource.clip = clipToPlay;
+        musicSource.Play();
     }
 
     public void StopMusic()
     {
-        if (!bgmAudioSource.isPlaying) { return; }
-        bgmAudioSource.Stop();
+        if (!musicSource.isPlaying) { return; }
+        musicSource.Stop();
     }
 
-    public void PlayAmbience(AudioClip clipToPlay)
+    public void PlayAmbience(SoundType type)
     {
-        if(ambienceSource.clip == clipToPlay) { return; }
-        ambienceSource.clip = clipToPlay;
-        ambienceSource.Play();
+        SoundEffect soundEffectToPlay = null;
+        foreach (SoundEffect sound in soundEffects)
+        {
+            if (sound.type == type)
+            {
+                soundEffectToPlay = sound;
+            }
+        }
+        if(soundEffectToPlay != null)
+        {
+            ambienceSource.clip = soundEffectToPlay.GetRandomClip();
+            ambienceSource.Play();
+        }
+    }
+    public void PlayAmbience(SoundType type, AudioSource source)
+    {
+        SoundEffect soundEffectToPlay = null;
+        foreach (SoundEffect sound in soundEffects)
+        {
+            if (sound.type == type)
+            {
+                soundEffectToPlay = sound;
+            }
+        }
+        if (soundEffectToPlay != null)
+        {
+            source.volume = ambienceVolume * masterVolume;
+            source.clip = soundEffectToPlay.GetRandomClip();
+            source.Play();
+        }
     }
 
     public void StopAmbience()
@@ -77,22 +111,10 @@ public class AudioManager : MonoBehaviour
         if (!ambienceSource.isPlaying) { return; }
         ambienceSource.Stop();
     }
-    public void PlaySound(SoundType type, AudioSource source)
-    {
-        var soundEffectToPlay = new SoundEffect();
-        foreach (SoundEffect sound in soundEffects)
-        {
-            if (sound.type == type)
-            {
-                soundEffectToPlay = sound;
-            }
-        }
-        source.clip = soundEffectToPlay.GetRandomClip();
-        source.Play();
-    }
+
     public void PlaySound(SoundType type)
     {
-        var soundEffectToPlay = new SoundEffect();
+        SoundEffect soundEffectToPlay = null;
         foreach (SoundEffect sound in soundEffects)
         {
             if (sound.type == type)
@@ -100,36 +122,64 @@ public class AudioManager : MonoBehaviour
                 soundEffectToPlay = sound;
             }
         }
-        sfxAudioSource.PlayOneShot(soundEffectToPlay.GetRandomClip());
+
+        if(soundEffectToPlay != null)
+            soundSource.PlayOneShot(soundEffectToPlay.GetRandomClip());
 
     }
+
+    public void PlaySound(SoundType type, AudioSource source)
+    {
+        SoundEffect soundEffectToPlay = null;
+        foreach (SoundEffect sound in soundEffects)
+        {
+            if (sound.type == type)
+            {
+                soundEffectToPlay = sound;
+            }
+        }
+
+        if(soundEffectToPlay != null)
+        {
+            source.volume = soundVolume * masterVolume;
+            source.clip = soundEffectToPlay.GetRandomClip();
+            source.Play();
+        }
+    }
+
 
     #endregion
 
     #region Private Methods
 
-    private void UpdateMasterVolume(float value)
+    private void UpdateMasterVolume(float volume)
     {
-        masterVolume = value;
-        sfxAudioSource.volume = sfxAudioVolume * masterVolume;
-        bgmAudioSource.volume = bgmAudioVolume * masterVolume;
-        GameManager.Instance.Config.MasterVolume = value;
+        masterVolume = volume;
+        soundSource.volume = soundVolume * masterVolume;
+        musicSource.volume = musicVolume * masterVolume;
+        ambienceSource.volume = ambienceVolume * masterVolume;
+        GameManager.Instance.ConfigController.MasterVolume = volume;
     }
 
-    private void UpdateSFXVolume(float value)
+    private void UpdateSoundVolume(float volume)
     {
-        sfxAudioVolume = value;
-        sfxAudioSource.volume = sfxAudioVolume * masterVolume;
-        GameManager.Instance.Config.SFXVolume = value;
-
-        ambienceSource.volume = sfxAudioVolume * masterVolume;
+        soundVolume = volume;
+        soundSource.volume = soundVolume * masterVolume;
+        GameManager.Instance.ConfigController.SoundVolume = volume;
     }
 
-    private void UpdateBGMVolume(float value)
+    private void UpdateMusicVolume(float volume)
     {
-        bgmAudioVolume = value;
-        bgmAudioSource.volume = bgmAudioVolume * masterVolume;
-        GameManager.Instance.Config.BGMVolume = value;
+        musicVolume = volume;
+        musicSource.volume = musicVolume * masterVolume;
+        GameManager.Instance.ConfigController.MusicVolume = volume;
+    }
+
+    private void UpdateAmbienceVolume(float volume)
+    {
+        ambienceVolume = volume;
+        ambienceSource.volume = ambienceVolume * masterVolume;
+        GameManager.Instance.ConfigController.AmbienceVolume = volume;
     }
 
     #endregion
