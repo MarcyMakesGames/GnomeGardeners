@@ -46,6 +46,9 @@ public class GnomeController : MonoBehaviour
 
     private Animator currentAnimator;
 
+    private AudioSource audioSource;
+    private GroundType currentGroundType;
+
     public Vector2 LookDir { get => lookDir; }
     public Tool EquippedTool { get => tool; set => tool = value; }
 
@@ -56,6 +59,7 @@ public class GnomeController : MonoBehaviour
         inputs = new GnomeInput();
         cameraController = FindObjectOfType<CameraController>();
         rigidBody = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -98,6 +102,7 @@ public class GnomeController : MonoBehaviour
         CheckInteractGround();
         HighlightInteractionCell();
         UpdateAnimation();
+        PlayFootstepSound();
     }
 
     private void CheckInteractGround()
@@ -107,6 +112,16 @@ public class GnomeController : MonoBehaviour
 
         if (gnomeCell.GroundType == GroundType.ArableSoil)
             GameManager.Instance.GridManager.ChangeTile(gnomeCell.GridPosition, GroundType.FallowSoil);
+
+        if(gnomeCell.Occupant != null)
+        {
+           
+            if(gnomeCell.Occupant.AssociatedObject.GetComponent<Plant>() != null)
+            {
+                var plant = (Plant)gnomeCell.Occupant;
+                plant.Destroy();
+            }
+        }
     }
 
     private void UpdateAnimation()
@@ -224,6 +239,39 @@ public class GnomeController : MonoBehaviour
     private void OnInputMove(CallbackContext context)
     {
         moveDir = context.ReadValue<Vector2>();
+    }
+
+    private void PlayFootstepSound()
+    {
+        if(moveDir.magnitude != 0f)
+        {
+            if (!currentCell.GroundType.Equals(currentGroundType))
+                audioSource.Stop();
+            currentGroundType = currentCell.GroundType;
+
+            if (audioSource.isPlaying)
+                return;
+
+            switch (currentGroundType)
+            {
+                case GroundType.Grass:
+                    GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_footsteps_grass, audioSource);
+
+                    break;
+                case GroundType.Path:
+                    GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_footsteps_gravel, audioSource);
+
+                    break;
+                case GroundType.FallowSoil: case GroundType.ArableSoil:
+                    GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_footsteps_dirt, audioSource);
+
+                    break;
+            }
+        }
+        else
+        {
+            audioSource.Stop();
+        }
     }
 
     private void OnInputEquipUnequip(CallbackContext context)

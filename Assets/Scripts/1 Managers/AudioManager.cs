@@ -1,17 +1,19 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] private AudioClip bgm;
-    [SerializeField] private List<SoundEffect> soundEffects;
+
+    private SoundEffect[] soundEffects;
     private AudioSource[] audioSources;
     private AudioSource soundSource;
     private AudioSource musicSource;
     private AudioSource ambienceSource;
 
     // temp: set masterVolume to 1 on build
-    private float masterVolume = 0.01f;
+    private float masterVolume = 0.2f;
     private float soundVolume = 1f;
     private float musicVolume = 1f;
     private float ambienceVolume = 1f;
@@ -41,6 +43,8 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
+        soundEffects = Resources.LoadAll("Sound Effects", typeof(SoundEffect)).Cast<SoundEffect>().ToArray();
+
         PlayMusic(bgm);
         musicSource.loop = true;
         ambienceSource.loop = true;
@@ -52,7 +56,6 @@ public class AudioManager : MonoBehaviour
         MasterVolume = GameManager.Instance.ConfigController.MasterVolume;
         SoundVolume = GameManager.Instance.ConfigController.SoundVolume;
         MusicVolume = GameManager.Instance.ConfigController.MusicVolume;
-        ambienceSource.volume = soundVolume;
     }
 
     #endregion

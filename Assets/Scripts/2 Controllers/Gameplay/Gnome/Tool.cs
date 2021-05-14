@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,10 +15,19 @@ public class Tool : MonoBehaviour, IOccupant
 
     private bool isEquipped;
 
+    private AudioSource audioSource;
+
     public GameObject AssociatedObject { get => gameObject; }
     public ToolType Type { get => type; }
 
-    void Start()
+    #region Unity Methods
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    private void Start()
     {
         isEquipped = false;
 
@@ -44,6 +54,10 @@ public class Tool : MonoBehaviour, IOccupant
         AssignOccupant();
     }
 
+    #endregion
+
+    #region Public Methods
+
     public void UseTool(GridCell cell, GnomeController gnome)
     {
         use.Execute(cell, this, gnome);
@@ -63,8 +77,11 @@ public class Tool : MonoBehaviour, IOccupant
         var occupant = gameObject.GetComponent<IOccupant>();
         cell.AddCellOccupant(occupant);
 
+        PlayUnequipSound(cell.GroundType);
+
         Log("Unequipped " + type.ToString() + " Tool");
     }
+
 
     public void Equip(GridCell cell)
     {
@@ -86,7 +103,29 @@ public class Tool : MonoBehaviour, IOccupant
         GameManager.Instance.GridManager.ChangeTileOccupant(GameManager.Instance.GridManager.GetClosestGrid(AssociatedObject.transform.position), this);
     }
 
+    #endregion
+
     #region Private Methods
+
+    private void PlayUnequipSound(GroundType ground)
+    {
+        switch (ground)
+        {
+            case GroundType.Grass:
+                GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_tool_thud_on_grass, audioSource);
+
+                break;
+            case GroundType.Path:
+                GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_tool_thud_on_gravel, audioSource);
+
+                break;
+            case GroundType.FallowSoil:
+            case GroundType.ArableSoil:
+                GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_tool_thud_on_dirt, audioSource);
+
+                break;
+        }
+    }
 
     private void Log(string msg)
     {
