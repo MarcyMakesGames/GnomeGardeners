@@ -97,6 +97,7 @@ public class GnomeController : MonoBehaviour
     {
         CheckInteractGround();
         HighlightInteractionCell();
+        UpdateAnimation();
     }
 
     private void CheckInteractGround()
@@ -106,11 +107,6 @@ public class GnomeController : MonoBehaviour
 
         if (gnomeCell.GroundType == GroundType.ArableSoil)
             GameManager.Instance.GridManager.ChangeTile(gnomeCell.GridPosition, GroundType.FallowSoil);
-    }
-
-    private void HighlightInteractionCell()
-    {
-        UpdateAnimation();
     }
 
     private void UpdateAnimation()
@@ -156,15 +152,6 @@ public class GnomeController : MonoBehaviour
         {
             currentAnimator.SetBool("IsWalking", false);
         }
-    }
-
-    private void CheckInteractGround()
-    {
-        var gnomePosition = (Vector2)transform.position;
-        var gnomeCell = GameManager.Instance.GridManager.GetClosestCell(gnomePosition);
-
-        if (gnomeCell.GroundType == GroundType.ArableSoil)
-            GameManager.Instance.GridManager.ChangeTile(gnomeCell.GridPosition, GroundType.FallowSoil);
     }
 
     private void HighlightInteractionCell()
