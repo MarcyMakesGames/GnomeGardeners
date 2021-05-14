@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Compost : MonoBehaviour, IObjectDispenser, IScoringArea
 {
-    private readonly bool debug = true;
+    private readonly bool debug = false;
 
     public GameObject dispensable;
     public IHoldable Dispensable { get => dispensable.GetComponent<IHoldable>(); }
