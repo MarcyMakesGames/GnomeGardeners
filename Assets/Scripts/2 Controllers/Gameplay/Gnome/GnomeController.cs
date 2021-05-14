@@ -12,6 +12,7 @@ public class GnomeController : MonoBehaviour
     [SerializeField] private float minimumSpeed = 5f;
     [SerializeField] private float pathSpeed = 7f;
     [SerializeField] private float slowdownFactor = 0.01f;
+    [SerializeField] private float speedUpTime = .5f;
     [SerializeField] private float interactRange = 1f;
     [SerializeField] private float dropRange = 1f;
     [SerializeField] private Sprite seedSprite;
@@ -27,6 +28,7 @@ public class GnomeController : MonoBehaviour
     private Vector2 moveDir = Vector2.zero;
     private Vector2 lookDir;
     private float moveSpeed;
+    private float currentSpeedUpTimer;
 
     private PlayerConfig playerConfig;
     private GnomeInput inputs;
@@ -66,32 +68,28 @@ public class GnomeController : MonoBehaviour
             testPlayerInput.uiInputModule = FindObjectOfType<InputSystemUIInputModule>();
         }
 
-        //cameraController.AddTarget(transform);
         moveSpeed = minimumSpeed;
         Transform[] children = gameObject.GetComponentsInChildren<Transform>();
+        
         foreach(Transform child in children)
         {
             if (child.CompareTag("ItemArm"))
-            {
                 itemRenderer = child.GetComponent<SpriteRenderer>();
-            }
+
             if (child.CompareTag("ToolArm"))
-            {
                 toolRenderer = child.GetComponent<SpriteRenderer>();
-            }
         }
     }
     private void FixedUpdate()
     {
         if (moveSpeed > minimumSpeed)
-        {
             moveSpeed -= moveSpeed * slowdownFactor;
-        }
+
         currentCell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
+        
         if (currentCell.GroundType.Equals(GroundType.Path))
-        {
             moveSpeed = pathSpeed;
-        }
+
         Move();
     }
 
@@ -99,6 +97,19 @@ public class GnomeController : MonoBehaviour
     {
         CheckInteractGround();
         HighlightInteractionCell();
+    }
+
+    private void CheckInteractGround()
+    {
+        var gnomePosition = (Vector2)transform.position;
+        var gnomeCell = GameManager.Instance.GridManager.GetClosestCell(gnomePosition);
+
+        if (gnomeCell.GroundType == GroundType.ArableSoil)
+            GameManager.Instance.GridManager.ChangeTile(gnomeCell.GridPosition, GroundType.FallowSoil);
+    }
+
+    private void HighlightInteractionCell()
+    {
         UpdateAnimation();
     }
 
@@ -270,7 +281,18 @@ public class GnomeController : MonoBehaviour
     {
         if (moveDir != Vector2.zero)
             lookDir = moveDir;
-        rigidBody.velocity = ((Vector3)moveDir * moveSpeed);
+        else
+        {
+            currentSpeedUpTimer = 0f;
+            rigidBody.velocity = Vector2.zero;
+        }
+
+        currentSpeedUpTimer += Time.deltaTime;
+
+        if(currentSpeedUpTimer >= speedUpTime)
+        {
+            rigidBody.velocity = ((Vector3)moveDir * moveSpeed);
+        }
     }
 
     private void UseTool(GridCell cell)
