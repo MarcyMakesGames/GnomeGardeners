@@ -19,6 +19,7 @@ public class Tool : MonoBehaviour, IOccupant
 
     public GameObject AssociatedObject { get => gameObject; }
     public ToolType Type { get => type; }
+    public AudioSource AudioSource { get => audioSource; }
 
     #region Unity Methods
 

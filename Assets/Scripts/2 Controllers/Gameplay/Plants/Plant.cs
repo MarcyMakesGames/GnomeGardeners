@@ -70,6 +70,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
     {
         occupyingCell.RemoveCellOccupant();
         Destroy(gameObject);
+        GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_plants_snapping, audioSource);
     }
 
     public void HarvestPlant(GridCell cell)
@@ -99,6 +100,10 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         {
             isNeedFulfilled = true;
         }
+
+        if(type == NeedType.Fertilizer)
+            GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_plant_fertilized, audioSource);
+
     }
 
     public void PlantSeed(GridCell cell)
@@ -110,8 +115,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         cell.AddCellOccupant(this);
         occupyingCell = cell;
         isBeingCarried = false;
-        GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_spade_digging, audioSource);
-
+        GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_plant_planting, audioSource);
         CheckArableGround();
     }
 
@@ -170,6 +174,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         isDecayed = true;
         GameManager.Instance.GridManager.ChangeTile(occupyingCell.GridPosition, GroundType.FallowSoil);
         spriteInHand = species.deadSprite;
+        GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_plant_wilting, audioSource);
     }
 
     private void AdvanceStages()
@@ -197,7 +202,8 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         {
             popUp.gameObject.SetActive(false);
             popUp = null;
-        }        
+        }
+        GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_plants_growth_rustle, audioSource);
     }
 
     private void CheckArableGround()
