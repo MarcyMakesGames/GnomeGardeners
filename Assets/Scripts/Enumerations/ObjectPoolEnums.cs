@@ -7,4 +7,5 @@ public enum PoolKey
     PopUp_Water,
     PopUp_Fertilizer,
     PopUp_Pest,
+    PopUp_Recycle,
 }
