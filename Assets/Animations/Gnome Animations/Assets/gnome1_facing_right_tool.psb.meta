@@ -11059,48 +11059,6 @@ ScriptedImporter:
     spriteID: 86ee7f5c01acbc343a4d4e9dfe3185e4
     layerID: 11
     mosaicPosition: {x: 4, y: 128}
-  - name: tools
-    spriteName: 
-    isGroup: 1
-    parentIndex: -1
-    spriteID: 00000000000000000000000000000000
-    layerID: 46
-    mosaicPosition: {x: 0, y: 0}
-  - name: harvest
-    spriteName: harvest
-    isGroup: 0
-    parentIndex: 14
-    spriteID: bce110b80700d8b4e88b9b4bba59b8d4
-    layerID: 61
-    mosaicPosition: {x: 123, y: 177}
-  - name: preparation
-    spriteName: preparation
-    isGroup: 0
-    parentIndex: 14
-    spriteID: 9b47788d8d29d8149bab4001d7f9c5ef
-    layerID: 57
-    mosaicPosition: {x: 78, y: 128}
-  - name: seeding
-    spriteName: seeding
-    isGroup: 0
-    parentIndex: 14
-    spriteID: 3e2b4d9dd3706ba4a9a3eba9efc30631
-    layerID: 53
-    mosaicPosition: {x: 123, y: 92}
-  - name: watering
-    spriteName: watering
-    isGroup: 0
-    parentIndex: 14
-    spriteID: 3635c60ff899a044ca6236b7b2dfb31d
-    layerID: 49
-    mosaicPosition: {x: 59, y: 261}
-  - name: upper lines
-    spriteName: upper lines
-    isGroup: 0
-    parentIndex: -1
-    spriteID: a62be2c9091a70242be321e9d58f02c1
-    layerID: 60
-    mosaicPosition: {x: 123, y: 262}
   - name: back leg
     spriteName: 
     isGroup: 1
@@ -11111,10 +11069,52 @@ ScriptedImporter:
   - name: back leg
     spriteName: back leg
     isGroup: 0
-    parentIndex: 20
+    parentIndex: 14
     spriteID: 87df4645fc3147c4e94b327455f0d480
     layerID: 74
     mosaicPosition: {x: 4, y: 359}
+  - name: tools
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 46
+    mosaicPosition: {x: 0, y: 0}
+  - name: harvest
+    spriteName: harvest
+    isGroup: 0
+    parentIndex: 16
+    spriteID: bce110b80700d8b4e88b9b4bba59b8d4
+    layerID: 61
+    mosaicPosition: {x: 123, y: 177}
+  - name: preparation
+    spriteName: preparation
+    isGroup: 0
+    parentIndex: 16
+    spriteID: 9b47788d8d29d8149bab4001d7f9c5ef
+    layerID: 57
+    mosaicPosition: {x: 78, y: 128}
+  - name: seeding
+    spriteName: seeding
+    isGroup: 0
+    parentIndex: 16
+    spriteID: 3e2b4d9dd3706ba4a9a3eba9efc30631
+    layerID: 53
+    mosaicPosition: {x: 123, y: 92}
+  - name: watering
+    spriteName: watering
+    isGroup: 0
+    parentIndex: 16
+    spriteID: 3635c60ff899a044ca6236b7b2dfb31d
+    layerID: 49
+    mosaicPosition: {x: 59, y: 261}
+  - name: upper lines
+    spriteName: upper lines
+    isGroup: 0
+    parentIndex: -1
+    spriteID: a62be2c9091a70242be321e9d58f02c1
+    layerID: 60
+    mosaicPosition: {x: 123, y: 262}
   characterData:
     bones:
     - name: spine
