@@ -29,6 +29,8 @@ public class Insect : MonoBehaviour, IOccupant
     private bool isMoving, isEating;
     private Direction direction;
     private int timesShooed;
+    private GroundType currentGroundType;
+    private AudioSource audioSource;
 
     private Vector2Int vectorIntToTarget;
     private Animator currentAnimator;
@@ -80,6 +82,8 @@ public class Insect : MonoBehaviour, IOccupant
 
         transform.position = currentCell.WorldPosition;
         AssignOccupant();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -103,9 +107,51 @@ public class Insect : MonoBehaviour, IOccupant
         }
 
         UpdateAnimation();
+        PlayFootstepSound();
+        PlayEatingSound();
     }
 
+    private void PlayEatingSound()
+    {
+        if (isEating && !audioSource.isPlaying)
+        {
+            GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_insect_eating, audioSource);
+        }
+    }
 
+    private void PlayFootstepSound()
+    {
+        if (isMoving)
+        {
+            if (!currentCell.GroundType.Equals(currentGroundType))
+                audioSource.Stop();
+            currentGroundType = currentCell.GroundType;
+
+            if (audioSource.isPlaying)
+                return;
+
+            switch (currentGroundType)
+            {
+                case GroundType.Grass:
+                    GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_insect_walking_grass, audioSource);
+
+                    break;
+                case GroundType.Path:
+                    GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_insect_walking_gravel, audioSource);
+
+                    break;
+                case GroundType.FallowSoil:
+                case GroundType.ArableSoil:
+                    GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_footsteps_dirt, audioSource);
+
+                    break;
+            }
+        }
+        else
+        {
+            audioSource.Stop();
+        }
+    }
 
     private void OnDisable()
     {

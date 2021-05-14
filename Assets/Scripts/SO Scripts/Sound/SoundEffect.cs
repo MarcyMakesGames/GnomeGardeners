@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Sound Effect", menuName = "Sounds/Sound Effect")]
+[CreateAssetMenu(fileName = "Sound Effect", menuName = "Sound Effect")]
 public class SoundEffect : ScriptableObject
 {
     public SoundType type;

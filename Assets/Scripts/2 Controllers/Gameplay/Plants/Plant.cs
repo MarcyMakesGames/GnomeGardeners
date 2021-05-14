@@ -24,6 +24,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
     private ItemType type;
     private float randomizedTimeToGrow;
     private GameObject popUp;
+    private AudioSource audioSource;
 
     public bool IsBeingCarried { get => isBeingCarried; set => isBeingCarried = value; }
     public Stage CurrentStage { get => currentStage; }
@@ -109,6 +110,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         cell.AddCellOccupant(this);
         occupyingCell = cell;
         isBeingCarried = false;
+        GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_spade_digging, audioSource);
 
         CheckArableGround();
     }
@@ -234,6 +236,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
         randomizedTimeToGrow = currentStage.timeToGrow + UnityEngine.Random.Range(-timeToGrowVariation, timeToGrowVariation);
         OnTileChanged.OnEventRaised += CheckOccupyingCell;
         OnTileChanged.OnEventRaised += CheckArableGround;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Dispose()

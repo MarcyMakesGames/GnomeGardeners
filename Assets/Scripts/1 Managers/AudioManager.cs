@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] private AudioClip bgm;
-    [SerializeField] private List<SoundEffect> soundEffects;
+
+    private SoundEffect[] soundEffects;
     private AudioSource[] audioSources;
     private AudioSource soundSource;
     private AudioSource musicSource;
@@ -41,6 +43,8 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
+        soundEffects = Resources.LoadAll("Sound Effects", typeof(SoundEffect)).Cast<SoundEffect>().ToArray();
+
         PlayMusic(bgm);
         musicSource.loop = true;
         ambienceSource.loop = true;
