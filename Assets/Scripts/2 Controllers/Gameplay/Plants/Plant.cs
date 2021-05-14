@@ -81,6 +81,7 @@ public class Plant : MonoBehaviour, IInteractable, IHoldable
             cell.RemoveCellOccupant();
             isBeingCarried = true;
             GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_tool_cutting_plant);
+            ClearPopUp();
             gameObject.SetActive(false);
         }
     }
