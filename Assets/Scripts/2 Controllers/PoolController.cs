@@ -43,7 +43,8 @@ public class PoolController : MonoBehaviour
             poolObjects[i].Init(transform);
         }
 
-        GameManager.Instance.PoolController = this;
+        if(GameManager.Instance.PoolController == null)
+            GameManager.Instance.PoolController = this;
     }
 }
 
