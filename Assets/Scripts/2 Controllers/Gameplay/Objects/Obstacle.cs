@@ -15,43 +15,23 @@ public class Obstacle : MonoBehaviour, IInteractable
     [SerializeField] private Sprite spriteOnRest;
 
     private GridCell cell;
+    private SpriteRenderer spriteRenderer;
+    private AudioSource audioSource;
 
     private int hitCounter;
     public GameObject AssociatedObject => gameObject;
 
-    public void Interact(Tool tool = null)
-    {
-        Log("Being interacted with.");
-        if (!canBeRemoved) { return; }
-        if(tool == null) { return; }
-        if(tool.Type == removeTool)
-        {
-            if(hitCounter < numberOfHits)
-            {
-                ++hitCounter;
-            }
-            else
-            {
-                gameObject.SetActive(false);
-                var gridPosition = GameManager.Instance.GridManager.GetClosestCell(transform.position).GridPosition;
-                GameManager.Instance.GridManager.ChangeTileOccupant(gridPosition, null);
-                Log("Obstacle removed.");
-            }
-        }
-    }
-
-    public void AssignOccupant()
-    {
-        cell.AddCellOccupant(this);
-    }
+    #region Unity Methods
 
     private void Start()
     {
         cell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
         hitCounter = 1;
-        var spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
 
-        if(cell.GroundType.Equals(GroundType.ArableSoil) || cell.GroundType.Equals(GroundType.FallowSoil))
+
+        if (cell.GroundType.Equals(GroundType.ArableSoil) || cell.GroundType.Equals(GroundType.FallowSoil))
         {
             spriteRenderer.sprite = spriteOnSoil;
         }
@@ -63,8 +43,45 @@ public class Obstacle : MonoBehaviour, IInteractable
         AssignOccupant();
     }
 
+    #endregion
+
+    #region Public Methods
+
+    public void Interact(Tool tool = null)
+    {
+        Log("Being interacted with.");
+        if (!canBeRemoved) { return; }
+        if (tool == null) { return; }
+        if (tool.Type == removeTool)
+        {
+            if (hitCounter < numberOfHits)
+            {
+                ++hitCounter;
+            }
+            else
+            {
+                gameObject.SetActive(false);
+                var gridPosition = GameManager.Instance.GridManager.GetClosestCell(transform.position).GridPosition;
+                GameManager.Instance.GridManager.ChangeTileOccupant(gridPosition, null);
+                Log("Obstacle removed.");
+                GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_rock_breaking, audioSource);
+            }
+        }
+    }
+
+    public void AssignOccupant()
+    {
+        cell.AddCellOccupant(this);
+    }
+
+    #endregion
+
+    #region Private Methods
+
     private void Log(string msg)
     {
         Debug.Log("[Obstacle]: " + msg);
     }
+
+    #endregion
 }

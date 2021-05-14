@@ -40,6 +40,7 @@ public class SeedCommand : ICommand
                 seedObject.GetComponent<Plant>().PlantSeed(cell);
                 gnome.RemoveItemSprite();
                 tool.heldItem = null;
+                GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_spade_digging, tool.AudioSource);
             }
         }
     }

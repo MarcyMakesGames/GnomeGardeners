@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour
     // temp: set masterVolume to 1 on build
     private float masterVolume = 0.2f;
     private float soundVolume = 1f;
-    private float musicVolume = 1f;
+    private float musicVolume = 0.5f;
     private float ambienceVolume = 1f;
 
     public float MasterVolume { get => masterVolume; set => UpdateMasterVolume(value); }

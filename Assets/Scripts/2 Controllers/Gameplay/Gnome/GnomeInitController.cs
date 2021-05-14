@@ -6,6 +6,8 @@ using UnityEngine.InputSystem.UI;
 
 public class GnomeInitController : MonoBehaviour
 {
+    private bool debug = false;
+
     [SerializeField]
     private GameObject gnomePrefab;
     [SerializeField]
@@ -22,7 +24,7 @@ public class GnomeInitController : MonoBehaviour
             //We would build the gnomeSkin here.
 
             newGnome.GetComponent<GnomeController>().InitializePlayer(player);
-            Debug.Log("[GnomeInitController]:" + "Player " + player.Input.playerIndex + " device: " + player.Input.devices);
+            Log("Player " + player.Input.playerIndex + " device: " + player.Input.devices);
 
             player.Input.uiInputModule = FindObjectOfType<InputSystemUIInputModule>();
         }
@@ -36,5 +38,11 @@ public class GnomeInitController : MonoBehaviour
         {
             InitPlayerGnomes();
         }
+    }
+
+    private void Log(string msg)
+    {
+        if(debug)
+            Debug.Log("[GnomeInitController]:" + msg);
     }
 }
