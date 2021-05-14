@@ -1,6 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -12,11 +14,13 @@ public class AudioManager : MonoBehaviour
     private AudioSource musicSource;
     private AudioSource ambienceSource;
 
+    public AudioMixer audioMixer;
+
     // temp: set masterVolume to 1 on build
     private float masterVolume = 0.2f;
     private float soundVolume = 1f;
     private float musicVolume = 0.5f;
-    private float ambienceVolume = 1f;
+    private float ambienceVolume = 0.5f;
 
     public float MasterVolume { get => masterVolume; set => UpdateMasterVolume(value); }
     public float SoundVolume { get => soundVolume; set => UpdateSoundVolume(value); }
@@ -45,7 +49,7 @@ public class AudioManager : MonoBehaviour
     {
         soundEffects = Resources.LoadAll("Sound Effects", typeof(SoundEffect)).Cast<SoundEffect>().ToArray();
 
-        PlayMusic(bgm);
+        PlayMusic(bgm, true);
         musicSource.loop = true;
         ambienceSource.loop = true;
         UpdateMasterVolume(masterVolume);
@@ -62,9 +66,11 @@ public class AudioManager : MonoBehaviour
 
     #region Public Methods
 
-    public void PlayMusic(AudioClip clipToPlay)
+    public void PlayMusic(AudioClip clipToPlay, bool fade = false)
     {
         if (musicSource.clip == clipToPlay) { return; }
+        if (fade)
+            StartCoroutine(StartFade(1f, 1f));
         musicSource.clip = clipToPlay;
         musicSource.Play();
     }
@@ -75,7 +81,7 @@ public class AudioManager : MonoBehaviour
         musicSource.Stop();
     }
 
-    public void PlayAmbience(SoundType type)
+    public void PlayAmbience(SoundType type, bool fade = false)
     {
         SoundEffect soundEffectToPlay = null;
         foreach (SoundEffect sound in soundEffects)
@@ -87,11 +93,13 @@ public class AudioManager : MonoBehaviour
         }
         if(soundEffectToPlay != null)
         {
+            if (fade)
+                StartCoroutine(StartFade(1f, 1f));
             ambienceSource.clip = soundEffectToPlay.GetRandomClip();
             ambienceSource.Play();
         }
     }
-    public void PlayAmbience(SoundType type, AudioSource source)
+    public void PlayAmbience(SoundType type, AudioSource source, bool fade = false)
     {
         SoundEffect soundEffectToPlay = null;
         foreach (SoundEffect sound in soundEffects)
@@ -183,6 +191,24 @@ public class AudioManager : MonoBehaviour
         ambienceVolume = volume;
         ambienceSource.volume = ambienceVolume * masterVolume;
         GameManager.Instance.ConfigController.AmbienceVolume = volume;
+    }
+
+    private IEnumerator StartFade(float duration, float targetVolume)
+    {
+        float currentTime = 0;
+        float currentVol;
+        audioMixer.GetFloat("MasterVolume", out currentVol);
+        currentVol = Mathf.Pow(10, currentVol / 20);
+        float targetValue = Mathf.Clamp(targetVolume, 0.0001f, 1);
+
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            float newVol = Mathf.Lerp(currentVol, targetValue, currentTime / duration);
+            audioMixer.SetFloat("MasterVolume", Mathf.Log10(newVol) * 20);
+            yield return null;
+        }
+        yield break;
     }
 
     #endregion
