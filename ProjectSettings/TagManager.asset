@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - DEBUG
+  - ItemArm
+  - ToolArm
   layers:
   - Default
   - TransparentFX
@@ -17,10 +19,10 @@ TagManager:
   - PostProcessing
   - Interactable
   - 
-  - 
-  - 
-  - 
-  - 
+  - Grass
+  - Arable
+  - Fallow
+  - Path
   - 
   - 
   - 
@@ -44,4 +46,19 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Grass
+    uniqueID: 163944435
+    locked: 0
+  - name: Arable
+    uniqueID: 3519220427
+    locked: 0
+  - name: Fallow
+    uniqueID: 2197262731
+    locked: 0
+  - name: Path
+    uniqueID: 3477600617
+    locked: 0
+  - name: HUD
+    uniqueID: 3380557849
     locked: 0
