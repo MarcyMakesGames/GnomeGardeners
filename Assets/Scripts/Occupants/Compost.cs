@@ -10,6 +10,8 @@ namespace GnomeGardeners
 
         public Fertilizer dispensable;
 
+        public IntEventChannelSO OnScoreAddEvent;
+
         #region Unity Methods
 
         private new void Start()
@@ -40,7 +42,7 @@ namespace GnomeGardeners
 
         public void AddScore(int score)
         {
-            throw new System.NotImplementedException();
+            OnScoreAddEvent.RaiseEvent(score);
         }
 
         #endregion

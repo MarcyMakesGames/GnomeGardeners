@@ -317,7 +317,6 @@ namespace GnomeGardeners
             if (GameManager.Instance.Time.ElapsedTime > timeAtReachedPlant + timeToEatPlant)
             {
                 gridManager.ChangeTile(targetCell.GridPosition, GroundType.FallowSoil);
-                gridManager.ChangeTileOccupant(targetCell.GridPosition, null);
                 OnPlantEaten.RaiseEvent(targetPlant);
                 targetPlant.RemoveFromCell();
                 targetPlant = null;
