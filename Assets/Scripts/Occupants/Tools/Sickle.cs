@@ -32,8 +32,7 @@ namespace GnomeGardeners
                     plant.FulfillCurrentNeed(NeedType.Fertilizer);
                     fertilizer = null;
                 }
-                
-                if (occupant.TryGetComponent(out plant) && harvest == null)
+                else if (occupant.TryGetComponent(out plant) && harvest == null)
                 {
                     DebugLogger.Log(this, "Harvesting plant!");
                     harvest = plant.HarvestPlant();
