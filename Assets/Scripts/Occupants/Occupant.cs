@@ -6,15 +6,14 @@ namespace GnomeGardeners
 {
 	public abstract class Occupant : MonoBehaviour
 	{
-		protected List<GridCell> cells;
+		protected GridCell cell;
 
         #region Unity Methods
 
         public void Start()
         {
-			cells = new List<GridCell>();
-			cells.Add(GameManager.Instance.GridManager.GetClosestCell(transform.position));
-			cells.ForEach(AssignOccupant);
+			cell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
+			AssignOccupant(cell);
 		}
 
         #endregion
@@ -29,7 +28,7 @@ namespace GnomeGardeners
 
 		protected void RemoveOccupantFromCells()
         {
-			cells.ForEach(RemoveOccupant);
+			RemoveOccupant(cell);
         }
 
 		#endregion

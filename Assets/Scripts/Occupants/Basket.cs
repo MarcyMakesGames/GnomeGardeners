@@ -34,19 +34,15 @@ namespace GnomeGardeners
         public override void Interact(Tool tool)
         {
             DebugLogger.Log(this, "Interacted with scoring area");
-            var harvest = (Plant)tool.heldItem;
-            if (harvest == null) { return; }
+        }
 
-            var harvestStage = harvest.CurrentStage;
-            if (tool.Type == ToolType.Harvesting && harvestStage != null)
-            {
-                var score = harvestStage.pointValue;
-                AddScore(score);
-                // AddSprite(harvestStage.sprite);
-                ++plantCount;
-                GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_basket_receive, basketSource);
-                DebugLogger.Log(this, "Delivered plant");
-            }
+        public void DeliverHarvest(int score) 
+        {
+            AddScore(score);
+            ++plantCount;
+            GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_basket_receive, basketSource);
+            DebugLogger.Log(this, "Delivered plant");
+
         }
 
         #endregion

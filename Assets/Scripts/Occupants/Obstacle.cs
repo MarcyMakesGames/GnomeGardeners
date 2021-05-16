@@ -10,7 +10,6 @@ namespace GnomeGardeners
 
         [Header("Designers")]
         [SerializeField] private bool canBeRemoved = true;
-        [SerializeField] private ToolType removeTool = ToolType.Preparing;
         [SerializeField] private int numberOfHits = 3;
         [Header("Programmers")]
         [SerializeField] private Sprite spriteOnSoil;
@@ -53,20 +52,17 @@ namespace GnomeGardeners
             DebugLogger.Log(this, "Being interacted with.");
             if (!canBeRemoved) { return; }
             if (tool == null) { return; }
-            if (tool.Type == removeTool)
+            if (hitCounter < numberOfHits)
             {
-                if (hitCounter < numberOfHits)
-                {
-                    ++hitCounter;
-                }
-                else
-                {
-                    gameObject.SetActive(false);
-                    var gridPosition = GameManager.Instance.GridManager.GetClosestCell(transform.position).GridPosition;
-                    GameManager.Instance.GridManager.ChangeTileOccupant(gridPosition, null);
-                    DebugLogger.Log(this, "Obstacle removed.");
-                    GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_rock_breaking, audioSource);
-                }
+                ++hitCounter;
+            }
+            else
+            {
+                gameObject.SetActive(false);
+                var gridPosition = GameManager.Instance.GridManager.GetClosestCell(transform.position).GridPosition;
+                GameManager.Instance.GridManager.ChangeTileOccupant(gridPosition, null);
+                DebugLogger.Log(this, "Obstacle removed.");
+                GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_rock_breaking, audioSource);
             }
         }
 

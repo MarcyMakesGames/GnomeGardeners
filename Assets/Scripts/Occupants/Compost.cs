@@ -9,16 +9,10 @@ namespace GnomeGardeners
         private readonly bool debug = false;
 
         public GameObject dispensable;
-        public IHoldable Dispensable { get => dispensable.GetComponent<IHoldable>(); }
-
-        public GameObject AssociatedObject => gameObject;
 
         #region Unity Methods
 
-        private new void Start()
-        {
-            base.Start();
-        }
+
 
         #endregion
 
@@ -26,18 +20,13 @@ namespace GnomeGardeners
 
         public override void Interact(Tool tool)
         {
-            DebugLogger.Log(this, "Interacting.");
-            if (tool != null && tool.Type == ToolType.Harvesting)
-            {
-                DispenseItem(tool);
-            }
+
         }
 
-        public void DispenseItem(Tool tool)
+        public IHoldable DispenseItem(Tool tool)
         {
-            DebugLogger.Log(this, "Dispensing.");
-            tool.heldItem = Dispensable;
-            DebugLogger.Log(this, dispensable.name);
+            DebugLogger.Log(this, "Dispensing." + dispensable.name);
+            return dispensable.GetComponent<IHoldable>();
         }
 
         public void DispenseItem(Vector2Int dropLocation)

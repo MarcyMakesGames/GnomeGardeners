@@ -83,18 +83,34 @@ namespace GnomeGardeners
 
         public override void Interact(Tool tool)
         {
-            if(tool.Type == ToolType.Harvesting)
+
+        }
+
+        public void HarvestPlant()
+        {
+            // todo: object pool stash
+            if (currentStage.isHarvestable)
             {
-                if(tool.heldItem != null)
-                {
-                    FulfillCurrentNeed(NeedType.Fertilizer);
-                }
-                HarvestPlant();
+                RemoveOccupantFromCells();
+                isBeingCarried = true;
+                GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_tool_cutting_plant);
+                ClearPopUp();
+                gameObject.SetActive(false);
             }
-            else if(tool.Type == ToolType.Watering)
+        }
+
+        public  void FulfillCurrentNeed(NeedType type)
+        {
+            if (type != currentStage.need.type)
             {
-                FulfillCurrentNeed(NeedType.Water);
+                DebugLogger.Log(this, "Incorrect need type.");
+                return;
             }
+
+            currentStage.need.isFulfilled = true;
+
+            if (type == NeedType.Fertilizer)
+                GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_plant_fertilized, audioSource);
         }
 
         public void Destroy()
@@ -208,32 +224,7 @@ namespace GnomeGardeners
             }
         }
 
-        private void HarvestPlant()
-        {
-            // todo: object pool stash
-            if (currentStage.isHarvestable)
-            {
-                RemoveOccupantFromCells();
-                isBeingCarried = true;
-                GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_tool_cutting_plant);
-                ClearPopUp();
-                gameObject.SetActive(false);
-            }
-        }
 
-        private void FulfillCurrentNeed(NeedType type)
-        {
-            if (type != currentStage.need.type)
-            {
-                DebugLogger.Log(this, "Incorrect need type.");
-                return;
-            }
-
-            currentStage.need.isFulfilled = true;
-
-            if (type == NeedType.Fertilizer)
-                GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_plant_fertilized, audioSource);
-        }
 
         private void CheckOccupyingCell()
         {

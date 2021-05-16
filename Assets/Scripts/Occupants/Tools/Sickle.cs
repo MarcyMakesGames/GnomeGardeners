@@ -4,9 +4,25 @@ using UnityEngine;
 
 namespace GnomeGardeners
 {
-    public class HarvestCommand : ICommand
+    public class Sickle : Tool
     {
-        public void Execute(GridCell cell, Tool tool, GnomeController gnome)
+        private IHoldable holdable;
+
+        #region Unity Methods
+
+
+
+        #endregion
+
+        #region Public Methods
+
+        public override void Interact(Tool tool)
+        {
+            if (tool == null)
+                Equip();
+        }
+
+        public override void UseTool(GridCell cell, GnomeController gnome)
         {
             DebugLogger.Log(this, "Executing.");
             var occupant = cell.Occupant;
@@ -18,27 +34,27 @@ namespace GnomeGardeners
                 if (occupant.TryGetComponent(out plant))
                 {
                     DebugLogger.Log(this, "Plant found while carrying Fertilizer!");
-                    plant.Interact(tool);
-                    tool.heldItem = null;
+                    plant.FulfillCurrentNeed(NeedType.Fertilizer);
+                    holdable = null;
                     gnome.RemoveItemSprite();
                 }
-                else if (occupant.TryGetComponent(out plant) && tool.heldItem == null && holdable != null)
+                else if (occupant.TryGetComponent(out plant) && holdable == null && holdable != null)
                 {
                     DebugLogger.Log(this, "Harvesting plant!");
-                    plant.Interact(tool);
-                    tool.heldItem = holdable;
+                    plant.HarvestPlant();
+                    holdable = holdable;
                     plant.transform.parent = gnome.transform;
                     gnome.SetItemSprite(plant.SpriteInHand);
                 }
 
                 Basket basket = null;
-                if (occupant.TryGetComponent(out basket) && tool.heldItem != null)
+                if (occupant.TryGetComponent(out basket) && holdable != null)
                 {
                     DebugLogger.Log(this, "Scoring Area found!");
-                    basket.Interact(tool);
-                    var harvest = (Plant)tool.heldItem;
+                    var harvest = (Plant)holdable;
+                    basket.DeliverHarvest(harvest.CurrentStage.pointValue);
                     GameObject.Destroy(harvest.gameObject);
-                    tool.heldItem = null;
+                    holdable = null;
                     gnome.RemoveItemSprite();
                 }
 
@@ -46,21 +62,30 @@ namespace GnomeGardeners
                 if (occupant.TryGetComponent(out compost))
                 {
                     DebugLogger.Log(this, "Compost found!");
-                    if (tool.heldItem == null)
+                    if (holdable == null)
                     {
                         DebugLogger.Log(this, "Taking fertilizer.");
-                        compost.Interact(tool);
-                        var fertilizer = tool.heldItem;
+                        compost.Interact(this);
+                        var fertilizer = holdable;
                         gnome.SetItemSprite(fertilizer.SpriteInHand);
                     }
                     else
                     {
                         DebugLogger.Log(this, "Discarding fertilizer.");
-                        tool.heldItem = null;
+                        holdable = null;
                         gnome.RemoveItemSprite();
                     }
                 }
             }
         }
+
+        #endregion
+
+        #region Private Methods
+
+
+
+        #endregion
+
     }
 }

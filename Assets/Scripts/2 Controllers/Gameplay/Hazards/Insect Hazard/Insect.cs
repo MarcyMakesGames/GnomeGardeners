@@ -390,6 +390,11 @@ namespace GnomeGardeners
                 excludedPlants.Remove(plant);
         }
 
+        public override void Interact(Tool tool)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
     }

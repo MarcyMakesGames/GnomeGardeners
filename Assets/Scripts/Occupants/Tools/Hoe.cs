@@ -4,11 +4,22 @@ using UnityEngine;
 
 namespace GnomeGardeners
 {
-    public class PrepareCommand : ICommand
+    public class Hoe : Tool
     {
-        private bool debug = false;
+        public override void Interact(Tool tool)
+        {
+            throw new System.NotImplementedException();
+        }
 
-        public void Execute(GridCell cell, Tool tool, GnomeController gnome)
+        #region Unity Methods
+
+
+
+        #endregion
+
+        #region Public Methods
+
+        public override void UseTool(GridCell cell, GnomeController gnome)
         {
             DebugLogger.Log(this, "Executing");
             var occupant = cell.Occupant;
@@ -16,10 +27,10 @@ namespace GnomeGardeners
             {
                 DebugLogger.Log(this, "Occupant found!");
                 Obstacle obstacle = null;
-                if(occupant.TryGetComponent(out obstacle) )
+                if (occupant.TryGetComponent(out obstacle))
                 {
                     DebugLogger.Log(this, "Obstacle found!");
-                    obstacle.Interact(tool);
+                    obstacle.Interact(this);
                 }
             }
 
@@ -28,5 +39,14 @@ namespace GnomeGardeners
                 GameManager.Instance.GridManager.ChangeTile(cell.GridPosition, GroundType.ArableSoil);
             }
         }
+
+        #endregion
+
+        #region Private Methods
+
+
+
+        #endregion
+
     }
 }
