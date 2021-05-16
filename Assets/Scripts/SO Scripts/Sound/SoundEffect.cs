@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Sound Effect", menuName = "Sound Effect")]
-public class SoundEffect : ScriptableObject
+namespace GnomeGardeners
 {
-    public SoundType type;
-    public AudioClip[] sounds;
-
-    public AudioClip GetRandomClip()
+    [CreateAssetMenu(fileName = "Sound Effect", menuName = "Sound Effect")]
+    public class SoundEffect : ScriptableObject
     {
-        var length = sounds.Length;
-        var randomIndex = UnityEngine.Random.Range(0, length);
-        return sounds[randomIndex];
+        public SoundType type;
+        public AudioClip[] sounds;
+
+        public AudioClip GetRandomClip()
+        {
+            var length = sounds.Length;
+            var randomIndex = UnityEngine.Random.Range(0, length);
+            return sounds[randomIndex];
+        }
     }
 }

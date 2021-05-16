@@ -2,21 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wind : MonoBehaviour
+namespace GnomeGardeners
 {
-    public Vector3 despawnLocation;
-    public float moveSpeed;
-
-    private void Update()
+    public class Wind : MonoBehaviour
     {
-        MoveToDespawn();
-    }
+        public Vector3 despawnLocation;
+        public float moveSpeed;
 
-    private void MoveToDespawn()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, despawnLocation, moveSpeed * Time.deltaTime);
+        private void Update()
+        {
+            MoveToDespawn();
+        }
 
-        if (transform.position == despawnLocation)
-            Destroy(gameObject);
+        private void MoveToDespawn()
+        {
+            transform.position = Vector3.MoveTowards(transform.position, despawnLocation, moveSpeed * Time.deltaTime);
+
+            if (transform.position == despawnLocation)
+                Destroy(gameObject);
+        }
     }
 }

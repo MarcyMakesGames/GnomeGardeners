@@ -2,49 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolController : MonoBehaviour
+namespace GnomeGardeners
 {
-    [SerializeField] private PoolObject[] poolObjects;
-
-    private int length;
-
-    public PoolObject[] PowerupTotal { get => poolObjects; }
-
-    public GameObject GetObjectFromPool(Vector2 position, Quaternion rotation, PoolKey key)
+    public class PoolController : MonoBehaviour
     {
-        GameObject objectToReturn = null;
+        [SerializeField] private PoolObject[] poolObjects;
 
-        for (int i = 0; i < length; i++)
+        private int length;
+
+        public PoolObject[] PowerupTotal { get => poolObjects; }
+
+        public GameObject GetObjectFromPool(Vector2 position, Quaternion rotation, PoolKey key)
         {
-            var obj = poolObjects[i];
+            GameObject objectToReturn = null;
 
-            if (obj.Key.Equals(key))
+            for (int i = 0; i < length; i++)
             {
-                objectToReturn = obj.GetObject();
-                break;
+                var obj = poolObjects[i];
+
+                if (obj.Key.Equals(key))
+                {
+                    objectToReturn = obj.GetObject();
+                    break;
+                }
             }
+
+            var objTransform = objectToReturn.transform;
+
+            objTransform.position = position;
+            objTransform.rotation = rotation;
+
+            objectToReturn.SetActive(true);
+
+            return objectToReturn;
         }
 
-        var objTransform = objectToReturn.transform;
-
-        objTransform.position = position;
-        objTransform.rotation = rotation;
-
-        objectToReturn.SetActive(true);
-
-        return objectToReturn;
-    }
-
-    private void Awake()
-    {
-        length = poolObjects.Length;
-        for (int i = 0; i < length; i++)
+        private void Awake()
         {
-            poolObjects[i].Init(transform);
+            length = poolObjects.Length;
+            for (int i = 0; i < length; i++)
+            {
+                poolObjects[i].Init(transform);
+            }
+
+            if (GameManager.Instance.PoolController == null)
+                GameManager.Instance.PoolController = this;
         }
-
-        if(GameManager.Instance.PoolController == null)
-            GameManager.Instance.PoolController = this;
     }
-}
 
+}

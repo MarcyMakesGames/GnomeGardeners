@@ -4,22 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Scoreboard : CoreUIElement<int>
+namespace GnomeGardeners
 {
-    [SerializeField] private TMP_Text scoreText;
-
-    public override void UpdateUI(int primaryData)
+    public class Scoreboard : CoreUIElement<int>
     {
-        if (ClearedIfEmpty(primaryData))
-            return;
+        [SerializeField] private TMP_Text scoreText;
 
-        UpdateNumericText(scoreText, "{0}", primaryData);
-    }
+        public override void UpdateUI(int primaryData)
+        {
+            if (ClearedIfEmpty(primaryData))
+                return;
 
-    protected override bool ClearedIfEmpty(int newData)
-    {
-        if (newData != 0)
-            return false;
-        return true;
+            UpdateNumericText(scoreText, "{0}", primaryData);
+        }
+
+        protected override bool ClearedIfEmpty(int newData)
+        {
+            if (newData != 0)
+                return false;
+            return true;
+        }
     }
 }

@@ -2,41 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrepareCommand : ICommand
+namespace GnomeGardeners
 {
-    private bool debug = false;
 
-    public void Execute(GridCell cell, Tool tool, GnomeController gnome)
+    public class PrepareCommand : ICommand
     {
-        Log("Executing");
-        var occupant = cell.Occupant;
-        if (occupant != null)
+        private bool debug = false;
+
+        public void Execute(GridCell cell, Tool tool, GnomeController gnome)
         {
-            Log("Occupant found!");
-            var associatedObject = occupant.AssociatedObject;
-            var obstacle = associatedObject.GetComponent<Obstacle>();
-            if(obstacle != null )
+            Log("Executing");
+            var occupant = cell.Occupant;
+            if (occupant != null)
             {
-                Log("Obstacle found!");
-                obstacle.Interact(tool);
+                Log("Occupant found!");
+                var associatedObject = occupant.AssociatedObject;
+                var obstacle = associatedObject.GetComponent<Obstacle>();
+                if(obstacle != null )
+                {
+                    Log("Obstacle found!");
+                    obstacle.Interact(tool);
+                }
+            }
+
+            if (occupant == null && cell.GroundType.Equals(GroundType.FallowSoil))
+            {
+                GameManager.Instance.GridManager.ChangeTile(cell.GridPosition, GroundType.ArableSoil);
             }
         }
 
-        if (occupant == null && cell.GroundType.Equals(GroundType.FallowSoil))
+        private void Log(string msg)
         {
-            GameManager.Instance.GridManager.ChangeTile(cell.GridPosition, GroundType.ArableSoil);
+            if (debug)
+                Debug.Log("[PrepareCommand]: " + msg);
         }
-    }
 
-    private void Log(string msg)
-    {
-        if (debug)
-            Debug.Log("[PrepareCommand]: " + msg);
-    }
-
-    private void LogWarning(string msg)
-    {
-        if (debug)
-            Debug.LogWarning("[PrepareCommand]: " + msg);
+        private void LogWarning(string msg)
+        {
+            if (debug)
+                Debug.LogWarning("[PrepareCommand]: " + msg);
+        }
     }
 }
