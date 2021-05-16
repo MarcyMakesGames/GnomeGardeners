@@ -115,7 +115,7 @@ namespace GnomeGardeners
             OnTileChanged.RaiseEvent();
         }
 
-        public void ChangeTileOccupant(Vector2Int gridPosition, IOccupant occupant)
+        public void ChangeTileOccupant(Vector2Int gridPosition, Occupant occupant)
         {
             AssignTargetCell(gridPosition);
 
@@ -186,7 +186,7 @@ namespace GnomeGardeners
                 var occupant = cell.Occupant;
                 if (cell.Occupant != null)
                 {
-                    var associatedObject = occupant.AssociatedObject;
+                    var associatedObject = occupant.gameObject;
                     if (associatedObject != null)
                     {
                         var plant = associatedObject.GetComponent<Plant>();

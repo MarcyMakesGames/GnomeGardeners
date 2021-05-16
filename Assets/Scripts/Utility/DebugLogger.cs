@@ -8,16 +8,25 @@ namespace GnomeGardeners
     {
         private static bool debug = true;
 
-        public static void Log(System.Type type, string msg)
+        public static void Log(System.Object obj, string msg)
         {
             if (debug)
-                Debug.Log("[" + type.ToString() + "]: " + msg);
+                Debug.Log("[" + obj.ToString() + "]: " + msg);
         }
 
-        public static void LogWarning(System.Type type, string msg)
+        public static void LogWarning(System.Object obj, string msg)
         {
             if (debug)
-                Debug.LogWarning("[" + type.ToString() + "]: " + msg);
+                Debug.LogWarning("[" + obj.ToString() + "]: " + msg);
+        }
+
+        public static void LogUpdate(System.Object obj, string msg)
+        {
+            if (!debug) return;
+            if (Time.time % 3f <= Time.deltaTime)
+            {
+                Debug.Log("[" + obj.ToString() + "]: " + msg);
+            }
         }
     }
 }

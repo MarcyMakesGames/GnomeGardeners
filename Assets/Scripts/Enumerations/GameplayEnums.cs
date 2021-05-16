@@ -1,13 +1,6 @@
 
 namespace GnomeGardeners
 {
-    public enum ToolType
-    {
-        Preparing,
-        Seeding,
-        Watering,
-        Harvesting,
-    }
     public enum WeatherType
     {
         Sunny = 1,

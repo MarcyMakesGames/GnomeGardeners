@@ -24,7 +24,7 @@ namespace GnomeGardeners
                 //We would build the gnomeSkin here.
 
                 newGnome.GetComponent<GnomeController>().InitializePlayer(player);
-                Log("Player " + player.Input.playerIndex + " device: " + player.Input.devices);
+                DebugLogger.Log(this, "Player " + player.Input.playerIndex + " device: " + player.Input.devices);
 
                 player.Input.uiInputModule = FindObjectOfType<InputSystemUIInputModule>();
             }
@@ -38,12 +38,6 @@ namespace GnomeGardeners
             {
                 InitPlayerGnomes();
             }
-        }
-
-        private void Log(string msg)
-        {
-            if(debug)
-                Debug.Log("[GnomeInitController]:" + msg);
         }
     }
 }

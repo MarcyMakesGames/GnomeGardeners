@@ -4,13 +4,12 @@ using UnityEngine;
 
 namespace GnomeGardeners
 {
-    public class Obstacle : MonoBehaviour, IInteractable
+    public class Obstacle : Occupant
     {
         public bool debug = false;
 
         [Header("Designers")]
         [SerializeField] private bool canBeRemoved = true;
-        [SerializeField] private ToolType removeTool = ToolType.Preparing;
         [SerializeField] private int numberOfHits = 3;
         [Header("Programmers")]
         [SerializeField] private Sprite spriteOnSoil;
@@ -27,6 +26,7 @@ namespace GnomeGardeners
 
         private void Start()
         {
+            base.Start();
             cell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
             hitCounter = 1;
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -41,48 +41,29 @@ namespace GnomeGardeners
             {
                 spriteRenderer.sprite = spriteOnRest;
             }
-
-            AssignOccupant();
         }
 
         #endregion
 
         #region Public Methods
 
-        public void Interact(Tool tool = null)
+        public override void Interact(Tool tool)
         {
-            Log("Being interacted with.");
+            DebugLogger.Log(this, "Being interacted with.");
             if (!canBeRemoved) { return; }
             if (tool == null) { return; }
-            if (tool.Type == removeTool)
+            if (hitCounter < numberOfHits)
             {
-                if (hitCounter < numberOfHits)
-                {
-                    ++hitCounter;
-                }
-                else
-                {
-                    gameObject.SetActive(false);
-                    var gridPosition = GameManager.Instance.GridManager.GetClosestCell(transform.position).GridPosition;
-                    GameManager.Instance.GridManager.ChangeTileOccupant(gridPosition, null);
-                    Log("Obstacle removed.");
-                    GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_rock_breaking, audioSource);
-                }
+                ++hitCounter;
             }
-        }
-
-        public void AssignOccupant()
-        {
-            cell.AddCellOccupant(this);
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private void Log(string msg)
-        {
-            Debug.Log("[Obstacle]: " + msg);
+            else
+            {
+                gameObject.SetActive(false);
+                var gridPosition = GameManager.Instance.GridManager.GetClosestCell(transform.position).GridPosition;
+                GameManager.Instance.GridManager.ChangeTileOccupant(gridPosition, null);
+                DebugLogger.Log(this, "Obstacle removed.");
+                GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_rock_breaking, audioSource);
+            }
         }
 
         #endregion

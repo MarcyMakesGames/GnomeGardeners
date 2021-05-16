@@ -118,7 +118,7 @@ namespace GnomeGardeners
             if(gnomeCell.Occupant != null)
             {
            
-                if(gnomeCell.Occupant.AssociatedObject.GetComponent<Plant>() != null)
+                if(gnomeCell.Occupant.gameObject.GetComponent<Plant>() != null)
                 {
                     var plant = (Plant)gnomeCell.Occupant;
                     plant.Destroy();
@@ -278,26 +278,26 @@ namespace GnomeGardeners
 
         private void OnInputEquipUnequip(CallbackContext context)
         {
-            Log("Equip/Unequip action triggered.");
+            DebugLogger.Log(this, "Equip/Unequip action triggered.");
             if (context.performed)
             {
                 EquipUnequip(interactionCell);
-                Log("Equip/Unequip action executed.");
+                DebugLogger.Log(this, "Equip/Unequip action executed.");
             }
         }
 
         private void OnInputUseTool(CallbackContext context)
         {
-            Log("Use tool action triggered.");
+            DebugLogger.Log(this, "Use tool action triggered.");
             if (context.performed)
             {
                 UseTool(interactionCell);
-                Log("Use tool action executed.");
+                DebugLogger.Log(this, "Use tool action executed.");
             }
         }
         private void OnInputEscape(CallbackContext context)
         {
-            Log("Escape action triggered.");
+            DebugLogger.Log(this, "Escape action triggered.");
             if (context.performed)
             {
                 var activeInGamePanel = GameManager.Instance.SceneController.ActiveInGameUI;
@@ -310,7 +310,7 @@ namespace GnomeGardeners
                     activeInGamePanel = InGameUIMode.HUD;
                 }
                 GameManager.Instance.SceneController.ActiveInGameUI = activeInGamePanel;
-                Log("Escape action executed.");
+                DebugLogger.Log(this, "Escape action executed.");
             }
         }
 
@@ -334,7 +334,7 @@ namespace GnomeGardeners
 
         private void UseTool(GridCell cell)
         {
-            Log("Using Tool.");
+            DebugLogger.Log(this, "Using Tool.");
             var occupant = cell.Occupant;
 
             if (tool != null) // note: tool equipped and interacting on cell
@@ -343,15 +343,7 @@ namespace GnomeGardeners
             }
             else if (tool == null && occupant != null) // note: no Tool equipped and interacting on occupant
             {
-                IInteractable interactableOnGround = null;
-                if (occupant.AssociatedObject.GetComponent<IInteractable>() != null)
-                {
-                    interactableOnGround = (IInteractable)occupant;
-                }
-                if (interactableOnGround != null)
-                {
-                    interactableOnGround.Interact();
-                }
+                occupant.Interact(tool);
             }
         }
 
@@ -361,83 +353,34 @@ namespace GnomeGardeners
 
             if(tool != null && occupant != null)
             {
-                Log("Cannot drop tool on occupied tile.");
+                DebugLogger.Log(this, "Cannot drop tool on occupied tile.");
             }
             else if (tool != null && occupant == null)
             {
                 UnequipTool();
             }
-            else if (tool == null && occupant != null) // note: no Tool equipped and interacting on occupant
+            else if (tool == null && occupant != null)
             {
                 Tool toolOnGround = null;
-                if (occupant.AssociatedObject.GetComponent<Tool>() != null)
+                if (occupant.TryGetComponent(out toolOnGround))
                 {
-                    toolOnGround = (Tool)occupant;
-                }
-
-                if (toolOnGround != null)
-                {
-                    EquipTool(toolOnGround, cell);
+                    EquipTool(toolOnGround);
                 }
             }
         }
 
-        private void EquipTool(Tool tool, GridCell cell)
+        private void EquipTool(Tool tool)
         {
-            if (tool == null)
-                return;
-
             this.tool = tool;
-            var renderer = tool.GetComponent<SpriteRenderer>();
-            // toolRenderer.sprite = renderer.sprite;
-            tool.Equip(cell);
-            if(tool.Type == ToolType.Seeding)
-            {
-                if(tool.heldItem != null)
-                {
-                    var plant = (Plant)tool.heldItem;
-                    if(plant != null)
-                    {
-                        SetItemSprite(seedSprite);
-                    }
-                }
-            }
-            else if(tool.Type == ToolType.Harvesting)
-            {
-                var item = tool.heldItem;
-                if(item != null)
-                {
-                    if(item.Type == ItemType.Harvest || item.Type == ItemType.Seed)
-                    {
-                        var harvest = (Plant)item;
-                        SetItemSprite(harvest.SpriteInHand);
-                    }
-                    if (item.Type == ItemType.Fertilizer)
-                    {
-                        var fertilizer = (Fertilizer)item;
-                        SetItemSprite(fertilizer.SpriteInHand);
-                    }
-                }
-            }
+            tool.Equip();
         }
 
         private void UnequipTool()
         {
-            if (tool == null)
-                return;
-
             var dropPosition = transform.position + (Vector3)lookDir * dropRange;
             var dropCell = GameManager.Instance.GridManager.GetClosestCell(dropPosition);
             tool.Unequip(dropCell);
-            // toolRenderer.sprite = null;
-            // itemRenderer.sprite = null;
             tool = null;
-        }
-
-        private void Log(string msg)
-        {
-            if (debug)
-                Debug.Log("[GnomeController]: " + playerConfig.Input.playerIndex + " " + msg);
         }
 
         #endregion

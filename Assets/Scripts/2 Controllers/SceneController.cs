@@ -160,7 +160,7 @@ namespace GnomeGardeners
 
         private void UpdateState()
         {
-            Log("Scene loaded, updating state.");
+            DebugLogger.Log(this, "Scene loaded, updating state.");
             currentScene = (SceneState)SceneManager.GetActiveScene().buildIndex;
         }
 
@@ -178,7 +178,7 @@ namespace GnomeGardeners
                 yield return null;
             }
 
-            Log("Scene Loaded");
+            DebugLogger.Log(this, "Scene Loaded");
             isInTransition = false;
             OnSceneLoaded.RaiseEvent();
             transition.SetTrigger("FadeOut");
@@ -199,7 +199,7 @@ namespace GnomeGardeners
             }
 
 
-            Log("Scene Loaded");
+            DebugLogger.Log(this, "Scene Loaded");
             isInTransition = false;
             OnSceneLoaded.RaiseEvent();
             transition.SetTrigger("FadeOut");
@@ -218,7 +218,7 @@ namespace GnomeGardeners
                 yield return null;
             }
 
-            Log("Scene Loaded");
+            DebugLogger.Log(this, "Scene Loaded");
             isInTransition = false;
             OnSceneLoaded.RaiseEvent();
             transition.SetTrigger("FadeOut");
@@ -227,12 +227,6 @@ namespace GnomeGardeners
         private void Dispose()
         {
             OnSceneLoaded.OnEventRaised -= UpdateState;
-        }
-
-        private void Log(string msg)
-        {
-            if (!debug) { return; }
-            Debug.Log("[SceneController]: " + msg);
         }
 
         #endregion
