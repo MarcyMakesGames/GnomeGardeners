@@ -145,7 +145,7 @@ namespace GnomeGardeners
                 if (gnomeCell.Occupant.gameObject.GetComponent<Plant>() != null)
                 {
                     var plant = (Plant)gnomeCell.Occupant;
-                    plant.Destroy();
+                    plant.RemoveFromCell();
                 }
             }
         }

@@ -38,22 +38,14 @@ namespace GnomeGardeners
 
         private void Awake()
         {
-            if (species.stages.Count > 0)
-                currentStage = species.stages[0];
-            else
-                DebugLogger.LogWarning(this, "Plant.cs: Species not selected or set-up.");
-            isOnArableGround = false;
-            spriteRenderer.sprite = currentStage.sprite;
-            name = currentStage.name + " " + species.name;
-            isBeingCarried = true;
-            spriteInHand = species.prematureSprite;
-            type = ItemType.Seed;
-            randomizedTimeToGrow = currentStage.timeToGrow + UnityEngine.Random.Range(-timeToGrowVariation, timeToGrowVariation);
-            isCurrentNeedFulfilled = false;
             OnTileChanged.OnEventRaised += CheckOccupyingCell;
             OnTileChanged.OnEventRaised += CheckArableGround;
             audioSource = GetComponent<AudioSource>();
+
+            Configure();
         }
+
+
 
         private new void Start()
         {
@@ -68,11 +60,7 @@ namespace GnomeGardeners
 
         private void OnDestroy()
         {
-            DebugLogger.Log(this, "Being disposed of.");
             ClearPopUp();
-            spriteRenderer.sprite = null;
-            name = species.name;
-            currentStage = null;
             OnTileChanged.OnEventRaised -= CheckOccupyingCell;
             OnTileChanged.OnEventRaised -= CheckArableGround;
         }
@@ -88,14 +76,14 @@ namespace GnomeGardeners
 
         public Harvest HarvestPlant()
         {
-            // todo: object pool stash
             if (currentStage.isHarvestable)
             {
                 RemoveOccupantFromCells();
                 isBeingCarried = true;
                 GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_tool_cutting_plant);
                 ClearPopUp();
-                gameObject.SetActive(false);
+                ReturnToPool();
+
                 return new Harvest(currentStage.points);
             }
             return null;
@@ -115,10 +103,11 @@ namespace GnomeGardeners
                 GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_plant_fertilized, audioSource);
         }
 
-        public void Destroy()
+        public void RemoveFromCell()
         {
             RemoveOccupantFromCells();
-            Destroy(gameObject);
+            ReturnToPool();
+            ClearPopUp();
             GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_plants_snapping, audioSource);
         }
 
@@ -228,6 +217,12 @@ namespace GnomeGardeners
             }
         }
 
+        private void ReturnToPool()
+        {
+            gameObject.SetActive(false);
+            Configure();
+        }
+
         private void CheckOccupyingCell()
         {
             occupyingCell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
@@ -248,6 +243,19 @@ namespace GnomeGardeners
                 popUp.gameObject.SetActive(false);
                 popUp = null;
             }        
+        }
+
+        private void Configure()
+        {
+            currentStage = species.stages[0];
+            isOnArableGround = false;
+            spriteRenderer.sprite = currentStage.sprite;
+            name = currentStage.name + " " + species.name;
+            isBeingCarried = true;
+            spriteInHand = species.prematureSprite;
+            type = ItemType.Seed;
+            randomizedTimeToGrow = currentStage.timeToGrow + UnityEngine.Random.Range(-timeToGrowVariation, timeToGrowVariation);
+            isCurrentNeedFulfilled = false;
         }
 
         #endregion

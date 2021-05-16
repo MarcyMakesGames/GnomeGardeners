@@ -319,7 +319,7 @@ namespace GnomeGardeners
                 gridManager.ChangeTile(targetCell.GridPosition, GroundType.FallowSoil);
                 gridManager.ChangeTileOccupant(targetCell.GridPosition, null);
                 OnPlantEaten.RaiseEvent(targetPlant);
-                Destroy(targetPlant.gameObject);
+                targetPlant.RemoveFromCell();
                 targetPlant = null;
                 isSearchingPlant = false;
                 isMovingToPlant = false;
