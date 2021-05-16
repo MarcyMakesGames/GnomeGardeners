@@ -17,6 +17,7 @@ namespace GnomeGardeners
         private bool isDecayed;
         private GameObject popUp;
         private Stage currentStage;
+        private bool isCurrentNeedFulfilled;
         private Sprite spriteInHand;
         private bool isBeingCarried;
         private float currentGrowTime;
@@ -48,6 +49,7 @@ namespace GnomeGardeners
             spriteInHand = species.prematureSprite;
             type = ItemType.Seed;
             randomizedTimeToGrow = currentStage.timeToGrow + UnityEngine.Random.Range(-timeToGrowVariation, timeToGrowVariation);
+            isCurrentNeedFulfilled = false;
             OnTileChanged.OnEventRaised += CheckOccupyingCell;
             OnTileChanged.OnEventRaised += CheckArableGround;
             audioSource = GetComponent<AudioSource>();
@@ -107,7 +109,7 @@ namespace GnomeGardeners
                 return;
             }
 
-            currentStage.need.isFulfilled = true;
+            isCurrentNeedFulfilled = true;
 
             if (type == NeedType.Fertilizer)
                 GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_plant_fertilized, audioSource);
@@ -149,7 +151,7 @@ namespace GnomeGardeners
 
             if (currentGrowTime >= currentStage.timeToFulfillNeed)
             {
-                if (currentStage.need.isFulfilled)
+                if (isCurrentNeedFulfilled)
                 {
                     if (currentGrowTime >= currentStage.timeToFulfillNeed + randomizedTimeToGrow)
                         AdvanceStages();
@@ -161,10 +163,10 @@ namespace GnomeGardeners
 
         private void CheckNeedPopUp()
         {
-            if (popUp == null && !currentStage.need.isFulfilled)
-                GetPopUp(currentStage.need.popUpType);
 
-            else if (popUp != null && currentStage.need.isFulfilled)
+            if (popUp == null && !isCurrentNeedFulfilled && currentStage.need != null)
+                GetPopUp(currentStage.need.popUpType);
+            else if (popUp != null && isCurrentNeedFulfilled)
             {
                 ClearPopUp();
             }
@@ -177,7 +179,7 @@ namespace GnomeGardeners
             lastStageTimeStamp = GameManager.Instance.Time.ElapsedTime;
             spriteRenderer.sprite = species.decayedStage.sprite;
             name = "Decayed" + species.name;
-            currentStage.need.isFulfilled = false;
+            isCurrentNeedFulfilled = false;
             isDecayed = true;
             GameManager.Instance.GridManager.ChangeTile(occupyingCell.GridPosition, GroundType.FallowSoil);
             spriteInHand = species.deadSprite;
@@ -193,7 +195,7 @@ namespace GnomeGardeners
             lastStageTimeStamp = GameManager.Instance.Time.ElapsedTime;
             spriteRenderer.sprite = currentStage.sprite;
             name = currentStage.name + " " + species.name;
-            currentStage.need.isFulfilled = false;
+            isCurrentNeedFulfilled = false;
             if(currentStage.specifier == PlantStage.Ripening) 
             { 
                 spriteInHand = species.harvestSprite;
