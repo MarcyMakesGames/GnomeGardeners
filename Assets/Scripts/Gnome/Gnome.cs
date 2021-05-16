@@ -178,19 +178,19 @@ namespace GnomeGardeners
             switch (direction)
             {
                 case Direction.North:
-                    gnomeBack.SetActive(false);
+                    gnomeBack.SetActive(true);
                     currentAnimator = gnomeBack.GetComponent<Animator>();
                     break;
                 case Direction.East:
-                    gnomeRight.SetActive(false);
+                    gnomeRight.SetActive(true);
                     currentAnimator = gnomeRight.GetComponent<Animator>();
                     break;
                 case Direction.South:
-                    gnomeFront.SetActive(false);
+                    gnomeFront.SetActive(true);
                     currentAnimator = gnomeFront.GetComponent<Animator>();
                     break;
                 case Direction.West:
-                    gnomeLeft.SetActive(false);
+                    gnomeLeft.SetActive(true);
                     currentAnimator = gnomeLeft.GetComponent<Animator>();
                     break;
             }
@@ -311,7 +311,7 @@ namespace GnomeGardeners
                 Tool toolOnGround;
                 if (occupant.TryGetComponent(out toolOnGround))
                 {
-                    this.tool = toolOnGround;
+                    tool = toolOnGround;
                     toolOnGround.Equip();
                 }
             }

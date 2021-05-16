@@ -8,11 +8,15 @@ namespace GnomeGardeners
     {
         private readonly bool debug = false;
 
-        public GameObject dispensable;
+        public Item dispensable;
 
         #region Unity Methods
 
-
+        private new void Start()
+        {
+            base.Start();
+            dispensable = new Fertilizer();
+        }
 
         #endregion
 
@@ -23,10 +27,10 @@ namespace GnomeGardeners
 
         }
 
-        public IHoldable DispenseItem(Tool tool)
+        public Item DispenseItem()
         {
-            DebugLogger.Log(this, "Dispensing." + dispensable.name);
-            return dispensable.GetComponent<IHoldable>();
+            DebugLogger.Log(this, "Dispensing." + dispensable.Name);
+            return dispensable;
         }
 
         public void DispenseItem(Vector2Int dropLocation)

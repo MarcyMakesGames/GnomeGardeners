@@ -6,7 +6,7 @@ namespace GnomeGardeners
 {
     public class Sickle : Tool
     {
-        private IHoldable holdable;
+        private Item item;
 
         #region Unity Methods
 
@@ -30,24 +30,21 @@ namespace GnomeGardeners
             {
                 DebugLogger.Log(this, "Occupant found!");
                 var holdable = occupant.GetComponent<IHoldable>();
-                Plant plant = null;
+                Plant plant;
                 if (occupant.TryGetComponent(out plant))
                 {
                     DebugLogger.Log(this, "Plant found while carrying Fertilizer!");
                     plant.FulfillCurrentNeed(NeedType.Fertilizer);
                     holdable = null;
-                    gnome.RemoveItemSprite();
                 }
                 else if (occupant.TryGetComponent(out plant) && holdable == null && holdable != null)
                 {
                     DebugLogger.Log(this, "Harvesting plant!");
                     plant.HarvestPlant();
-                    holdable = holdable;
                     plant.transform.parent = gnome.transform;
-                    gnome.SetItemSprite(plant.SpriteInHand);
                 }
 
-                Basket basket = null;
+                Basket basket;
                 if (occupant.TryGetComponent(out basket) && holdable != null)
                 {
                     DebugLogger.Log(this, "Scoring Area found!");
@@ -55,25 +52,21 @@ namespace GnomeGardeners
                     basket.DeliverHarvest(harvest.CurrentStage.pointValue);
                     GameObject.Destroy(harvest.gameObject);
                     holdable = null;
-                    gnome.RemoveItemSprite();
                 }
 
-                Compost compost = null;
+                Compost compost;
                 if (occupant.TryGetComponent(out compost))
                 {
                     DebugLogger.Log(this, "Compost found!");
                     if (holdable == null)
                     {
                         DebugLogger.Log(this, "Taking fertilizer.");
-                        compost.Interact(this);
-                        var fertilizer = holdable;
-                        gnome.SetItemSprite(fertilizer.SpriteInHand);
+                        item = compost.DispenseItem();
                     }
                     else
                     {
                         DebugLogger.Log(this, "Discarding fertilizer.");
-                        holdable = null;
-                        gnome.RemoveItemSprite();
+                        item = null;
                     }
                 }
             }

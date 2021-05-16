@@ -35,13 +35,11 @@ namespace GnomeGardeners
                 {
                     DebugLogger.Log(this, "Seed taken.");
                     holdable = seedbag.GetRandomDispensable();
-                    gnome.SetItemSpriteToSeed();
                 }
                 else if (seed != null && occupant.TryGetComponent(out seedbag))
                 {
                     DebugLogger.Log(this, "Seed discarded.");
                     holdable = null;
-                    gnome.RemoveItemSprite();
                 }
             }
             else if (seed != null && occupant == null)
@@ -52,7 +50,6 @@ namespace GnomeGardeners
                     DebugLogger.Log(this, "ArableSoil found!");
                     var seedObject = GameObject.Instantiate(seed.gameObject, cell.transform);
                     seedObject.GetComponent<Plant>().PlantSeed(cell);
-                    gnome.RemoveItemSprite();
                     holdable = null;
                     GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_spade_digging, audioSource);
                 }
