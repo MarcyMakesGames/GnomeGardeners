@@ -32,11 +32,11 @@ namespace GnomeGardeners
                     plant.FulfillCurrentNeed(NeedType.Fertilizer);
                     fertilizer = null;
                 }
-                else if (occupant.TryGetComponent(out plant) && harvest == null)
+                
+                if (occupant.TryGetComponent(out plant) && harvest == null)
                 {
                     DebugLogger.Log(this, "Harvesting plant!");
                     harvest = plant.HarvestPlant();
-                    plant.transform.parent = gnome.transform;
                 }
 
                 Basket basket;
@@ -50,28 +50,29 @@ namespace GnomeGardeners
                 Compost compost;
                 if (occupant.TryGetComponent(out compost))
                 {
-                    DebugLogger.Log(this, "Compost found!");
+                    DebugLogger.Log(this, "Compost found!"); 
+                    if (fertilizer != null)
+                    {
+                        DebugLogger.Log(this, "Discarding fertilizer.");
+                        fertilizer = null;
+                    }
+
                     if (fertilizer == null)
                     {
                         DebugLogger.Log(this, "Taking fertilizer.");
                         fertilizer = compost.DispenseItem();
                     }
-                    else
+                    
+                    if(harvest != null)
                     {
-                        DebugLogger.Log(this, "Discarding fertilizer.");
-                        fertilizer = null;
+                        DebugLogger.Log(this, "Discarding harvest");
+                        compost.AddScore(harvest.points);
+                        harvest = null;
                     }
                 }
             }
         }
 
         #endregion
-
-        #region Private Methods
-
-
-
-        #endregion
-
     }
 }

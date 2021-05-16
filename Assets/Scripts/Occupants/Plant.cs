@@ -78,13 +78,14 @@ namespace GnomeGardeners
         {
             if (currentStage.isHarvestable)
             {
+                var points = currentStage.points;
                 RemoveOccupantFromCells();
                 isBeingCarried = true;
                 GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_tool_cutting_plant);
                 ClearPopUp();
                 ReturnToPool();
 
-                return new Harvest(currentStage.points);
+                return new Harvest(points);
             }
             return null;
         }
