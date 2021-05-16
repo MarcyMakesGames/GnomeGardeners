@@ -21,8 +21,6 @@ namespace GnomeGardeners
         private bool isBeingCarried;
         private bool isDecayed;
         private GridCell occupyingCell;
-        private float currentNeedValue;
-        private bool isNeedFulfilled;
         private ItemType type;
         private float randomizedTimeToGrow;
         private GameObject popUp;
@@ -42,7 +40,25 @@ namespace GnomeGardeners
 
         private void Awake()
         {
-            Configure();
+            if (species.stages.Count > 0)
+                currentStage = species.stages[0];
+            else
+                DebugLogger.LogWarning(this, "Plant.cs: Species not selected or set-up.");
+            isOnArableGround = false;
+            spriteRenderer.sprite = currentStage.sprite;
+            name = currentStage.name + " " + species.name;
+            isBeingCarried = true;
+            spriteInHand = species.prematureSprite;
+            type = ItemType.Seed;
+            randomizedTimeToGrow = currentStage.timeToGrow + UnityEngine.Random.Range(-timeToGrowVariation, timeToGrowVariation);
+            OnTileChanged.OnEventRaised += CheckOccupyingCell;
+            OnTileChanged.OnEventRaised += CheckArableGround;
+            audioSource = GetComponent<AudioSource>();
+        }
+
+        private new void Start()
+        {
+            base.Start();
         }
 
         private void Update()
@@ -53,54 +69,39 @@ namespace GnomeGardeners
 
         private void OnDestroy()
         {
-            Dispose();
+            DebugLogger.Log(this, "Being disposed of.");
+            ClearPopUp();
+            spriteRenderer.sprite = null;
+            name = species.name;
+            currentStage = null;
+            OnTileChanged.OnEventRaised -= CheckOccupyingCell;
+            OnTileChanged.OnEventRaised -= CheckArableGround;
         }
         #endregion
 
         #region Public Methods
-        public void Interact(Tool tool = null)
+
+        public override void Interact(Tool tool)
         {
+            if(tool.Type == ToolType.Harvesting)
+            {
+                if(tool.heldItem != null)
+                {
+                    FulfillCurrentNeed(NeedType.Fertilizer);
+                }
+                HarvestPlant();
+            }
+            else if(tool.Type == ToolType.Watering)
+            {
+                FulfillCurrentNeed(NeedType.Water);
+            }
         }
 
         public void Destroy()
         {
-            occupyingCell.RemoveCellOccupant();
+            RemoveOccupantFromCells();
             Destroy(gameObject);
             GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_plants_snapping, audioSource);
-        }
-
-        public void HarvestPlant(GridCell cell)
-        {
-            // todo: object pool stash
-            if (currentStage.isHarvestable)
-            {
-                cell.RemoveCellOccupant();
-                isBeingCarried = true;
-                GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_tool_cutting_plant);
-                ClearPopUp();
-                gameObject.SetActive(false);
-            }
-        }
-
-        public void AddToNeedValue(NeedType type, float amount)
-        {
-            if(type != currentStage.need.type)
-            {
-                DebugLogger.Log(this, "Incorrect need type.");
-                return;
-            }
-
-            DebugLogger.Log(this, "Adding" + amount.ToString() + " to need value.");
-            currentNeedValue += amount;
-
-            if(currentNeedValue >= currentStage.need.threshold)
-            {
-                isNeedFulfilled = true;
-            }
-
-            if(type == NeedType.Fertilizer)
-                GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_plant_fertilized, audioSource);
-
         }
 
         public void PlantSeed(GridCell cell)
@@ -130,7 +131,7 @@ namespace GnomeGardeners
 
             if (currentGrowTime >= currentStage.timeToFulfillNeed)
             {
-                if (isNeedFulfilled)
+                if (currentStage.need.isFulfilled)
                 {
                     if (currentGrowTime >= currentStage.timeToFulfillNeed + randomizedTimeToGrow)
                         AdvanceStages();
@@ -142,10 +143,10 @@ namespace GnomeGardeners
 
         private void CheckNeedPopUp()
         {
-            if (popUp == null && currentNeedValue < currentStage.need.threshold)
+            if (popUp == null && currentStage.need.isFulfilled)
                 GetPopUp(currentStage.need.popUpType);
 
-            else if (popUp != null && isNeedFulfilled)
+            else if (popUp != null && currentStage.need.isFulfilled)
             {
                 ClearPopUp();
             }
@@ -158,8 +159,7 @@ namespace GnomeGardeners
             lastStageTimeStamp = GameManager.Instance.Time.ElapsedTime;
             spriteRenderer.sprite = species.decayedStage.sprite;
             name = "Decayed" + species.name;
-            currentNeedValue = 0f;
-            isNeedFulfilled = false;
+            currentStage.need.isFulfilled = false;
             isDecayed = true;
             GameManager.Instance.GridManager.ChangeTile(occupyingCell.GridPosition, GroundType.FallowSoil);
             spriteInHand = species.deadSprite;
@@ -175,8 +175,7 @@ namespace GnomeGardeners
             lastStageTimeStamp = GameManager.Instance.Time.ElapsedTime;
             spriteRenderer.sprite = currentStage.sprite;
             name = currentStage.name + " " + species.name;
-            currentNeedValue = 0f;
-            isNeedFulfilled = false;
+            currentStage.need.isFulfilled = false;
             if(currentStage.specifier == PlantStage.Ripening) 
             { 
                 spriteInHand = species.harvestSprite;
@@ -209,40 +208,36 @@ namespace GnomeGardeners
             }
         }
 
+        private void HarvestPlant()
+        {
+            // todo: object pool stash
+            if (currentStage.isHarvestable)
+            {
+                RemoveOccupantFromCells();
+                isBeingCarried = true;
+                GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_tool_cutting_plant);
+                ClearPopUp();
+                gameObject.SetActive(false);
+            }
+        }
+
+        private void FulfillCurrentNeed(NeedType type)
+        {
+            if (type != currentStage.need.type)
+            {
+                DebugLogger.Log(this, "Incorrect need type.");
+                return;
+            }
+
+            currentStage.need.isFulfilled = true;
+
+            if (type == NeedType.Fertilizer)
+                GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_plant_fertilized, audioSource);
+        }
+
         private void CheckOccupyingCell()
         {
             occupyingCell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
-        }
-
-        private void Configure()
-        {
-            if (species.stages.Count > 0)
-                currentStage = species.stages[0];
-            else
-                DebugLogger.LogWarning(this, "Plant.cs: Species not selected or set-up.");
-            isOnArableGround = false;
-            spriteRenderer.sprite = currentStage.sprite;
-            name = currentStage.name+" "+species.name;
-            currentNeedValue = 0f;
-            isBeingCarried = true;
-            spriteInHand = species.prematureSprite;
-            type = ItemType.Seed;
-            isNeedFulfilled = false;
-            randomizedTimeToGrow = currentStage.timeToGrow + UnityEngine.Random.Range(-timeToGrowVariation, timeToGrowVariation);
-            OnTileChanged.OnEventRaised += CheckOccupyingCell;
-            OnTileChanged.OnEventRaised += CheckArableGround;
-            audioSource = GetComponent<AudioSource>();
-        }
-
-        private void Dispose()
-        {
-            DebugLogger.Log(this, "Being disposed of.");
-            ClearPopUp();
-            spriteRenderer.sprite = null;
-            name = species.name;
-            currentStage = null;
-            OnTileChanged.OnEventRaised -= CheckOccupyingCell;
-            OnTileChanged.OnEventRaised -= CheckArableGround;
         }
 
         private void GetPopUp(PoolKey popUpType)

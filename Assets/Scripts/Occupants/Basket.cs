@@ -20,8 +20,10 @@ namespace GnomeGardeners
 
 
         #region Unity Methods
-        void Start()
+
+        private new void Start()
         {
+            base.Start();
             basketSource = GetComponent<AudioSource>();
         }
 
@@ -29,13 +31,7 @@ namespace GnomeGardeners
 
         #region Public Methods
 
-        [ContextMenu("Debug: Add Score")]
-        public void AddScore(int score)
-        {
-            OnScoreAddEvent.RaiseEvent(score);
-        }
-
-        public void Interact(Tool tool = null)
+        public override void Interact(Tool tool)
         {
             DebugLogger.Log(this, "Interacted with scoring area");
             var harvest = (Plant)tool.heldItem;
@@ -59,6 +55,12 @@ namespace GnomeGardeners
         private void AddSprite(Sprite sprite)
         {
             plants[plantCount] = sprite;
+        }
+
+        [ContextMenu("Debug: Add Score")]
+        private void AddScore(int score)
+        {
+            OnScoreAddEvent.RaiseEvent(score);
         }
 
         #endregion

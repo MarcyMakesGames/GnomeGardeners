@@ -15,21 +15,19 @@ namespace GnomeGardeners
                 DebugLogger.Log(this, "Occupant found!");
                 var holdable = occupant.GetComponent<IHoldable>();
                 Plant plant = null;
-                if (occupant.TryGetComponent(out plant) && tool.heldItem != null)
+                if (occupant.TryGetComponent(out plant))
                 {
                     DebugLogger.Log(this, "Plant found while carrying Fertilizer!");
-                    var fertilizer = (Fertilizer)tool.heldItem;
-                    plant.AddToNeedValue(NeedType.Fertilizer, fertilizer.Strength);
+                    plant.Interact(tool);
                     tool.heldItem = null;
                     gnome.RemoveItemSprite();
                 }
                 else if (occupant.TryGetComponent(out plant) && tool.heldItem == null && holdable != null)
                 {
                     DebugLogger.Log(this, "Harvesting plant!");
-                    if (!plant.CurrentStage.isHarvestable) { return; }
+                    plant.Interact(tool);
                     tool.heldItem = holdable;
                     plant.transform.parent = gnome.transform;
-                    plant.HarvestPlant(cell);
                     gnome.SetItemSprite(plant.SpriteInHand);
                 }
 

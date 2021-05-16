@@ -27,6 +27,7 @@ namespace GnomeGardeners
 
         private void Start()
         {
+            base.Start();
             cell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
             hitCounter = 1;
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -47,7 +48,7 @@ namespace GnomeGardeners
 
         #region Public Methods
 
-        public void Interact(Tool tool = null)
+        public override void Interact(Tool tool)
         {
             DebugLogger.Log(this, "Being interacted with.");
             if (!canBeRemoved) { return; }

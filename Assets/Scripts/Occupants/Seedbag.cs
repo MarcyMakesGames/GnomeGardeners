@@ -11,8 +11,17 @@ namespace GnomeGardeners
         public GameObject[] dispensables;
         public GameObject AssociatedObject { get => gameObject; }
 
+        #region Unity Methods
+
+        private new void Start()
+        {
+            base.Start();
+        }
+
+        #endregion
+
         #region Public Methods
-        public void Interact(Tool tool = null)
+        public override void Interact(Tool tool)
         {
             DebugLogger.Log(this, "Interacting.");
             if (tool != null)

@@ -8,7 +8,7 @@ namespace GnomeGardeners
     public class Need : ScriptableObject
     {
         public NeedType type;
-        public float threshold;
+        public bool isFulfilled = false;
         public PoolKey popUpType;
     }
 }
