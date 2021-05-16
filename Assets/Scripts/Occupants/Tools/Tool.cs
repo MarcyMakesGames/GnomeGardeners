@@ -7,8 +7,6 @@ namespace GnomeGardeners
 {
     public abstract class Tool : Occupant
     {
-        private bool isEquipped;
-
         protected AudioSource audioSource;
         public AudioSource AudioSource { get => audioSource; }
 
@@ -22,30 +20,25 @@ namespace GnomeGardeners
         private new void Start()
         {
             base.Start();
-            isEquipped = false;
         }
 
         #endregion
 
         #region Public Methods
 
-        public abstract void UseTool(GridCell cell, GnomeController gnome);
+        public abstract void UseTool(GridCell cell, Gnome gnome);
 
-        public void Unequip(GridCell cell)
+        public void Unequip(GridCell targetCell)
         {
-            if (!isEquipped)
-                return;
-
             // todo: let the tool visually appear
             // temp:
+            cell = targetCell;
             gameObject.SetActive(true);
 
-            isEquipped = false;
-            transform.position = cell.WorldPosition;
-            var occupant = gameObject.GetComponent<Occupant>();
-            cell.AddCellOccupant(occupant);
+            transform.position = targetCell.WorldPosition;
+            targetCell.AddCellOccupant(this);
 
-            PlayUnequipSound(cell.GroundType);
+            PlayUnequipSound(targetCell.GroundType);
         }
 
 
@@ -54,7 +47,6 @@ namespace GnomeGardeners
             // todo: let the tool visually disappear
             // temp:
             gameObject.SetActive(false);
-            isEquipped = true;
             RemoveOccupantFromCells();
         }
 

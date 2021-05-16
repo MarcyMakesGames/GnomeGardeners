@@ -7,24 +7,24 @@ namespace GnomeGardeners
 {
     public class Plant : Occupant, IHoldable
     {
-        private bool debug = false;
+        public SpriteRenderer spriteRenderer;
+        public VoidEventChannelSO OnTileChanged;
 
-        public Species species;
-        public float timeToGrowVariation = 1f;
+        [SerializeField] private Species species;
+        [SerializeField] private float timeToGrowVariation = 1f;
 
-        private Sprite spriteInHand;
-
+        private ItemType type;
+        private bool isDecayed;
+        private GameObject popUp;
         private Stage currentStage;
-        private float lastStageTimeStamp;
+        private Sprite spriteInHand;
+        private bool isBeingCarried;
         private float currentGrowTime;
         private bool isOnArableGround;
-        private bool isBeingCarried;
-        private bool isDecayed;
         private GridCell occupyingCell;
-        private ItemType type;
-        private float randomizedTimeToGrow;
-        private GameObject popUp;
         private AudioSource audioSource;
+        private float lastStageTimeStamp;
+        private float randomizedTimeToGrow;
 
         public bool IsBeingCarried { get => isBeingCarried; set => isBeingCarried = value; }
         public Stage CurrentStage { get => currentStage; }
@@ -32,9 +32,6 @@ namespace GnomeGardeners
         public Sprite SpriteInHand { get => spriteInHand; set => spriteInHand = value; }
         public ItemType Type { get => type; set => type = value; }
 
-        public SpriteRenderer spriteRenderer;
-
-        public VoidEventChannelSO OnTileChanged;
 
         #region Unity Methods
 
@@ -77,6 +74,7 @@ namespace GnomeGardeners
             OnTileChanged.OnEventRaised -= CheckOccupyingCell;
             OnTileChanged.OnEventRaised -= CheckArableGround;
         }
+
         #endregion
 
         #region Public Methods
@@ -86,7 +84,7 @@ namespace GnomeGardeners
 
         }
 
-        public void HarvestPlant()
+        public Harvest HarvestPlant()
         {
             // todo: object pool stash
             if (currentStage.isHarvestable)
@@ -96,7 +94,9 @@ namespace GnomeGardeners
                 GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_tool_cutting_plant);
                 ClearPopUp();
                 gameObject.SetActive(false);
+                return new Harvest(currentStage.points);
             }
+            return null;
         }
 
         public  void FulfillCurrentNeed(NeedType type)
@@ -125,6 +125,7 @@ namespace GnomeGardeners
             if (currentStage.specifier != PlantStage.Seed)
                 return;
 
+            spriteRenderer.sprite = currentStage.sprite;
             transform.position = cell.WorldPosition;
             cell.AddCellOccupant(this);
             occupyingCell = cell;
@@ -136,6 +137,7 @@ namespace GnomeGardeners
         #endregion
 
         #region Private Methods
+
         private void TryGrowing()
         {
             if (isDecayed) { return; }
@@ -223,8 +225,6 @@ namespace GnomeGardeners
                 isOnArableGround = false;
             }
         }
-
-
 
         private void CheckOccupyingCell()
         {

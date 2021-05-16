@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7816c91d91f7cc4d8150ad9f6e84b5c, type: 3}
   m_Name: Peppermint
   m_EditorClassIdentifier: 
-  speciesName: TestFlower
+  speciesName: Peppermint
   stages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  decayedStage: {fileID: 0}
+  - {fileID: 11400000, guid: fea3b2e9e36d1e24b8f969a2388e07b8, type: 2}
+  - {fileID: 11400000, guid: bb6765e38a018594792f802d245e053f, type: 2}
+  - {fileID: 11400000, guid: b061afec3196de94f8142773add016db, type: 2}
+  - {fileID: 11400000, guid: 16c6ccd391c92804d9e9aeb1ce8a94d4, type: 2}
+  - {fileID: 11400000, guid: 1fe8f9d8da8554f4185c9a36e2826d93, type: 2}
+  decayedStage: {fileID: 11400000, guid: cab927fece5e63a49be6df768962b0df, type: 2}
   isDamaging: 0
   isSpawning: 0
   isFragile: 0
-  growMultiplier: 0
-  deadSprite: {fileID: 0}
-  prematureSprite: {fileID: 0}
-  harvestSprite: {fileID: 0}
+  growMultiplier: 1
+  deadSprite: {fileID: 21300000, guid: 2197498542609904cac40a0341567979, type: 3}
+  prematureSprite: {fileID: 21300000, guid: 1ceff223988de5841b52d8b33d309f68, type: 3}
+  harvestSprite: {fileID: 21300000, guid: 9d2cac0352a419048bf5b87153c28cdf, type: 3}
