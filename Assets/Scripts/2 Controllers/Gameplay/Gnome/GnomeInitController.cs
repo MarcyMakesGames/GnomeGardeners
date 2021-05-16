@@ -23,7 +23,7 @@ namespace GnomeGardeners
                 GameObject newGnome = Instantiate(gnomePrefab, playerSpawnLocations[player.PlayerIndex].position, gnomePrefab.transform.rotation, transform);
                 //We would build the gnomeSkin here.
 
-                newGnome.GetComponent<GnomeController>().InitializePlayer(player);
+                newGnome.GetComponent<Gnome>().InitializePlayer(player);
                 DebugLogger.Log(this, "Player " + player.Input.playerIndex + " device: " + player.Input.devices);
 
                 player.Input.uiInputModule = FindObjectOfType<InputSystemUIInputModule>();

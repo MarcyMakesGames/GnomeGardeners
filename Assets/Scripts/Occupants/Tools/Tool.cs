@@ -29,7 +29,7 @@ namespace GnomeGardeners
 
         #region Public Methods
 
-        public abstract void UseTool(GridCell cell, GnomeController gnome);
+        public abstract void UseTool(GridCell cell, Gnome gnome);
 
         public void Unequip(GridCell cell)
         {

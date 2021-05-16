@@ -19,7 +19,7 @@ namespace GnomeGardeners
 
         #region Public Methods
 
-        public override void UseTool(GridCell cell, GnomeController gnome)
+        public override void UseTool(GridCell cell, Gnome gnome)
         {
             DebugLogger.Log(this, "Executing");
             var occupant = cell.Occupant;
