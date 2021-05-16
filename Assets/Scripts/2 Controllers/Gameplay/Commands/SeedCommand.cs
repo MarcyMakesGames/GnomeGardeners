@@ -16,16 +16,14 @@ namespace GnomeGardeners
             var occupant = cell.Occupant;
             if (occupant != null)
             {
-                DebugLogger.Log(this, "Occupant found!");
-                var associatedObject = occupant.AssociatedObject;
-                var seedBag = associatedObject.GetComponent<Seedbag>();
-                if (seed == null && seedBag != null)
+                Seedbag seedbag = null;
+                if (seed == null && occupant.TryGetComponent(out seedbag))
                 {
-                    DebugLogger.Log(this, "Seedbag found!");
-                    seedBag.Interact(tool);
+                    DebugLogger.Log(this, "Seed taken.");
+                    seedbag.Interact(tool);
                     gnome.SetItemSpriteToSeed(); 
                 }
-                else if (seed != null && seedBag != null)
+                else if (seed != null && occupant.TryGetComponent(out seedbag))
                 {
                     DebugLogger.Log(this, "Seed discarded.");
                     tool.heldItem = null;

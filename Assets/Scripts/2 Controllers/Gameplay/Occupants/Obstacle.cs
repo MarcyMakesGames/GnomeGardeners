@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GnomeGardeners
 {
-    public class Obstacle : MonoBehaviour, IInteractable
+    public class Obstacle : Occupant
     {
         public bool debug = false;
 
@@ -41,8 +41,6 @@ namespace GnomeGardeners
             {
                 spriteRenderer.sprite = spriteOnRest;
             }
-
-            AssignOccupant();
         }
 
         #endregion
@@ -69,11 +67,6 @@ namespace GnomeGardeners
                     GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_rock_breaking, audioSource);
                 }
             }
-        }
-
-        public void AssignOccupant()
-        {
-            cell.AddCellOccupant(this);
         }
 
         #endregion

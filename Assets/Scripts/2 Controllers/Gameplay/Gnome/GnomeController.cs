@@ -118,7 +118,7 @@ namespace GnomeGardeners
             if(gnomeCell.Occupant != null)
             {
            
-                if(gnomeCell.Occupant.AssociatedObject.GetComponent<Plant>() != null)
+                if(gnomeCell.Occupant.gameObject.GetComponent<Plant>() != null)
                 {
                     var plant = (Plant)gnomeCell.Occupant;
                     plant.Destroy();
@@ -343,15 +343,7 @@ namespace GnomeGardeners
             }
             else if (tool == null && occupant != null) // note: no Tool equipped and interacting on occupant
             {
-                IInteractable interactableOnGround = null;
-                if (occupant.AssociatedObject.GetComponent<IInteractable>() != null)
-                {
-                    interactableOnGround = (IInteractable)occupant;
-                }
-                if (interactableOnGround != null)
-                {
-                    interactableOnGround.Interact();
-                }
+                occupant.Interact(tool);
             }
         }
 
@@ -370,7 +362,7 @@ namespace GnomeGardeners
             else if (tool == null && occupant != null) // note: no Tool equipped and interacting on occupant
             {
                 Tool toolOnGround = null;
-                if (occupant.AssociatedObject.GetComponent<Tool>() != null)
+                if (occupant.gameObject.GetComponent<Tool>() != null)
                 {
                     toolOnGround = (Tool)occupant;
                 }

@@ -10,16 +10,16 @@ namespace GnomeGardeners
         private Vector3 worldPosition;
         private GroundType groundType;
         private TilePosition mapPosition;
-        private IOccupant occupant;
+        private Occupant occupant;
         private Sprite targetMask;
 
         public Vector2Int GridPosition { get => gridPosition; }
         public Vector3 WorldPosition { get => worldPosition; }
         public GroundType GroundType { get => groundType; }
         public TilePosition MapPosition { get => mapPosition; }
-        public IOccupant Occupant { get => occupant; }
+        public Occupant Occupant { get => occupant; }
 
-        public void InitGridCell(Vector2Int positionOnGrid, Vector3 positionInWorld, GroundType typeOfGround, TilePosition positionOnMap, IOccupant objectInCell, Sprite spriteMask)
+        public void InitGridCell(Vector2Int positionOnGrid, Vector3 positionInWorld, GroundType typeOfGround, TilePosition positionOnMap, Occupant objectInCell, Sprite spriteMask)
         {
             gridPosition = positionOnGrid;
             worldPosition = positionInWorld;
@@ -35,7 +35,7 @@ namespace GnomeGardeners
             occupant = null;
         }
 
-        public void AddCellOccupant(IOccupant occupant)
+        public void AddCellOccupant(Occupant occupant)
         {
             this.occupant = occupant;
         }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace GnomeGardeners
 {
-
     public class PrepareCommand : ICommand
     {
         private bool debug = false;
@@ -16,9 +15,8 @@ namespace GnomeGardeners
             if (occupant != null)
             {
                 DebugLogger.Log(this, "Occupant found!");
-                var associatedObject = occupant.AssociatedObject;
-                var obstacle = associatedObject.GetComponent<Obstacle>();
-                if(obstacle != null )
+                Obstacle obstacle = null;
+                if(occupant.TryGetComponent(out obstacle) )
                 {
                     DebugLogger.Log(this, "Obstacle found!");
                     obstacle.Interact(tool);

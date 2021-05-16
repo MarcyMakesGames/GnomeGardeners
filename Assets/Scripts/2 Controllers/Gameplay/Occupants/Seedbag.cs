@@ -4,21 +4,12 @@ using UnityEngine;
 
 namespace GnomeGardeners
 {
-    public class Seedbag : MonoBehaviour, IInteractable
+    public class Seedbag : Occupant
     {
         private bool debug = false;
 
         public GameObject[] dispensables;
         public GameObject AssociatedObject { get => gameObject; }
-
-        #region Unity Methods
-
-        private void Start()
-        {
-            AssignOccupant();
-        }
-
-        #endregion
 
         #region Public Methods
         public void Interact(Tool tool = null)
@@ -33,11 +24,6 @@ namespace GnomeGardeners
                 return; // todo: implement drop on floor
             }
 
-        }
-
-        public void AssignOccupant()
-        {
-            GameManager.Instance.GridManager.ChangeTileOccupant(GameManager.Instance.GridManager.GetClosestGrid(AssociatedObject.transform.position), this);
         }
 
         #endregion

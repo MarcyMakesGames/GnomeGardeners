@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GnomeGardeners
 {
-    public class Tool : MonoBehaviour, IOccupant
+    public class Tool : Occupant
     {
         private bool debug = false;
 
@@ -77,7 +77,7 @@ namespace GnomeGardeners
 
             isEquipped = false;
             transform.position = cell.WorldPosition;
-            var occupant = gameObject.GetComponent<IOccupant>();
+            var occupant = gameObject.GetComponent<Occupant>();
             cell.AddCellOccupant(occupant);
 
             PlayUnequipSound(cell.GroundType);

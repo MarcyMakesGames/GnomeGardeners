@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GnomeGardeners
 {
-    public class ScoringArea : MonoBehaviour, IScoringArea
+    public class Basket : Occupant
     {
         private bool debug = false;
 
@@ -23,7 +23,6 @@ namespace GnomeGardeners
         void Start()
         {
             basketSource = GetComponent<AudioSource>();
-            AssignOccupant();
         }
 
         #endregion
@@ -54,10 +53,6 @@ namespace GnomeGardeners
             }
         }
 
-        public void AssignOccupant()
-        {
-            GameManager.Instance.GridManager.ChangeTileOccupant(GameManager.Instance.GridManager.GetClosestGrid(AssociatedObject.transform.position), this);
-        }
         #endregion
 
         #region Private Methods

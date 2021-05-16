@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GnomeGardeners
 {
-    public class Insect : MonoBehaviour, IOccupant
+    public class Insect : Occupant
     {
         private bool debug = false;
 

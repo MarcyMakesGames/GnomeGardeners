@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GnomeGardeners
 {
-    public class Compost : MonoBehaviour, IObjectDispenser, IScoringArea
+    public class Compost : Occupant
     {
         private readonly bool debug = false;
 
@@ -12,15 +12,6 @@ namespace GnomeGardeners
         public IHoldable Dispensable { get => dispensable.GetComponent<IHoldable>(); }
 
         public GameObject AssociatedObject => gameObject;
-
-        #region Unity Methods
-
-        private void Start()
-        {
-            AssignOccupant();
-        }
-
-        #endregion
 
         #region Public Methods
 
@@ -31,11 +22,6 @@ namespace GnomeGardeners
             {
                 DispenseItem(tool);
             }
-        }
-
-        public void AssignOccupant()
-        {
-            GameManager.Instance.GridManager.ChangeTileOccupant(GameManager.Instance.GridManager.GetClosestGrid(AssociatedObject.transform.position), this);
         }
 
         public void DispenseItem(Tool tool)

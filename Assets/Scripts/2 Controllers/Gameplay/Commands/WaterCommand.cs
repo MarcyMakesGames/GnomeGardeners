@@ -12,21 +12,19 @@ namespace GnomeGardeners
         {
             DebugLogger.Log(this, "Executing");
             var occupant = cell.Occupant;
-            if(occupant == null)
+            if(occupant != null)
             {
-                return;
-            }
+                Plant plant = null;
+                if (occupant.TryGetComponent(out plant))
+                {
+                    plant.AddToNeedValue(NeedType.Water, tool.waterAmount);
+                }
 
-            var plant = cell.Occupant.AssociatedObject.GetComponent<Plant>();
-            if (plant != null)
-            {
-                plant.AddToNeedValue(NeedType.Water, tool.waterAmount);
-            }
-
-            var insect = cell.Occupant.AssociatedObject.GetComponent<Insect>();
-            if(insect != null)
-            {
-                insect.IncrementShooedCount();
+                Insect insect = null;
+                if(occupant.TryGetComponent(out insect) && occupant.TryGetComponent(out insect))
+                {
+                    insect.IncrementShooedCount();
+                }
             }
         }
     }
