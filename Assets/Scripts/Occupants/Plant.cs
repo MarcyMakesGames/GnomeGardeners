@@ -84,7 +84,7 @@ namespace GnomeGardeners
 
         }
 
-        public void HarvestPlant()
+        public Harvest HarvestPlant()
         {
             // todo: object pool stash
             if (currentStage.isHarvestable)
@@ -94,7 +94,9 @@ namespace GnomeGardeners
                 GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_tool_cutting_plant);
                 ClearPopUp();
                 gameObject.SetActive(false);
+                return new Harvest(currentStage.points);
             }
+            return null;
         }
 
         public  void FulfillCurrentNeed(NeedType type)
@@ -123,6 +125,7 @@ namespace GnomeGardeners
             if (currentStage.specifier != PlantStage.Seed)
                 return;
 
+            spriteRenderer.sprite = currentStage.sprite;
             transform.position = cell.WorldPosition;
             cell.AddCellOccupant(this);
             occupyingCell = cell;

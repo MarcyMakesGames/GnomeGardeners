@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7816c91d91f7cc4d8150ad9f6e84b5c, type: 3}
   m_Name: Strawberry
   m_EditorClassIdentifier: 
-  speciesName: TestFlower
+  speciesName: Strawberry
   stages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  decayedStage: {fileID: 0}
+  - {fileID: 11400000, guid: ad045420a7e5370409ea0f7b037b5260, type: 2}
+  - {fileID: 11400000, guid: eaaf470ff513e344e8d4fc559748ed11, type: 2}
+  - {fileID: 11400000, guid: b9d2f8350a9f59a42a214cbb936b5a94, type: 2}
+  - {fileID: 11400000, guid: 142bc59062c18a34082aea7c4bc29d38, type: 2}
+  - {fileID: 11400000, guid: 8435f64e1a5e1c544ab412338914ccc9, type: 2}
+  decayedStage: {fileID: 11400000, guid: 94b29c8c860b35e45af7460449706250, type: 2}
   isDamaging: 0
   isSpawning: 0
   isFragile: 0
-  growMultiplier: 0
-  deadSprite: {fileID: 0}
-  prematureSprite: {fileID: 0}
-  harvestSprite: {fileID: 0}
+  growMultiplier: 1
+  deadSprite: {fileID: 21300000, guid: 38ff48bd817e9764ea2021a29a9a004c, type: 3}
+  prematureSprite: {fileID: 21300000, guid: 4790cf7f76e26d748acfeb4c2028f7bf, type: 3}
+  harvestSprite: {fileID: 21300000, guid: c52f4affddd992f458af0555613a1dd8, type: 3}

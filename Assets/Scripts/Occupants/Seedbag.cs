@@ -6,11 +6,17 @@ namespace GnomeGardeners
 {
     public class Seedbag : Occupant
     {
-        private bool debug = false;
-
-        public GameObject[] dispensables;
+        public Seed[] dispensables = new Seed[3];
 
         #region Unity Methods
+
+        private new void Start()
+        {
+            base.Start();
+            dispensables[0] = new Seed(PoolKey.Plant_Sunflower);
+            dispensables[1] = new Seed(PoolKey.Plant_Peppermint);
+            dispensables[2] = new Seed(PoolKey.Plant_Strawberry);
+        }
 
         #endregion
 
@@ -20,24 +26,13 @@ namespace GnomeGardeners
 
         }
 
-        public IHoldable GetRandomDispensable()
+        public Seed GetRandomDispensable()
         {
             GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_seedbag_dispense, GetComponent<AudioSource>());
             var randomIndex = Random.Range(0, dispensables.Length);
-            var randomDispensable = dispensables[randomIndex];
-            DebugLogger.Log(this, "Dispensing." + randomDispensable.ToString());
-            return randomDispensable.GetComponent<IHoldable>();
-        }
-
-        #endregion
-
-        #region Private Methods
-
-
-
-        private void DispenseItem(Vector2Int dropLocation)
-        {
-            throw new System.NotImplementedException();
+            var randomSeed = dispensables[randomIndex];
+            DebugLogger.Log(this, "Dispensing." + randomSeed.ToString());
+            return randomSeed;
         }
 
         #endregion

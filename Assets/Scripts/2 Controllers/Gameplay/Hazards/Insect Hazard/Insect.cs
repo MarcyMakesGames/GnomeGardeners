@@ -283,7 +283,7 @@ namespace GnomeGardeners
             nextCell = gridManager.GetGridCell(nextGridPositionProbe);
             if (nextCell.Occupant != null)
             {
-                DebugLogger.Log(this, "Cannot move to occupied tile.");
+                DebugLogger.LogUpdate(this, "Cannot move to occupied tile.");
                 return;
             }
             direction = randomDirection;

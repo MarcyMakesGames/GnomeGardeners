@@ -8,7 +8,7 @@ namespace GnomeGardeners
     {
         private readonly bool debug = false;
 
-        public Item dispensable;
+        public Fertilizer dispensable;
 
         #region Unity Methods
 
@@ -27,7 +27,7 @@ namespace GnomeGardeners
 
         }
 
-        public Item DispenseItem()
+        public Fertilizer DispenseItem()
         {
             DebugLogger.Log(this, "Dispensing." + dispensable.Name);
             return dispensable;

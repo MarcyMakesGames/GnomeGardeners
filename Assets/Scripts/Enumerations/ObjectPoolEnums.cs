@@ -13,5 +13,9 @@ namespace GnomeGardeners
 
         PopUp_Tool_Harvester,
         PopUp_Tool_Seeding,
+
+        Plant_Sunflower,
+        Plant_Peppermint,
+        Plant_Strawberry,
     }
 }

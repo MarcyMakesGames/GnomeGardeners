@@ -16,6 +16,6 @@ namespace GnomeGardeners
         public float timeToGrow;
         public bool isHarvestable;
         public bool isPlantable;
-        public int pointValue;
+        public int points;
     }
 }

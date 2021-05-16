@@ -10,24 +10,5 @@ namespace GnomeGardeners
         protected Sprite sprite;
 
         public string Name { get => name; }
-
-
-        #region Unity Methods
-
-
-
-        #endregion
-
-        #region Public Methods
-
-
-
-        #endregion
-
-        #region Private Methods
-
-
-
-        #endregion
     }
 }

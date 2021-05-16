@@ -6,7 +6,7 @@ namespace GnomeGardeners
 {
 	public class Shovel : Tool
 	{
-		private IHoldable holdable;
+		private Seed seed;
 
         #region Unity Methods
 
@@ -25,7 +25,6 @@ namespace GnomeGardeners
         public override void UseTool(GridCell cell, Gnome gnome)
         {
             DebugLogger.Log(this, "Executing.");
-            var seed = (Plant)holdable;
 
             var occupant = cell.Occupant;
             if (occupant != null)
@@ -34,12 +33,12 @@ namespace GnomeGardeners
                 if (seed == null && occupant.TryGetComponent(out seedbag))
                 {
                     DebugLogger.Log(this, "Seed taken.");
-                    holdable = seedbag.GetRandomDispensable();
+                    seed = seedbag.GetRandomDispensable();
                 }
                 else if (seed != null && occupant.TryGetComponent(out seedbag))
                 {
                     DebugLogger.Log(this, "Seed discarded.");
-                    holdable = null;
+                    seed = null;
                 }
             }
             else if (seed != null && occupant == null)
@@ -48,9 +47,9 @@ namespace GnomeGardeners
                 if (cell.GroundType == GroundType.ArableSoil)
                 {
                     DebugLogger.Log(this, "ArableSoil found!");
-                    var seedObject = GameObject.Instantiate(seed.gameObject, cell.transform);
+                    var seedObject = GameManager.Instance.PoolController.GetObjectFromPool(cell.transform.position, Quaternion.identity, seed.plantKey);
+                    seed = null;
                     seedObject.GetComponent<Plant>().PlantSeed(cell);
-                    holdable = null;
                     GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_spade_digging, audioSource);
                 }
             }

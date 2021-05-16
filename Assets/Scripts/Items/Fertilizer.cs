@@ -8,14 +8,10 @@ namespace GnomeGardeners
     {
         public ItemType type = ItemType.Fertilizer;
 
-        [SerializeField] private float strength = 50f;
-
-        public float Strength { get => strength; }
-
         public Fertilizer()
         {
             name = "Fertilizer";
-            sprite = Resources.Load<Sprite>("compost_icon");
+            sprite = Resources.Load<Sprite>("Game World/Game Objects/compost_icon");
         }
     }
 }

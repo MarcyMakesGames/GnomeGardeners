@@ -18,8 +18,6 @@ namespace GnomeGardeners
         [SerializeField] private float dropRange = 1f;
 
         [Header("Programmers")]
-        [SerializeField] private Sprite seedSprite;
-        [SerializeField] private Sprite fertilizerSprite;
         [SerializeField] private GameObject gnomeBack;
         [SerializeField] private GameObject gnomeRight;
         [SerializeField] private GameObject gnomeFront;
@@ -155,45 +153,42 @@ namespace GnomeGardeners
         private void UpdateAnimation()
         {
             if (lookDir.y < 0)
-                SetAnimationActive(Direction.South);
+            {
+                gnomeFront.SetActive(true);
+                gnomeLeft.SetActive(false);
+                gnomeBack.SetActive(false);
+                gnomeRight.SetActive(false);
+                currentAnimator = gnomeFront.GetComponent<Animator>();
+            }
             else if (lookDir.y == 0 && lookDir.x < 0)
-                SetAnimationActive(Direction.West);
+            {
+                gnomeFront.SetActive(false);
+                gnomeLeft.SetActive(true);
+                gnomeBack.SetActive(false);
+                gnomeRight.SetActive(false);
+                currentAnimator = gnomeLeft.GetComponent<Animator>();
+            }
             else if (lookDir.y > 0)
-                SetAnimationActive(Direction.North);
+            {
+                gnomeFront.SetActive(false);
+                gnomeLeft.SetActive(false);
+                gnomeBack.SetActive(true);
+                gnomeRight.SetActive(false);
+                currentAnimator = gnomeBack.GetComponent<Animator>();
+            }
             else
-                SetAnimationActive(Direction.East);
+            {
+                gnomeFront.SetActive(false);
+                gnomeLeft.SetActive(false);
+                gnomeBack.SetActive(false);
+                gnomeRight.SetActive(true);
+                currentAnimator = gnomeRight.GetComponent<Animator>();
+            }
 
             if (moveDir.magnitude != 0)
                 currentAnimator.SetBool("IsWalking", true);
             else
                 currentAnimator.SetBool("IsWalking", false);
-        }
-
-        private void SetAnimationActive(Direction direction)
-        {
-            gnomeFront.SetActive(false);
-            gnomeLeft.SetActive(false);
-            gnomeBack.SetActive(false);
-            gnomeRight.SetActive(false);
-            switch (direction)
-            {
-                case Direction.North:
-                    gnomeBack.SetActive(true);
-                    currentAnimator = gnomeBack.GetComponent<Animator>();
-                    break;
-                case Direction.East:
-                    gnomeRight.SetActive(true);
-                    currentAnimator = gnomeRight.GetComponent<Animator>();
-                    break;
-                case Direction.South:
-                    gnomeFront.SetActive(true);
-                    currentAnimator = gnomeFront.GetComponent<Animator>();
-                    break;
-                case Direction.West:
-                    gnomeLeft.SetActive(true);
-                    currentAnimator = gnomeLeft.GetComponent<Animator>();
-                    break;
-            }
         }
 
         private void HighlightInteractionCell()
@@ -203,6 +198,7 @@ namespace GnomeGardeners
             GameManager.Instance.GridManager.HighlightTile(interactionCell.GridPosition, previousGridPosition);
             previousGridPosition = interactionCell.GridPosition;
         }
+
         private void PlayFootstepSound()
         {
             if (moveDir.magnitude != 0f)
