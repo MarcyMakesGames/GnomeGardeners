@@ -18,8 +18,8 @@ namespace GnomeGardeners
 
         public override void Interact(Tool tool)
         {
-            if (tool == null)
-                Equip();
+            throw new System.NotImplementedException();
+
         }
 
         public override void UseTool(GridCell cell, GnomeController gnome)

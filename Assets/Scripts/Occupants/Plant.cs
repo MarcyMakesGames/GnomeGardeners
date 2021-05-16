@@ -159,7 +159,7 @@ namespace GnomeGardeners
 
         private void CheckNeedPopUp()
         {
-            if (popUp == null && currentStage.need.isFulfilled)
+            if (popUp == null && !currentStage.need.isFulfilled)
                 GetPopUp(currentStage.need.popUpType);
 
             else if (popUp != null && currentStage.need.isFulfilled)

@@ -7,8 +7,6 @@ namespace GnomeGardeners
 {
     public abstract class Tool : Occupant
     {
-        private bool debug = false;
-
         private bool isEquipped;
 
         protected AudioSource audioSource;
