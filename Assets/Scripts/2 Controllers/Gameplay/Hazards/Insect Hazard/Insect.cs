@@ -194,7 +194,7 @@ namespace GnomeGardeners
             {
                 currentCell.RemoveCellOccupant();
                 Destroy(gameObject);
-                Log("Shooed Away");
+                DebugLogger.Log(this, "Shooed Away");
             }
         }
 
@@ -226,7 +226,7 @@ namespace GnomeGardeners
 
             isSearchingPlant = false;
             isMovingToPlant = true;
-            Log("Found target Plant");
+            DebugLogger.Log(this, "Found target Plant");
         }
 
         private void MoveToTarget(GridCell targetCell)
@@ -283,7 +283,7 @@ namespace GnomeGardeners
             nextCell = gridManager.GetGridCell(nextGridPositionProbe);
             if (nextCell.Occupant != null)
             {
-                Log("Cannot move to occupied tile.");
+                DebugLogger.Log(this, "Cannot move to occupied tile.");
                 return;
             }
             direction = randomDirection;
@@ -311,7 +311,7 @@ namespace GnomeGardeners
             {
                 timeAtReachedPlant = GameManager.Instance.Time.ElapsedTime;
                 isEating = true;
-                Log("Reached target Plant");
+                DebugLogger.Log(this, "Reached target Plant");
             }
 
             if (GameManager.Instance.Time.ElapsedTime > timeAtReachedPlant + timeToEatPlant)
@@ -327,7 +327,7 @@ namespace GnomeGardeners
                 targetCell = gridManager.GetClosestCell(despawnLocation);
                 targetGridPosition = targetCell.GridPosition;
                 isEating = false;
-                Log("Ate Plant");
+                DebugLogger.Log(this, "Ate Plant");
             }
         }
         private void UpdateAnimation()
@@ -375,7 +375,7 @@ namespace GnomeGardeners
             // to-do: replace with object pool
             currentCell.RemoveCellOccupant();
             Destroy(gameObject);
-            Log("Fled to exit");
+            DebugLogger.Log(this, "Fled to exit");
 
         }
 
@@ -388,18 +388,6 @@ namespace GnomeGardeners
         {
             if(excludedPlants.Contains(plant))
                 excludedPlants.Remove(plant);
-        }
-
-        private void Log(string msg)
-        {
-            if (!debug) { return; }
-            Debug.Log("[Insect]: " + msg);
-        }
-
-        private void LogWarning(string msg)
-        {
-            if (!debug) { return; }
-            Debug.LogWarning("[Insect]: " + msg);
         }
 
         #endregion

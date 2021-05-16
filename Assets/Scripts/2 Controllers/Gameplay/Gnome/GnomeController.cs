@@ -278,26 +278,26 @@ namespace GnomeGardeners
 
         private void OnInputEquipUnequip(CallbackContext context)
         {
-            Log("Equip/Unequip action triggered.");
+            DebugLogger.Log(this, "Equip/Unequip action triggered.");
             if (context.performed)
             {
                 EquipUnequip(interactionCell);
-                Log("Equip/Unequip action executed.");
+                DebugLogger.Log(this, "Equip/Unequip action executed.");
             }
         }
 
         private void OnInputUseTool(CallbackContext context)
         {
-            Log("Use tool action triggered.");
+            DebugLogger.Log(this, "Use tool action triggered.");
             if (context.performed)
             {
                 UseTool(interactionCell);
-                Log("Use tool action executed.");
+                DebugLogger.Log(this, "Use tool action executed.");
             }
         }
         private void OnInputEscape(CallbackContext context)
         {
-            Log("Escape action triggered.");
+            DebugLogger.Log(this, "Escape action triggered.");
             if (context.performed)
             {
                 var activeInGamePanel = GameManager.Instance.SceneController.ActiveInGameUI;
@@ -310,7 +310,7 @@ namespace GnomeGardeners
                     activeInGamePanel = InGameUIMode.HUD;
                 }
                 GameManager.Instance.SceneController.ActiveInGameUI = activeInGamePanel;
-                Log("Escape action executed.");
+                DebugLogger.Log(this, "Escape action executed.");
             }
         }
 
@@ -334,7 +334,7 @@ namespace GnomeGardeners
 
         private void UseTool(GridCell cell)
         {
-            Log("Using Tool.");
+            DebugLogger.Log(this, "Using Tool.");
             var occupant = cell.Occupant;
 
             if (tool != null) // note: tool equipped and interacting on cell
@@ -361,7 +361,7 @@ namespace GnomeGardeners
 
             if(tool != null && occupant != null)
             {
-                Log("Cannot drop tool on occupied tile.");
+                DebugLogger.Log(this, "Cannot drop tool on occupied tile.");
             }
             else if (tool != null && occupant == null)
             {
@@ -432,12 +432,6 @@ namespace GnomeGardeners
             // toolRenderer.sprite = null;
             // itemRenderer.sprite = null;
             tool = null;
-        }
-
-        private void Log(string msg)
-        {
-            if (debug)
-                Debug.Log("[GnomeController]: " + playerConfig.Input.playerIndex + " " + msg);
         }
 
         #endregion

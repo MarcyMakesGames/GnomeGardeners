@@ -55,7 +55,7 @@ namespace GnomeGardeners
 
         public void SetPanelActive(int panelIndex)
         {
-            Log("Activated " + panelIndex);
+            DebugLogger.Log(this, "Activated " + panelIndex);
             switch (panelIndex)
             {
                 case 0:
@@ -140,12 +140,6 @@ namespace GnomeGardeners
             transition.SetTrigger("FadeOut");
 
             yield break;
-        }
-
-        private void Log(string msg)
-        {
-            if (!debug) { return; }
-            Debug.Log("[MainMenuController]: " + msg);
         }
 
         #endregion

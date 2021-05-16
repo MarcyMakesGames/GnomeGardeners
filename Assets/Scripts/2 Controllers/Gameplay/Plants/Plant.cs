@@ -47,7 +47,6 @@ namespace GnomeGardeners
 
         private void Start()
         {
-            Log("Debugging");
             AssignOccupant();
         }
 
@@ -92,11 +91,11 @@ namespace GnomeGardeners
         {
             if(type != currentStage.need.type)
             {
-                Log("Incorrect need type.");
+                DebugLogger.Log(this, "Incorrect need type.");
                 return;
             }
 
-            Log("Adding" + amount.ToString() + " to need value.");
+            DebugLogger.Log(this, "Adding" + amount.ToString() + " to need value.");
             currentNeedValue += amount;
 
             if(currentNeedValue >= currentStage.need.threshold)
@@ -135,7 +134,7 @@ namespace GnomeGardeners
 
             if (!isOnArableGround) { return; }
 
-            LogUpdate("Tries Growing on arable ground.");
+            DebugLogger.LogUpdate(this, "Tries Growing on arable ground.");
             currentGrowTime = GameManager.Instance.Time.GetTimeSince(lastStageTimeStamp) * species.growMultiplier;
 
             if (currentGrowTime >= currentStage.timeToFulfillNeed)
@@ -163,7 +162,7 @@ namespace GnomeGardeners
 
         private void AdvanceToDecayedStage()
         {
-            Log("Grew into decayed stage.");
+            DebugLogger.Log(this, "Grew into decayed stage.");
             currentStage = species.decayedStage;
             lastStageTimeStamp = GameManager.Instance.Time.ElapsedTime;
             spriteRenderer.sprite = species.decayedStage.sprite;
@@ -179,7 +178,7 @@ namespace GnomeGardeners
 
         private void AdvanceStages()
         {
-            Log("Grew into stage: " + currentStage.specifier.ToString());
+            DebugLogger.Log(this, "Grew into stage: " + currentStage.specifier.ToString());
             var currentStageIndex = species.stages.IndexOf(currentStage);
             currentStage = species.NextStage(currentStageIndex);
             lastStageTimeStamp = GameManager.Instance.Time.ElapsedTime;
@@ -209,7 +208,7 @@ namespace GnomeGardeners
         {
             if(occupyingCell.GroundType == GroundType.ArableSoil)
             {
-                Log("Found Arable Ground!");
+                DebugLogger.Log(this, "Found Arable Ground!");
                 isOnArableGround = true;
                 lastStageTimeStamp = GameManager.Instance.Time.ElapsedTime;
             }
@@ -229,7 +228,7 @@ namespace GnomeGardeners
             if (species.stages.Count > 0)
                 currentStage = species.stages[0];
             else
-                LogWarning("Plant.cs: Species not selected or set-up.");
+                DebugLogger.LogWarning(this, "Plant.cs: Species not selected or set-up.");
             isOnArableGround = false;
             spriteRenderer.sprite = currentStage.sprite;
             name = currentStage.name+" "+species.name;
@@ -246,34 +245,13 @@ namespace GnomeGardeners
 
         private void Dispose()
         {
-            Log("Being disposed of.");
+            DebugLogger.Log(this, "Being disposed of.");
             ClearPopUp();
             spriteRenderer.sprite = null;
             name = species.name;
             currentStage = null;
             OnTileChanged.OnEventRaised -= CheckOccupyingCell;
             OnTileChanged.OnEventRaised -= CheckArableGround;
-        }
-
-        private void Log(string msg)
-        {
-            if (!debug) { return; }
-            Debug.Log("[Plant]: " + msg);
-        }
-
-        private void LogWarning(string msg)
-        {
-            if (!debug) { return; }
-            Debug.LogWarning("[Plant]: " + msg);
-        }
-
-        private void LogUpdate(string msg)
-        {
-            if (!debug) { return; }
-            if(Time.time % 3f <= Time.deltaTime)
-            {
-                Debug.Log("[Plant]: " + msg);
-            }
         }
 
         private void GetPopUp(PoolKey popUpType)

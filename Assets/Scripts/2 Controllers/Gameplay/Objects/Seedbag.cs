@@ -23,7 +23,7 @@ namespace GnomeGardeners
         #region Public Methods
         public void Interact(Tool tool = null)
         {
-            Log("Interacting.");
+            DebugLogger.Log(this, "Interacting.");
             if (tool != null)
             {
                 DispenseItem(tool);
@@ -46,28 +46,17 @@ namespace GnomeGardeners
 
         private void DispenseItem(Tool tool)
         {
-            Log("Dispensing.");
+            DebugLogger.Log(this, "Dispensing.");
             var randomIndex = Random.Range(0, dispensables.Length);
             var randomDispensable = dispensables[randomIndex];
             tool.heldItem = randomDispensable.GetComponent<IHoldable>();
             GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_seedbag_dispense, GetComponent<AudioSource>());
-            Log(randomDispensable.ToString());
+            DebugLogger.Log(this, randomDispensable.ToString());
         }
 
         private void DispenseItem(Vector2Int dropLocation)
         {
             throw new System.NotImplementedException();
-        }
-
-        private void Log(string msg)
-        {
-            if (!debug) { return; }
-            Debug.Log("[CoreObjectDispenser]: " + msg);
-        }
-        private void LogWarning(string msg)
-        {
-            if (!debug) { return; }
-            Debug.LogWarning("[CoreObjectDispenser]: " + msg);
         }
 
         #endregion

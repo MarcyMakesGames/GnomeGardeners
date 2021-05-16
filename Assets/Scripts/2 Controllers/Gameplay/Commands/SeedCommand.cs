@@ -10,34 +10,34 @@ namespace GnomeGardeners
 
         public void Execute(GridCell cell, Tool tool, GnomeController gnome)
         {
-            Log("Executing.");
+            DebugLogger.Log(this, "Executing.");
             var seed = (Plant)tool.heldItem;
 
             var occupant = cell.Occupant;
             if (occupant != null)
             {
-                Log("Occupant found!");
+                DebugLogger.Log(this, "Occupant found!");
                 var associatedObject = occupant.AssociatedObject;
                 var seedBag = associatedObject.GetComponent<Seedbag>();
                 if (seed == null && seedBag != null)
                 {
-                    Log("Seedbag found!");
+                    DebugLogger.Log(this, "Seedbag found!");
                     seedBag.Interact(tool);
                     gnome.SetItemSpriteToSeed(); 
                 }
                 else if (seed != null && seedBag != null)
                 {
-                    Log("Seed discarded.");
+                    DebugLogger.Log(this, "Seed discarded.");
                     tool.heldItem = null;
                     gnome.RemoveItemSprite();
                 }
             }
             else if(seed != null && occupant == null)
             {
-                Log("Seed in hand and no occupant found!");
+                DebugLogger.Log(this, "Seed in hand and no occupant found!");
                 if (cell.GroundType == GroundType.ArableSoil)
                 {
-                    Log("ArableSoil found!");
+                    DebugLogger.Log(this, "ArableSoil found!");
                     var seedObject = GameObject.Instantiate(seed.gameObject, cell.transform);
                     seedObject.GetComponent<Plant>().PlantSeed(cell);
                     gnome.RemoveItemSprite();
@@ -45,18 +45,6 @@ namespace GnomeGardeners
                     GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_spade_digging, tool.AudioSource);
                 }
             }
-        }
-
-        private void Log(string msg)
-        {
-            if(debug)
-                Debug.Log("[SeedCommand]: " + msg);
-        }
-
-        private void LogWarning(string msg)
-        {
-            if(debug)
-                Debug.LogWarning("[SeedCommand]: " + msg);
         }
     }
 }

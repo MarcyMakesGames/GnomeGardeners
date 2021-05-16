@@ -38,19 +38,19 @@ namespace GnomeGardeners
             {
                 case ToolType.Preparing:
                     use = new PrepareCommand();
-                    Log("Preparing Tool initialized.");
+                    DebugLogger.Log(this, "Preparing Tool initialized.");
                     break;
                 case ToolType.Seeding:
                     use = new SeedCommand();
-                    Log("Seeding Tool initialized.");
+                    DebugLogger.Log(this, "Seeding Tool initialized.");
                     break;
                 case ToolType.Watering:
                     use = new WaterCommand();
-                    Log("Watering Tool initialized.");
+                    DebugLogger.Log(this, "Watering Tool initialized.");
                     break;
                 case ToolType.Harvesting:
                     use = new HarvestCommand();
-                    Log("Harvesting Tool initialized.");
+                    DebugLogger.Log(this, "Harvesting Tool initialized.");
                     break;
             }
 
@@ -82,7 +82,7 @@ namespace GnomeGardeners
 
             PlayUnequipSound(cell.GroundType);
 
-            Log("Unequipped " + type.ToString() + " Tool");
+            DebugLogger.Log(this, "Unequipped " + type.ToString() + " Tool");
         }
 
 
@@ -98,7 +98,7 @@ namespace GnomeGardeners
             isEquipped = true;
             cell.RemoveCellOccupant();
 
-            Log("Equipped " + type.ToString() + " Tool");
+            DebugLogger.Log(this, "Equipped " + type.ToString() + " Tool");
         }
 
         public void AssignOccupant()
@@ -128,18 +128,6 @@ namespace GnomeGardeners
 
                     break;
             }
-        }
-
-        private void Log(string msg)
-        {
-            if (debug)
-                Debug.Log("[Tool]: " + msg);
-        }
-
-        private void LogWarning(string msg)
-        {
-            if (debug)
-                Debug.LogWarning("[Tool]: " + msg);
         }
 
         #endregion

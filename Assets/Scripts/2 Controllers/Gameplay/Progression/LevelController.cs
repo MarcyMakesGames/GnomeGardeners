@@ -44,7 +44,7 @@ namespace GnomeGardeners
 
             OnLevelStartEvent.RaiseEvent();
 
-            Log("Level Start.");
+            DebugLogger.Log(this, "Level Start.");
         }
 
         private void Update()
@@ -86,7 +86,7 @@ namespace GnomeGardeners
                 GameManager.Instance.LevelManager.lastTotalScore = totalScore;
                 GameManager.Instance.LevelManager.lastRequiredScore = requiredScore;
                 OnLevelWinEvent.RaiseEvent();
-                Log("Level won!");
+                DebugLogger.Log(this, "Level won!");
             }
         }
 
@@ -97,14 +97,8 @@ namespace GnomeGardeners
                 GameManager.Instance.LevelManager.lastTotalScore = totalScore;
                 GameManager.Instance.LevelManager.lastRequiredScore = requiredScore;
                 OnLevelLoseEvent.RaiseEvent();
-                Log("Level lost!");
+                DebugLogger.Log(this, "Level lost!");
             }
-        }
-
-        private void Log(string msg)
-        {
-            if (!debug) { return; }
-            Debug.Log("[LevelController]: " + msg);
         }
 
         #endregion

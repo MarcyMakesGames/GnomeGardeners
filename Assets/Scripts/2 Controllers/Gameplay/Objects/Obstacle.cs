@@ -51,7 +51,7 @@ namespace GnomeGardeners
 
         public void Interact(Tool tool = null)
         {
-            Log("Being interacted with.");
+            DebugLogger.Log(this, "Being interacted with.");
             if (!canBeRemoved) { return; }
             if (tool == null) { return; }
             if (tool.Type == removeTool)
@@ -65,7 +65,7 @@ namespace GnomeGardeners
                     gameObject.SetActive(false);
                     var gridPosition = GameManager.Instance.GridManager.GetClosestCell(transform.position).GridPosition;
                     GameManager.Instance.GridManager.ChangeTileOccupant(gridPosition, null);
-                    Log("Obstacle removed.");
+                    DebugLogger.Log(this, "Obstacle removed.");
                     GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_rock_breaking, audioSource);
                 }
             }
@@ -74,15 +74,6 @@ namespace GnomeGardeners
         public void AssignOccupant()
         {
             cell.AddCellOccupant(this);
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private void Log(string msg)
-        {
-            Debug.Log("[Obstacle]: " + msg);
         }
 
         #endregion

@@ -11,16 +11,16 @@ namespace GnomeGardeners
 
         public void Execute(GridCell cell, Tool tool, GnomeController gnome)
         {
-            Log("Executing");
+            DebugLogger.Log(this, "Executing");
             var occupant = cell.Occupant;
             if (occupant != null)
             {
-                Log("Occupant found!");
+                DebugLogger.Log(this, "Occupant found!");
                 var associatedObject = occupant.AssociatedObject;
                 var obstacle = associatedObject.GetComponent<Obstacle>();
                 if(obstacle != null )
                 {
-                    Log("Obstacle found!");
+                    DebugLogger.Log(this, "Obstacle found!");
                     obstacle.Interact(tool);
                 }
             }
@@ -29,18 +29,6 @@ namespace GnomeGardeners
             {
                 GameManager.Instance.GridManager.ChangeTile(cell.GridPosition, GroundType.ArableSoil);
             }
-        }
-
-        private void Log(string msg)
-        {
-            if (debug)
-                Debug.Log("[PrepareCommand]: " + msg);
-        }
-
-        private void LogWarning(string msg)
-        {
-            if (debug)
-                Debug.LogWarning("[PrepareCommand]: " + msg);
         }
     }
 }

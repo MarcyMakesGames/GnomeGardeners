@@ -26,7 +26,7 @@ namespace GnomeGardeners
 
         public void Interact(Tool tool = null)
         {
-            Log("Interacting.");
+            DebugLogger.Log(this, "Interacting.");
             if (tool != null && tool.Type == ToolType.Harvesting)
             {
                 DispenseItem(tool);
@@ -40,9 +40,9 @@ namespace GnomeGardeners
 
         public void DispenseItem(Tool tool)
         {
-            Log("Dispensing.");
+            DebugLogger.Log(this, "Dispensing.");
             tool.heldItem = Dispensable;
-            Log(dispensable.name);
+            DebugLogger.Log(this, dispensable.name);
         }
 
         public void DispenseItem(Vector2Int dropLocation)
@@ -53,21 +53,6 @@ namespace GnomeGardeners
         public void AddScore(int score)
         {
             throw new System.NotImplementedException();
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private void Log(string msg)
-        {
-            if (!debug) { return; }
-            Debug.Log("[Compost]: " + msg);
-        }
-        private void LogWarning(string msg)
-        {
-            if (!debug) { return; }
-            Debug.LogWarning("[Compost]: " + msg);
         }
 
         #endregion

@@ -10,7 +10,7 @@ namespace GnomeGardeners
         private bool debug = false;
         public void Execute(GridCell cell, Tool tool, GnomeController gnome)
         {
-            Log("Executing");
+            DebugLogger.Log(this, "Executing");
             var occupant = cell.Occupant;
             if(occupant == null)
             {
@@ -28,18 +28,6 @@ namespace GnomeGardeners
             {
                 insect.IncrementShooedCount();
             }
-        }
-
-        private void Log(string msg)
-        {
-            if (!debug) { return; }
-            Debug.Log("[WaterCommand]: " + msg);
-        }
-
-        private void LogWarning(string msg)
-        {
-            if (!debug) { return; }
-            Debug.LogWarning("[WaterCommand]: " + msg);
         }
     }
 }

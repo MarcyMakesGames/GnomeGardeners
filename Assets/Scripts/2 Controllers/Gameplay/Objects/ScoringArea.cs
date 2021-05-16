@@ -38,7 +38,7 @@ namespace GnomeGardeners
 
         public void Interact(Tool tool = null)
         {
-            Log("Interacted with scoring area");
+            DebugLogger.Log(this, "Interacted with scoring area");
             var harvest = (Plant)tool.heldItem;
             if (harvest == null) { return; }
 
@@ -50,7 +50,7 @@ namespace GnomeGardeners
                 // AddSprite(harvestStage.sprite);
                 ++plantCount;
                 GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_basket_receive, basketSource);
-                Log("Delivered plant");
+                DebugLogger.Log(this, "Delivered plant");
             }
         }
 
@@ -64,12 +64,6 @@ namespace GnomeGardeners
         private void AddSprite(Sprite sprite)
         {
             plants[plantCount] = sprite;
-        }
-
-        private void Log(string msg)
-        {
-            if (!debug) { return; }
-            Debug.Log("[ScoringArea]: " + msg);
         }
 
         #endregion
