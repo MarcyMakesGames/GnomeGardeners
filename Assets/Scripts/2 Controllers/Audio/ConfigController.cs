@@ -1,42 +1,45 @@
 using UnityEngine;
 
-public class ConfigController : MonoBehaviour
+namespace GnomeGardeners
 {
-    private float masterVolume = 1f;
-    private float musicVolume = 1f;
-    private float soundVolume = 1f;
-    private float ambienceVolume = 1f;
-
-    public float MasterVolume { get => masterVolume; set => masterVolume = value; }
-    public float MusicVolume { get => musicVolume; set => musicVolume = value; }
-    public float SoundVolume { get => soundVolume; set => soundVolume = value; }
-    public float AmbienceVolume { get => ambienceVolume; set => ambienceVolume = value; }
-
-    private void Awake()
+    public class ConfigController : MonoBehaviour
     {
-        if (GameManager.Instance.ConfigController == null)
+        private float masterVolume = 1f;
+        private float musicVolume = 1f;
+        private float soundVolume = 1f;
+        private float ambienceVolume = 1f;
+
+        public float MasterVolume { get => masterVolume; set => masterVolume = value; }
+        public float MusicVolume { get => musicVolume; set => musicVolume = value; }
+        public float SoundVolume { get => soundVolume; set => soundVolume = value; }
+        public float AmbienceVolume { get => ambienceVolume; set => ambienceVolume = value; }
+
+        private void Awake()
         {
-            GameManager.Instance.ConfigController = this;
+            if (GameManager.Instance.ConfigController == null)
+            {
+                GameManager.Instance.ConfigController = this;
+            }
+
+            masterVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
+            musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
+            soundVolume = PlayerPrefs.GetFloat("SoundVolume", 1f);
+            ambienceVolume = PlayerPrefs.GetFloat("AmbienceVolume", 1f);
         }
 
-        masterVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
-        musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
-        soundVolume = PlayerPrefs.GetFloat("SoundVolume", 1f);
-        ambienceVolume = PlayerPrefs.GetFloat("AmbienceVolume", 1f);
-    }
+        private void OnApplicationQuit()
+        {
+            PlayerPrefs.SetFloat("MasterVolume", masterVolume);
+            PlayerPrefs.SetFloat("MusicVolume", musicVolume);
+            PlayerPrefs.SetFloat("SoundVolume", soundVolume);
+            PlayerPrefs.SetFloat("AmbienceVolume", ambienceVolume);
 
-    private void OnApplicationQuit()
-    {
-        PlayerPrefs.SetFloat("MasterVolume", masterVolume);
-        PlayerPrefs.SetFloat("MusicVolume", musicVolume);
-        PlayerPrefs.SetFloat("SoundVolume", soundVolume);
-        PlayerPrefs.SetFloat("AmbienceVolume", ambienceVolume);
+            PlayerPrefs.Save();
+        }
 
-        PlayerPrefs.Save();
-    }
-
-    public void SavePlayerPrefs()
-    {
-        PlayerPrefs.Save();
+        public void SavePlayerPrefs()
+        {
+            PlayerPrefs.Save();
+        }
     }
 }

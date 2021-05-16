@@ -2,73 +2,76 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoringArea : MonoBehaviour, IScoringArea
+namespace GnomeGardeners
 {
-    private bool debug = false;
-
-    private Sprite[] plants;
-    private int plantCount;
-    private AudioSource basketSource;
-
-    public IntEventChannelSO OnScoreAddEvent;
-
-    public Sprite[] Plants { set => plants = value; }
-    public GameObject AssociatedObject { get => gameObject; }
-
-
-
-    #region Unity Methods
-    void Start()
+    public class ScoringArea : MonoBehaviour, IScoringArea
     {
-        basketSource = GetComponent<AudioSource>();
-        AssignOccupant();
-    }
+        private bool debug = false;
 
-    #endregion
+        private Sprite[] plants;
+        private int plantCount;
+        private AudioSource basketSource;
 
-    #region Public Methods
+        public IntEventChannelSO OnScoreAddEvent;
 
-    [ContextMenu("Debug: Add Score")]
-    public void AddScore(int score)
-    {
-        OnScoreAddEvent.RaiseEvent(score);
-    }
+        public Sprite[] Plants { set => plants = value; }
+        public GameObject AssociatedObject { get => gameObject; }
 
-    public void Interact(Tool tool = null)
-    {
-        Log("Interacted with scoring area");
-        var harvest = (Plant)tool.heldItem;
-        if(harvest == null) { return; }
 
-        var harvestStage = harvest.CurrentStage;
-        if(tool.Type == ToolType.Harvesting && harvestStage != null)
+
+        #region Unity Methods
+        void Start()
         {
-            var score = harvestStage.pointValue;
-            AddScore(score);
-            // AddSprite(harvestStage.sprite);
-            ++plantCount;
-            GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_basket_receive, basketSource);
-            Log("Delivered plant");
+            basketSource = GetComponent<AudioSource>();
+            AssignOccupant();
         }
-    }
 
-    public void AssignOccupant()
-    {
-        GameManager.Instance.GridManager.ChangeTileOccupant(GameManager.Instance.GridManager.GetClosestGrid(AssociatedObject.transform.position), this);
-    }
-    #endregion
+        #endregion
 
-    #region Private Methods
-    private void AddSprite(Sprite sprite)
-    {
-        plants[plantCount] = sprite;
-    }
+        #region Public Methods
 
-    private void Log(string msg)
-    {
-        if (!debug) { return; }
-        Debug.Log("[ScoringArea]: " + msg);
-    }
+        [ContextMenu("Debug: Add Score")]
+        public void AddScore(int score)
+        {
+            OnScoreAddEvent.RaiseEvent(score);
+        }
 
-    #endregion
+        public void Interact(Tool tool = null)
+        {
+            Log("Interacted with scoring area");
+            var harvest = (Plant)tool.heldItem;
+            if (harvest == null) { return; }
+
+            var harvestStage = harvest.CurrentStage;
+            if (tool.Type == ToolType.Harvesting && harvestStage != null)
+            {
+                var score = harvestStage.pointValue;
+                AddScore(score);
+                // AddSprite(harvestStage.sprite);
+                ++plantCount;
+                GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_basket_receive, basketSource);
+                Log("Delivered plant");
+            }
+        }
+
+        public void AssignOccupant()
+        {
+            GameManager.Instance.GridManager.ChangeTileOccupant(GameManager.Instance.GridManager.GetClosestGrid(AssociatedObject.transform.position), this);
+        }
+        #endregion
+
+        #region Private Methods
+        private void AddSprite(Sprite sprite)
+        {
+            plants[plantCount] = sprite;
+        }
+
+        private void Log(string msg)
+        {
+            if (!debug) { return; }
+            Debug.Log("[ScoringArea]: " + msg);
+        }
+
+        #endregion
+    }
 }
