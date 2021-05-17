@@ -18,11 +18,15 @@ namespace GnomeGardeners
 
         public AudioMixer audioMixer;
 
-        // temp: set masterVolume to 1 on build
         private float masterVolume = 0.2f;
         private float soundVolume = 1f;
-        private float musicVolume = 0.5f;
-        private float ambienceVolume = 0.5f;
+        private float musicVolume = 1f;
+        private float ambienceVolume = 1f;
+
+        private FloatEventChannelSO OnMasterVolumeChanged;
+        private FloatEventChannelSO OnSoundVolumeChanged;
+        private FloatEventChannelSO OnMusicVolumeChanged;
+        private FloatEventChannelSO OnAmbienceVolumeChanged;
 
         public float MasterVolume { get => masterVolume; set => UpdateMasterVolume(value); }
         public float SoundVolume { get => soundVolume; set => UpdateSoundVolume(value); }
@@ -45,6 +49,11 @@ namespace GnomeGardeners
             soundSource = audioSources[0];
             musicSource = audioSources[1];
             ambienceSource = audioSources[2];
+            
+            OnMasterVolumeChanged = Resources.Load<FloatEventChannelSO>("Channels/MasterVolumeChangedEC");
+            OnSoundVolumeChanged = Resources.Load<FloatEventChannelSO>("Channels/SoundVolumeChangedEC");
+            OnMusicVolumeChanged = Resources.Load<FloatEventChannelSO>("Channels/MusicVolumeChangedEC");
+            OnAmbienceVolumeChanged = Resources.Load<FloatEventChannelSO>("Channels/AmbienceVolumeChangedEC");
         }
 
         private void Start()
@@ -54,14 +63,28 @@ namespace GnomeGardeners
             PlayMusic(bgm, true);
             musicSource.loop = true;
             ambienceSource.loop = true;
+
             UpdateMasterVolume(masterVolume);
             UpdateSoundVolume(soundVolume);
             UpdateMusicVolume(musicVolume);
             UpdateAmbienceVolume(ambienceVolume);
 
+            OnMasterVolumeChanged.OnEventRaised += UpdateMasterVolume;
+            OnSoundVolumeChanged.OnEventRaised += UpdateSoundVolume;
+            OnMusicVolumeChanged.OnEventRaised += UpdateMusicVolume;
+            OnAmbienceVolumeChanged.OnEventRaised += UpdateAmbienceVolume;
+
             MasterVolume = GameManager.Instance.ConfigController.MasterVolume;
             SoundVolume = GameManager.Instance.ConfigController.SoundVolume;
             MusicVolume = GameManager.Instance.ConfigController.MusicVolume;
+        }
+
+        private void OnDestroy()
+        {
+            OnMasterVolumeChanged.OnEventRaised -= UpdateMasterVolume;
+            OnSoundVolumeChanged.OnEventRaised -= UpdateSoundVolume;
+            OnMusicVolumeChanged.OnEventRaised -= UpdateMusicVolume;
+            OnAmbienceVolumeChanged.OnEventRaised -= UpdateAmbienceVolume;
         }
 
         #endregion
