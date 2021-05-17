@@ -19,8 +19,24 @@ namespace GnomeGardeners
 
         //public void SetGnomeSkin(int index, ISkin gnomeSkin)
         //{
-                //This is where we'd actually create a new playerConfig with the skin using the index.
+        //This is where we'd actually create a new playerConfig with the skin using the index.
         //}
+
+        private void Awake()
+        {
+            inputManager = GetComponent<PlayerInputManager>();
+
+            if (GameManager.Instance.PlayerConfigManager == null)
+            {
+                GameManager.Instance.PlayerConfigManager = this;
+                playerConfigs = new List<PlayerConfig>();
+            }
+        }
+
+        private void Update()
+        {
+            ListenJoinPlayer();
+        }
 
         public void ReadyPlayer(int index)
         {
@@ -29,12 +45,12 @@ namespace GnomeGardeners
 
         public void StartGameCheck()
         {
-            if(playerConfigs.Count >= 1 && playerConfigs.All(x => x.IsReady))
+            if (playerConfigs.Count >= 1 && playerConfigs.All(x => x.IsReady))
             {
-                if(!GameManager.Instance.DebugMenu)
+                if (!GameManager.Instance.DebugMenu)
                 {
                     var sceneToLoad = GameManager.Instance.SceneToLoad;
-                    if ( sceneToLoad == string.Empty)
+                    if (sceneToLoad == string.Empty)
                     {
                         canJoinPlayers = false;
                         GameManager.Instance.SceneController.LoadNextScene();
@@ -63,16 +79,21 @@ namespace GnomeGardeners
             }
         }
 
-        private void Update()
+        public bool AllPlayerAreReady()
         {
-            ListenJoinPlayer();
+            foreach(PlayerConfig playerConfig in playerConfigs)
+            {
+                if (!playerConfig.IsReady)
+                    return false;
+            }
+            return true;
         }
 
         private void ListenJoinPlayer()
         {
             if (canJoinPlayers && Keyboard.current.spaceKey.wasPressedThisFrame && playerCount <= maxPlayers - 1)
             {
-                switch(playerCount)
+                switch (playerCount)
                 {
                     case 0:
                         inputManager.JoinPlayer(playerCount, playerCount, "KeyboardLeft", Keyboard.current);
@@ -94,16 +115,6 @@ namespace GnomeGardeners
             }
         }
 
-        private void Awake()
-        {
-            inputManager = GetComponent<PlayerInputManager>();
 
-            if (GameManager.Instance.PlayerConfigManager == null)
-            {
-                GameManager.Instance.PlayerConfigManager = this;
-                playerConfigs = new List<PlayerConfig>();
-            }
-        }
     }
-
 }

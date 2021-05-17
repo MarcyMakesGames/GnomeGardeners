@@ -35,6 +35,16 @@ namespace GnomeGardeners
             return ElapsedTime - time;
         }
 
+        public void PauseTime()
+        {
+            pauseTimer = true;
+        }
+
+        public void ResumeTime()
+        {
+            pauseTimer = false;
+        }
+
         #endregion
 
         #region Private Methods
