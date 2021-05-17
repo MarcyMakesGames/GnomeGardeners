@@ -61,7 +61,7 @@ namespace GnomeGardeners
 
         private void Start()
         {
-        
+            base.Start();
             excludedPlants = new List<Plant>();
 
             currentCell = gridManager.GetClosestCell(transform.position);
@@ -83,7 +83,6 @@ namespace GnomeGardeners
             isFleeing = false;
 
             transform.position = currentCell.WorldPosition;
-            AssignOccupant();
 
             audioSource = GetComponent<AudioSource>();
         }
@@ -173,11 +172,6 @@ namespace GnomeGardeners
         #endregion
 
         #region Public Methods
-
-        public void AssignOccupant()
-        {
-            gridManager.ChangeTileOccupant(gridManager.GetClosestGrid(transform.position), this);
-        }
 
         public void SetFleeing()
         {
