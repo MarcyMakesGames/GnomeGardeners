@@ -8,39 +8,45 @@ namespace GnomeGardeners
 {
     public class GnomeMenuController : MonoBehaviour
     {
-        public bool debugMenu;
-
         private int PlayerIndex;
-        private GameObject canvasGroup;
 
-        [SerializeField]
-        private TextMeshProUGUI titleText;
-        [SerializeField]
-        private GameObject skinPanel;
-        [SerializeField]
-        private GameObject readyPanel;
-        [SerializeField]
-        private Button readyButton;
-        [SerializeField]
-        private TextMeshProUGUI readyText;
-        [SerializeField]
-        private Button startButton;
-        [SerializeField]
-        private Button quitButton;
+        [SerializeField] private GameObject skinPanel;
+        [SerializeField] private Button confirmButton;
+        [SerializeField] private GameObject readyPanel;
+        [SerializeField] private Button readyButton;
 
-        private float inputDelayTime = 1.5f;
+        private float inputDelayTime = 0.5f;
         private bool inputEnabled;
+
+        private void Update()
+        {
+            if (Time.time > inputDelayTime)
+                inputEnabled = true;
+
+            if (GameManager.Instance.PlayerConfigManager.AllPlayerAreReady())
+                StartGame();
+        }
 
         public void SetPlayerIndex(int index)
         {
             PlayerIndex = index;
-            titleText.SetText("Player " + (PlayerIndex + 1).ToString());
 
             inputDelayTime = Time.time + inputDelayTime;
         }
 
-        //This is purely a debug function prior to implementing gnome skins.
-        public void SetGnomeSkin(int skinIndex)
+        public void CycleGnomeSkin(bool right) 
+        {
+            if (right)
+            {
+                // gnome skin ++
+            }
+            else
+            {
+                // gnome skin --
+            }
+        }
+
+        public void ConfirmSkin()
         {
             if (!inputEnabled)
                 return;
@@ -59,12 +65,8 @@ namespace GnomeGardeners
                 return;
 
             GameManager.Instance.PlayerConfigManager.ReadyPlayer(PlayerIndex);
-            readyButton.gameObject.SetActive(false);
-            startButton.gameObject.SetActive(true);
-            quitButton.gameObject.SetActive(true);
-            readyText.gameObject.SetActive(true);
 
-            startButton.Select();
+            readyButton.GetComponent<Image>().color = Color.red;
         }
 
         public void StartGame()
@@ -75,18 +77,6 @@ namespace GnomeGardeners
         public void QuitGame()
         {
             GameManager.Instance.SceneController.QuitGame();
-        }
-
-        private void Start()
-        {
-            canvasGroup = transform.parent.gameObject;
-            debugMenu = GameManager.Instance.DebugMenu;
-        }
-
-        private void Update()
-        {
-            if (Time.time > inputDelayTime)
-                inputEnabled = true;
         }
     }
 }
