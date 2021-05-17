@@ -15,7 +15,7 @@ namespace GnomeGardeners
 
         private void Awake()
         {
-            menuLayout = GameObject.Find("Gnome Options Panel");
+            menuLayout = GameObject.Find("Player Setup Menus");
 
             if (menuLayout != null)
             {
