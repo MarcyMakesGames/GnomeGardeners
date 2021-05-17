@@ -59,11 +59,16 @@ namespace GnomeGardeners
         #endregion
 
         #region Public Methods
+        public void SetPauseMenuActive()
+        {
+            GameManager.Instance.SceneController.ActiveInGameUI = InGameUIMode.PauseMenu;
+        }
 
         public void SetHUDActive()
         {
             GameManager.Instance.SceneController.ActiveInGameUI = InGameUIMode.HUD;
         }
+
         public void SetTutorialMenuActive()
         {
             GameManager.Instance.SceneController.ActiveInGameUI = InGameUIMode.TutorialMenu;
@@ -105,23 +110,28 @@ namespace GnomeGardeners
             {
                 case InGameUIMode.HUD:
                     hud.SetActive(true);
+                    GameManager.Instance.Time.ResumeTime();
                     break;
                 case InGameUIMode.PauseMenu:
                     pauseMenu.SetActive(true);
+                    GameManager.Instance.Time.PauseTime();
                     break;
                 case InGameUIMode.SettingsMenu:
                     settingsMenu.SetActive(true);
+                    GameManager.Instance.Time.PauseTime();
                     break;
                 case InGameUIMode.TutorialMenu:
                     tutorialMenu.SetActive(true);
+                    GameManager.Instance.Time.PauseTime();
                     break;
                 case InGameUIMode.GameOverMenu:
                     gameOverMenu.SetActive(true);
+                    GameManager.Instance.Time.PauseTime();
                     break;
             }
 
             activePanel = panel;
-            Debug.Log("Set new panel active.");
+            DebugLogger.Log(this, "Set new panel active.");
         }
 
         private void DeactivateAllPanels()
