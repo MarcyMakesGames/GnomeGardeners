@@ -19,10 +19,12 @@ namespace GnomeGardeners
         private TimerUI timerUI;
         private Scoreboard scoreboardUI;
 
-        public VoidEventChannelSO OnLevelStartEvent;
-        public VoidEventChannelSO OnLevelLoseEvent;
-        public VoidEventChannelSO OnLevelWinEvent;
-        public IntEventChannelSO OnScoreAddEvent;
+        private VoidEventChannelSO OnLevelStartEvent;
+        private VoidEventChannelSO OnLevelLoseEvent;
+        private VoidEventChannelSO OnLevelWinEvent;
+        private IntEventChannelSO OnScoreAddEvent;
+        private FloatEventChannelSO OnCurrentLevelTimeEvent;
+
 
         public float RestTime { get => restTime; }
         public int TotalScore { get => totalScore; set => totalScore = value; }
@@ -31,6 +33,11 @@ namespace GnomeGardeners
 
         private void Awake()
         {
+            OnLevelStartEvent = Resources.Load<VoidEventChannelSO>("Channels/LevelStartEC");
+            OnLevelLoseEvent = Resources.Load<VoidEventChannelSO>("Channels/LevelLoseEC");
+            OnLevelWinEvent = Resources.Load<VoidEventChannelSO>("Channels/LevelWinEC");
+            OnScoreAddEvent = Resources.Load<IntEventChannelSO>("Channels/ScoreAddEC");
+            OnCurrentLevelTimeEvent = Resources.Load<FloatEventChannelSO>("Channels/CurrentLevelTimeEC");
             OnScoreAddEvent.OnEventRaised += AddToScore;
         }
 
@@ -68,9 +75,7 @@ namespace GnomeGardeners
         private void CalculateTime()
         {
             restTime = availableTime - GameManager.Instance.Time.GetTimeSince(timeAtStart);
-
-            if (timerUI != null)
-                timerUI.UpdateUI(RestTime);
+            OnCurrentLevelTimeEvent.RaiseEvent(restTime);
         }
 
         private void AddToScore(int value)
