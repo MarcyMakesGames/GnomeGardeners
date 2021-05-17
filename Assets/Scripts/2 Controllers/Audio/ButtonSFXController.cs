@@ -1,20 +1,24 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
-public class ButtonSFXController : MonoBehaviour
+namespace GnomeGardeners
 {
-    private Button button;
 
-    // Start is called before the first frame update
-    void Start()
+    [RequireComponent(typeof(Button))]
+    public class ButtonSFXController : MonoBehaviour
     {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(PlayPressSound);
-    }
+        private Button button;
 
-    private void PlayPressSound()
-    {
-        GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_button_press);
+        // Start is called before the first frame update
+        void Start()
+        {
+            button = GetComponent<Button>();
+            button.onClick.AddListener(PlayPressSound);
+        }
+
+        private void PlayPressSound()
+        {
+            GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_button_press);
+        }
     }
 }

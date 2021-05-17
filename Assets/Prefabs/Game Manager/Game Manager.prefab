@@ -790,6 +790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgm: {fileID: 8300000, guid: 9354eee0f900c2a42906353f9616e5b6, type: 3}
+  audioMixer: {fileID: 0}
 --- !u!82 &4105714204617158487
 AudioSource:
   m_ObjectHideFlags: 0
@@ -799,9 +800,9 @@ AudioSource:
   m_GameObject: {fileID: 7944892717683729293}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -31131519328745595, guid: 5899ad398054cd048a9e6778b1e8246a, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -895,9 +896,9 @@ AudioSource:
   m_GameObject: {fileID: 7944892717683729293}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7762290728307539792, guid: 5899ad398054cd048a9e6778b1e8246a, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -991,9 +992,9 @@ AudioSource:
   m_GameObject: {fileID: 7944892717683729293}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -7413058882779656614, guid: 5899ad398054cd048a9e6778b1e8246a, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1128,3 +1129,24 @@ MonoBehaviour:
   - prefab: {fileID: 2800659866162310644, guid: 446da586ead0d5746ad332675afc420a, type: 3}
     amount: 10
     key: 1
+  - prefab: {fileID: 8107983885071440429, guid: 570eee9fa5a9e574c9680e60d4e5c1d7, type: 3}
+    amount: 10
+    key: 6
+  - prefab: {fileID: 8107983885071440429, guid: 8f43ec4f4e62ca840b7d86c3230a0be9, type: 3}
+    amount: 10
+    key: 7
+  - prefab: {fileID: 8107983885071440429, guid: 848a6ffdb061528408592466573c07b1, type: 3}
+    amount: 10
+    key: 8
+  - prefab: {fileID: 2800659866162310644, guid: 446da586ead0d5746ad332675afc420a, type: 3}
+    amount: 10
+    key: 2
+  - prefab: {fileID: 2800659866162310644, guid: 50b84c298845ffb47857beb21a180545, type: 3}
+    amount: 10
+    key: 3
+  - prefab: {fileID: 2800659866162310644, guid: 9b3bc3b03d58f74428277d0bdf237abc, type: 3}
+    amount: 10
+    key: 4
+  - prefab: {fileID: 2800659866162310644, guid: a9608355bc01b5041998181b13a0a91c, type: 3}
+    amount: 10
+    key: 5
