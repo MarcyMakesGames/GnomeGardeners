@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.Experimental.U2D.Animation;
 using static UnityEngine.InputSystem.InputAction;
 
 namespace GnomeGardeners
@@ -22,6 +23,10 @@ namespace GnomeGardeners
         [SerializeField] private GameObject gnomeRight;
         [SerializeField] private GameObject gnomeFront;
         [SerializeField] private GameObject gnomeLeft;
+        [SerializeField] private SpriteResolver gnomeBackResolver;
+        [SerializeField] private SpriteResolver gnomeRightResolver;
+        [SerializeField] private SpriteResolver gnomeFrontResolver;
+        [SerializeField] private SpriteResolver gnomeLeftResolver;
 
         private Tool tool;
         private float moveSpeed;
@@ -301,6 +306,7 @@ namespace GnomeGardeners
                 var dropCell = GameManager.Instance.GridManager.GetClosestCell(dropPosition);
                 tool.Unequip(dropCell);
                 tool = null;
+                // SetAllResolvers("Tools", "None");
             }
             else if (tool == null && occupant != null)
             {
@@ -309,8 +315,17 @@ namespace GnomeGardeners
                 {
                     tool = toolOnGround;
                     toolOnGround.Equip();
+
                 }
             }
+        }
+
+        private void SetAllResolvers(string category, string label)
+        {
+            gnomeBackResolver.SetCategoryAndLabel(category, label);
+            gnomeFrontResolver.SetCategoryAndLabel(category, label);
+            gnomeRightResolver.SetCategoryAndLabel(category, label);
+            gnomeLeftResolver.SetCategoryAndLabel(category, label);
         }
 
         #endregion

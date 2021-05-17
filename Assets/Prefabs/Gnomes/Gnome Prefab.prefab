@@ -174,6 +174,10 @@ MonoBehaviour:
   gnomeRight: {fileID: 1071080865974854499}
   gnomeFront: {fileID: 2095433250438232553}
   gnomeLeft: {fileID: 1322425669247983231}
+  gnomeBackResolver: {fileID: 0}
+  gnomeRightResolver: {fileID: 828979834286836632}
+  gnomeFrontResolver: {fileID: 8206304997850418943}
+  gnomeLeftResolver: {fileID: 3492722525520007091}
 --- !u!82 &8407920198397822580
 AudioSource:
   m_ObjectHideFlags: 0
@@ -323,7 +327,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5286004483507846756, guid: 327b437a055c9534abe19f53db3be79d, type: 3}
       propertyPath: m_Name
-      value: gnome1_back_tools
+      value: Back
       objectReference: {fileID: 0}
     - target: {fileID: -5286004483507846756, guid: 327b437a055c9534abe19f53db3be79d, type: 3}
       propertyPath: m_IsActive
@@ -858,7 +862,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4560977390188945292, guid: a599121bfe557404ca4c27df147a2604, type: 3}
       propertyPath: m_Name
-      value: gnome1_facing_left_tools
+      value: Left
       objectReference: {fileID: 0}
     - target: {fileID: 4560977390188945292, guid: a599121bfe557404ca4c27df147a2604, type: 3}
       propertyPath: m_IsActive
@@ -1004,6 +1008,10 @@ PrefabInstance:
       propertyPath: m_Bounds.m_Extent.z
       value: 0.0000000015079487
       objectReference: {fileID: 0}
+    - target: {fileID: 8283748246365914828, guid: a599121bfe557404ca4c27df147a2604, type: 3}
+      propertyPath: m_Name
+      value: Tools
+      objectReference: {fileID: 0}
     - target: {fileID: 8841142665359059209, guid: a599121bfe557404ca4c27df147a2604, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.26245221
@@ -1048,6 +1056,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -2667230882918375916, guid: a599121bfe557404ca4c27df147a2604, type: 3}
   m_PrefabInstance: {fileID: 3247636182400401907}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3492722525520007091 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2119312266201304640, guid: a599121bfe557404ca4c27df147a2604, type: 3}
+  m_PrefabInstance: {fileID: 3247636182400401907}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3742928279643466530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1115,6 +1134,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5156430584275754822, guid: cbd7b63f1206d894f86c17897a3a7401, type: 3}
+      propertyPath: m_labelHash
+      value: 0.000005658159
+      objectReference: {fileID: 0}
     - target: {fileID: -1208994215023450933, guid: cbd7b63f1206d894f86c17897a3a7401, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.3029319
@@ -1170,6 +1193,10 @@ PrefabInstance:
     - target: {fileID: -1151091459808726644, guid: cbd7b63f1206d894f86c17897a3a7401, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1069232506145042052, guid: cbd7b63f1206d894f86c17897a3a7401, type: 3}
+      propertyPath: m_Name
+      value: Tools
       objectReference: {fileID: 0}
     - target: {fileID: -502260569729946613, guid: cbd7b63f1206d894f86c17897a3a7401, type: 3}
       propertyPath: m_Bounds.m_Center.x
@@ -1273,7 +1300,7 @@ PrefabInstance:
       objectReference: {fileID: 1669332529149233931}
     - target: {fileID: 4408095150032521281, guid: cbd7b63f1206d894f86c17897a3a7401, type: 3}
       propertyPath: m_Name
-      value: gnome1_facing_right_tool
+      value: Right
       objectReference: {fileID: 0}
     - target: {fileID: 4408095150032521281, guid: cbd7b63f1206d894f86c17897a3a7401, type: 3}
       propertyPath: m_IsActive
@@ -1436,6 +1463,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -6567615605647056855, guid: cbd7b63f1206d894f86c17897a3a7401, type: 3}
   m_PrefabInstance: {fileID: 3742928279643466530}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &828979834286836632 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -5156430584275754822, guid: cbd7b63f1206d894f86c17897a3a7401, type: 3}
+  m_PrefabInstance: {fileID: 3742928279643466530}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8251726860406654713
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1649,7 +1687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8039062414190133008, guid: 8baca6f5963871647bb746c2856c7aea, type: 3}
       propertyPath: m_Name
-      value: gnome1_front_color
+      value: Front
       objectReference: {fileID: 0}
     - target: {fileID: 8039062414190133008, guid: 8baca6f5963871647bb746c2856c7aea, type: 3}
       propertyPath: m_IsActive
@@ -1691,3 +1729,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -356789115946690689, guid: 8baca6f5963871647bb746c2856c7aea, type: 3}
   m_PrefabInstance: {fileID: 8251726860406654713}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8206304997850418943 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -8978309352620980218, guid: 8baca6f5963871647bb746c2856c7aea, type: 3}
+  m_PrefabInstance: {fileID: 8251726860406654713}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
