@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
@@ -17,6 +19,7 @@ namespace GnomeGardeners
         [SerializeField] private float speedUpTime = .5f;
         [SerializeField] private float interactRange = 1f;
         [SerializeField] private float dropRange = 1f;
+        [SerializeField] private int inputFramesCapacity = 10;
 
         [Header("Programmers")]
         [SerializeField] private GameObject gnomeBack;
@@ -44,6 +47,8 @@ namespace GnomeGardeners
         private GroundType currentGroundType;
         private Vector2Int previousGridPosition;
 
+        private Queue<Vector2> inputFrames;
+
         #region Unity Methods
 
         private void Awake()
@@ -54,6 +59,9 @@ namespace GnomeGardeners
             receiveGameInput = true;
             previousGridPosition = new Vector2Int();
             moveDir = Vector2.zero;
+            inputFrames = new Queue<Vector2>(inputFramesCapacity);
+            for (int i = 0; i < inputFramesCapacity; ++i)
+                inputFrames.Enqueue(Vector2.zero);
         }
 
         private void Start()
@@ -78,6 +86,8 @@ namespace GnomeGardeners
                 moveSpeed = pathSpeed;
 
             Move();
+
+            CalculateLookDir();
         }
 
         private void Update()
@@ -86,6 +96,15 @@ namespace GnomeGardeners
             HighlightInteractionCell();
             UpdateAnimation();
             PlayFootstepSound();
+        }
+
+        void OnDrawGizmosSelected()
+        {
+            if(inputFrames != null)
+            {
+                foreach(Vector2 vector in inputFrames)
+                    Gizmos.DrawLine(transform.position, transform.position + (Vector3)vector);
+            }
         }
 
         #endregion
@@ -264,11 +283,11 @@ namespace GnomeGardeners
             GameManager.Instance.SceneController.ActiveInGameUI = activeInGamePanel;
         }
 
+
+
         private void Move()
         {
-            if (moveDir != Vector2.zero)
-                lookDir = moveDir;
-            else
+            if (moveDir == Vector2.zero)
             {
                 currentSpeedUpTimer = 0f;
                 rigidBody.velocity = Vector2.zero;
@@ -280,6 +299,20 @@ namespace GnomeGardeners
             {
                 rigidBody.velocity = ((Vector3)moveDir * moveSpeed);
             }
+        }
+
+        private void CalculateLookDir()
+        {
+            if (moveDir == Vector2.zero) return;
+
+            inputFrames.Enqueue(moveDir);
+            inputFrames.Dequeue();
+
+            Vector2[] vectors = new Vector2[inputFramesCapacity];
+            vectors = inputFrames.ToArray();
+            lookDir = new Vector2(
+            vectors.Average(x => x.x),
+            vectors.Average(x => x.y));
         }
 
         private void UseTool(GridCell cell)
