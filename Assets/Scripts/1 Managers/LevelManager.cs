@@ -3,34 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelManager : MonoBehaviour
+namespace GnomeGardeners
 {
-    /* 
-     * The level manager handles scores and other level specific data across scenes.
-     */
 
-    public int lastTotalScore;
-    public int lastRequiredScore;
-
-
-
-    #region Unity Methods
-    private void Awake()
+    public class LevelManager : MonoBehaviour
     {
-        if (GameManager.Instance.LevelManager == null)
+        /* 
+         * The level manager handles scores and other level specific data across scenes.
+         */
+
+        public int lastTotalScore;
+        public int lastRequiredScore;
+
+
+
+        #region Unity Methods
+        private void Awake()
         {
-            Configure();
+            if (GameManager.Instance.LevelManager == null)
+            {
+                Configure();
+            }
+
         }
 
+        #endregion
+
+        #region Private Methods
+        private void Configure()
+        {
+            GameManager.Instance.LevelManager = this;
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Private Methods
-    private void Configure()
-    {
-        GameManager.Instance.LevelManager = this;
-    }
-
-    #endregion
 }

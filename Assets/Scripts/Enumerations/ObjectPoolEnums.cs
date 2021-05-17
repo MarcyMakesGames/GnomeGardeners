@@ -2,9 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PoolKey
+namespace GnomeGardeners
 {
-    PopUp_Water,
-    PopUp_Fertilizer,
-    PopUp_Pest,
+    public enum PoolKey
+    {
+        PopUp_Water,
+        PopUp_Fertilizer,
+        PopUp_Pest,
+        PopUp_Recycle,
+
+        PopUp_Tool_Harvester,
+        PopUp_Tool_Seeding,
+
+        Plant_Sunflower,
+        Plant_Peppermint,
+        Plant_Strawberry,
+    }
 }

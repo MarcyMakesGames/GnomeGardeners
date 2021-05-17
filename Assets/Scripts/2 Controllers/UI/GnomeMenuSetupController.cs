@@ -4,22 +4,25 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 
-public class GnomeMenuSetupController : MonoBehaviour
+namespace GnomeGardeners
 {
-    public GameObject setupMenuPrefab;
-    public PlayerInput input;
-
-    private GameObject menuLayout;
-
-    private void Awake()
+    public class GnomeMenuSetupController : MonoBehaviour
     {
-        menuLayout = GameObject.Find("Gnome Options Panel");
+        public GameObject setupMenuPrefab;
+        public PlayerInput input;
 
-        if(menuLayout != null)
+        private GameObject menuLayout;
+
+        private void Awake()
         {
-            var menu = Instantiate(setupMenuPrefab, menuLayout.transform);
-            input.uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
-            menu.GetComponent<GnomeMenuController>().SetPlayerIndex(input.playerIndex);
-        }        
+            menuLayout = GameObject.Find("Gnome Options Panel");
+
+            if (menuLayout != null)
+            {
+                var menu = Instantiate(setupMenuPrefab, menuLayout.transform);
+                input.uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
+                menu.GetComponent<GnomeMenuController>().SetPlayerIndex(input.playerIndex);
+            }
+        }
     }
 }

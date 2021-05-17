@@ -1,25 +1,28 @@
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
-[RequireComponent(typeof(PostProcessVolume))]
-public class PostProcessingController : MonoBehaviour
+namespace GnomeGardeners
 {
-    private PostProcessVolume volume;
-    private WeatherController weather;
-
-    #region Unity Methods
-    private void Awake()
+    [RequireComponent(typeof(PostProcessVolume))]
+    public class PostProcessingController : MonoBehaviour
     {
-        volume = GetComponent<PostProcessVolume>();
-        weather = FindObjectOfType<WeatherController>();
-        weather.WeatherChanged += ChangeProfile;
-    }
-    #endregion
+        private PostProcessVolume volume;
+        private WeatherController weather;
 
-    #region Private Methods
-    private void ChangeProfile()
-    {
-        volume.profile = weather.CurrentWeather.weatherProfile;
+        #region Unity Methods
+        private void Awake()
+        {
+            volume = GetComponent<PostProcessVolume>();
+            weather = FindObjectOfType<WeatherController>();
+            weather.WeatherChanged += ChangeProfile;
+        }
+        #endregion
+
+        #region Private Methods
+        private void ChangeProfile()
+        {
+            volume.profile = weather.CurrentWeather.weatherProfile;
+        }
+        #endregion
     }
-    #endregion
 }
