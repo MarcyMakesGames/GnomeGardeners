@@ -10,11 +10,13 @@ namespace GnomeGardeners
         private GameObject windPrefab;
         [SerializeField]
         private List<Transform> spawnAreas;
+        [SerializeField]
+        private float windStrength = 1f;
 
         private float startTime;
         private float spawnTime;
 
-        private void Awake()
+        private void Start()
         {
             InitWindSpawner();
         }
@@ -29,14 +31,17 @@ namespace GnomeGardeners
             startTime = GameManager.Instance.Time.ElapsedTime;
             spawnTime = GameManager.Instance.Time.ElapsedTime;
 
-            transform.position = spawnPosition;
-            transform.position = Vector3.RotateTowards(transform.position, despawnPosition, 10000f * Time.deltaTime, 1000f);
+            var movementModifier = new Vector3(Mathf.Clamp01(despawnPosition.x - spawnPosition.x), Mathf.Clamp01(despawnPosition.y - spawnPosition.y), 0);
+            GameManager.Instance.HazardManager.MovementModifier = movementModifier * windStrength;
         }
 
         private void CountdownTimer()
         {
             if (GameManager.Instance.Time.GetTimeSince(startTime) >= hazardDuration)
+            {
+                GameManager.Instance.HazardManager.MovementModifier = Vector3.zero;
                 Destroy(gameObject);
+            }
 
             if (GameManager.Instance.Time.GetTimeSince(spawnTime) >= timeBetweenSpawns)
             {

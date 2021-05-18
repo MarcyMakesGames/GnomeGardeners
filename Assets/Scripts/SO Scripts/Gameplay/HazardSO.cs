@@ -15,6 +15,7 @@ namespace GnomeGardeners
 
         public void SpawnHazard(Vector3 spawnLocation, Vector3 despawnLocation)
         {
+
             foreach (HazardElementSO element in hazardElements)
             {
                 element.SpawnElement(spawnLocation, despawnLocation);
