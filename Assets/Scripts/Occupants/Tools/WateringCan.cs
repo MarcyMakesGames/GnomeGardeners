@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.U2D.Animation;
 
 namespace GnomeGardeners
 {
@@ -37,6 +38,13 @@ namespace GnomeGardeners
                 {
                     insect.IncrementShooedCount();
                 }
+            }
+        }
+        public override void UpdateSpriteResolvers(SpriteResolver[] resolvers)
+        {
+            foreach (SpriteResolver resolver in resolvers)
+            {
+                resolver.SetCategoryAndLabel("tools", "water");
             }
         }
 

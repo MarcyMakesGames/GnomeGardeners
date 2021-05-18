@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Experimental.U2D.Animation;
 namespace GnomeGardeners
 {
 	public class Shovel : Tool
@@ -52,6 +52,13 @@ namespace GnomeGardeners
                     seedObject.GetComponent<Plant>().PlantSeed(cell);
                     GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_spade_digging, audioSource);
                 }
+            }
+        }
+        public override void UpdateSpriteResolvers(SpriteResolver[] resolvers)
+        {
+            foreach (SpriteResolver resolver in resolvers)
+            {
+                resolver.SetCategoryAndLabel("tools", "seed");
             }
         }
 
