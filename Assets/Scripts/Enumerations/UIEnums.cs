@@ -11,6 +11,7 @@ namespace GnomeGardeners
         Settings,
         GnomeSelection,
         Credits,
+        Manual,
     }
 
     public enum SceneState

@@ -9,13 +9,15 @@ namespace GnomeGardeners
     {
         private readonly bool debug = false;
 
-        public GameObject titlePanel;
-        public GameObject mainPanel;
-        public GameObject settingsPanel;
-        public GameObject gnomeSelectionPanel;
-        public GameObject creditsPanel;
+        public GameObject panelTitle;
+        public GameObject panelMain;
+        public GameObject panelSettings;
+        public GameObject panelPlayerSelection;
+        public GameObject panelManual;
+        public GameObject panelCredits;
 
-        public GameObject titleBackground;
+        public GameObject backgroundTitle;
+        public GameObject backgroundCredits;
 
         private Animator transition;
         public float transitionTime = 1f;
@@ -27,6 +29,7 @@ namespace GnomeGardeners
 
 
         private List<GameObject> allPanels;
+        private List<GameObject> allBackgrounds;
 
         #region Unity Methods
 
@@ -34,11 +37,18 @@ namespace GnomeGardeners
         {
             allPanels = new List<GameObject>
             {
-                titlePanel,
-                mainPanel,
-                settingsPanel,
-                gnomeSelectionPanel,
-                creditsPanel
+                panelTitle,
+                panelMain,
+                panelSettings,
+                panelPlayerSelection,
+                panelCredits,
+                panelManual
+            };
+
+            allBackgrounds = new List<GameObject>
+            {
+                backgroundTitle,
+                backgroundCredits,
             };
 
             transition = GameManager.Instance.SceneController.Transition;
@@ -81,7 +91,10 @@ namespace GnomeGardeners
                 case 4:
                     GameManager.Instance.SceneController.ActiveMenuPanel = MenuPanel.Credits;
                     nextPanel = MenuPanel.Credits;
-
+                    break;
+                case 5:
+                    GameManager.Instance.SceneController.ActiveMenuPanel = MenuPanel.Manual;
+                    nextPanel = MenuPanel.Manual;
                     break;
             }
         }
@@ -102,23 +115,26 @@ namespace GnomeGardeners
             switch (panel)
             {
                 case MenuPanel.Title:
-                    StartCoroutine(TransitionIntoPanel(titlePanel));
+                    StartCoroutine(TransitionIntoPanel(panelTitle, backgroundTitle));
 
                     break;
                 case MenuPanel.Main:
-                    StartCoroutine(TransitionIntoPanel(mainPanel));
+                    StartCoroutine(TransitionIntoPanel(panelMain));
 
                     break;
                 case MenuPanel.Settings:
-                    StartCoroutine(TransitionIntoPanel(settingsPanel));
+                    StartCoroutine(TransitionIntoPanel(panelSettings));
 
                     break;
                 case MenuPanel.GnomeSelection:
-                    StartCoroutine(TransitionIntoPanel(gnomeSelectionPanel));
+                    StartCoroutine(TransitionIntoPanel(panelPlayerSelection));
 
                     break;
                 case MenuPanel.Credits:
-                    StartCoroutine(TransitionIntoPanel(creditsPanel));
+                    StartCoroutine(TransitionIntoPanel(panelCredits, backgroundCredits));
+                    break;
+                case MenuPanel.Manual:
+                    StartCoroutine(TransitionIntoPanel(panelManual));
                     break;
             }
 
@@ -130,7 +146,12 @@ namespace GnomeGardeners
             foreach (GameObject panel in allPanels)
             {
                 panel.SetActive(false);
-                titleBackground.SetActive(false);
+                
+            }
+            foreach (GameObject background in allBackgrounds)
+            {
+                background.SetActive(false);
+
             }
         }
 
@@ -139,7 +160,7 @@ namespace GnomeGardeners
             nextPanel = GameManager.Instance.SceneController.ActiveMenuPanel;
         }
 
-        private IEnumerator TransitionIntoPanel(GameObject panel)
+        private IEnumerator TransitionIntoPanel(GameObject panel, GameObject background = null)
         {
             transition.SetTrigger("FadeIn");
 
@@ -148,6 +169,9 @@ namespace GnomeGardeners
             DeactivateAllPanels();
 
             panel.SetActive(true);
+
+            if (background != null)
+                background.SetActive(true);
 
             transition.SetTrigger("FadeOut");
 
