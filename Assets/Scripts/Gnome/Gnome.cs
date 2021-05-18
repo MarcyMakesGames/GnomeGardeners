@@ -62,6 +62,7 @@ namespace GnomeGardeners
             inputFrames = new Queue<Vector2>(inputFramesCapacity);
             for (int i = 0; i < inputFramesCapacity; ++i)
                 inputFrames.Enqueue(Vector2.zero);
+            SetAllResolvers("tools", "nada");
         }
 
         private void Start()
@@ -339,7 +340,7 @@ namespace GnomeGardeners
                 var dropCell = GameManager.Instance.GridManager.GetClosestCell(dropPosition);
                 tool.Unequip(dropCell);
                 tool = null;
-                // SetAllResolvers("Tools", "None");
+                SetAllResolvers("tools", "nada");
             }
             else if (tool == null && occupant != null)
             {
@@ -347,6 +348,12 @@ namespace GnomeGardeners
                 if (occupant.TryGetComponent(out toolOnGround))
                 {
                     tool = toolOnGround;
+                    SpriteResolver[] resolvers = new SpriteResolver[4];
+                    resolvers[0] = gnomeBackResolver;
+                    resolvers[1] = gnomeFrontResolver;
+                    resolvers[2] = gnomeLeftResolver;
+                    resolvers[3] = gnomeRightResolver;
+                    tool.UpdateSpriteResolvers(resolvers);
                     toolOnGround.Equip();
 
                 }

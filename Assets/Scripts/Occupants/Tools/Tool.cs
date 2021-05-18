@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.U2D.Animation;
 
 namespace GnomeGardeners
 {
@@ -49,6 +50,8 @@ namespace GnomeGardeners
             gameObject.SetActive(false);
             RemoveOccupantFromCells();
         }
+
+        public abstract void UpdateSpriteResolvers(SpriteResolver[] resolvers);
 
         #endregion
 
