@@ -18,8 +18,16 @@ namespace GnomeGardeners
 
         public void InitSpawner(Vector3 spawnLocation, Vector3 despawnLocation, float hazardDuration, float timeBetweenSpawns, float spawnObjMoveSpeed)
         {
-            this.spawnPosition = spawnLocation;
-            this.despawnPosition = despawnLocation;
+            spawnPosition = spawnLocation;
+            despawnPosition = despawnLocation;
+
+            var despawnVector = despawnPosition - spawnPosition;
+
+            if (despawnVector.y > 0)
+                transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
+            if (despawnVector.y < 0)
+                transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
+
             this.hazardDuration = hazardDuration;
             this.timeBetweenSpawns = timeBetweenSpawns;
             this.spawnObjMoveSpeed = spawnObjMoveSpeed;

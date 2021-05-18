@@ -22,8 +22,10 @@ namespace GnomeGardeners
         private int currentHazardIndex = 0;
         private float currentHazardTimer = 0f;
         private bool isSpawningHazards = false;
+        private Vector3 movementModifier;
 
         public ScriptableObject CurrentHazard { get => hazards[currentHazardIndex]; }
+        public Vector3 MovementModifier { get => movementModifier; set => movementModifier = value; }
 
         public delegate void OnHazardChange();
         public event OnHazardChange HazardChanged;
@@ -129,15 +131,9 @@ namespace GnomeGardeners
             return despawnLocations[spawnDespawnIndex].position;
         }
 
-        private void StartSpawningHazards()
-        {
-            isSpawningHazards = true;
-        }
+        private void StartSpawningHazards() => isSpawningHazards = true;
 
-        private void StopSpawningHazards()
-        {
-            isSpawningHazards = false;
-        }
+        private void StopSpawningHazards() => isSpawningHazards = false;
 
         #endregion
     }

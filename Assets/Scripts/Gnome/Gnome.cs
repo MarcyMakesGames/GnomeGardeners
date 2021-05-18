@@ -266,14 +266,14 @@ namespace GnomeGardeners
             else
             {
                 currentSpeedUpTimer = 0f;
-                rigidBody.velocity = Vector2.zero;
+                rigidBody.velocity = Vector3.zero + GameManager.Instance.HazardManager.MovementModifier;
             }
 
             currentSpeedUpTimer += Time.deltaTime;
 
             if (currentSpeedUpTimer >= speedUpTime)
             {
-                rigidBody.velocity = ((Vector3)moveDir * moveSpeed);
+                rigidBody.velocity = ((Vector3)moveDir * moveSpeed) + GameManager.Instance.HazardManager.MovementModifier;
             }
         }
 
