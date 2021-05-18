@@ -4,16 +4,44 @@ using UnityEngine;
 
 namespace GnomeGardeners
 {
+	[RequireComponent(typeof(BoxCollider2D))]
 	public abstract class Occupant : MonoBehaviour
 	{
+		public bool multiCellObject = false;
 		protected GridCell cell;
+		protected List<GridCell> cells = new List<GridCell>();
 
         #region Unity Methods
 
         public void Start()
         {
-			cell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
-			AssignOccupant(cell);
+			if(multiCellObject)
+			{
+				BoxCollider2D coll = GetComponent<BoxCollider2D>();
+
+				if(coll.bounds.extents.x >= .4f)
+                {
+					cell = GameManager.Instance.GridManager.GetClosestCell(new Vector3(transform.position.x + coll.bounds.extents.x, transform.position.y, 0));
+					cells.Add(cell);
+					cell = GameManager.Instance.GridManager.GetClosestCell(new Vector3(transform.position.x - coll.bounds.extents.x, transform.position.y, 0));
+					cells.Add(cell);
+				}
+
+				if (coll.bounds.extents.y >= .4f)
+				{
+					cell = GameManager.Instance.GridManager.GetClosestCell(new Vector3(transform.position.x, transform.position.y + coll.bounds.extents.y, 0));
+					cells.Add(cell);
+					cell = GameManager.Instance.GridManager.GetClosestCell(new Vector3(transform.position.x, transform.position.y - coll.bounds.extents.y, 0));
+					cells.Add(cell);
+				}
+
+				AddOccupantToCells();
+			}
+			else
+            {
+				cell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
+				AssignOccupant(cell);
+			}
 		}
 
         #endregion
@@ -28,8 +56,18 @@ namespace GnomeGardeners
 
 		protected void RemoveOccupantFromCells()
         {
-			RemoveOccupant(cell);
+			foreach(GridCell cell in cells)
+				RemoveOccupant(cell);
         }
+
+		protected void AddOccupantToCells()
+		{
+			foreach (GridCell cell in cells)
+            {
+				AssignOccupant(cell);
+				DebugLogger.Log(this, cell.GridPosition.ToString());
+			}
+		}
 
 		#endregion
 
