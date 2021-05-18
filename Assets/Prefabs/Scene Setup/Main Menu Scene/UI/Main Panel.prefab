@@ -12,18 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7747461c28261a4086a43361bf11c19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7509631200764158779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3609597121216160574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7747461c28261a4086a43361bf11c19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2591560955336270260
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,13 +53,13 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &9172619550713065117
+--- !u!114 &4163163724759028106
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4105392103476035203}
+  m_GameObject: {fileID: 2719490179896632506}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7747461c28261a4086a43361bf11c19, type: 3}
@@ -152,13 +140,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4163163724759028106
+--- !u!114 &7509631200764158779
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2719490179896632506}
+  m_GameObject: {fileID: 3609597121216160574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7747461c28261a4086a43361bf11c19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9172619550713065117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4105392103476035203}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7747461c28261a4086a43361bf11c19, type: 3}
@@ -452,7 +452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4462119742668540825, guid: 064c2166b8e72314d8a626124c14846a, type: 3}
       propertyPath: m_Interactable
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5746759567454989377, guid: 064c2166b8e72314d8a626124c14846a, type: 3}
       propertyPath: m_StringReference.m_TableEntryReference.m_KeyId

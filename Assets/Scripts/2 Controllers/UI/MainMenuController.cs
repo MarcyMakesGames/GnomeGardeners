@@ -13,7 +13,7 @@ namespace GnomeGardeners
         public GameObject mainPanel;
         public GameObject settingsPanel;
         public GameObject gnomeSelectionPanel;
-        public GameObject gameOverPanel;
+        public GameObject creditsPanel;
 
         public GameObject titleBackground;
 
@@ -33,13 +33,14 @@ namespace GnomeGardeners
         private void Start()
         {
             allPanels = new List<GameObject>
-        {
-            titlePanel,
-            mainPanel,
-            settingsPanel,
-            gnomeSelectionPanel,
-            gameOverPanel
-        };
+            {
+                titlePanel,
+                mainPanel,
+                settingsPanel,
+                gnomeSelectionPanel,
+                creditsPanel
+            };
+
             transition = GameManager.Instance.SceneController.Transition;
         }
 
@@ -77,6 +78,11 @@ namespace GnomeGardeners
                     nextPanel = MenuPanel.GnomeSelection;
                     GameManager.Instance.PlayerConfigManager.canJoinPlayers = true;
                     break;
+                case 4:
+                    GameManager.Instance.SceneController.ActiveMenuPanel = MenuPanel.Credits;
+                    nextPanel = MenuPanel.Credits;
+
+                    break;
             }
         }
 
@@ -110,6 +116,9 @@ namespace GnomeGardeners
                 case MenuPanel.GnomeSelection:
                     StartCoroutine(TransitionIntoPanel(gnomeSelectionPanel));
 
+                    break;
+                case MenuPanel.Credits:
+                    StartCoroutine(TransitionIntoPanel(creditsPanel));
                     break;
             }
 
