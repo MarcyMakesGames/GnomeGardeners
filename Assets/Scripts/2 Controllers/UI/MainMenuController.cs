@@ -15,6 +15,8 @@ namespace GnomeGardeners
         public GameObject gnomeSelectionPanel;
         public GameObject gameOverPanel;
 
+        public GameObject titleBackground;
+
         private Animator transition;
         public float transitionTime = 1f;
 
@@ -119,6 +121,7 @@ namespace GnomeGardeners
             foreach (GameObject panel in allPanels)
             {
                 panel.SetActive(false);
+                titleBackground.SetActive(false);
             }
         }
 
