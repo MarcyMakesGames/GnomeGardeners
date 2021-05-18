@@ -31,7 +31,8 @@ namespace GnomeGardeners
             startTime = GameManager.Instance.Time.ElapsedTime;
             spawnTime = GameManager.Instance.Time.ElapsedTime;
 
-            var movementModifier = new Vector3(Mathf.Clamp01(despawnPosition.x - spawnPosition.x), Mathf.Clamp01(despawnPosition.y - spawnPosition.y), 0);
+            var movementModifier = new Vector3(Mathf.Clamp(despawnPosition.x - spawnPosition.x, -1f, 1f), Mathf.Clamp(despawnPosition.y - spawnPosition.y, -1f, 1f));
+
             GameManager.Instance.HazardManager.MovementModifier = movementModifier * windStrength;
         }
 
