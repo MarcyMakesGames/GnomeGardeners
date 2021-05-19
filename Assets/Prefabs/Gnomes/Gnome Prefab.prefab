@@ -154,11 +154,11 @@ MonoBehaviour:
   inputFramesCapacity: 10
   gnomeBack: {fileID: 4228693227645803391}
   gnomeRight: {fileID: 1071080865974854499}
-  gnomeFront: {fileID: 0}
+  gnomeFront: {fileID: 6211997114583782518}
   gnomeLeft: {fileID: 1322425669247983231}
   gnomeBackResolver: {fileID: 8088703888029495125}
   gnomeRightResolver: {fileID: 828979834286836632}
-  gnomeFrontResolver: {fileID: 0}
+  gnomeFrontResolver: {fileID: 1322825030428580041}
   gnomeLeftResolver: {fileID: 3492722525520007091}
 --- !u!82 &8407920198397822580
 AudioSource:
@@ -586,6 +586,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -4951214676194838667, guid: 8b0d5d00520efef42b144b7f17843f79, type: 3}
   m_PrefabInstance: {fileID: 527393898660176835}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1322825030428580041 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -7707290982812091638, guid: 8b0d5d00520efef42b144b7f17843f79, type: 3}
+  m_PrefabInstance: {fileID: 527393898660176835}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &867788434432400099
 PrefabInstance:
   m_ObjectHideFlags: 0
