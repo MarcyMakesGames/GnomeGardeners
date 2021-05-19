@@ -34,12 +34,16 @@ namespace GnomeGardeners
             // todo: let the tool visually appear
             // temp:
             cell = targetCell;
-            gameObject.SetActive(true);
-            transform.position = targetCell.WorldPosition;
-            
-            AddOccupantToCells(targetCell);
 
-            PlayUnequipSound(targetCell.GroundType);
+            if(targetCell.Occupant == null)
+            {
+                gameObject.SetActive(true);
+                transform.position = targetCell.WorldPosition;
+
+                AddOccupantToCells(targetCell);
+
+                PlayUnequipSound(targetCell.GroundType);
+            }
         }
 
 

@@ -167,7 +167,7 @@ MonoBehaviour:
   m_NotificationBehavior: 2
   m_MaxPlayerCount: -1
   m_AllowJoining: 1
-  m_JoinBehavior: 0
+  m_JoinBehavior: 2
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls:
@@ -349,7 +349,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 959.41736, y: -1585}
+  m_AnchoredPosition: {x: 960.7864, y: 2332.976}
   m_SizeDelta: {x: 2658, y: 2869.5752}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3033654740267467043
@@ -470,7 +470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hazards:
   - {fileID: 11400000, guid: 02a8ec84e0131864c977684eefefd9b7, type: 2}
-  randomizeHazards: 1
+  randomizeHazards: 0
   hazardDelayTime: 1
   spawnLocations:
   - {fileID: 1530279300}
@@ -1126,7 +1126,7 @@ MonoBehaviour:
   - prefab: {fileID: 2800659866162310644, guid: d526698f1a4f0324db8b7d8a58c8ca83, type: 3}
     amount: 10
     key: 0
-  - prefab: {fileID: 2800659866162310644, guid: 446da586ead0d5746ad332675afc420a, type: 3}
+  - prefab: {fileID: 2800659866162310644, guid: 97cf827ab6e35a34eab05039052f402e, type: 3}
     amount: 10
     key: 1
   - prefab: {fileID: 8107983885071440429, guid: 570eee9fa5a9e574c9680e60d4e5c1d7, type: 3}
@@ -1150,3 +1150,15 @@ MonoBehaviour:
   - prefab: {fileID: 2800659866162310644, guid: a9608355bc01b5041998181b13a0a91c, type: 3}
     amount: 10
     key: 5
+  - prefab: {fileID: 2800659866162310644, guid: 31f445231159d10429542cd1fe6a70c3, type: 3}
+    amount: 10
+    key: 8
+  - prefab: {fileID: 2800659866162310644, guid: 1e225edf05ef95b4c97617bed0b1f6d3, type: 3}
+    amount: 10
+    key: 9
+  - prefab: {fileID: 2800659866162310644, guid: 3e65c72892feedd42860ceb6d8f315b2, type: 3}
+    amount: 10
+    key: 7
+  - prefab: {fileID: 2800659866162310644, guid: 799a2b301e626e74497ee4366d5f834e, type: 3}
+    amount: 10
+    key: 4

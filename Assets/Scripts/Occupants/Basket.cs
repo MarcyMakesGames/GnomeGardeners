@@ -44,7 +44,6 @@ namespace GnomeGardeners
             DebugLogger.Log(this, "Delivered plant");
 
         }
-
         #endregion
 
         #region Private Methods

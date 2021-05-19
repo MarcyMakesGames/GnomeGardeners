@@ -70,6 +70,13 @@ namespace GnomeGardeners
                         harvest = null;
                     }
                 }
+
+                Seedbag seedbag;
+                if(occupant.TryGetComponent(out seedbag))
+                {
+                    DebugLogger.Log(this, "Seedbag found!");
+                    seedbag.Interact(this);
+                }
             }
         }
         public override void UpdateSpriteResolvers(SpriteResolver[] resolvers)
