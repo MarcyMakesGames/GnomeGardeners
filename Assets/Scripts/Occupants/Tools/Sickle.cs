@@ -51,23 +51,22 @@ namespace GnomeGardeners
                 if (occupant.TryGetComponent(out compost))
                 {
                     DebugLogger.Log(this, "Compost found!"); 
-                    if (fertilizer != null)
-                    {
-                        DebugLogger.Log(this, "Discarding fertilizer.");
-                        fertilizer = null;
-                    }
-
-                    if (fertilizer == null)
-                    {
-                        DebugLogger.Log(this, "Taking fertilizer.");
-                        fertilizer = compost.DispenseItem();
-                    }
-                    
-                    if(harvest != null)
+                    if (harvest != null)
                     {
                         DebugLogger.Log(this, "Discarding harvest");
                         compost.AddScore(harvest.points);
                         harvest = null;
+                    }
+                    else if (fertilizer == null)
+                    {
+                        DebugLogger.Log(this, "Taking fertilizer.");
+                        fertilizer = compost.DispenseItem();
+                    }
+
+                    if (fertilizer != null)
+                    {
+                        DebugLogger.Log(this, "Discarding fertilizer.");
+                        fertilizer = null;
                     }
                 }
             }
