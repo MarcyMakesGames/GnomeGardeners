@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,44 +10,48 @@ namespace GnomeGardeners
 	{
 		public bool multiCellObject = false;
 		protected GridCell cell;
-		protected List<GridCell> cells = new List<GridCell>();
+		protected List<GridCell> occupantCells;
 
         #region Unity Methods
 
         public void Start()
         {
-			if(multiCellObject)
+			occupantCells = new List<GridCell>();
+
+			if (multiCellObject)
 			{
 				BoxCollider2D coll = GetComponent<BoxCollider2D>();
 
 				if(coll.bounds.extents.x >= .4f)
                 {
 					cell = GameManager.Instance.GridManager.GetClosestCell(new Vector3(transform.position.x + coll.bounds.extents.x, transform.position.y, 0));
-					cells.Add(cell);
+					occupantCells.Add(cell);
 					cell = GameManager.Instance.GridManager.GetClosestCell(new Vector3(transform.position.x - coll.bounds.extents.x, transform.position.y, 0));
-					cells.Add(cell);
+					occupantCells.Add(cell);
 				}
 
 				if (coll.bounds.extents.y >= .4f)
 				{
 					cell = GameManager.Instance.GridManager.GetClosestCell(new Vector3(transform.position.x, transform.position.y + coll.bounds.extents.y, 0));
-					cells.Add(cell);
+					occupantCells.Add(cell);
 					cell = GameManager.Instance.GridManager.GetClosestCell(new Vector3(transform.position.x, transform.position.y - coll.bounds.extents.y, 0));
-					cells.Add(cell);
+					occupantCells.Add(cell);
 				}
 
-				AddOccupantToCells();
 			}
 			else
             {
 				cell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
-				AssignOccupant(cell);
+				occupantCells.Add(cell);
+				DebugLogger.Log(this, cell.GridPosition.ToString());
 			}
+
+			AddOccupantToCells();
 		}
 
-        #endregion
+		#endregion
 
-        #region Public Methods
+		#region Public Methods
 
 		public abstract void Interact(Tool tool);
 
@@ -56,17 +61,26 @@ namespace GnomeGardeners
 
 		protected void RemoveOccupantFromCells()
         {
-			foreach(GridCell cell in cells)
-				RemoveOccupant(cell);
-        }
+			List<GridCell> oldCells = new List<GridCell>();
 
-		protected void AddOccupantToCells()
-		{
-			foreach (GridCell cell in cells)
+			foreach (GridCell cell in occupantCells)
             {
-				AssignOccupant(cell);
-				DebugLogger.Log(this, cell.GridPosition.ToString());
+				RemoveOccupant(cell);
+				oldCells.Add(cell);
 			}
+
+			foreach (GridCell cell in oldCells)
+				if (occupantCells.Contains(cell))
+					occupantCells.Remove(cell);
+		}
+
+		protected void AddOccupantToCells(GridCell newCell = null)
+		{
+			if (newCell != null)
+				occupantCells.Add(newCell);
+
+			foreach (GridCell cell in occupantCells)
+				AssignOccupant(cell);
 		}
 
 		#endregion
@@ -81,7 +95,7 @@ namespace GnomeGardeners
 		private void RemoveOccupant(GridCell cell)
         {
 			cell.RemoveCellOccupant();
-        }
+		}
 
 		#endregion
 	}

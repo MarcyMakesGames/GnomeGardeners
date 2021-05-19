@@ -34,9 +34,9 @@ namespace GnomeGardeners
             // temp:
             cell = targetCell;
             gameObject.SetActive(true);
-
             transform.position = targetCell.WorldPosition;
-            targetCell.AddCellOccupant(this);
+            
+            AddOccupantToCells(targetCell);
 
             PlayUnequipSound(targetCell.GroundType);
         }
@@ -46,8 +46,8 @@ namespace GnomeGardeners
         {
             // todo: let the tool visually disappear
             // temp:
-            gameObject.SetActive(false);
             RemoveOccupantFromCells();
+            gameObject.SetActive(false);
         }
 
         #endregion
