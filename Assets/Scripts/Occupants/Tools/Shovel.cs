@@ -22,7 +22,7 @@ namespace GnomeGardeners
 
         }
 
-        public override void UseTool(GridCell cell, Gnome gnome)
+        public override void UseTool(GridCell cell)
         {
             DebugLogger.Log(this, "Executing.");
 
@@ -34,12 +34,16 @@ namespace GnomeGardeners
                 {
                     DebugLogger.Log(this, "Seed taken.");
                     seed = seedbag.GetSunflowerSeed();
+                    return;
                 }
                 else if (seed != null && occupant.TryGetComponent(out seedbag))
                 {
                     DebugLogger.Log(this, "Seed discarded.");
                     seed = null;
+                    return;
                 }
+
+                occupant.FailedInteraction();
             }
             else if (seed != null && occupant == null)
             {
@@ -54,12 +58,18 @@ namespace GnomeGardeners
                 }
             }
         }
+
         public override void UpdateSpriteResolvers(SpriteResolver[] resolvers)
         {
             foreach (SpriteResolver resolver in resolvers)
             {
                 resolver.SetCategoryAndLabel("tools", "seed");
             }
+        }
+
+        public override void FailedInteraction()
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion

@@ -44,6 +44,11 @@ namespace GnomeGardeners
             DebugLogger.Log(this, "Delivered plant");
 
         }
+
+        public override void FailedInteraction()
+        {
+            GetPopUp(PoolKey.PopUp_Need_Seeding_Tool);
+        }
         #endregion
 
         #region Private Methods
@@ -57,7 +62,6 @@ namespace GnomeGardeners
         {
             OnScoreAddEvent.RaiseEvent(score);
         }
-
         #endregion
     }
 }

@@ -66,6 +66,11 @@ namespace GnomeGardeners
             }
         }
 
+        public override void FailedInteraction()
+        {
+            throw new System.NotImplementedException();
+        }
+
         #endregion
     }
 }

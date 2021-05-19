@@ -82,4 +82,12 @@ namespace GnomeGardeners
         Harvest,
         Seed
     }
+
+    public enum ToolType
+    {
+        Seeding,
+        Harvesting,
+        Watering,
+        Digging
+    }
 }

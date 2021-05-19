@@ -9,8 +9,9 @@ namespace GnomeGardeners
     public abstract class Tool : Occupant
     {
         protected AudioSource audioSource;
+        protected ToolType toolType;
         public AudioSource AudioSource { get => audioSource; }
-
+        public ToolType ToolType { get => ToolType; }
         #region Unity Methods
 
         private void Awake()
@@ -27,7 +28,7 @@ namespace GnomeGardeners
 
         #region Public Methods
 
-        public abstract void UseTool(GridCell cell, Gnome gnome);
+        public abstract void UseTool(GridCell cell);
 
         public void Unequip(GridCell targetCell)
         {

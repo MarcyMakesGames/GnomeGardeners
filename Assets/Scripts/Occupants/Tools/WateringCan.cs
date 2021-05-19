@@ -21,7 +21,7 @@ namespace GnomeGardeners
 
         }
 
-        public override void UseTool(GridCell cell, Gnome gnome)
+        public override void UseTool(GridCell cell)
         {
             DebugLogger.Log(this, "Executing");
             var occupant = cell.Occupant;
@@ -31,13 +31,17 @@ namespace GnomeGardeners
                 if (occupant.TryGetComponent(out plant))
                 {
                     plant.FulfillCurrentNeed(NeedType.Water);
+                    return;
                 }
 
                 Insect insect = null;
                 if (occupant.TryGetComponent(out insect) && occupant.TryGetComponent(out insect))
                 {
                     insect.IncrementShooedCount();
+                    return;
                 }
+
+                occupant.FailedInteraction();
             }
         }
         public override void UpdateSpriteResolvers(SpriteResolver[] resolvers)
@@ -46,6 +50,11 @@ namespace GnomeGardeners
             {
                 resolver.SetCategoryAndLabel("tools", "water");
             }
+        }
+
+        public override void FailedInteraction()
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion
