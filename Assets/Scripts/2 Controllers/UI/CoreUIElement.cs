@@ -52,6 +52,17 @@ namespace GnomeGardeners
             int seconds = (int)Mathf.Floor(timeRemaining % 60f);
             UpdateText(target, minutes.ToString() + ":" + seconds.ToString("D2"));
         }
+
+        protected void UpdateSliderValue(Slider target, int value)
+        {
+            target.value = value;
+        }
+
+        protected void UpdateSliderMinMax(Slider target, int min, int max)
+        {
+            target.minValue = min;
+            target.maxValue = max;
+        }
     }
 
 }

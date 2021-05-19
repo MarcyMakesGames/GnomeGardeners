@@ -94,8 +94,8 @@ MonoBehaviour:
   settingsMenu: {fileID: 2223573187794047766}
   tutorialMenu: {fileID: 4177330262728981890}
   gameOverMenu: {fileID: 1417523775916741854}
-  totalScoreboard: {fileID: 5322997968465561235}
-  requiredScoreboard: {fileID: 7771866376431984746}
+  totalScoreboard: {fileID: 0}
+  requiredScoreboard: {fileID: 0}
   OnLevelLoseEvent: {fileID: 11400000, guid: 58432f8545a32924f8cc9c3137af0033, type: 2}
   OnLevelWinEvent: {fileID: 11400000, guid: 4c5ce725500d877458dbd9a16d526c9b, type: 2}
 --- !u!1 &5681867759454729513
@@ -873,6 +873,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5681867759454729514}
     m_Modifications:
+    - target: {fileID: 110330168439350356, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 110330168439350356, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 110330168439350356, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3860467514267638468}
+    - target: {fileID: 110330168439350356, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 110330168439350356, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitToMainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 110330168439350356, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GnomeGardeners.GameMenuController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 110330168439350356, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 326218616511191013, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
+      propertyPath: m_Name
+      value: Score Slider
+      objectReference: {fileID: 0}
     - target: {fileID: 459808000523484367, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -892,6 +924,10 @@ PrefabInstance:
     - target: {fileID: 459808000523484367, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2719069157327539604, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5969760349770747161, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1029,6 +1065,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8600007062600657838, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600007062600657838, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600007062600657838, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3860467514267638468}
+    - target: {fileID: 8600007062600657838, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600007062600657838, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600007062600657838, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GnomeGardeners.GameMenuController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600007062600657838, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 9028280565775377660, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
       propertyPath: m_Name
       value: Game Over Menu
@@ -1049,28 +1113,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7403107433675460249, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
   m_PrefabInstance: {fileID: 7991333017327677474}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5322997968465561235 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2826568938243929777, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
-  m_PrefabInstance: {fileID: 7991333017327677474}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76704e5d36cb3ca4c8d305f6a126cddf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7771866376431984746 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 377700114471145544, guid: c7501acd1ceb5fc4181680567ff6232c, type: 3}
-  m_PrefabInstance: {fileID: 7991333017327677474}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76704e5d36cb3ca4c8d305f6a126cddf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8689073777568000509
 PrefabInstance:
   m_ObjectHideFlags: 0
