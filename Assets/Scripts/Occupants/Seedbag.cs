@@ -29,7 +29,7 @@ namespace GnomeGardeners
         #region Public Methods
         public override void Interact(Tool tool)
         {
-
+            
         }
 
         public Seed GetRandomDispensable()
@@ -46,6 +46,11 @@ namespace GnomeGardeners
             GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_seedbag_dispense, GetComponent<AudioSource>());
             DebugLogger.Log(this, "Dispensing." + sunflowerSeed.ToString());
             return sunflowerSeed;
+        }
+
+        public override void FailedInteraction()
+        {
+            GetPopUp(PoolKey.PopUp_Need_Seeding_Tool);
         }
 
         #endregion

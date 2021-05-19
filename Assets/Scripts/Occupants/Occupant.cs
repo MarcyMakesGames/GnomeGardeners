@@ -8,9 +8,13 @@ namespace GnomeGardeners
 	[RequireComponent(typeof(BoxCollider2D))]
 	public abstract class Occupant : MonoBehaviour
 	{
+		[SerializeField] protected float popUpDuration = 1f;
 		public bool multiCellObject = false;
 		protected GridCell cell;
 		protected List<GridCell> occupantCells;
+		protected Vector3 popUpOffset;
+		protected GameObject popUp;
+		protected float currentPopUpTime;
 
         #region Unity Methods
 
@@ -49,12 +53,17 @@ namespace GnomeGardeners
 			AddOccupantToCells();
 		}
 
-		#endregion
+        protected void Update()
+        {
+			PopUpRemovalCountdown();
+        }
+        #endregion
 
-		#region Public Methods
+        #region Public Methods
 
-		public abstract void Interact(Tool tool);
+        public abstract void Interact(Tool tool);
 
+		public abstract void FailedInteraction();
 		#endregion
 
 		#region Protected Methods
@@ -97,6 +106,33 @@ namespace GnomeGardeners
 			cell.RemoveCellOccupant();
 		}
 
+		protected void GetPopUp(PoolKey popUpType)
+		{
+			ClearPopUp();
+
+			GameObject newPopUp = GameManager.Instance.PoolController.GetObjectFromPool(transform.position + popUpOffset, Quaternion.identity, popUpType);
+			popUp = newPopUp;
+
+			currentPopUpTime = GameManager.Instance.Time.ElapsedTime;
+		}
+
+		protected void ClearPopUp()
+		{
+			if (popUp != null)
+			{
+				popUp.gameObject.SetActive(false);
+				popUp = null;
+			}
+		}
+
+		protected void PopUpRemovalCountdown()
+        {
+			if (popUp == null)
+				return;
+
+			if (GameManager.Instance.Time.GetTimeSince(currentPopUpTime) >= popUpDuration)
+				ClearPopUp();
+		}
 		#endregion
 	}
 }

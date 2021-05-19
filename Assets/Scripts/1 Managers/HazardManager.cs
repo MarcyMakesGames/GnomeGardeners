@@ -64,7 +64,7 @@ namespace GnomeGardeners
         #region Private Methods
         private void HazardCountdown()
         {
-            if(hazardDelayTime > 0f)
+            if(hazardDelayTime > 0f || hazards.Count == 0)
             {
                 hazardDelayTime -= Time.deltaTime;
                 return;
