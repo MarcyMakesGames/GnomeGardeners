@@ -47,7 +47,7 @@ MonoBehaviour:
   m_NotificationBehavior: 2
   m_MaxPlayerCount: -1
   m_AllowJoining: 1
-  m_JoinBehavior: 0
+  m_JoinBehavior: 2
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls:
@@ -229,7 +229,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 959.41736, y: -1585}
+  m_AnchoredPosition: {x: 960.7864, y: 2332.976}
   m_SizeDelta: {x: 2658, y: 2869.5752}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3033654740267467043
@@ -301,6 +301,70 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!1 &6186467860654849777
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1266680665697938045}
+  - component: {fileID: 7086290026050941143}
+  m_Layer: 0
+  m_Name: Hazard Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1266680665697938045
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6186467860654849777}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1530279300}
+  - {fileID: 474051020}
+  - {fileID: 1190902634}
+  - {fileID: 398419281}
+  m_Father: {fileID: 6771955404163415833}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7086290026050941143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6186467860654849777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1547a6fea586f0a4f8e0ec3069158253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hazards:
+  - {fileID: 11400000, guid: 02a8ec84e0131864c977684eefefd9b7, type: 2}
+  randomizeHazards: 0
+  hazardDelayTime: 1
+  spawnLocations:
+  - {fileID: 1530279300}
+  - {fileID: 474051020}
+  - {fileID: 1190902634}
+  - {fileID: 398419281}
+  despawnLocations:
+  - {fileID: 398419281}
+  - {fileID: 1190902634}
+  - {fileID: 474051020}
+  - {fileID: 1530279300}
+  OnLevelStart: {fileID: 11400000, guid: 83192ecb83878a44dbac9e71753e3b74, type: 2}
+  OnLevelLose: {fileID: 11400000, guid: 58432f8545a32924f8cc9c3137af0033, type: 2}
+  OnLevelWin: {fileID: 11400000, guid: 4c5ce725500d877458dbd9a16d526c9b, type: 2}
 --- !u!1 &6212725597110958431
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,18 +1005,18 @@ MonoBehaviour:
   - prefab: {fileID: 2800659866162310644, guid: d526698f1a4f0324db8b7d8a58c8ca83, type: 3}
     amount: 10
     key: 0
-  - prefab: {fileID: 2800659866162310644, guid: 446da586ead0d5746ad332675afc420a, type: 3}
+  - prefab: {fileID: 2800659866162310644, guid: 97cf827ab6e35a34eab05039052f402e, type: 3}
     amount: 10
     key: 1
   - prefab: {fileID: 8107983885071440429, guid: 570eee9fa5a9e574c9680e60d4e5c1d7, type: 3}
     amount: 10
-    key: 6
+    key: 10
   - prefab: {fileID: 8107983885071440429, guid: 8f43ec4f4e62ca840b7d86c3230a0be9, type: 3}
     amount: 10
-    key: 7
+    key: 11
   - prefab: {fileID: 8107983885071440429, guid: 848a6ffdb061528408592466573c07b1, type: 3}
     amount: 10
-    key: 8
+    key: 12
   - prefab: {fileID: 2800659866162310644, guid: 446da586ead0d5746ad332675afc420a, type: 3}
     amount: 10
     key: 2
@@ -961,7 +1025,19 @@ MonoBehaviour:
     key: 3
   - prefab: {fileID: 2800659866162310644, guid: 9b3bc3b03d58f74428277d0bdf237abc, type: 3}
     amount: 10
-    key: 4
+    key: 5
   - prefab: {fileID: 2800659866162310644, guid: a9608355bc01b5041998181b13a0a91c, type: 3}
     amount: 10
-    key: 5
+    key: 6
+  - prefab: {fileID: 2800659866162310644, guid: 31f445231159d10429542cd1fe6a70c3, type: 3}
+    amount: 10
+    key: 8
+  - prefab: {fileID: 2800659866162310644, guid: 1e225edf05ef95b4c97617bed0b1f6d3, type: 3}
+    amount: 10
+    key: 9
+  - prefab: {fileID: 2800659866162310644, guid: 3e65c72892feedd42860ceb6d8f315b2, type: 3}
+    amount: 10
+    key: 7
+  - prefab: {fileID: 2800659866162310644, guid: 799a2b301e626e74497ee4366d5f834e, type: 3}
+    amount: 10
+    key: 4

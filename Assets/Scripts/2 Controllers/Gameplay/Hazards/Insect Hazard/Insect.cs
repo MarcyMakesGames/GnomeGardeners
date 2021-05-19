@@ -191,7 +191,15 @@ namespace GnomeGardeners
                 DebugLogger.Log(this, "Shooed Away");
             }
         }
+        public override void Interact(Tool tool)
+        {
+            throw new NotImplementedException();
+        }
 
+        public override void FailedInteraction()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         #region Private Methods
@@ -381,11 +389,6 @@ namespace GnomeGardeners
         {
             if(excludedPlants.Contains(plant))
                 excludedPlants.Remove(plant);
-        }
-
-        public override void Interact(Tool tool)
-        {
-            throw new NotImplementedException();
         }
 
         #endregion

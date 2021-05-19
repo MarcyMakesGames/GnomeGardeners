@@ -19,7 +19,7 @@ namespace GnomeGardeners
 
         }
 
-        public override void UseTool(GridCell cell, Gnome gnome)
+        public override void UseTool(GridCell cell)
         {
             DebugLogger.Log(this, "Executing.");
             var occupant = cell.Occupant;
@@ -32,11 +32,13 @@ namespace GnomeGardeners
                     DebugLogger.Log(this, "Plant found while carrying Fertilizer!");
                     plant.FulfillCurrentNeed(NeedType.Fertilizer);
                     fertilizer = null;
+                    return;
                 }
                 else if (occupant.TryGetComponent(out plant) && harvest == null)
                 {
                     DebugLogger.Log(this, "Harvesting plant!");
                     harvest = plant.HarvestPlant();
+                    return;
                 }
 
                 Basket basket;
@@ -45,6 +47,7 @@ namespace GnomeGardeners
                     DebugLogger.Log(this, "Scoring Area found!");
                     basket.DeliverHarvest(harvest.points);
                     harvest = null;
+                    return;
                 }
 
                 Compost compost;
@@ -69,7 +72,11 @@ namespace GnomeGardeners
                         compost.AddScore(harvest.points);
                         harvest = null;
                     }
+
+                    return;
                 }
+
+                occupant.FailedInteraction();
             }
         }
         public override void UpdateSpriteResolvers(SpriteResolver[] resolvers)
@@ -78,6 +85,11 @@ namespace GnomeGardeners
             {
                 resolver.SetCategoryAndLabel("tools", "harvest");
             }
+        }
+
+        public override void FailedInteraction()
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion

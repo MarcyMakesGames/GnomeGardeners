@@ -20,7 +20,7 @@ namespace GnomeGardeners
 
         #region Public Methods
 
-        public override void UseTool(GridCell cell, Gnome gnome)
+        public override void UseTool(GridCell cell)
         {
             DebugLogger.Log(this, "Executing");
             var occupant = cell.Occupant;
@@ -32,7 +32,10 @@ namespace GnomeGardeners
                 {
                     DebugLogger.Log(this, "Obstacle found!");
                     obstacle.Interact(this);
+                    return;
                 }
+
+                occupant.FailedInteraction();
             }
 
             if (occupant == null && cell.GroundType.Equals(GroundType.FallowSoil))
@@ -47,6 +50,11 @@ namespace GnomeGardeners
             {
                 resolver.SetCategoryAndLabel("tools", "prepare");
             }
+        }
+
+        public override void FailedInteraction()
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion

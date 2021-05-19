@@ -15,7 +15,6 @@ namespace GnomeGardeners
 
         private ItemType type;
         private bool isDecayed;
-        private GameObject popUp;
         private Stage currentStage;
         private bool isCurrentNeedFulfilled;
         private Sprite spriteInHand;
@@ -229,23 +228,6 @@ namespace GnomeGardeners
             occupyingCell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
         }
 
-        private void GetPopUp(PoolKey popUpType)
-        {
-            ClearPopUp();
-
-            GameObject newPopUp = GameManager.Instance.PoolController.GetObjectFromPool(transform.position + currentStage.popUpPositionOffset, Quaternion.identity, popUpType);
-            popUp = newPopUp;
-        }
-
-        private void ClearPopUp()
-        {
-            if(popUp != null)
-            {
-                popUp.gameObject.SetActive(false);
-                popUp = null;
-            }        
-        }
-
         private void Configure()
         {
             currentStage = species.stages[0];
@@ -257,6 +239,11 @@ namespace GnomeGardeners
             type = ItemType.Seed;
             randomizedTimeToGrow = currentStage.timeToGrow + UnityEngine.Random.Range(-timeToGrowVariation, timeToGrowVariation);
             isCurrentNeedFulfilled = false;
+        }
+
+        public override void FailedInteraction()
+        {
+            return;
         }
 
         #endregion

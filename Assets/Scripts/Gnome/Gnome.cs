@@ -322,7 +322,7 @@ namespace GnomeGardeners
 
             if (tool != null) // note: tool equipped and interacting on cell
             {
-                tool.UseTool(cell, this);
+                tool.UseTool(cell);
             }
             else if (tool == null && occupant != null) // note: no Tool equipped and interacting on occupant
             {
