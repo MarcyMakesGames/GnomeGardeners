@@ -10,17 +10,17 @@ namespace GnomeGardeners
     {
         [SerializeField] private TMP_Text scoreText;
 
-        private IntEventChannelSO OnScoreAddEvent;
+        private IntEventChannelSO OnCurrentLevelCurrentScore;
 
         private void Awake()
         {
-            OnScoreAddEvent = Resources.Load<IntEventChannelSO>("Channels/ScoreAddEC");
-            OnScoreAddEvent.OnEventRaised += UpdateUI;
+            OnCurrentLevelCurrentScore = Resources.Load<IntEventChannelSO>("Channels/CurrentLevelCurrentScoreEC");
+            OnCurrentLevelCurrentScore.OnEventRaised += UpdateUI;
         }
 
         private void OnDestroy()
         {
-            OnScoreAddEvent.OnEventRaised -= UpdateUI;
+            OnCurrentLevelCurrentScore.OnEventRaised -= UpdateUI;
         }
 
         public override void UpdateUI(int primaryData)

@@ -48,8 +48,6 @@ namespace GnomeGardeners
         {
             timeAtStart = GameManager.Instance.Time.ElapsedTime;
             restTime = availableTime;
-            timerUI = FindObjectOfType<TimerUI>();
-            scoreboardUI = FindObjectOfType<Scoreboard>();
             currentScore = 0;
 
             OnLevelStartEvent.RaiseEvent();
@@ -89,7 +87,6 @@ namespace GnomeGardeners
         private void AddToScore(int value)
         {
             currentScore += value;
-            scoreboardUI.UpdateUI(currentScore);
         }
 
         private void CheckWinCondition()
