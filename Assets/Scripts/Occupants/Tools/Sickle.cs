@@ -62,8 +62,7 @@ namespace GnomeGardeners
                         DebugLogger.Log(this, "Taking fertilizer.");
                         fertilizer = compost.DispenseItem();
                     }
-
-                    if (fertilizer != null)
+                    else if (fertilizer != null)
                     {
                         DebugLogger.Log(this, "Discarding fertilizer.");
                         fertilizer = null;
