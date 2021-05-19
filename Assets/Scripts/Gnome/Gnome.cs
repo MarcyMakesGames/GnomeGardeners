@@ -326,7 +326,7 @@ namespace GnomeGardeners
             }
             else if (tool == null && occupant != null) // note: no Tool equipped and interacting on occupant
             {
-                occupant.Interact(tool);
+                occupant.FailedInteraction();
             }
         }
 
