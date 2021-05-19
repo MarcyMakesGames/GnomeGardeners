@@ -82,9 +82,6 @@ namespace GnomeGardeners
         public void SetGameOverMenuActive()
         {
             GameManager.Instance.SceneController.ActiveInGameUI = InGameUIMode.GameOverMenu;
-
-            totalScoreboard.UpdateUI(GameManager.Instance.LevelManager.lastTotalScore);
-            requiredScoreboard.UpdateUI(GameManager.Instance.LevelManager.lastRequiredScore);
         }
 
         public void RestartLevel()
