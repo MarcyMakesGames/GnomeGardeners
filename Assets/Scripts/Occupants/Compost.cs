@@ -26,7 +26,7 @@ namespace GnomeGardeners
 
         public override void Interact(Tool tool)
         {
-
+            throw new System.NotImplementedException();
         }
 
         public Fertilizer DispenseItem()
@@ -43,6 +43,11 @@ namespace GnomeGardeners
         public void AddScore(int score)
         {
             OnScoreAddEvent.RaiseEvent(score);
+        }
+
+        public override void FailedInteraction()
+        {
+            GetPopUp(PoolKey.PopUp_Need_Harvest_Tool);
         }
 
         #endregion

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6781855766866969407}
   - component: {fileID: 91581230841265698}
   - component: {fileID: -2706089869030376030}
+  - component: {fileID: 2745327765990805210}
   m_Layer: 9
   m_Name: Peppermint
   m_TagString: Untagged
@@ -96,10 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d36f0eae487c9244ab6651f5f080723, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  species: {fileID: 11400000, guid: 918d9346057928b41b73f7b12ba45599, type: 2}
-  timeToGrowVariation: 2
+  multiCellObject: 0
   spriteRenderer: {fileID: 6781855766866969407}
   OnTileChanged: {fileID: 11400000, guid: 5c9235811ee9890478b55b3f6e2e720a, type: 2}
+  species: {fileID: 11400000, guid: 918d9346057928b41b73f7b12ba45599, type: 2}
+  timeToGrowVariation: 2
 --- !u!82 &-2706089869030376030
 AudioSource:
   m_ObjectHideFlags: 0
@@ -196,3 +198,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!61 &2745327765990805210
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8107983885071440429}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 1}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 0.1796875, y: 0.3046875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2}
+  m_EdgeRadius: 0

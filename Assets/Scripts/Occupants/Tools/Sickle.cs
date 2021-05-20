@@ -19,7 +19,7 @@ namespace GnomeGardeners
 
         }
 
-        public override void UseTool(GridCell cell, Gnome gnome)
+        public override void UseTool(GridCell cell)
         {
             DebugLogger.Log(this, "Executing.");
             var occupant = cell.Occupant;
@@ -32,11 +32,13 @@ namespace GnomeGardeners
                     DebugLogger.Log(this, "Plant found while carrying Fertilizer!");
                     plant.FulfillCurrentNeed(NeedType.Fertilizer);
                     fertilizer = null;
+                    return;
                 }
                 else if (occupant.TryGetComponent(out plant) && harvest == null)
                 {
                     DebugLogger.Log(this, "Harvesting plant!");
                     harvest = plant.HarvestPlant();
+                    return;
                 }
 
                 Basket basket;
@@ -45,31 +47,34 @@ namespace GnomeGardeners
                     DebugLogger.Log(this, "Scoring Area found!");
                     basket.DeliverHarvest(harvest.points);
                     harvest = null;
+                    return;
                 }
 
                 Compost compost;
                 if (occupant.TryGetComponent(out compost))
                 {
                     DebugLogger.Log(this, "Compost found!"); 
-                    if (fertilizer != null)
-                    {
-                        DebugLogger.Log(this, "Discarding fertilizer.");
-                        fertilizer = null;
-                    }
-
-                    if (fertilizer == null)
-                    {
-                        DebugLogger.Log(this, "Taking fertilizer.");
-                        fertilizer = compost.DispenseItem();
-                    }
-                    
-                    if(harvest != null)
+                    if (harvest != null)
                     {
                         DebugLogger.Log(this, "Discarding harvest");
                         compost.AddScore(harvest.points);
                         harvest = null;
                     }
+                    else if (fertilizer == null)
+                    {
+                        DebugLogger.Log(this, "Taking fertilizer.");
+                        fertilizer = compost.DispenseItem();
+                    }
+                    else if (fertilizer != null)
+                    {
+                        DebugLogger.Log(this, "Discarding fertilizer.");
+                        fertilizer = null;
+                    }
+
+                    return;
                 }
+
+                occupant.FailedInteraction();
             }
         }
         public override void UpdateSpriteResolvers(SpriteResolver[] resolvers)
@@ -78,6 +83,11 @@ namespace GnomeGardeners
             {
                 resolver.SetCategoryAndLabel("tools", "harvest");
             }
+        }
+
+        public override void FailedInteraction()
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion

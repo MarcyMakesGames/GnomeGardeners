@@ -13,11 +13,10 @@ namespace GnomeGardeners
         public GameObject settingsMenu;
         public GameObject tutorialMenu;
         public GameObject gameOverMenu;
-
-        public Scoreboard totalScoreboard;
-        public Scoreboard requiredScoreboard;
-
         private List<GameObject> allPanels;
+
+        private EventSystem eventSystem;
+        public GameObject quitButton;
 
         private InGameUIMode activePanel;
         private InGameUIMode nextPanel;
@@ -30,6 +29,7 @@ namespace GnomeGardeners
         private void Awake()
         {
             Configure();
+            eventSystem = FindObjectOfType<EventSystem>();
         }
 
         private void Start()
@@ -42,6 +42,7 @@ namespace GnomeGardeners
             tutorialMenu,
             gameOverMenu
         };
+            GameManager.Instance.Time.PauseTime();
         }
 
         private void Update()
@@ -82,13 +83,11 @@ namespace GnomeGardeners
         public void SetGameOverMenuActive()
         {
             GameManager.Instance.SceneController.ActiveInGameUI = InGameUIMode.GameOverMenu;
-
-            totalScoreboard.UpdateUI(GameManager.Instance.LevelManager.lastTotalScore);
-            requiredScoreboard.UpdateUI(GameManager.Instance.LevelManager.lastRequiredScore);
         }
 
         public void RestartLevel()
         {
+            GameManager.Instance.SceneController.ActiveInGameUI = InGameUIMode.TutorialMenu;
             GameManager.Instance.SceneController.LoadSceneGameplay();
         }
 
@@ -127,6 +126,7 @@ namespace GnomeGardeners
                 case InGameUIMode.GameOverMenu:
                     gameOverMenu.SetActive(true);
                     GameManager.Instance.Time.PauseTime();
+                    eventSystem.SetSelectedGameObject(quitButton);
                     break;
             }
 

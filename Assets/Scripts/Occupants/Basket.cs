@@ -45,6 +45,10 @@ namespace GnomeGardeners
 
         }
 
+        public override void FailedInteraction()
+        {
+            GetPopUp(PoolKey.PopUp_Need_Harvest_Tool);
+        }
         #endregion
 
         #region Private Methods
@@ -58,7 +62,6 @@ namespace GnomeGardeners
         {
             OnScoreAddEvent.RaiseEvent(score);
         }
-
         #endregion
     }
 }
