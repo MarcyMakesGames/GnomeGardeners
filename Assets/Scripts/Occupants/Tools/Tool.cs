@@ -32,14 +32,12 @@ namespace GnomeGardeners
 
         public void Unequip(GridCell targetCell)
         {
-            // todo: let the tool visually appear
-            // temp:
             cell = targetCell;
 
             if(targetCell.Occupant == null)
             {
-                gameObject.SetActive(true);
                 transform.position = targetCell.WorldPosition;
+                gameObject.SetActive(true);
 
                 AddOccupantToCells(targetCell);
 
@@ -50,8 +48,6 @@ namespace GnomeGardeners
 
         public void Equip()
         {
-            // todo: let the tool visually disappear
-            // temp:
             RemoveOccupantFromCells();
             gameObject.SetActive(false);
         }

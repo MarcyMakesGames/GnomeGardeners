@@ -8,8 +8,16 @@ namespace GnomeGardeners
     {
         private float currentTimer = 0f;
         private bool pauseTimer = false;
+        private float deltaTime;
         public float ElapsedTime { get => currentTimer; }
         public bool PauseTimer { get => pauseTimer; set => pauseTimer = value; }
+        public float DeltaTime { get
+            {
+                if (!pauseTimer)
+                    return Time.deltaTime;
+                else
+                    return 0f;
+            } }
 
         #region Unity Methods
 
