@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3743572230857295188}
   - component: {fileID: 2195665863263040106}
+  - component: {fileID: -1673931366871178047}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -47,6 +48,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2058747976024187399}
   m_CullTransparentMesh: 1
+--- !u!225 &-1673931366871178047
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058747976024187399}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &582949051927980950
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -164,23 +177,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5334776294262236803, guid: b02ba585981528d4ea8a6a8b79df60a0, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5334776294262236803, guid: b02ba585981528d4ea8a6a8b79df60a0, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5334776294262236803, guid: b02ba585981528d4ea8a6a8b79df60a0, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 71
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5334776294262236803, guid: b02ba585981528d4ea8a6a8b79df60a0, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 86
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5334776294262236803, guid: b02ba585981528d4ea8a6a8b79df60a0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -24.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5334776294262236804, guid: b02ba585981528d4ea8a6a8b79df60a0, type: 3}
       propertyPath: m_fontSize
