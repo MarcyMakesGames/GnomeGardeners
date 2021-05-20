@@ -145,12 +145,12 @@ namespace GnomeGardeners
 
 		private void AssignOccupant(GridCell cell)
 		{
-			cell.AddCellOccupant(this);
+			cell.Occupant = this;
 		}
 
 		private void RemoveOccupant(GridCell cell)
         {
-			cell.RemoveCellOccupant();
+			cell.Occupant = null;
 		}
 		#endregion
 	}
