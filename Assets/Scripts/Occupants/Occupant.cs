@@ -20,42 +20,25 @@ namespace GnomeGardeners
 
         public void Start()
         {
-			occupantCells = new List<GridCell>();
+            InitOccupancy();
 
-			if (multiCellObject)
-			{
-				BoxCollider2D coll = GetComponent<BoxCollider2D>();
+            AddOccupantToCells();
+        }
 
-				if(coll.bounds.extents.x >= .4f)
-                {
-					cell = GameManager.Instance.GridManager.GetClosestCell(new Vector3(transform.position.x + coll.bounds.extents.x, transform.position.y, 0));
-					occupantCells.Add(cell);
-					cell = GameManager.Instance.GridManager.GetClosestCell(new Vector3(transform.position.x - coll.bounds.extents.x, transform.position.y, 0));
-					occupantCells.Add(cell);
-				}
-
-				if (coll.bounds.extents.y >= .4f)
-				{
-					cell = GameManager.Instance.GridManager.GetClosestCell(new Vector3(transform.position.x, transform.position.y + coll.bounds.extents.y, 0));
-					occupantCells.Add(cell);
-					cell = GameManager.Instance.GridManager.GetClosestCell(new Vector3(transform.position.x, transform.position.y - coll.bounds.extents.y, 0));
-					occupantCells.Add(cell);
-				}
-
-			}
-			else
-            {
-				cell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
-				occupantCells.Add(cell);
-				DebugLogger.Log(this, cell.GridPosition.ToString());
-			}
-
-			AddOccupantToCells();
-		}
-
-        protected void Update()
+        protected virtual void Update()
         {
 			PopUpRemovalCountdown();
+        }
+
+        protected void OnEnable()
+        {
+			occupantCells = new List<GridCell>();
+			InitOccupancy();
+        }
+
+        protected void OnDisable()
+        {
+			RemoveOccupantFromCells();
         }
         #endregion
 
@@ -70,6 +53,9 @@ namespace GnomeGardeners
 
 		protected void RemoveOccupantFromCells()
         {
+			if (occupantCells == null)
+				return;
+
 			List<GridCell> oldCells = new List<GridCell>();
 
 			foreach (GridCell cell in occupantCells)
@@ -92,20 +78,6 @@ namespace GnomeGardeners
 				AssignOccupant(cell);
 		}
 
-		#endregion
-
-		#region Private Methods
-
-		private void AssignOccupant(GridCell cell)
-		{
-			cell.AddCellOccupant(this);
-		}
-
-		private void RemoveOccupant(GridCell cell)
-        {
-			cell.RemoveCellOccupant();
-		}
-
 		protected void GetPopUp(PoolKey popUpType)
 		{
 			ClearPopUp();
@@ -126,12 +98,59 @@ namespace GnomeGardeners
 		}
 
 		protected void PopUpRemovalCountdown()
-        {
+		{
 			if (popUp == null)
 				return;
 
 			if (GameManager.Instance.Time.GetTimeSince(currentPopUpTime) >= popUpDuration)
 				ClearPopUp();
+		}
+
+		protected void InitOccupancy()
+		{
+			if (GameManager.Instance.GridManager == null)
+				return;
+
+			if (multiCellObject)
+			{
+				BoxCollider2D coll = GetComponent<BoxCollider2D>();
+
+				if (coll.bounds.extents.x >= .4f)
+				{
+					cell = GameManager.Instance.GridManager.GetClosestCell(new Vector3(transform.position.x + coll.bounds.extents.x, transform.position.y, 0));
+					occupantCells.Add(cell);
+					cell = GameManager.Instance.GridManager.GetClosestCell(new Vector3(transform.position.x - coll.bounds.extents.x, transform.position.y, 0));
+					occupantCells.Add(cell);
+				}
+
+				if (coll.bounds.extents.y >= .4f)
+				{
+					cell = GameManager.Instance.GridManager.GetClosestCell(new Vector3(transform.position.x, transform.position.y + coll.bounds.extents.y, 0));
+					occupantCells.Add(cell);
+					cell = GameManager.Instance.GridManager.GetClosestCell(new Vector3(transform.position.x, transform.position.y - coll.bounds.extents.y, 0));
+					occupantCells.Add(cell);
+				}
+
+			}
+			else
+			{
+				cell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
+				occupantCells.Add(cell);
+				DebugLogger.Log(this, cell.GridPosition.ToString());
+			}
+		}
+		#endregion
+
+		#region Private Methods
+
+		private void AssignOccupant(GridCell cell)
+		{
+			cell.AddCellOccupant(this);
+		}
+
+		private void RemoveOccupant(GridCell cell)
+        {
+			cell.RemoveCellOccupant();
 		}
 		#endregion
 	}

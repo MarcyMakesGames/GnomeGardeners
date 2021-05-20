@@ -51,7 +51,7 @@ namespace GnomeGardeners
             base.Start();
         }
 
-        private void Update()
+        protected override void Update()
         {
             TryGrowing();
             CheckNeedPopUp();
@@ -118,7 +118,9 @@ namespace GnomeGardeners
 
             spriteRenderer.sprite = currentStage.sprite;
             transform.position = cell.WorldPosition;
-            cell.AddCellOccupant(this);
+
+            DebugLogger.Log(this, cell.GridPosition.ToString());
+            AddOccupantToCells(cell);
             occupyingCell = cell;
             isBeingCarried = false;
             GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_plant_planting, audioSource);

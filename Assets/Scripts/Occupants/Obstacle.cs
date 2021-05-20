@@ -42,7 +42,10 @@ namespace GnomeGardeners
                 spriteRenderer.sprite = spriteOnRest;
             }
         }
-
+        protected override void Update()
+        {
+            base.Update();
+        }
         #endregion
 
         #region Public Methods
