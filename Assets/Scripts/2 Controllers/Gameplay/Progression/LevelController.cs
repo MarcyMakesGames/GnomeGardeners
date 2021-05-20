@@ -14,8 +14,6 @@ namespace GnomeGardeners
         private int currentScore;
         private float restTime;
         private float timeAtStart;
-        private TimerUI timerUI;
-        private Scoreboard scoreboardUI;
         private bool isActive;
 
         private VoidEventChannelSO OnLevelStartEvent;
@@ -50,15 +48,18 @@ namespace GnomeGardeners
             restTime = availableTime;
             currentScore = 0;
 
+        }
+
+        private void Update()
+        {
+            if (timeAtStart == GameManager.Instance.Time.ElapsedTime) return;
+
             OnLevelStartEvent.RaiseEvent();
 
             isActive = true;
 
             DebugLogger.Log(this, "Level Start.");
-        }
 
-        private void Update()
-        {
             CalculateTime();
 
             CheckLoseCondition();
