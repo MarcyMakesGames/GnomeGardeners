@@ -50,14 +50,20 @@ namespace GnomeGardeners
 
         private void Start()
         {
-            currentHazardTimer = GameManager.Instance.Time.ElapsedTime;
-            if (randomizeHazards)
-                nextHazard = GetRandomHazard();
-            else
-                nextHazard = GetNextHazard();
+            if (isSpawningHazards)
+            {
+                currentHazardTimer = GameManager.Instance.Time.ElapsedTime;
+                if (randomizeHazards)
+                    nextHazard = GetRandomHazard();
+                else
+                    nextHazard = GetNextHazard();
 
-            OnNextHazard.RaiseEvent(nextHazard.Icon, nextHazard.HazardDuration, timeToFirstHazard);
+            }
+
+            OnLevelStart.OnEventRaised += RaiseFirstHazardEvent;
         }
+
+
 
         private void Update()
         {
@@ -124,6 +130,7 @@ namespace GnomeGardeners
             OnLevelStart.OnEventRaised -= StartSpawningHazards;
             OnLevelLose.OnEventRaised -= StopSpawningHazards;
             OnLevelWin.OnEventRaised -= StopSpawningHazards;
+            OnLevelStart.OnEventRaised -= RaiseFirstHazardEvent;
         }
 
         private HazardSO GetRandomHazard()
@@ -146,6 +153,11 @@ namespace GnomeGardeners
         private Vector3 GetRandomDespawn()
         {
             return despawnLocations[spawnDespawnIndex].position;
+        }
+
+        private void RaiseFirstHazardEvent()
+        {
+            OnNextHazard.RaiseEvent(nextHazard.Icon, nextHazard.HazardDuration, timeToFirstHazard);
         }
 
         private void StartSpawningHazards() => isSpawningHazards = true;
