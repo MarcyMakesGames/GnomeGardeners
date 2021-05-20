@@ -35,6 +35,7 @@ namespace GnomeGardeners
                     return;
                 }
 
+                DebugLogger.Log(this, "Failed interaction because " + occupant + " was in the way.");
                 occupant.FailedInteraction();
             }
 
@@ -54,7 +55,7 @@ namespace GnomeGardeners
 
         public override void FailedInteraction()
         {
-            throw new System.NotImplementedException();
+            return;
         }
 
         #endregion
