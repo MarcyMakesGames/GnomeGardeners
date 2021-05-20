@@ -36,7 +36,6 @@ namespace GnomeGardeners
         {
             allPanels = new List<GameObject>
         {
-            hud,
             pauseMenu,
             settingsMenu,
             tutorialMenu,
@@ -104,11 +103,12 @@ namespace GnomeGardeners
         {
             if (panel == activePanel) { return; }
 
+            hud.GetComponent<CanvasGroup>().alpha = 0f;
             DeactivateAllPanels();
             switch (panel)
             {
                 case InGameUIMode.HUD:
-                    hud.SetActive(true);
+                    hud.GetComponent<CanvasGroup>().alpha = 1f;
                     GameManager.Instance.Time.ResumeTime();
                     break;
                 case InGameUIMode.PauseMenu:

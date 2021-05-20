@@ -8,6 +8,7 @@ namespace GnomeGardeners
     public class HazardClockUI : MonoBehaviour
     {
         public GameObject mask;
+        public Image currentHazardIcon;
 
         public Transform posLeft;
         public Transform posCenter;
@@ -33,10 +34,10 @@ namespace GnomeGardeners
             image.sprite = icon;
             image.SetNativeSize();
             var spawnedGO = Instantiate(gameObjectToSpawn, posRight.position, gameObjectToSpawn.transform.rotation, mask.transform);
-            StartCoroutine(MoveAcross(spawnedGO, delay, duration));
+            StartCoroutine(MoveAcross(spawnedGO, delay, duration, icon));
         }
 
-        public IEnumerator MoveAcross(GameObject objectToMove, float delay, float duration)
+        public IEnumerator MoveAcross(GameObject objectToMove, float delay, float duration, Sprite icon)
         {
             float elapsedTime = 0;
             while (elapsedTime < delay)
@@ -46,7 +47,7 @@ namespace GnomeGardeners
                 yield return new WaitForEndOfFrame();
             }
             objectToMove.transform.position = posCenter.position;
-
+            currentHazardIcon.sprite = icon;
             elapsedTime = 0;
             while (elapsedTime < duration)
             {

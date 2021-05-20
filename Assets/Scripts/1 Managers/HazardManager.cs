@@ -80,7 +80,7 @@ namespace GnomeGardeners
         {
             if(timeToFirstHazard > 0f || hazards.Count == 0)
             {
-                timeToFirstHazard -= Time.deltaTime;
+                timeToFirstHazard -= GameManager.Instance.Time.DeltaTime;
                 return;
             }
 
