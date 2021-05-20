@@ -308,6 +308,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1817298145403850230, guid: 89746af6a2265ce46a464a68ea6b554e, type: 3}
+      propertyPath: timeToFirstHazard
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817298145403850230, guid: 89746af6a2265ce46a464a68ea6b554e, type: 3}
+      propertyPath: hazards.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817298145403850230, guid: 89746af6a2265ce46a464a68ea6b554e, type: 3}
+      propertyPath: hazards.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f7aaefcb601645499fe2c8438774696, type: 2}
+    - target: {fileID: 1817298145403850230, guid: 89746af6a2265ce46a464a68ea6b554e, type: 3}
+      propertyPath: hazards.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 02a8ec84e0131864c977684eefefd9b7, type: 2}
     - target: {fileID: 3855336070834662954, guid: 89746af6a2265ce46a464a68ea6b554e, type: 3}
       propertyPath: m_Name
       value: TestLevelTutorial
