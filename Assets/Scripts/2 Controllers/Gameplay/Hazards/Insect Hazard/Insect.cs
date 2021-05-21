@@ -59,7 +59,7 @@ namespace GnomeGardeners
             OnPlantEaten.OnEventRaised += ForgetPlant;
         }
 
-        private void Start()
+        private new void Start()
         {
             base.Start();
             excludedPlants = new List<Plant>();
@@ -87,8 +87,9 @@ namespace GnomeGardeners
             audioSource = GetComponent<AudioSource>();
         }
 
-        private void Update()
+        private new void Update()
         {
+            base.Update();
             if (isSearchingPlant)
             {
                 FindTargetPlant();
@@ -154,8 +155,9 @@ namespace GnomeGardeners
             }
         }
 
-        private void OnDisable()
+        private new void OnDisable()
         {
+            base.OnDisable();
             OnPlantTargeted.OnEventRaised -= ExcludePlant;
             OnPlantEaten.OnEventRaised -= ForgetPlant;
         }
@@ -186,8 +188,7 @@ namespace GnomeGardeners
             ++timesShooed;
             if(timesShooed >= timesToResistShooing)
             {
-                RemoveOccupantFromCells();
-                Destroy(gameObject);
+                SetFleeing();
                 DebugLogger.Log(this, "Shooed Away");
             }
         }
@@ -373,7 +374,6 @@ namespace GnomeGardeners
         {
 
             isFleeing = false;
-            // to-do: replace with object pool
             RemoveOccupantFromCells();
             Destroy(gameObject);
             DebugLogger.Log(this, "Fled to exit");
