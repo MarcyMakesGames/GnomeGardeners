@@ -7,8 +7,6 @@ namespace GnomeGardeners
 {
     public class Insect : Occupant
     {
-        private bool debug = false;
-
         [HideInInspector] public Vector3 despawnLocation = new Vector3(0f, 0f, 0f);
         [HideInInspector] public List<Plant> excludedPlants;
 
@@ -44,6 +42,11 @@ namespace GnomeGardeners
         [HideInInspector]  public bool isMovingToPlant;
         [HideInInspector]  public bool isFleeing;
 
+        private int isIncomingHash;
+        private int isEatingHash;
+        private int isFleeingHash;
+        private int hasTargetHash;
+
         private GridManager gridManager;
 
         // Event Channels
@@ -59,6 +62,11 @@ namespace GnomeGardeners
             gridManager = GameManager.Instance.GridManager;
             OnPlantTargeted.OnEventRaised += ExcludePlant;
             OnPlantEaten.OnEventRaised += ForgetPlant;
+
+            isIncomingHash = Animator.StringToHash("IsIncoming");
+            isEatingHash = Animator.StringToHash("IsEating");
+            isFleeingHash = Animator.StringToHash("IsFleeing");
+            hasTargetHash = Animator.StringToHash("HasTarget");
         }
 
         private new void Start()
@@ -75,13 +83,12 @@ namespace GnomeGardeners
             nextGridPosition = nextCell.GridPosition;
             targetGridPosition = new Vector2Int(0, 0);
             timeAtReachedPlant = 0f;
-            isMoving = false;
-            isEating = false;
             direction = Direction.North;
             timesShooed = 0;
+            isMoving = false;
 
-            isSearchingPlant = true;
-            isMovingToPlant = false;
+            isMovingToPlant = true;
+            isEating = false;
             isFleeing = false;
 
             transform.position = currentCell.WorldPosition;
@@ -94,14 +101,10 @@ namespace GnomeGardeners
             base.Update();
             if (isSearchingPlant)
             {
-                FindTargetPlant();
+                SetTargetToPlant();
             }
             else if(isMovingToPlant)
             {
-                if(timesShooed >= timesToResistShooing)
-                {
-                    SetFleeing();
-                }
                 MoveToTarget(targetCell);
 
             }
@@ -171,31 +174,99 @@ namespace GnomeGardeners
             Gizmos.DrawSphere(currentCell.WorldPosition, 0.1f);
             if(nextCell)
             Gizmos.DrawSphere(nextCell.WorldPosition, 0.1f);
+
+            Gizmos.color = Color.red;
             if (targetCell)
-                Gizmos.DrawSphere(targetCell.WorldPosition, 0.1f);
+                Gizmos.DrawSphere(targetCell.WorldPosition, 0.3f);
         }
 
         #endregion
 
         #region Public Methods
+        public bool SetTargetToPlant()
+        {
+            targetCell = gridManager.GetRandomCellWithPlant();
+            if (!targetCell) return false;
+            targetPlant = (Plant)targetCell.Occupant;
+            targetGridPosition = targetCell.GridPosition;
+
+            if (excludedPlants.Count > 0)
+            {
+                foreach (Plant excludedPlant in excludedPlants)
+                {
+                    if (targetPlant.Equals(excludedPlant))
+                    {
+                        targetCell = null;
+                        targetPlant = null;
+                        return false;
+                    }
+                }
+            }
+
+            OnPlantTargeted.RaiseEvent(targetPlant);
+
+            isSearchingPlant = false;
+            isMovingToPlant = true;
+            DebugLogger.Log(this, "Found target Plant");
+            return true;
+        }
 
         public void SetFleeing()
         {
-            isFleeing = true;
-            isMovingToPlant = false;
-            isSearchingPlant = false;
-            targetCell = gridManager.GetClosestCell(despawnLocation);
+            animator.SetBool(isFleeingHash, true);
         }
 
         public void IncrementShooedCount()
         {
             ++timesShooed;
-            if(timesShooed >= timesToResistShooing)
+            if(timesShooed == timesToResistShooing)
             {
                 SetFleeing();
                 DebugLogger.Log(this, "Shooed Away");
             }
         }
+
+        public void SetTargetToExit()
+        {
+            targetCell = gridManager.GetClosestCell(despawnLocation);
+            targetGridPosition = targetCell.GridPosition;
+        }
+
+        public void MoveToTarget()
+        {
+            vectorToTarget = targetCell.WorldPosition - transform.position;
+
+            if (!isMoving)
+            {
+                CalculateNextGridPosition();
+            }
+
+            if (targetCell.Equals(nextCell))
+            {
+                if (animator.GetBool(isFleeingHash))
+                {
+                    animator.SetBool(isFleeingHash, false);
+                }
+                else if (animator.GetBool(isIncomingHash))
+                {
+                    animator.SetBool(isIncomingHash, false);
+                    animator.SetBool(isEatingHash, true);
+                }
+            }
+            else
+            {
+                MoveToNextGridPosition();
+            }
+        }
+
+        public void Despawn()
+        {
+            isFleeing = false;
+            RemoveOccupantFromCells();
+            Destroy(gameObject);
+            DebugLogger.Log(this, "Fled to exit");
+        }
+
         public override void Interact(Tool tool)
         {
             throw new NotImplementedException();
@@ -205,11 +276,10 @@ namespace GnomeGardeners
         {
             throw new NotImplementedException();
         }
+
         #endregion
 
         #region Private Methods
-
-
 
         private void MoveToTarget(GridCell targetCell)
         {
@@ -222,11 +292,11 @@ namespace GnomeGardeners
 
             if(targetCell.Equals(nextCell))
             {
-                if (isFleeing)
+                if (animator.GetBool(isFleeingHash))
                 {
-                    DespawnAtTargetCell();
+                    animator.SetBool(isFleeingHash, false);
                 }
-                else if (isMovingToPlant)
+                else if (animator.GetBool(isIncomingHash))
                 {
                     EatPlant();
                 }
@@ -285,32 +355,8 @@ namespace GnomeGardeners
                 currentGridPosition = currentCell.GridPosition;
             }
         }
-        private void FindTargetPlant()
-        {
-            if (targetPlant != null) { return; }
-            targetCell = gridManager.GetRandomCellWithPlant();
-            if (targetCell == null) { return; }
-            targetPlant = (Plant)targetCell.Occupant;
-            targetGridPosition = targetCell.GridPosition;
 
-            if (excludedPlants.Count > 0)
-            {
-                foreach (Plant excludedPlant in excludedPlants)
-                {
-                    if (targetPlant.Equals(excludedPlant))
-                    {
-                        targetCell = null;
-                        targetPlant = null;
-                        return;
-                    }
-                }
-            }
-            OnPlantTargeted.RaiseEvent(targetPlant);
 
-            isSearchingPlant = false;
-            isMovingToPlant = true;
-            DebugLogger.Log(this, "Found target Plant");
-        }
 
         private void EatPlant()
         {
@@ -374,15 +420,6 @@ namespace GnomeGardeners
             currentAnimator.SetBool("IsEating", isEating);
         }
 
-        private void DespawnAtTargetCell()
-        {
-
-            isFleeing = false;
-            RemoveOccupantFromCells();
-            Destroy(gameObject);
-            DebugLogger.Log(this, "Fled to exit");
-
-        }
 
         private void ExcludePlant(Plant plant)
         {
@@ -394,6 +431,7 @@ namespace GnomeGardeners
             if(excludedPlants.Contains(plant))
                 excludedPlants.Remove(plant);
         }
+
 
         #endregion
 
