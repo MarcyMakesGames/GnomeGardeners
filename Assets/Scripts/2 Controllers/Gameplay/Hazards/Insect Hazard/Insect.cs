@@ -37,6 +37,8 @@ namespace GnomeGardeners
         private Vector2Int vectorIntToTarget;
         private Animator currentAnimator;
 
+        private Animator animator;
+
         // State Machine (Behaviour)
         [HideInInspector]  public bool isSearchingPlant;
         [HideInInspector]  public bool isMovingToPlant;
@@ -165,9 +167,11 @@ namespace GnomeGardeners
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.blue;
+            if(currentCell)
             Gizmos.DrawSphere(currentCell.WorldPosition, 0.1f);
+            if(nextCell)
             Gizmos.DrawSphere(nextCell.WorldPosition, 0.1f);
-            if(targetCell)
+            if (targetCell)
                 Gizmos.DrawSphere(targetCell.WorldPosition, 0.1f);
         }
 
@@ -205,32 +209,7 @@ namespace GnomeGardeners
 
         #region Private Methods
 
-        private void FindTargetPlant()
-        {
-            if(targetPlant != null) { return; }
-            targetCell = gridManager.GetRandomCellWithPlant();
-            if(targetCell == null) { return; }
-            targetPlant = (Plant)targetCell.Occupant;
-            targetGridPosition = targetCell.GridPosition;
 
-            if(excludedPlants.Count > 0)
-            {
-                foreach(Plant excludedPlant in excludedPlants)
-                {
-                    if (targetPlant.Equals(excludedPlant))
-                    {
-                        targetCell = null;
-                        targetPlant = null;
-                        return;
-                    }
-                }
-            }
-            OnPlantTargeted.RaiseEvent(targetPlant);
-
-            isSearchingPlant = false;
-            isMovingToPlant = true;
-            DebugLogger.Log(this, "Found target Plant");
-        }
 
         private void MoveToTarget(GridCell targetCell)
         {
@@ -306,7 +285,32 @@ namespace GnomeGardeners
                 currentGridPosition = currentCell.GridPosition;
             }
         }
+        private void FindTargetPlant()
+        {
+            if (targetPlant != null) { return; }
+            targetCell = gridManager.GetRandomCellWithPlant();
+            if (targetCell == null) { return; }
+            targetPlant = (Plant)targetCell.Occupant;
+            targetGridPosition = targetCell.GridPosition;
 
+            if (excludedPlants.Count > 0)
+            {
+                foreach (Plant excludedPlant in excludedPlants)
+                {
+                    if (targetPlant.Equals(excludedPlant))
+                    {
+                        targetCell = null;
+                        targetPlant = null;
+                        return;
+                    }
+                }
+            }
+            OnPlantTargeted.RaiseEvent(targetPlant);
+
+            isSearchingPlant = false;
+            isMovingToPlant = true;
+            DebugLogger.Log(this, "Found target Plant");
+        }
 
         private void EatPlant()
         {
