@@ -43,7 +43,7 @@ namespace GnomeGardeners
             while (elapsedTime < delay)
             {
                 objectToMove.transform.position = Vector3.Lerp(posRight.position, posCenter.position, (elapsedTime / delay));
-                elapsedTime += Time.deltaTime;
+                elapsedTime += GameManager.Instance.Time.DeltaTime;
                 yield return new WaitForEndOfFrame();
             }
             objectToMove.transform.position = posCenter.position;
@@ -52,7 +52,7 @@ namespace GnomeGardeners
             while (elapsedTime < duration)
             {
                 objectToMove.transform.position = Vector3.Lerp(posCenter.position, posLeft.position, (elapsedTime / duration));
-                elapsedTime += Time.deltaTime;
+                elapsedTime += GameManager.Instance.Time.DeltaTime;
                 yield return new WaitForEndOfFrame();
             }
             Destroy(objectToMove);
