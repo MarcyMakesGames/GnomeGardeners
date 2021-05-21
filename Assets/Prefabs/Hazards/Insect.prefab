@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 2311311509174026289}
   - component: {fileID: 5111438112753358521}
   - component: {fileID: -5306030048441411919}
+  - component: {fileID: -1551368714416396245}
   m_Layer: 0
   m_Name: Insect
   m_TagString: Untagged
@@ -124,6 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cfbcae28ef92dd448b0f1cd97ec9933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popUpDuration: 1
+  multiCellObject: 0
   despawnLocation: {x: 0, y: 0, z: 0}
   excludedPlants: []
   movementSpeed: 1
@@ -234,6 +237,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!210 &-1551368714416396245
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8255225213472450197}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1001 &4443033868594331525
 PrefabInstance:
   m_ObjectHideFlags: 0

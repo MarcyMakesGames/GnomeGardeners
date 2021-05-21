@@ -52,7 +52,6 @@ namespace GnomeGardeners
             {
                 insect.SetFleeing();
             }
-            Destroy(gameObject);
         }
     }
 }
