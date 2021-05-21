@@ -156,7 +156,12 @@ namespace GnomeGardeners
         {
 
             if (popUp == null && !isCurrentNeedFulfilled && currentStage.need != null)
+            {
                 GetPopUp(currentStage.need.popUpType);
+                PopUpController popUpControls = popUp.GetComponent<PopUpController>();
+
+                popUpControls.InitAnimIconTimer(currentStage.timeToGrow);
+            }
             else if (popUp != null && isCurrentNeedFulfilled)
             {
                 ClearPopUp();
