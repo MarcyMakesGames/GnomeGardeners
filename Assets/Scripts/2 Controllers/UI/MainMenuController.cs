@@ -2,9 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 
 namespace GnomeGardeners
 {
+    
     public class MainMenuController : MonoBehaviour
     {
         private readonly bool debug = false;
@@ -25,6 +28,9 @@ namespace GnomeGardeners
         private MenuPanel nextPanel;
         private MenuPanel activePanel;
 
+        private InputSystemUIInputModule uiInputModule;
+        private EventSystem eventSystem;
+
         public MenuPanel ActivePanel { get => activePanel; }
 
 
@@ -32,6 +38,12 @@ namespace GnomeGardeners
         private List<GameObject> allBackgrounds;
 
         #region Unity Methods
+
+        private void Awake()
+        {
+            uiInputModule = GetComponent<InputSystemUIInputModule>();
+            eventSystem = GetComponent<EventSystem>();
+        }
 
         private void Start()
         {
@@ -52,6 +64,7 @@ namespace GnomeGardeners
             };
 
             transition = GameManager.Instance.SceneController.Transition;
+            
         }
 
         private void Update()
@@ -169,6 +182,7 @@ namespace GnomeGardeners
             DeactivateAllPanels();
 
             panel.SetActive(true);
+            eventSystem.SetSelectedGameObject(panel.transform.GetChild(0).gameObject);
 
             if (background != null)
                 background.SetActive(true);
