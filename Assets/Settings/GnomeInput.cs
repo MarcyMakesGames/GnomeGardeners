@@ -203,7 +203,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""2fc1ba4d-5528-4771-8972-84c098a45b78"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardLeft"",
@@ -214,7 +214,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ca43b5f9-ffcb-4c9e-8b12-7e2027d20169"",
-                    ""path"": ""<Keyboard>/u"",
+                    ""path"": ""<Keyboard>/o"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardRight"",
@@ -236,7 +236,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""cebae20b-16f1-4a03-a7aa-d68a378b17dc"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardLeft"",
@@ -247,7 +247,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""8489540f-0f8b-4823-8d14-28dbc2eba940"",
-                    ""path"": ""<Keyboard>/o"",
+                    ""path"": ""<Keyboard>/u"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardRight"",
