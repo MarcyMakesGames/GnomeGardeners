@@ -8,8 +8,6 @@ namespace GnomeGardeners
     public class Sickle : Tool
     {
         private Harvest harvest;
-        private Fertilizer fertilizer;
-
 
         #region Public Methods
 
@@ -27,14 +25,7 @@ namespace GnomeGardeners
             {
                 DebugLogger.Log(this, "Occupant found!");
                 Plant plant;
-                if (occupant.TryGetComponent(out plant) && fertilizer != null)
-                {
-                    DebugLogger.Log(this, "Plant found while carrying Fertilizer!");
-                    plant.FulfillCurrentNeed(NeedType.Fertilizer);
-                    fertilizer = null;
-                    return;
-                }
-                else if (occupant.TryGetComponent(out plant) && harvest == null)
+                if (occupant.TryGetComponent(out plant) && harvest == null)
                 {
                     DebugLogger.Log(this, "Harvesting plant!");
                     harvest = plant.HarvestPlant();
@@ -60,17 +51,6 @@ namespace GnomeGardeners
                         compost.AddScore(harvest.points);
                         harvest = null;
                     }
-                    else if (fertilizer == null)
-                    {
-                        DebugLogger.Log(this, "Taking fertilizer.");
-                        fertilizer = compost.DispenseItem();
-                    }
-                    else if (fertilizer != null)
-                    {
-                        DebugLogger.Log(this, "Discarding fertilizer.");
-                        fertilizer = null;
-                    }
-
                     return;
                 }
 
@@ -82,6 +62,14 @@ namespace GnomeGardeners
             foreach (SpriteResolver resolver in resolvers)
             {
                 resolver.SetCategoryAndLabel("tools", "harvest");
+            }
+        }
+
+        public override void UpdateItemRenderers(SpriteRenderer[] renderers)
+        {
+            foreach (SpriteRenderer renderer in renderers)
+            {
+                renderer.sprite = harvest?.Sprite;
             }
         }
 

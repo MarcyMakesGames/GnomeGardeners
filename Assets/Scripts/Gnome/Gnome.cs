@@ -30,6 +30,15 @@ namespace GnomeGardeners
         [SerializeField] private SpriteResolver gnomeRightResolver;
         [SerializeField] private SpriteResolver gnomeFrontResolver;
         [SerializeField] private SpriteResolver gnomeLeftResolver;
+        [SerializeField] private SpriteRenderer itemRendererBack;
+        [SerializeField] private SpriteRenderer itemRendererRight;
+        [SerializeField] private SpriteRenderer itemRendererFront;
+        [SerializeField] private SpriteRenderer itemRendererLeft;
+        [SerializeField] private SpriteRenderer toolRendererBack;
+        [SerializeField] private SpriteRenderer toolRendererRight;
+        [SerializeField] private SpriteRenderer toolRendererFront;
+        [SerializeField] private SpriteRenderer toolRendererLeft;
+        
 
         private Tool tool;
         private float moveSpeed;
@@ -48,6 +57,9 @@ namespace GnomeGardeners
         private Vector2Int previousGridPosition;
 
         private Queue<Vector2> inputFrames;
+        private SpriteResolver[] resolvers = new SpriteResolver[4];
+        private SpriteRenderer[] itemRenderers = new SpriteRenderer[4];
+        private SpriteRenderer[] toolRenderers = new SpriteRenderer[4];
 
         #region Unity Methods
 
@@ -62,6 +74,19 @@ namespace GnomeGardeners
             inputFrames = new Queue<Vector2>(inputFramesCapacity);
             for (int i = 0; i < inputFramesCapacity; ++i)
                 inputFrames.Enqueue(Vector2.zero);
+            
+            resolvers[0] = gnomeBackResolver;
+            resolvers[1] = gnomeFrontResolver;
+            resolvers[2] = gnomeLeftResolver;
+            resolvers[3] = gnomeRightResolver;
+            itemRenderers[0] = itemRendererBack;
+            itemRenderers[1] = itemRendererFront;
+            itemRenderers[2] = itemRendererLeft;
+            itemRenderers[3] = itemRendererRight;
+            toolRenderers[0] = toolRendererBack;
+            toolRenderers[1] = toolRendererFront;
+            toolRenderers[2] = toolRendererLeft;
+            toolRenderers[3] = toolRendererRight;
             SetAllResolvers("tools", "nada");
         }
 
@@ -273,11 +298,11 @@ namespace GnomeGardeners
         private void Escape()
         {
             var activeInGamePanel = GameManager.Instance.SceneController.ActiveInGameUI;
-            if (activeInGamePanel != InGameUIMode.PauseMenu)
+            if (activeInGamePanel == InGameUIMode.HUD)
             {
                 activeInGamePanel = InGameUIMode.PauseMenu;
             }
-            else
+            else if (activeInGamePanel != InGameUIMode.HUD)
             {
                 activeInGamePanel = InGameUIMode.HUD;
             }
@@ -323,6 +348,8 @@ namespace GnomeGardeners
             if (tool != null) // note: tool equipped and interacting on cell
             {
                 tool.UseTool(cell);
+                tool.UpdateItemRenderers(itemRenderers);
+                tool.UpdateToolRenderers(toolRenderers);
             }
             else if (tool == null && occupant != null) // note: no Tool equipped and interacting on occupant
             {
@@ -341,6 +368,8 @@ namespace GnomeGardeners
                 tool.Unequip(dropCell);
                 tool = null;
                 SetAllResolvers("tools", "nada");
+                SetAllItemRenderers(null);
+                SetAllToolRenderers(null);
             }
             else if (tool == null && occupant != null)
             {
@@ -348,12 +377,9 @@ namespace GnomeGardeners
                 if (occupant.TryGetComponent(out toolOnGround))
                 {
                     tool = toolOnGround;
-                    SpriteResolver[] resolvers = new SpriteResolver[4];
-                    resolvers[0] = gnomeBackResolver;
-                    resolvers[1] = gnomeFrontResolver;
-                    resolvers[2] = gnomeLeftResolver;
-                    resolvers[3] = gnomeRightResolver;
                     tool.UpdateSpriteResolvers(resolvers);
+                    tool.UpdateItemRenderers(itemRenderers);
+                    tool.UpdateToolRenderers(toolRenderers);
                     toolOnGround.Equip();
 
                 }
@@ -367,7 +393,22 @@ namespace GnomeGardeners
             gnomeRightResolver.SetCategoryAndLabel(category, label);
             gnomeLeftResolver.SetCategoryAndLabel(category, label);
         }
+        
+        private void SetAllItemRenderers(Sprite sprite)
+        {
+            itemRendererBack.sprite = sprite;
+            itemRendererFront.sprite = sprite;
+            itemRendererLeft.sprite = sprite;
+            itemRendererRight.sprite = sprite;
+        }
 
+        private void SetAllToolRenderers(Sprite sprite)
+        {
+            toolRendererBack.sprite = sprite;
+            toolRendererFront.sprite = sprite;
+            toolRendererLeft.sprite = sprite;
+            toolRendererRight.sprite = sprite;
+        }
         #endregion
     }
 }

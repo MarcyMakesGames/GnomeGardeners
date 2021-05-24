@@ -16,6 +16,7 @@ namespace GnomeGardeners
         PopUp_Tool_Seeding,
         PopUp_Need_Seeding_Tool,
         PopUp_Need_Harvest_Tool,
+        PopUp_Need_Fertilizing_Tool,
         PopUp_Need_Flower,
 
         Plant_Sunflower,

@@ -52,7 +52,7 @@ namespace GnomeGardeners
 
         public override void FailedInteraction()
         {
-            GetPopUp(PoolKey.PopUp_Need_Harvest_Tool);
+            GetPopUp(PoolKey.PopUp_Need_Fertilizing_Tool);
         }
 
         #endregion

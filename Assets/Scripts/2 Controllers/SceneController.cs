@@ -39,6 +39,7 @@ namespace GnomeGardeners
         private void Start()
         {
             currentScene = (SceneState)SceneManager.GetActiveScene().buildIndex;
+            activeInGameUI = InGameUIMode.TutorialMenu;
         }
 
         private void OnDestroy()
@@ -84,6 +85,7 @@ namespace GnomeGardeners
             {
                 StartCoroutine(LoadSceneAsync(SceneState.Game));
             }
+            
         }
 
         public void LoadTitleMenu()
