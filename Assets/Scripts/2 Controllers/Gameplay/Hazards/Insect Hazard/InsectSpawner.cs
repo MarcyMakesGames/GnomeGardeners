@@ -31,7 +31,7 @@ namespace GnomeGardeners
         {
             for(int i = 0; i < insectAmount; ++i)
             {
-                var insectObject = Instantiate(insectPrefab, transform.position, transform.rotation);
+                var insectObject = Instantiate(insectPrefab, transform.position, Quaternion.identity);
                 var insect = insectObject.GetComponent<Insect>();
                 insect.despawnLocation = despawnPosition;
                 insects[i] = insect;
@@ -50,7 +50,8 @@ namespace GnomeGardeners
         {
             foreach(Insect insect in insects)
             {
-                insect.SetFleeing();
+                if(!insect.IsEating)
+                    insect.SetFleeing();
             }
         }
     }
