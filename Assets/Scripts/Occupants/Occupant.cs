@@ -92,7 +92,7 @@ namespace GnomeGardeners
 		{
 			if (popUp != null)
 			{
-				popUp.gameObject.SetActive(false);
+				popUp.GetComponent<PopUpController>().EndPopUp();
 				popUp = null;
 			}
 		}

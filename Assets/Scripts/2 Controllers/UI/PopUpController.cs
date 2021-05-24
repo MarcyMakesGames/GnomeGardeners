@@ -18,6 +18,12 @@ namespace GnomeGardeners
 
             iconFlashTimer = GameManager.Instance.Time.ElapsedTime;
             currentFlashTimer = flashTimer;
+            popUpAnimator.SetBool("EndPopUp", false);
+        }
+
+        public void EndPopUp()
+        {
+            popUpAnimator.SetBool("EndPopUp", true);
         }
 
         private void Update()
@@ -27,11 +33,13 @@ namespace GnomeGardeners
 
         private void UpdateAnimIconSpeed()
         {
+            if (iconAnimator == null)
+                return;
+
             if(currentFlashTimer <= GameManager.Instance.Time.GetTimeSince(iconFlashTimer))
             {
                 iconAnimator.speed = GameManager.Instance.Time.GetTimeSince(iconFlashTimer) / currentFlashTimer;
             }
         }
-
     }
 }

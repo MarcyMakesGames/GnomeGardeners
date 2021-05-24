@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 namespace GnomeGardeners
 {
-
     public class PlayerConfigManager : MonoBehaviour
     {
         public bool canJoinPlayers;
@@ -114,7 +113,5 @@ namespace GnomeGardeners
                 }
             }
         }
-
-
     }
 }
