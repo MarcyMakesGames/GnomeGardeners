@@ -502,7 +502,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7901279121805376323}
   - component: {fileID: 8074977689591306737}
-  - component: {fileID: 8151758894176823191}
   m_Layer: 0
   m_Name: Fence Horizontal long 15 tiles
   m_TagString: Untagged
@@ -569,21 +568,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 57.6, y: 1.28}
   m_EdgeRadius: 1
---- !u!114 &8151758894176823191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4283326624520146596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 100b54498b9e31641b73da6a15c39c31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 1
-  canBeRemoved: 0
-  removeTool: 0
 --- !u!1 &4331321018434177014
 GameObject:
   m_ObjectHideFlags: 0

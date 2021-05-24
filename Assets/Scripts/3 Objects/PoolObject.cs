@@ -2,49 +2,52 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public struct PoolObject
+namespace GnomeGardeners
 {
-    [SerializeField] private GameObject prefab;
-    [SerializeField] private int amount;
-    [SerializeField] private string key;
-
-    private List<GameObject> gameObjects;
-    private Transform parent;
-
-    public string Key { get => key; }
-
-    public void Init(Transform parent)
+    [System.Serializable]
+    public struct PoolObject
     {
-        gameObjects = new List<GameObject>(amount);
-        this.parent = parent;
+        [SerializeField] private GameObject prefab;
+        [SerializeField] private int amount;
+        [SerializeField] private PoolKey key;
 
-        for (int i = 0; i < amount; i++)
-            Generate();
-    }
+        private List<GameObject> gameObjects;
+        private Transform parent;
 
-    public GameObject GetObject()
-    {
-        GameObject gameObject;
+        public PoolKey Key { get => key; }
 
-        for (int i = 0; i < gameObjects.Count; i++)
+        public void Init(Transform parent)
         {
-            gameObject = gameObjects[i];
+            gameObjects = new List<GameObject>(amount);
+            this.parent = parent;
 
-            if (!gameObject.activeSelf)
-                return gameObject;
+            for (int i = 0; i < amount; i++)
+                Generate();
         }
 
-        return Generate();
-    }
+        public GameObject GetObject()
+        {
+            GameObject gameObject;
 
-    private GameObject Generate()
-    {
-        GameObject obj = GameObject.Instantiate(prefab, parent);
-        obj.SetActive(false);
+            for (int i = 0; i < gameObjects.Count; i++)
+            {
+                gameObject = gameObjects[i];
 
-        gameObjects.Add(obj);
+                if (!gameObject.activeSelf)
+                    return gameObject;
+            }
 
-        return obj;
+            return Generate();
+        }
+
+        private GameObject Generate()
+        {
+            GameObject obj = GameObject.Instantiate(prefab, parent);
+            obj.SetActive(false);
+
+            gameObjects.Add(obj);
+
+            return obj;
+        }
     }
 }

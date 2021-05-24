@@ -49,6 +49,22 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""6ca9e4e7-9b00-4005-a5d7-1ed2990d4f39"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Point"",
+                    ""type"": ""Value"",
+                    ""id"": ""d1637ed2-e767-48eb-88f2-5cf55c6651f4"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -187,7 +203,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""2fc1ba4d-5528-4771-8972-84c098a45b78"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardLeft"",
@@ -198,7 +214,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ca43b5f9-ffcb-4c9e-8b12-7e2027d20169"",
-                    ""path"": ""<Keyboard>/u"",
+                    ""path"": ""<Keyboard>/o"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardRight"",
@@ -220,7 +236,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""cebae20b-16f1-4a03-a7aa-d68a378b17dc"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardLeft"",
@@ -231,7 +247,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""8489540f-0f8b-4823-8d14-28dbc2eba940"",
-                    ""path"": ""<Keyboard>/o"",
+                    ""path"": ""<Keyboard>/u"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardRight"",
@@ -258,6 +274,28 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5ac540b6-b325-4dda-bcb5-92124127a4ed"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""061ea5dd-eabd-438d-9395-8ce5278211b1"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Point"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -306,6 +344,8 @@ public class @GnomeInput : IInputActionCollection, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_ToolUse = m_Player.FindAction("Tool Use", throwIfNotFound: true);
         m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
+        m_Player_Click = m_Player.FindAction("Click", throwIfNotFound: true);
+        m_Player_Point = m_Player.FindAction("Point", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -359,6 +399,8 @@ public class @GnomeInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_ToolUse;
     private readonly InputAction m_Player_Escape;
+    private readonly InputAction m_Player_Click;
+    private readonly InputAction m_Player_Point;
     public struct PlayerActions
     {
         private @GnomeInput m_Wrapper;
@@ -367,6 +409,8 @@ public class @GnomeInput : IInputActionCollection, IDisposable
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @ToolUse => m_Wrapper.m_Player_ToolUse;
         public InputAction @Escape => m_Wrapper.m_Player_Escape;
+        public InputAction @Click => m_Wrapper.m_Player_Click;
+        public InputAction @Point => m_Wrapper.m_Player_Point;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -388,6 +432,12 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 @Escape.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
                 @Escape.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
                 @Escape.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
+                @Click.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClick;
+                @Click.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClick;
+                @Click.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClick;
+                @Point.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPoint;
+                @Point.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPoint;
+                @Point.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPoint;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -404,6 +454,12 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 @Escape.started += instance.OnEscape;
                 @Escape.performed += instance.OnEscape;
                 @Escape.canceled += instance.OnEscape;
+                @Click.started += instance.OnClick;
+                @Click.performed += instance.OnClick;
+                @Click.canceled += instance.OnClick;
+                @Point.started += instance.OnPoint;
+                @Point.performed += instance.OnPoint;
+                @Point.canceled += instance.OnPoint;
             }
         }
     }
@@ -441,5 +497,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnToolUse(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
+        void OnClick(InputAction.CallbackContext context);
+        void OnPoint(InputAction.CallbackContext context);
     }
 }

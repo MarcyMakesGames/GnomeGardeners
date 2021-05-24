@@ -1,265 +1,241 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 
-public class AudioManager : MonoBehaviour
+namespace GnomeGardeners
 {
-    public bool debug;
-    public AudioTrack[] tracks;
-
-    // note: relationship between audio types (key) and audio tracks (value)
-    private Hashtable audioTable;
-    // note: relationship between audio types (key) and audio jobs (value) (Coroutine, IEnumerator)
-    private Hashtable jobTable;
-
-    #region Audio Classes
-
-    [System.Serializable]
-    public class AudioObject
+    public class AudioManager : MonoBehaviour
     {
-        public AudioType type;
-        public AudioClip clip;
-    }
+        [SerializeField] private AudioClip bgm;
 
-    [System.Serializable]
-    public class AudioTrack
-    {
-        public string name;
-        public AudioSource source;
-        public AudioObject[] audio;
-    }
+        private SoundEffect[] soundEffects;
+        private AudioSource[] audioSources;
+        private AudioSource soundSource;
+        private AudioSource musicSource;
+        private AudioSource ambienceSource;
 
-    private class AudioJob
-    {
-        public AudioAction action;
-        public AudioType type;
-        public bool fade;
-        public WaitForSeconds delay;
+        public AudioMixer audioMixer;
 
-        public AudioJob(AudioAction action, AudioType type, bool fade, float delay)
+        private float masterVolume = 0.2f;
+        private float soundVolume = 1f;
+        private float musicVolume = 1f;
+        private float ambienceVolume = 1f;
+
+        private FloatEventChannelSO OnMasterVolumeChanged;
+        private FloatEventChannelSO OnSoundVolumeChanged;
+        private FloatEventChannelSO OnMusicVolumeChanged;
+        private FloatEventChannelSO OnAmbienceVolumeChanged;
+
+        public float MasterVolume { get => masterVolume; set => UpdateMasterVolume(value); }
+        public float SoundVolume { get => soundVolume; set => UpdateSoundVolume(value); }
+        public float MusicVolume { get => musicVolume; set => UpdateMusicVolume(value); }
+        public float AmbienceVolume { get => ambienceVolume; set => UpdateAmbienceVolume(value); }
+        public void PlaySound(AudioClip clipToPlay) => soundSource.PlayOneShot(clipToPlay);
+        public bool PlayingAmbience { get => ambienceSource.isPlaying; }
+        public AudioClip CurrentBGM { get => musicSource.clip; }
+
+        #region Unity Methods
+
+        private void Awake()
         {
-            this.action = action;
-            this.type = type;
-            this.fade = fade;
-            this.delay = delay > 0f ? new WaitForSeconds(delay) : null;
-        }
-    }
-
-    #endregion
-
-    #region Unity Methods
-
-    private void Awake()
-    {
-        Configure();
-    }
-
-    private void OnDisable()
-    {
-        Dispose();
-    }
-
-    #endregion
-
-    #region Public Methods
-
-    public void PlayAudio(AudioType type, bool fade = false, float delay = 0f)
-    {
-        AddJob(new AudioJob(AudioAction.START, type, fade, delay));
-    }
-
-    public void StopAudio(AudioType type, bool fade = false, float delay = 0f)
-    {
-        AddJob(new AudioJob(AudioAction.STOP, type, fade, delay));
-    }
-
-    public void RestartAudio(AudioType type, bool fade = false, float delay = 0f)
-    {
-        AddJob(new AudioJob(AudioAction.RESTART, type, fade, delay));
-    }
-
-
-    #endregion
-
-    #region Private Methods
-
-    private void Configure()
-    {
-
-        if (GameManager.Instance.AudioManager == null)
-        {
-            GameManager.Instance.AudioManager = this;
-            audioTable = new Hashtable();
-            jobTable = new Hashtable();
-            GenerateAudioTable();
-        }
-    }
-
-    private void Dispose()
-    {
-        foreach(DictionaryEntry kvp in jobTable)
-        {
-            Coroutine job = (Coroutine)kvp.Value;
-            StopCoroutine(job);
-        }
-    }
-
-
-    private void AddJob(AudioJob job)
-    {
-        RemoveConflictingJobs(job.type);
-
-        Coroutine runningJob = StartCoroutine(RunAudioJob(job));
-        jobTable.Add(job.type, runningJob);
-        Log("Starting job on [" + job.type + "] with operation: " + job.action);
-    }
-
-    private void RemoveJob(AudioType type)
-    {
-        if (!jobTable.ContainsKey(type))
-        {
-            Log("Trying to stop a job [" + type + "] that is not running.");
-            return;
-        }
-        Coroutine runningJob = (Coroutine)jobTable[type];
-        StopCoroutine(runningJob);
-        jobTable.Remove(type);
-    }
-
-    private void RemoveConflictingJobs(AudioType type)
-    {
-        // note: cancel the job if one exists with the same type
-        if (jobTable.ContainsKey(type))
-        {
-            RemoveJob(type);
-        }
-
-        // note: cancel jobs that share the same audio track
-        AudioType conflictAudio = AudioType.None;
-        AudioTrack audioTrackNeeded = GetAudioTrack(type, "Get Audio Track Needed");
-        foreach(DictionaryEntry entry in jobTable)
-        {
-            AudioType audioType = (AudioType)entry.Key;
-            AudioTrack audioTrackInUse = GetAudioTrack(audioType, "Get Audio Track In Use");
-            if(audioTrackInUse.source == audioTrackNeeded.source)
+            if(GameManager.Instance.AudioManager == null)
             {
-                conflictAudio = audioType;
-                break;
+                GameManager.Instance.AudioManager = this;
+            }
+
+            audioSources = GetComponents<AudioSource>();
+            soundSource = audioSources[0];
+            musicSource = audioSources[1];
+            ambienceSource = audioSources[2];
+            
+            OnMasterVolumeChanged = Resources.Load<FloatEventChannelSO>("Channels/MasterVolumeChangedEC");
+            OnSoundVolumeChanged = Resources.Load<FloatEventChannelSO>("Channels/SoundVolumeChangedEC");
+            OnMusicVolumeChanged = Resources.Load<FloatEventChannelSO>("Channels/MusicVolumeChangedEC");
+            OnAmbienceVolumeChanged = Resources.Load<FloatEventChannelSO>("Channels/AmbienceVolumeChangedEC");
+        }
+
+        private void Start()
+        {
+            soundEffects = Resources.LoadAll("Sound Effects", typeof(SoundEffect)).Cast<SoundEffect>().ToArray();
+
+            PlayMusic(bgm, true);
+            musicSource.loop = true;
+            ambienceSource.loop = true;
+
+            UpdateMasterVolume(masterVolume);
+            UpdateSoundVolume(soundVolume);
+            UpdateMusicVolume(musicVolume);
+            UpdateAmbienceVolume(ambienceVolume);
+
+            OnMasterVolumeChanged.OnEventRaised += UpdateMasterVolume;
+            OnSoundVolumeChanged.OnEventRaised += UpdateSoundVolume;
+            OnMusicVolumeChanged.OnEventRaised += UpdateMusicVolume;
+            OnAmbienceVolumeChanged.OnEventRaised += UpdateAmbienceVolume;
+
+            MasterVolume = GameManager.Instance.ConfigController.MasterVolume;
+            SoundVolume = GameManager.Instance.ConfigController.SoundVolume;
+            MusicVolume = GameManager.Instance.ConfigController.MusicVolume;
+        }
+
+        private void OnDestroy()
+        {
+            OnMasterVolumeChanged.OnEventRaised -= UpdateMasterVolume;
+            OnSoundVolumeChanged.OnEventRaised -= UpdateSoundVolume;
+            OnMusicVolumeChanged.OnEventRaised -= UpdateMusicVolume;
+            OnAmbienceVolumeChanged.OnEventRaised -= UpdateAmbienceVolume;
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public void PlayMusic(AudioClip clipToPlay, bool fade = false)
+        {
+            if (musicSource.clip == clipToPlay) { return; }
+            if (fade)
+                StartCoroutine(StartFade(1f, 1f));
+            musicSource.clip = clipToPlay;
+            musicSource.Play();
+        }
+
+        public void StopMusic()
+        {
+            if (!musicSource.isPlaying) { return; }
+            musicSource.Stop();
+        }
+
+        public void PlayAmbience(SoundType type, bool fade = false)
+        {
+            SoundEffect soundEffectToPlay = null;
+            foreach (SoundEffect sound in soundEffects)
+            {
+                if (sound.type == type)
+                {
+                    soundEffectToPlay = sound;
+                }
+            }
+            if(soundEffectToPlay != null)
+            {
+                if (fade)
+                    StartCoroutine(StartFade(1f, 1f));
+                ambienceSource.clip = soundEffectToPlay.GetRandomClip();
+                ambienceSource.Play();
             }
         }
-        if(conflictAudio != AudioType.None)
+        public void PlayAmbience(SoundType type, AudioSource source, bool fade = false)
         {
-            RemoveJob(conflictAudio);
-        }
-    }
-
-    private IEnumerator RunAudioJob(AudioJob job)
-    {
-        if (job.delay != null) yield return job.delay;
-
-        // note: track existence should be verified by now
-        AudioTrack track = GetAudioTrack(job.type);
-        track.source.clip = GetAudioClipFromAudioTrack(job.type, track);
-
-        float initial = 0f;
-        float target = 1f;
-        switch (job.action)
-        {
-            case AudioAction.START:
-                track.source.Play();
-                break;
-            case AudioAction.STOP when !job.fade:
-                track.source.Stop();
-                break;
-            case AudioAction.STOP:
-                initial = 1f;
-                target = 0f;
-                break;
-            case AudioAction.RESTART:
-                track.source.Stop();
-                track.source.Play();
-                break;
-        }
-
-        if (job.fade)
-        {
-            float duration = 1f;
-            float timer = 0f;
-
-            while(timer <= duration)
+            SoundEffect soundEffectToPlay = null;
+            foreach (SoundEffect sound in soundEffects)
             {
-                track.source.volume = Mathf.Lerp(initial, target, timer / duration);
-                timer += Time.deltaTime;
+                if (sound.type == type)
+                {
+                    soundEffectToPlay = sound;
+                }
+            }
+            if (soundEffectToPlay != null)
+            {
+                source.volume = ambienceVolume * masterVolume;
+                source.clip = soundEffectToPlay.GetRandomClip();
+                source.Play();
+            }
+        }
+
+        public void StopAmbience()
+        {
+            if (!ambienceSource.isPlaying) { return; }
+            ambienceSource.Stop();
+        }
+
+        public void PlaySound(SoundType type)
+        {
+            SoundEffect soundEffectToPlay = null;
+            foreach (SoundEffect sound in soundEffects)
+            {
+                if (sound.type == type)
+                {
+                    soundEffectToPlay = sound;
+                }
+            }
+
+            if(soundEffectToPlay != null)
+                soundSource.PlayOneShot(soundEffectToPlay.GetRandomClip());
+
+        }
+
+        public void PlaySound(SoundType type, AudioSource source)
+        {
+            SoundEffect soundEffectToPlay = null;
+            foreach (SoundEffect sound in soundEffects)
+            {
+                if (sound.type == type)
+                {
+                    soundEffectToPlay = sound;
+                }
+            }
+
+            if(soundEffectToPlay != null)
+            {
+                source.volume = soundVolume * masterVolume;
+                source.clip = soundEffectToPlay.GetRandomClip();
+                source.Play();
+            }
+        }
+
+
+        #endregion
+
+        #region Private Methods
+
+        private void UpdateMasterVolume(float volume)
+        {
+            masterVolume = volume;
+            soundSource.volume = soundVolume * masterVolume;
+            musicSource.volume = musicVolume * masterVolume;
+            ambienceSource.volume = ambienceVolume * masterVolume;
+            GameManager.Instance.ConfigController.MasterVolume = volume;
+        }
+
+        private void UpdateSoundVolume(float volume)
+        {
+            soundVolume = volume;
+            soundSource.volume = soundVolume * masterVolume;
+            GameManager.Instance.ConfigController.SoundVolume = volume;
+        }
+
+        private void UpdateMusicVolume(float volume)
+        {
+            musicVolume = volume;
+            musicSource.volume = musicVolume * masterVolume;
+            GameManager.Instance.ConfigController.MusicVolume = volume;
+        }
+
+        private void UpdateAmbienceVolume(float volume)
+        {
+            ambienceVolume = volume;
+            ambienceSource.volume = ambienceVolume * masterVolume;
+            GameManager.Instance.ConfigController.AmbienceVolume = volume;
+        }
+
+        private IEnumerator StartFade(float duration, float targetVolume)
+        {
+            float currentTime = 0;
+            float currentVol;
+            audioMixer.GetFloat("MasterVolume", out currentVol);
+            currentVol = Mathf.Pow(10, currentVol / 20);
+            float targetValue = Mathf.Clamp(targetVolume, 0.0001f, 1);
+
+            while (currentTime < duration)
+            {
+                currentTime += Time.deltaTime;
+                float newVol = Mathf.Lerp(currentVol, targetValue, currentTime / duration);
+                audioMixer.SetFloat("MasterVolume", Mathf.Log10(newVol) * 20);
                 yield return null;
             }
-
-            // note: if timer was 0.999 and Time.deltaTime was 0.01 we would not have reached the target
-            // note: make sure the volume is set to the value we want
-            track.source.volume = target;
-
-            if(job.action == AudioAction.STOP)
-            {
-                track.source.Stop();
-            }
+            yield break;
         }
 
-        jobTable.Remove(job.type);
-        Log("Job count: " + jobTable.Count);
+        #endregion
     }
-
-    private AudioClip GetAudioClipFromAudioTrack(AudioType type, AudioTrack track)
-    {
-        foreach(AudioObject obj in track.audio)
-        {
-            if(obj.type == type)
-            {
-                return obj.clip;
-            }
-        }
-        return null;
-    }
-
-
-    private void GenerateAudioTable()
-    {
-        foreach(AudioTrack track in tracks)
-        {
-            foreach(AudioObject obj in track.audio)
-            {
-                if (audioTable.ContainsKey(obj.type))
-                {
-                    LogWarning("You are trying to register audio [" + obj.type + "] that has already been registered.");
-                }
-                else
-                {
-                    audioTable.Add(obj.type, track);
-                    Log("Registering audio [" + obj.type + "]");
-                }
-            }
-        }
-    }
-
-    private AudioTrack GetAudioTrack(AudioType type, string job = "")
-    {
-        if (!audioTable.ContainsKey(type))
-        {
-            LogWarning("You are trying to <color=#fff>" + job + "</color> for [" + type + "] but no track was found supporting this audio type.");
-            return null;
-        }
-        return (AudioTrack)audioTable[type];
-    }
-
-    private void Log(string msg)
-    {
-        if (!debug) return;
-        Debug.Log("[AudioController]: " + msg);
-    }
-
-    private void LogWarning(string msg)
-    {
-        if (!debug) return;
-        Debug.LogWarning("[AudioController]: " + msg);
-    }
-
-    #endregion
-
 }

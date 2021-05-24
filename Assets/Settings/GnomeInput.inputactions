@@ -36,6 +36,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
+                },
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "6ca9e4e7-9b00-4005-a5d7-1ed2990d4f39",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "Point",
+                    "type": "Value",
+                    "id": "d1637ed2-e767-48eb-88f2-5cf55c6651f4",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -174,7 +190,7 @@
                 {
                     "name": "",
                     "id": "2fc1ba4d-5528-4771-8972-84c098a45b78",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardLeft",
@@ -185,7 +201,7 @@
                 {
                     "name": "",
                     "id": "ca43b5f9-ffcb-4c9e-8b12-7e2027d20169",
-                    "path": "<Keyboard>/u",
+                    "path": "<Keyboard>/o",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardRight",
@@ -207,7 +223,7 @@
                 {
                     "name": "",
                     "id": "cebae20b-16f1-4a03-a7aa-d68a378b17dc",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardLeft",
@@ -218,7 +234,7 @@
                 {
                     "name": "",
                     "id": "8489540f-0f8b-4823-8d14-28dbc2eba940",
-                    "path": "<Keyboard>/o",
+                    "path": "<Keyboard>/u",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardRight",
@@ -245,6 +261,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5ac540b6-b325-4dda-bcb5-92124127a4ed",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "061ea5dd-eabd-438d-9395-8ce5278211b1",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Point",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

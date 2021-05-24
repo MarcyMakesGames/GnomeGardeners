@@ -2,52 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridCell : MonoBehaviour
+namespace GnomeGardeners 
 {
-    private Vector2Int gridPosition;
-    private Vector3 worldPosition;
-    private GroundType groundType;
-    private TilePosition mapPosition;
-    private IOccupant occupant;
-    private Sprite targetMask;
-    
-    public Vector2Int GridPosition { get => gridPosition; }
-    public Vector3 WorldPosition { get => worldPosition; }
-    public GroundType GroundType { get => groundType; }
-    public TilePosition MapPosition { get => mapPosition; }
-    public IOccupant Occupant { get => occupant; }
-
-    public void InitGridCell(Vector2Int positionOnGrid, Vector3 positionInWorld, GroundType typeOfGround, TilePosition positionOnMap, IOccupant objectInCell, Sprite spriteMask)
+    public class GridCell : MonoBehaviour
     {
-        gridPosition = positionOnGrid;
-        worldPosition = positionInWorld;
-        transform.position = worldPosition;
-        groundType = typeOfGround;
-        mapPosition = positionOnMap;
-        AddCellOccupant(objectInCell);
-        ChangeSpriteTarget(spriteMask);
-    }
+        private Vector2Int gridPosition;
+        private Vector3 worldPosition;
+        private GroundType groundType;
+        private TilePosition mapPosition;
+        private Occupant occupant;
 
-    public void RemoveCellOccupant()
-    {
-        occupant = null;
-    }
 
-    public void AddCellOccupant(IOccupant occupant)
-    {
-        this.occupant = occupant;
-    }
+        public Vector2Int GridPosition { get => gridPosition; }
+        public Vector3 WorldPosition { get => worldPosition; }
+        public GroundType GroundType { get => groundType; set => groundType = value; }
+        public TilePosition MapPosition { get => mapPosition; }
+        public Occupant Occupant { get => occupant; set => occupant = value; }
 
-    public void ChangeSpriteTarget(Sprite spriteMask)
-    {
-        SpriteMask mask = GetComponent<SpriteMask>();
+        public void InitGridCell(Vector2Int positionOnGrid, Vector3 positionInWorld, GroundType typeOfGround, TilePosition positionOnMap, Occupant objectInCell, Sprite spriteMask)
+        {
+            gridPosition = positionOnGrid;
+            worldPosition = positionInWorld;
+            transform.position = worldPosition;
+            groundType = typeOfGround;
+            mapPosition = positionOnMap;
+            occupant = objectInCell;
+            ChangeSpriteTarget(spriteMask);
+        }
 
-        if (spriteMask != null)
-            mask.sprite = spriteMask;
-    }
 
-    public void ChangeGroundType(GroundType groundType)
-    {
-        this.groundType = groundType;
+        public void ChangeSpriteTarget(Sprite spriteMask)
+        {
+            SpriteMask mask = GetComponent<SpriteMask>();
+
+            if (spriteMask != null)
+                mask.sprite = spriteMask;
+        }
+
+        public void ChangeGroundType(GroundType groundType)
+        {
+            this.groundType = groundType;
+        }
     }
 }

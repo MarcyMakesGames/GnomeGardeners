@@ -1,14 +1,17 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(menuName = "Events/MenuPanel Event Channel")]
-public class MenuPanelEventChannelSO : ScriptableObject
+namespace GnomeGardeners
 {
-    public delegate void MenuPanelAction(MenuPanel panel);
-    public MenuPanelAction OnEventRaised;
-
-    public void RaiseEvent(MenuPanel panel)
+    [CreateAssetMenu(menuName = "Events/MenuPanel Event Channel")]
+    public class MenuPanelEventChannelSO : ScriptableObject
     {
-        OnEventRaised?.Invoke(panel);
+        public delegate void MenuPanelAction(MenuPanel panel);
+        public MenuPanelAction OnEventRaised;
+
+        public void RaiseEvent(MenuPanel panel)
+        {
+            OnEventRaised?.Invoke(panel);
+        }
     }
 }

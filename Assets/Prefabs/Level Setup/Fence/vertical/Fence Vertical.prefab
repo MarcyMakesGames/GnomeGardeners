@@ -3372,7 +3372,6 @@ GameObject:
   m_Component:
   - component: {fileID: 853369532344092236}
   - component: {fileID: 8458125819658462908}
-  - component: {fileID: 547135316571248307}
   m_Layer: 0
   m_Name: Fence Vertical
   m_TagString: Untagged
@@ -3463,21 +3462,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 23}
   m_EdgeRadius: 1
---- !u!114 &547135316571248307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8367563368547342289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 100b54498b9e31641b73da6a15c39c31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 1
-  canBeRemoved: 0
-  removeTool: 0
 --- !u!1 &8389185901413980787
 GameObject:
   m_ObjectHideFlags: 0

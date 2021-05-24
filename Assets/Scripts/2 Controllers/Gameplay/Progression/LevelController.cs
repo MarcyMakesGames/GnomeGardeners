@@ -4,107 +4,132 @@ using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
 using System;
 
-public class LevelController : MonoBehaviour
+namespace GnomeGardeners
 {
-    private bool debug = false;
-
-    public float availableTime = 120f;
-    public int requiredScore = 1000;
-
-    private int totalScore;
-    private float restTime;
-    private float timeAtStart;
-    private TimerUI timerUI;
-    private Scoreboard scoreboardUI;
-
-    public VoidEventChannelSO OnLevelStartEvent;
-    public VoidEventChannelSO OnLevelLoseEvent;
-    public VoidEventChannelSO OnLevelWinEvent;
-    public IntEventChannelSO OnScoreAddEvent;
-
-    public float RestTime { get => restTime; }
-    public int TotalScore { get => totalScore; set => totalScore = value; }
-
-    #region Unity Methods
-
-    private void Awake()
+    public class LevelController : MonoBehaviour
     {
-        OnScoreAddEvent.OnEventRaised += AddToScore;
-    }
+        public float availableTime = 120f;
+        public int requiredScore = 1000;
 
-    private void Start()
-    {
-        timeAtStart = GameManager.Instance.Time.ElapsedTime;
-        restTime = availableTime;
-        timerUI = FindObjectOfType<TimerUI>();
-        scoreboardUI = FindObjectOfType<Scoreboard>();
-        totalScore = 0;
+        private int currentScore;
+        private float restTime;
+        private float timeAtStart;
+        private bool isActive;
+        private bool hasStarted;
 
-        OnLevelStartEvent.RaiseEvent();
+        private VoidEventChannelSO OnLevelStartEvent;
+        private VoidEventChannelSO OnLevelLoseEvent;
+        private VoidEventChannelSO OnLevelWinEvent;
+        private IntEventChannelSO OnScoreAddEvent;
+        private FloatEventChannelSO OnCurrentLevelTimeEvent;
+        private IntEventChannelSO OnCurrentLevelCurrentScore;
+        private IntEventChannelSO OnCurrentLevelRequiredScore;
 
-        Log("Level Start.");
-    }
 
-    private void Update()
-    {
-        CalculateTime();
+        public float RestTime { get => restTime; }
+        public int CurrentScore { get => currentScore; set => currentScore = value; }
 
-        CheckLoseCondition();
+        #region Unity Methods
 
-        CheckWinCondition();
-    }
-
-    private void OnDestroy()
-    {
-        OnScoreAddEvent.OnEventRaised -= AddToScore;
-    }
-
-    #endregion
-
-    #region Private Methods
-
-    private void CalculateTime()
-    {
-        restTime = availableTime - GameManager.Instance.Time.GetTimeSince(timeAtStart);
-
-        if (timerUI != null)
-            timerUI.UpdateUI(RestTime);
-    }
-
-    private void AddToScore(int value)
-    {
-        totalScore += value;
-        scoreboardUI.UpdateUI(totalScore);
-    }
-
-    private void CheckWinCondition()
-    {
-        if (totalScore >= requiredScore)
+        private void Awake()
         {
-            GameManager.Instance.LevelManager.lastTotalScore = totalScore;
-            GameManager.Instance.LevelManager.lastRequiredScore = requiredScore;
-            OnLevelWinEvent.RaiseEvent();
-            Log("Level won!");
+            OnLevelStartEvent = Resources.Load<VoidEventChannelSO>("Channels/LevelStartEC");
+            OnLevelLoseEvent = Resources.Load<VoidEventChannelSO>("Channels/LevelLoseEC");
+            OnLevelWinEvent = Resources.Load<VoidEventChannelSO>("Channels/LevelWinEC");
+            OnScoreAddEvent = Resources.Load<IntEventChannelSO>("Channels/ScoreAddEC");
+            OnCurrentLevelTimeEvent = Resources.Load<FloatEventChannelSO>("Channels/CurrentLevelTimeEC");
+            OnCurrentLevelCurrentScore = Resources.Load<IntEventChannelSO>("Channels/CurrentLevelCurrentScoreEC");
+            OnCurrentLevelRequiredScore = Resources.Load<IntEventChannelSO>("Channels/CurrentLevelRequiredScoreEC");
+            OnScoreAddEvent.OnEventRaised += AddToScore;
         }
-    }
 
-    private void CheckLoseCondition()
-    {
-        if (restTime <= 0f)
+        private void Start()
         {
-            GameManager.Instance.LevelManager.lastTotalScore = totalScore;
-            GameManager.Instance.LevelManager.lastRequiredScore = requiredScore;
-            OnLevelLoseEvent.RaiseEvent();
-            Log("Level lost!");
+            timeAtStart = GameManager.Instance.Time.ElapsedTime;
+            restTime = availableTime;
+            currentScore = 0;
+            isActive = false;
+            hasStarted = false;
+
+
         }
+
+        private void Update()
+        {
+            CheckLevelStart();
+
+            CalculateTime();
+
+            CheckLoseCondition();
+
+            CheckWinCondition();
+
+            OnCurrentLevelCurrentScore.RaiseEvent(currentScore);
+            OnCurrentLevelRequiredScore.RaiseEvent(requiredScore);
+        }
+
+        private void OnDestroy()
+        {
+            OnScoreAddEvent.OnEventRaised -= AddToScore;
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void CheckLevelStart()
+        {
+            if (timeAtStart == GameManager.Instance.Time.ElapsedTime) return;
+
+            if (!hasStarted)
+            {
+                OnLevelStartEvent.RaiseEvent();
+
+                isActive = true;
+                hasStarted = true;
+
+                DebugLogger.Log(this, "Level Start.");
+            }
+        }
+
+        private void CalculateTime()
+        {
+            restTime = availableTime - GameManager.Instance.Time.GetTimeSince(timeAtStart);
+            OnCurrentLevelTimeEvent.RaiseEvent(restTime);
+        }
+
+        private void AddToScore(int value)
+        {
+            currentScore += value;
+        }
+
+        private void CheckWinCondition()
+        {
+            if (currentScore >= requiredScore && isActive)
+            {
+                GameManager.Instance.LevelManager.lastTotalScore = currentScore;
+                GameManager.Instance.LevelManager.lastRequiredScore = requiredScore;
+                OnLevelWinEvent.RaiseEvent();
+                DebugLogger.Log(this, "Level won!");
+                isActive = false;
+            }
+        }
+
+        private void CheckLoseCondition()
+        {
+            if (restTime <= 0f && isActive)
+            {
+                GameManager.Instance.LevelManager.lastTotalScore = currentScore;
+                GameManager.Instance.LevelManager.lastRequiredScore = requiredScore;
+                OnLevelLoseEvent.RaiseEvent();
+                DebugLogger.Log(this, "Level lost!");
+                isActive = false;
+            }
+        }
+
+
+
+        #endregion
+
     }
-
-    private void Log(string msg)
-    {
-        if (!debug) { return; }
-        Debug.Log("[LevelController]: " + msg);
-    }
-
-    #endregion
-
 }
