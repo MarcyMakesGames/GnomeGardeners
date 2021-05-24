@@ -24,6 +24,10 @@ namespace GnomeGardeners
             sunflowerSeed = new Seed(PoolKey.Plant_Sunflower);
         }
 
+        protected override void Update()
+        {
+            base.Update();
+        }
         #endregion
 
         #region Public Methods

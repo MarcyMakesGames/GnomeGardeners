@@ -27,6 +27,10 @@ namespace GnomeGardeners
             basketSource = GetComponent<AudioSource>();
         }
 
+        protected override void Update()
+        {
+            base.Update();
+        }
         #endregion
 
         #region Public Methods

@@ -14,9 +14,8 @@ namespace GnomeGardeners
         private int currentScore;
         private float restTime;
         private float timeAtStart;
-        private TimerUI timerUI;
-        private Scoreboard scoreboardUI;
         private bool isActive;
+        private bool hasStarted;
 
         private VoidEventChannelSO OnLevelStartEvent;
         private VoidEventChannelSO OnLevelLoseEvent;
@@ -49,16 +48,16 @@ namespace GnomeGardeners
             timeAtStart = GameManager.Instance.Time.ElapsedTime;
             restTime = availableTime;
             currentScore = 0;
+            isActive = false;
+            hasStarted = false;
 
-            OnLevelStartEvent.RaiseEvent();
 
-            isActive = true;
-
-            DebugLogger.Log(this, "Level Start.");
         }
 
         private void Update()
         {
+            CheckLevelStart();
+
             CalculateTime();
 
             CheckLoseCondition();
@@ -77,6 +76,21 @@ namespace GnomeGardeners
         #endregion
 
         #region Private Methods
+
+        private void CheckLevelStart()
+        {
+            if (timeAtStart == GameManager.Instance.Time.ElapsedTime) return;
+
+            if (!hasStarted)
+            {
+                OnLevelStartEvent.RaiseEvent();
+
+                isActive = true;
+                hasStarted = true;
+
+                DebugLogger.Log(this, "Level Start.");
+            }
+        }
 
         private void CalculateTime()
         {
@@ -112,6 +126,8 @@ namespace GnomeGardeners
                 isActive = false;
             }
         }
+
+
 
         #endregion
 

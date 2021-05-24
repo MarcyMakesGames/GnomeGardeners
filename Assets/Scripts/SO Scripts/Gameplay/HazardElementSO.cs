@@ -30,7 +30,6 @@ namespace GnomeGardeners
         {
             for (int i = 0; i < hazardSpawnerAmount; ++i)
             {
-                //THIS NEEDS TO BE GOTTEN FROM THE OBJECT POOL IN THE FUTURE
                 var hazardSpawnerInstance = Instantiate(this.hazardSpawner, spawnLocation, Quaternion.identity, GameManager.Instance.HazardManager.transform);
                 hazardSpawnerInstance.transform.position = spawnLocation;
 

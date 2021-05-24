@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GnomeGardeners
+namespace GnomeGardeners 
 {
     public class GridCell : MonoBehaviour
     {
@@ -11,13 +11,13 @@ namespace GnomeGardeners
         private GroundType groundType;
         private TilePosition mapPosition;
         private Occupant occupant;
-        private Sprite targetMask;
+
 
         public Vector2Int GridPosition { get => gridPosition; }
         public Vector3 WorldPosition { get => worldPosition; }
-        public GroundType GroundType { get => groundType; }
+        public GroundType GroundType { get => groundType; set => groundType = value; }
         public TilePosition MapPosition { get => mapPosition; }
-        public Occupant Occupant { get => occupant; }
+        public Occupant Occupant { get => occupant; set => occupant = value; }
 
         public void InitGridCell(Vector2Int positionOnGrid, Vector3 positionInWorld, GroundType typeOfGround, TilePosition positionOnMap, Occupant objectInCell, Sprite spriteMask)
         {
@@ -26,19 +26,10 @@ namespace GnomeGardeners
             transform.position = worldPosition;
             groundType = typeOfGround;
             mapPosition = positionOnMap;
-            AddCellOccupant(objectInCell);
+            occupant = objectInCell;
             ChangeSpriteTarget(spriteMask);
         }
 
-        public void RemoveCellOccupant()
-        {
-            occupant = null;
-        }
-
-        public void AddCellOccupant(Occupant occupant)
-        {
-            this.occupant = occupant;
-        }
 
         public void ChangeSpriteTarget(Sprite spriteMask)
         {

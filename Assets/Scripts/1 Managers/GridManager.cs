@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using TilemapExtensions;
@@ -125,8 +123,26 @@ namespace GnomeGardeners
                 return;
             }
 
-            targetCell.RemoveCellOccupant();
-            targetCell.AddCellOccupant(occupant);
+            if (targetCell.Occupant != null)
+            {
+                DebugLogger.Log(this, "Failed to add occupant " + occupant + " to cell at " + targetCell.GridPosition + " because it already has occupant: " +
+                                       targetCell.Occupant + ". Remove this occupant before adding a new one.");
+                return;
+            }
+
+            targetCell.Occupant = occupant;
+        }
+
+        public void ChangeCellOccupant(GridCell cell, Occupant occupant)
+        {
+            if(cell.Occupant != null)
+            {
+                DebugLogger.Log(this, "Failed to add occupant " + occupant + " to cell at " + cell.GridPosition + " because it already has occupant: " + 
+                                       cell.Occupant + ". Remove this occupant before adding a new one.");
+                return;
+            }
+            
+            cell.Occupant = occupant;
         }
 
         public Vector2Int GetClosestGrid(Vector3 origin)

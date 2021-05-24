@@ -20,6 +20,11 @@ namespace GnomeGardeners
             dispensable = new Fertilizer();
         }
 
+        protected override void Update()
+        {
+            base.Update();
+        }
+
         #endregion
 
         #region Public Methods
