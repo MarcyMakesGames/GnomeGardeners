@@ -8,10 +8,10 @@ namespace GnomeGardeners
 	{
         public int points;
 
-        public Harvest(int _points)
+        public Harvest(int _points, Sprite _sprite)
         {
             name = "Harvest";
-            sprite = null;
+            sprite = _sprite;
             points = _points;
         }
     }

@@ -11,7 +11,7 @@ namespace GnomeGardeners
         public Fertilizer()
         {
             name = "Fertilizer";
-            sprite = Resources.Load<Sprite>("Game World/Game Objects/compost_icon");
+            sprite = Resources.Load<Sprite>("compost_icon");
         }
     }
 }

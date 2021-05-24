@@ -9,6 +9,13 @@ namespace GnomeGardeners
         protected string name;
         protected Sprite sprite;
 
-        public string Name { get => name; }
+        public string Name
+        {
+	        get => name;
+        }
+        public Sprite Sprite
+        {
+	        get => sprite;
+        }
     }
 }
