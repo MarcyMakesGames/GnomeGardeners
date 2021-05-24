@@ -6,25 +6,25 @@ namespace GnomeGardeners
 {
 	public class InsectSearching : StateMachineBehaviour
 	{
-		public GameObject insectObject;
+		public Insect insect;
 
-		private Insect insect;
+		private readonly int hasTargetHash = Animator.StringToHash("HasTarget");
 
-		override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-	    {
-            insect = insectObject.GetComponent<Insect>();
-		}
+		//public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+	    //{
+		//}
 
-		override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-	    {
-			insect.SetTargetToPlant();
+		public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+		{
+			var hasTarget = insect.SetTargetToPlant();
+			animator.SetBool(hasTargetHash, hasTarget);
 	    }
 
 
-	    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-	    {
-	        
-	    }
+	   // public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+	   // {
+	   //     
+	   // }
 
 	    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	    //{
