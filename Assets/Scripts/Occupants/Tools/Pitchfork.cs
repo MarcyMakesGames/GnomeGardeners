@@ -62,5 +62,13 @@ namespace GnomeGardeners
 				resolver.SetCategoryAndLabel("tools", "compost");
 			}
 		}
+
+		public override void UpdateToolRenderers(SpriteRenderer[] renderers)
+		{
+			foreach (SpriteRenderer renderer in renderers)
+			{
+				renderer.sprite = fertilizer?.Sprite;
+			}
+		}
 	}
 }

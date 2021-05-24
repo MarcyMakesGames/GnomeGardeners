@@ -11,7 +11,7 @@ namespace GnomeGardeners
         public Seed(PoolKey key)
         {
             name = "Seed";
-            sprite = Resources.Load<Sprite>("Game World/Game Objects/seed");
+            sprite = Resources.Load<Sprite>("seed");
             plantKey = key;
         }
     }

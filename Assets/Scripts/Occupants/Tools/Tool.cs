@@ -54,6 +54,16 @@ namespace GnomeGardeners
 
         public abstract void UpdateSpriteResolvers(SpriteResolver[] resolvers);
 
+        public virtual void UpdateItemRenderers(SpriteRenderer[] renderers)
+        {
+               
+        }
+        
+        public virtual void UpdateToolRenderers(SpriteRenderer[] renderers)
+        {
+               
+        }
+
         #endregion
 
         #region Private Methods

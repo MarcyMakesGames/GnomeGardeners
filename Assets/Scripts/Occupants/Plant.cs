@@ -84,7 +84,7 @@ namespace GnomeGardeners
                 ClearPopUp();
                 ReturnToPool();
 
-                return new Harvest(points);
+                return new Harvest(points, spriteInHand);
             }
             return null;
         }

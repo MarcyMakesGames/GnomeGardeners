@@ -65,6 +65,14 @@ namespace GnomeGardeners
             }
         }
 
+        public override void UpdateItemRenderers(SpriteRenderer[] renderers)
+        {
+            foreach (SpriteRenderer renderer in renderers)
+            {
+                renderer.sprite = harvest?.Sprite;
+            }
+        }
+
         public override void FailedInteraction()
         {
             throw new System.NotImplementedException();

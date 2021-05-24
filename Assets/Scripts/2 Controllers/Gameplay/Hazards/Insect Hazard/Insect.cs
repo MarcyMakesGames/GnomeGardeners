@@ -232,6 +232,7 @@ namespace GnomeGardeners
 
         public void SetFleeing()
         {
+            isEating = false;
             currentState = State.Fleeing;
             targetCell = gridManager.GetClosestCell(despawnLocation);
         }
