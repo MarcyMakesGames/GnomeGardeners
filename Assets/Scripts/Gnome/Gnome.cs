@@ -298,11 +298,11 @@ namespace GnomeGardeners
         private void Escape()
         {
             var activeInGamePanel = GameManager.Instance.SceneController.ActiveInGameUI;
-            if (activeInGamePanel != InGameUIMode.PauseMenu)
+            if (activeInGamePanel == InGameUIMode.HUD)
             {
                 activeInGamePanel = InGameUIMode.PauseMenu;
             }
-            else
+            else if (activeInGamePanel != InGameUIMode.HUD)
             {
                 activeInGamePanel = InGameUIMode.HUD;
             }
