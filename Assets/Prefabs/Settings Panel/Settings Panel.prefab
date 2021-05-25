@@ -36,10 +36,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1058941442515618639
 CanvasRenderer:
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 1657125171889005868}
   - component: {fileID: 2769207394440710110}
   m_Layer: 5
-  m_Name: Settings
+  m_Name: Caption
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -653,7 +653,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 923f5b4f73a39b04cb302ad44c00d4c5, type: 3}
     - target: {fileID: 7978188454306810879, guid: f754aa0b8360a9e4486738f4ee4ec8e2, type: 3}
       propertyPath: m_Name
-      value: Categories
+      value: Settings
       objectReference: {fileID: 0}
     - target: {fileID: 8093420679782728892, guid: f754aa0b8360a9e4486738f4ee4ec8e2, type: 3}
       propertyPath: m_AnchorMax.x
