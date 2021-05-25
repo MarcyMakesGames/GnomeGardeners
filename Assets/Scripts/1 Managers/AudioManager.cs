@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace GnomeGardeners
     public class AudioManager : MonoBehaviour
     {
         [SerializeField] private AudioClip bgm;
+        [SerializeField] private AudioClip clipLose;
+        [SerializeField] private AudioClip clipWin;
 
         private SoundEffect[] soundEffects;
         private AudioSource[] audioSources;
@@ -23,10 +26,17 @@ namespace GnomeGardeners
         private float musicVolume = 1f;
         private float ambienceVolume = 1f;
 
+        private const string GroupMaster = "Master";
+        private const string GroupSound = "Sound";
+        private const string GroupMusic = "Music";
+        private const string GroupAmbience = "Ambience";
+
         private FloatEventChannelSO OnMasterVolumeChanged;
         private FloatEventChannelSO OnSoundVolumeChanged;
         private FloatEventChannelSO OnMusicVolumeChanged;
         private FloatEventChannelSO OnAmbienceVolumeChanged;
+        private VoidEventChannelSO OnLevelLose;
+        private VoidEventChannelSO OnLevelWin;
 
         public float MasterVolume { get => masterVolume; set => UpdateMasterVolume(value); }
         public float SoundVolume { get => soundVolume; set => UpdateSoundVolume(value); }
@@ -54,6 +64,9 @@ namespace GnomeGardeners
             OnSoundVolumeChanged = Resources.Load<FloatEventChannelSO>("Channels/SoundVolumeChangedEC");
             OnMusicVolumeChanged = Resources.Load<FloatEventChannelSO>("Channels/MusicVolumeChangedEC");
             OnAmbienceVolumeChanged = Resources.Load<FloatEventChannelSO>("Channels/AmbienceVolumeChangedEC");
+            OnLevelLose = Resources.Load<VoidEventChannelSO>("Channels/LevelLoseEC");
+            OnLevelWin = Resources.Load<VoidEventChannelSO>("Channels/LevelWinEC");
+
         }
 
         private void Start()
@@ -73,6 +86,8 @@ namespace GnomeGardeners
             OnSoundVolumeChanged.OnEventRaised += UpdateSoundVolume;
             OnMusicVolumeChanged.OnEventRaised += UpdateMusicVolume;
             OnAmbienceVolumeChanged.OnEventRaised += UpdateAmbienceVolume;
+            OnLevelLose.OnEventRaised += PlayLoseClip;
+            OnLevelWin.OnEventRaised += PlayWinClip;
 
             MasterVolume = GameManager.Instance.ConfigController.MasterVolume;
             SoundVolume = GameManager.Instance.ConfigController.SoundVolume;
@@ -85,6 +100,8 @@ namespace GnomeGardeners
             OnSoundVolumeChanged.OnEventRaised -= UpdateSoundVolume;
             OnMusicVolumeChanged.OnEventRaised -= UpdateMusicVolume;
             OnAmbienceVolumeChanged.OnEventRaised -= UpdateAmbienceVolume;
+            OnLevelLose.OnEventRaised -= PlayLoseClip;
+            OnLevelWin.OnEventRaised -= PlayWinClip;
         }
 
         #endregion
@@ -94,8 +111,9 @@ namespace GnomeGardeners
         public void PlayMusic(AudioClip clipToPlay, bool fade = false)
         {
             if (musicSource.clip == clipToPlay) { return; }
+
             if (fade)
-                StartCoroutine(StartFade(1f, 1f));
+                StartCoroutine(StartFade(GroupMusic, 1f, 1f));
             musicSource.clip = clipToPlay;
             musicSource.Play();
         }
@@ -119,7 +137,7 @@ namespace GnomeGardeners
             if(soundEffectToPlay != null)
             {
                 if (fade)
-                    StartCoroutine(StartFade(1f, 1f));
+                    StartCoroutine(StartFade(GroupAmbience, 1f, 1f));
                 ambienceSource.clip = soundEffectToPlay.GetRandomClip();
                 ambienceSource.Play();
             }
@@ -218,11 +236,10 @@ namespace GnomeGardeners
             GameManager.Instance.ConfigController.AmbienceVolume = volume;
         }
 
-        private IEnumerator StartFade(float duration, float targetVolume)
+        private IEnumerator StartFade(string audioGroup, float duration, float targetVolume)
         {
             float currentTime = 0;
-            float currentVol;
-            audioMixer.GetFloat("MasterVolume", out currentVol);
+            audioMixer.GetFloat(audioGroup, out var currentVol);
             currentVol = Mathf.Pow(10, currentVol / 20);
             float targetValue = Mathf.Clamp(targetVolume, 0.0001f, 1);
 
@@ -230,10 +247,25 @@ namespace GnomeGardeners
             {
                 currentTime += Time.deltaTime;
                 float newVol = Mathf.Lerp(currentVol, targetValue, currentTime / duration);
-                audioMixer.SetFloat("MasterVolume", Mathf.Log10(newVol) * 20);
+                audioMixer.SetFloat(audioGroup, Mathf.Log10(newVol) * 20);
                 yield return null;
             }
-            yield break;
+        }
+
+        private void PlayLoseClip()
+        {
+            musicSource.Stop();
+            musicSource.PlayOneShot(clipLose);
+            musicSource.PlayDelayed(clipLose.length);
+            musicSource.Play();
+        }
+
+        private void PlayWinClip()
+        {
+            musicSource.Stop();
+            musicSource.PlayOneShot(clipWin);
+            musicSource.PlayDelayed(clipWin.length);
+            musicSource.Play();
         }
 
         #endregion

@@ -8,6 +8,7 @@ namespace GnomeGardeners
 {
     public class GameMenuController : MonoBehaviour
     {
+        [Header("Menus")]
         public GameObject hud;
         public GameObject pauseMenu;
         public GameObject settingsMenu;
@@ -15,7 +16,12 @@ namespace GnomeGardeners
         public GameObject gameOverMenu;
         private List<GameObject> allPanels;
 
-        public GameObject quitButton;
+        [Header("First selected items")] 
+        public GameObject selectablePauseMenu;
+        public GameObject selectableSettingsMenu;
+        public GameObject selectableGameOverMenu;
+        
+        [Header("Other")]
         public GameObject nextLevelButton;
 
         private InGameUIMode activePanel;
@@ -129,11 +135,13 @@ namespace GnomeGardeners
                     break;
                 case InGameUIMode.PauseMenu:
                     pauseMenu.SetActive(true);
-                    GameManager.Instance.Time.PauseTime();
+                    GameManager.Instance.Time.PauseTime();                    
+                    eventSystem.SetSelectedGameObject(selectablePauseMenu);
                     break;
                 case InGameUIMode.SettingsMenu:
                     settingsMenu.SetActive(true);
                     GameManager.Instance.Time.PauseTime();
+                    eventSystem.SetSelectedGameObject(selectableSettingsMenu);
                     break;
                 case InGameUIMode.TutorialMenu:
                     tutorialMenu.SetActive(true);
@@ -142,7 +150,7 @@ namespace GnomeGardeners
                 case InGameUIMode.GameOverMenu:
                     gameOverMenu.SetActive(true);
                     GameManager.Instance.Time.PauseTime();
-                    eventSystem.SetSelectedGameObject(quitButton);
+                    eventSystem.SetSelectedGameObject(selectableGameOverMenu);
                     break;
             }
 
