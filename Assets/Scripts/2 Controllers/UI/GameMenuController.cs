@@ -11,25 +11,32 @@ namespace GnomeGardeners
         public GameObject hud;
         public GameObject pauseMenu;
         public GameObject settingsMenu;
-        public GameObject tutorialMenu;
+        private GameObject tutorialMenu;
         public GameObject gameOverMenu;
         private List<GameObject> allPanels;
 
-        private EventSystem eventSystem;
         public GameObject quitButton;
         public GameObject nextLevelButton;
 
         private InGameUIMode activePanel;
         private InGameUIMode nextPanel;
 
-        public VoidEventChannelSO OnLevelLoseEvent;
-        public VoidEventChannelSO OnLevelWinEvent;
+        private VoidEventChannelSO OnLevelStartEvent;
+        private VoidEventChannelSO OnLevelLoseEvent;
+        private VoidEventChannelSO OnLevelWinEvent;
+        
+        private EventSystem eventSystem;
 
         #region Unity Methods
 
         private void Awake()
         {
-            Configure();
+            OnLevelStartEvent = Resources.Load<VoidEventChannelSO>("Channels/LevelStartEC");
+            OnLevelLoseEvent = Resources.Load<VoidEventChannelSO>("Channels/LevelLoseEC");
+            OnLevelWinEvent = Resources.Load<VoidEventChannelSO>("Channels/LevelWinEC");
+            OnLevelStartEvent.OnEventRaised += UpdateTutorialMenu;
+            OnLevelLoseEvent.OnEventRaised += SetGameOverMenuActive;
+            OnLevelWinEvent.OnEventRaised += SetGameOverMenuActive;
             eventSystem = FindObjectOfType<EventSystem>();
         }
 
@@ -39,7 +46,6 @@ namespace GnomeGardeners
         {
             pauseMenu,
             settingsMenu,
-            tutorialMenu,
             gameOverMenu
         };
             GameManager.Instance.Time.PauseTime();
@@ -54,7 +60,8 @@ namespace GnomeGardeners
 
         private void OnDestroy()
         {
-            Dispose();
+            OnLevelLoseEvent.OnEventRaised -= SetGameOverMenuActive;
+            OnLevelWinEvent.OnEventRaised -= SetGameOverMenuActive;
         }
 
         #endregion
@@ -156,16 +163,19 @@ namespace GnomeGardeners
             nextPanel = GameManager.Instance.SceneController.ActiveInGameUI;
         }
 
-        private void Configure()
+        private void UpdateTutorialMenu()
         {
-            OnLevelLoseEvent.OnEventRaised += SetGameOverMenuActive;
-            OnLevelWinEvent.OnEventRaised += SetGameOverMenuActive;
-        }
-
-        private void Dispose()
-        {
-            OnLevelLoseEvent.OnEventRaised -= SetGameOverMenuActive;
-            OnLevelWinEvent.OnEventRaised -= SetGameOverMenuActive;
+            if (tutorialMenu)
+            {
+                allPanels.Remove(tutorialMenu);
+                Destroy(tutorialMenu);
+            }
+            var tutorialMenuPrefab = GameManager.Instance.LevelManager.GetTutorialMenu();
+            var canvas = gameObject.GetComponentInChildren<Canvas>();
+            if(!canvas)
+                Debug.LogException(new Exception(), this);
+            tutorialMenu = Instantiate(tutorialMenuPrefab, canvas.transform);
+            allPanels.Add(tutorialMenu);
         }
 
         #endregion

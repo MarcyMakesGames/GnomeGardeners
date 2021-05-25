@@ -68,6 +68,11 @@ namespace GnomeGardeners
                 currentLevelPrefab = levels[levelIndex];
             yield return StartCoroutine(LoadLevel(currentLevelPrefab));
         }
+
+        public GameObject GetTutorialMenu()
+        {
+            return current.GetComponent<LevelController>().tutorialMenu;
+        }
         
         #endregion
         

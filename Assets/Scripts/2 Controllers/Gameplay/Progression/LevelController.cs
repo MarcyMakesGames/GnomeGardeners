@@ -9,6 +9,7 @@ namespace GnomeGardeners
     {
         public float availableTime = 120f;
         public int requiredScore = 1000;
+        public GameObject tutorialMenu;
 
         private int currentScore;
         private float restTime;
