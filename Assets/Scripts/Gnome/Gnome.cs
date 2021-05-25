@@ -124,13 +124,18 @@ namespace GnomeGardeners
             PlayFootstepSound();
         }
 
-        void OnDrawGizmosSelected()
+        private void OnDrawGizmosSelected()
         {
             if(inputFrames != null)
             {
                 foreach(Vector2 vector in inputFrames)
                     Gizmos.DrawLine(transform.position, transform.position + (Vector3)vector);
             }
+        }
+
+        private void OnDestroy()
+        {
+            playerConfig.Input.onActionTriggered -= OnInputAction;
         }
 
         #endregion
@@ -297,19 +302,8 @@ namespace GnomeGardeners
 
         private void Escape()
         {
-            var activeInGamePanel = GameManager.Instance.SceneController.ActiveInGameUI;
-            if (activeInGamePanel == InGameUIMode.HUD)
-            {
-                activeInGamePanel = InGameUIMode.PauseMenu;
-            }
-            else if (activeInGamePanel != InGameUIMode.HUD)
-            {
-                activeInGamePanel = InGameUIMode.HUD;
-            }
-            GameManager.Instance.SceneController.ActiveInGameUI = activeInGamePanel;
+            GameManager.Instance.SceneController.HandleInput();
         }
-
-
 
         private void Move()
         {

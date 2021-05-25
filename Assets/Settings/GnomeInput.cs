@@ -44,7 +44,7 @@ public class @GnomeInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Escape"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""dd544541-3d5c-4fea-9226-3c9c7097c5b9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
