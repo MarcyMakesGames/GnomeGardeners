@@ -17,6 +17,7 @@ namespace GnomeGardeners
 
         private EventSystem eventSystem;
         public GameObject quitButton;
+        public GameObject nextLevelButton;
 
         private InGameUIMode activePanel;
         private InGameUIMode nextPanel;
@@ -82,15 +83,15 @@ namespace GnomeGardeners
         public void SetGameOverMenuActive()
         {
             GameManager.Instance.SceneController.ActiveInGameUI = InGameUIMode.GameOverMenu;
+            if(GameManager.Instance.LevelManager.isLastLevelCompleted)
+                nextLevelButton.SetActive(false);
+            else
+                nextLevelButton.SetActive(true);
         }
 
         public void NextLevel()
         {
-            if(GameManager.Instance.LevelManager.isLastLevelCompleted)
-                QuitToMainMenu();
-            else
-                GameManager.Instance.SceneController.NextLevel();
-            
+            GameManager.Instance.SceneController.NextLevel();
         }
 
         public void RestartLevel()

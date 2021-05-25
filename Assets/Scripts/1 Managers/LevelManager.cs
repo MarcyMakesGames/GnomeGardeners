@@ -20,6 +20,9 @@ namespace GnomeGardeners
 
         private GameObject current;
         private int levelIndex;
+        
+        private VoidEventChannelSO OnLevelLoseEvent;
+        private VoidEventChannelSO OnLevelWinEvent;
 
         #region Unity Methods
         private void Awake()
@@ -28,8 +31,17 @@ namespace GnomeGardeners
                 GameManager.Instance.LevelManager = this;
 
             levelIndex = -1;
+            OnLevelLoseEvent = Resources.Load<VoidEventChannelSO>("Channels/LevelLoseEC");
+            OnLevelWinEvent = Resources.Load<VoidEventChannelSO>("Channels/LevelWinEC");
+            OnLevelLoseEvent.OnEventRaised += UpdateIsLastLevelCompleted;
+            OnLevelWinEvent.OnEventRaised += UpdateIsLastLevelCompleted;
         }
 
+        private void OnDestroy()
+        {
+            OnLevelLoseEvent.OnEventRaised -= UpdateIsLastLevelCompleted;
+            OnLevelWinEvent.OnEventRaised -= UpdateIsLastLevelCompleted;
+        }
 
         #endregion
         
@@ -43,11 +55,7 @@ namespace GnomeGardeners
         public IEnumerator NextLevel()
         {
             levelIndex++;
-            if (levelIndex >= levels.Count)
-            {
-                isLastLevelCompleted = true;
-                yield break;
-            }
+
             yield return StartCoroutine(LoadLevel(levelIndex));
         }
 
@@ -97,6 +105,12 @@ namespace GnomeGardeners
             var currentLevel = current.GetComponent<LevelController>();
             currentLevel.LevelStart();
             StartCoroutine(currentLevel.UpdateLevel());
+        }
+
+        private void UpdateIsLastLevelCompleted()
+        {
+            if (levelIndex == levels.Count - 1)
+                isLastLevelCompleted = true;
         }
         
         #endregion
