@@ -12,6 +12,7 @@ namespace GnomeGardeners
         {
             name = "Fertilizer";
             sprite = Resources.Load<Sprite>("compost_icon");
+            popUpKey = PoolKey.PopUp_Fertilizer;
         }
     }
 }

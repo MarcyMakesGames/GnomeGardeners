@@ -8,6 +8,7 @@ namespace GnomeGardeners
 	{
         protected string name;
         protected Sprite sprite;
+        protected PoolKey popUpKey;
 
         public string Name
         {
@@ -16,6 +17,11 @@ namespace GnomeGardeners
         public Sprite Sprite
         {
 	        get => sprite;
+        }
+
+        public PoolKey PopUpKey
+        {
+	        get => popUpKey;
         }
     }
 }

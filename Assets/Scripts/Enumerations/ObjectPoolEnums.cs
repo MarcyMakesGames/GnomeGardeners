@@ -11,6 +11,8 @@ namespace GnomeGardeners
         PopUp_Pest,
         PopUp_Recycle,
         PopUp_Dead,
+        PopUp_Sunflower,
+        PopUp_Seed,
 
         PopUp_Tool_Harvester,
         PopUp_Tool_Seeding,

@@ -9,6 +9,12 @@ namespace GnomeGardeners
 	{
 		private Fertilizer fertilizer;
 
+		private void Update()
+		{
+			if(fertilizer != null && popUp == null)
+				GetPopUp(fertilizer.PopUpKey);
+		}
+		
 		public override void Interact(Tool tool)
 		{
 			throw new System.NotImplementedException();

@@ -8,11 +8,11 @@ namespace GnomeGardeners
 	{
 		private Seed seed;
 
-        #region Unity Methods
-
-
-
-        #endregion
+        private void Update()
+        {
+            if(seed != null && popUp == null)
+                GetPopUp(seed.PopUpKey);
+        }
 
         #region Public Methods
 

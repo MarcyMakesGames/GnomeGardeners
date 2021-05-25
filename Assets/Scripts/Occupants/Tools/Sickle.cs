@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.U2D.Animation;
+using UnityEngine.PlayerLoop;
 
 namespace GnomeGardeners
 {
     public class Sickle : Tool
     {
         private Harvest harvest;
+
+        private void Update()
+        {
+            if(harvest != null && popUp == null)
+                GetPopUp(harvest.PopUpKey);
+        }
 
         #region Public Methods
 
