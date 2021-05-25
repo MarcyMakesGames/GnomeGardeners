@@ -84,10 +84,16 @@ namespace GnomeGardeners
             GameManager.Instance.SceneController.ActiveInGameUI = InGameUIMode.GameOverMenu;
         }
 
+        public void NextLevel()
+        {
+            GameManager.Instance.SceneController.ActiveInGameUI = InGameUIMode.TutorialMenu;
+            GameManager.Instance.LevelManager.NextLevel();
+        }
+
         public void RestartLevel()
         {
             GameManager.Instance.SceneController.ActiveInGameUI = InGameUIMode.TutorialMenu;
-            GameManager.Instance.SceneController.LoadSceneGameplay();
+            GameManager.Instance.SceneController.NextLevel();
         }
 
         public void QuitToMainMenu()

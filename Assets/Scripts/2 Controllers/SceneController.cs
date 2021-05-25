@@ -23,7 +23,8 @@ namespace GnomeGardeners
         public InGameUIMode ActiveInGameUI { get => activeInGameUI; set => activeInGameUI = value; }
         public Animator Transition { get => transition; }
 
-        public VoidEventChannelSO OnSceneLoaded;
+        private VoidEventChannelSO OnSceneLoaded;
+        private VoidEventChannelSO OnSceneGameplayLoaded;
 
         public SceneState CurrentSceneState => currentScene;
 
@@ -32,7 +33,16 @@ namespace GnomeGardeners
 
         private void Awake()
         {
-            Configure();
+            if (GameManager.Instance.SceneController == null)
+            {
+                GameManager.Instance.SceneController = this;
+                OnSceneLoaded.OnEventRaised += UpdateState;
+            }
+            currentScene = (SceneState)SceneManager.GetActiveScene().buildIndex;
+            activeMenuPanel = MenuPanel.Title;
+            FindCameraForCanvas();
+            OnSceneLoaded = Resources.Load<VoidEventChannelSO>("Channels/SceneLoadedEC");
+            OnSceneGameplayLoaded = Resources.Load<VoidEventChannelSO>("Channels/SceneGameplayLoadedEC");
         }
 
 
@@ -58,13 +68,6 @@ namespace GnomeGardeners
             StartCoroutine(LoadSceneAsync((int)currentScene + 1));
         }
 
-        public void LoadPreviousScene()
-        {
-            if (isInTransition) { return; }
-
-            StartCoroutine(LoadSceneAsync((int)currentScene - 1));
-        }
-
         public void LoadSceneByString(string sceneName)
         {
             if (isInTransition) { return; }
@@ -85,6 +88,8 @@ namespace GnomeGardeners
             {
                 StartCoroutine(LoadSceneAsync(SceneState.Game));
             }
+            
+            OnSceneGameplayLoaded.RaiseEvent();
             
         }
 
@@ -132,6 +137,31 @@ namespace GnomeGardeners
             }
         }
 
+        public void NextLevel()
+        {
+            if (isInTransition) { return; }
+
+            var scene = SceneManager.GetActiveScene();
+            SceneManager.UnloadSceneAsync(scene);      
+            
+            if (GameManager.Instance.loadTestingScenes)
+            {
+                StartCoroutine(NextLevelTransition());
+            }
+            else
+            {
+                StartCoroutine(NextLevelTransition());
+            }
+        }
+
+        public void HandleInput()
+        {
+            if (activeInGameUI == InGameUIMode.HUD)
+                activeInGameUI = InGameUIMode.PauseMenu;
+            else
+                activeInGameUI = InGameUIMode.HUD;
+        }
+
         #endregion
 
         #region Private Methods
@@ -150,13 +180,11 @@ namespace GnomeGardeners
 
         private void FindCameraForCanvas()
         {
-            if (canvas.worldCamera == null)
+            if (canvas.worldCamera != null) return;
+            var cameraGO = GameObject.FindGameObjectWithTag("MainCamera");
+            if (cameraGO != null)
             {
-                var cameraGO = GameObject.FindGameObjectWithTag("MainCamera");
-                if (cameraGO != null)
-                {
-                    canvas.worldCamera = cameraGO.GetComponent<Camera>();
-                }
+                canvas.worldCamera = cameraGO.GetComponent<Camera>();
             }
         }
 
@@ -223,6 +251,22 @@ namespace GnomeGardeners
             DebugLogger.Log(this, "Scene Loaded");
             isInTransition = false;
             OnSceneLoaded.RaiseEvent();
+            transition.SetTrigger("FadeOut");
+        }
+
+        private IEnumerator NextLevelTransition()
+        {
+            isInTransition = true;
+
+            transition.SetTrigger("FadeIn");
+
+            yield return new WaitForSeconds(transitionTime);
+
+            GameManager.Instance.LevelManager.NextLevel();
+
+            yield return null;
+            
+            isInTransition = false;
             transition.SetTrigger("FadeOut");
         }
 

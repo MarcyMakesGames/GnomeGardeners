@@ -48,19 +48,10 @@ namespace GnomeGardeners
             {
                 if (!GameManager.Instance.DebugMenu)
                 {
-                    var sceneToLoad = GameManager.Instance.SceneToLoad;
-                    if (sceneToLoad == string.Empty)
-                    {
-                        canJoinPlayers = false;
-                        GameManager.Instance.SceneController.LoadNextScene();
-                        GameManager.Instance.playersReady = true;
-                    }
-                    else
-                    {
-                        canJoinPlayers = false;
-                        GameManager.Instance.SceneController.LoadSceneByString(sceneToLoad);
-                        GameManager.Instance.playersReady = true;
-                    }
+                    canJoinPlayers = false;
+                    GameManager.Instance.SceneController.LoadSceneGameplay();
+                    GameManager.Instance.playersReady = true;
+                    
                 }
             }
         }
