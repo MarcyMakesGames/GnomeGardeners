@@ -3,48 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Serialization;
 using Random = System.Random;
 
 namespace GnomeGardeners
 {
-
     public class LevelManager : MonoBehaviour
     {
-        /* 
-         * The level manager handles scores and other level specific data across scenes.
-         */
-
         [HideInInspector] public int lastTotalScore;
         [HideInInspector] public int lastRequiredScore;
 
-        public GameObject tutorial;
-        public List<GameObject> all;
+        public GameObject levelTutorial;
+        public List<GameObject> levels;
+
+        public bool isLastLevelCompleted;
 
         private GameObject current;
         private int levelIndex;
-
-        private VoidEventChannelSO OnSceneGameplayLoadedEC;
-
-
 
         #region Unity Methods
         private void Awake()
         {
             if (GameManager.Instance.LevelManager == null)
-            {
                 GameManager.Instance.LevelManager = this;
-            }
 
-            levelIndex = 0;
-
-            OnSceneGameplayLoadedEC = Resources.Load<VoidEventChannelSO>("Channels/SceneGameplayLoadedEC");
-
-            OnSceneGameplayLoadedEC.OnEventRaised += ScenePostLoadCheck;
-        }
-
-        private void OnDestroy()
-        {
-            OnSceneGameplayLoadedEC.OnEventRaised += ScenePostLoadCheck;
+            levelIndex = -1;
         }
 
 
@@ -52,38 +35,57 @@ namespace GnomeGardeners
         
         #region Public Methods
 
-        public void NextLevel()
+        public IEnumerator LoadTutorial()
         {
-            SetLevel(levelIndex);
+            yield return LoadLevel(levelTutorial);
+        }
+
+        public IEnumerator NextLevel()
+        {
             levelIndex++;
+            if (levelIndex >= levels.Count)
+            {
+                isLastLevelCompleted = true;
+                yield break;
+            }
+            yield return StartCoroutine(LoadLevel(levelIndex));
+        }
+
+        public IEnumerator RestartLevel()
+        {
+            yield return StartCoroutine(LoadLevel(current));
         }
         
         #endregion
         
         #region Private Methods
 
-        private void SetLevel(GameObject level)
+        private IEnumerator LoadLevel(GameObject level)
         {
-            Destroy(current);
+            if(current)
+                Destroy(current);
+
+            yield return new WaitForSeconds(1f);
+            
             var newLevel = Instantiate(level);
             current = newLevel;
+            var currentLevel = current.GetComponent<LevelController>();
+            currentLevel.LevelStart();
+            StartCoroutine(currentLevel.UpdateLevel());
         }
 
-        private void SetLevel(int index)
+        private IEnumerator LoadLevel(int index)
         {
-            Destroy(current);
-            var newLevel = Instantiate(all[index]);
+            if(current)
+                Destroy(current);
+
+            yield return new WaitForSeconds(1f);
+            
+            var newLevel = Instantiate(levels[index]);
             current = newLevel;
-        }
-        
-        private void ScenePostLoadCheck()
-        {
-            var levelStart = FindObjectOfType<LevelController>();
-            var startObject = levelStart.gameObject;
-            if (startObject)
-                current = startObject;
-            else
-                SetLevel(tutorial);
+            var currentLevel = current.GetComponent<LevelController>();
+            currentLevel.LevelStart();
+            StartCoroutine(currentLevel.UpdateLevel());
         }
         
         #endregion

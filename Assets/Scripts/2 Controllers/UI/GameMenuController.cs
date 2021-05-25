@@ -86,14 +86,16 @@ namespace GnomeGardeners
 
         public void NextLevel()
         {
-            GameManager.Instance.SceneController.ActiveInGameUI = InGameUIMode.TutorialMenu;
-            GameManager.Instance.LevelManager.NextLevel();
+            if(GameManager.Instance.LevelManager.isLastLevelCompleted)
+                QuitToMainMenu();
+            else
+                GameManager.Instance.SceneController.NextLevel();
+            
         }
 
         public void RestartLevel()
         {
-            GameManager.Instance.SceneController.ActiveInGameUI = InGameUIMode.TutorialMenu;
-            GameManager.Instance.SceneController.NextLevel();
+            GameManager.Instance.SceneController.RestartLevel();
         }
 
         public void QuitToMainMenu()

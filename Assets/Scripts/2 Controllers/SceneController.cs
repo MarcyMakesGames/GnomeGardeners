@@ -24,7 +24,6 @@ namespace GnomeGardeners
         public Animator Transition { get => transition; }
 
         private VoidEventChannelSO OnSceneLoaded;
-        private VoidEventChannelSO OnSceneGameplayLoaded;
 
         public SceneState CurrentSceneState => currentScene;
 
@@ -36,13 +35,13 @@ namespace GnomeGardeners
             if (GameManager.Instance.SceneController == null)
             {
                 GameManager.Instance.SceneController = this;
-                OnSceneLoaded.OnEventRaised += UpdateState;
             }
             currentScene = (SceneState)SceneManager.GetActiveScene().buildIndex;
             activeMenuPanel = MenuPanel.Title;
             FindCameraForCanvas();
             OnSceneLoaded = Resources.Load<VoidEventChannelSO>("Channels/SceneLoadedEC");
-            OnSceneGameplayLoaded = Resources.Load<VoidEventChannelSO>("Channels/SceneGameplayLoadedEC");
+            OnSceneLoaded.OnEventRaised += UpdateState;
+
         }
 
 
@@ -61,51 +60,16 @@ namespace GnomeGardeners
 
         #region Public Methods
 
-        public void LoadNextScene()
-        {
-            if (isInTransition) { return; }
-
-            StartCoroutine(LoadSceneAsync((int)currentScene + 1));
-        }
-
-        public void LoadSceneByString(string sceneName)
-        {
-            if (isInTransition) { return; }
-
-            if (SceneManager.GetSceneByName(sceneName) != null)
-                StartCoroutine(LoadSceneAsync(sceneName));
-        }
-
         public void LoadSceneGameplay()
         {
             if (isInTransition) { return; }
-
-            if (GameManager.Instance.loadTestingScenes)
-            {
-                StartCoroutine(LoadSceneAsync(SceneState.TestingGame));
-            }
-            else
-            {
-                StartCoroutine(LoadSceneAsync(SceneState.Game));
-            }
-            
-            OnSceneGameplayLoaded.RaiseEvent();
-            
+            StartCoroutine(LoadSceneAsync(SceneState.Game));
         }
 
         public void LoadTitleMenu()
         {
             if (isInTransition) { return; }
-
-            if (GameManager.Instance.loadTestingScenes)
-            {
-                StartCoroutine(LoadSceneAsync(SceneState.TestingMainMenu));
-            }
-            else
-            {
-                StartCoroutine(LoadSceneAsync(SceneState.MainMenu));
-            }
-
+            StartCoroutine(LoadSceneAsync(SceneState.MainMenu));
             activeMenuPanel = MenuPanel.Title;
         }
 
@@ -120,38 +84,18 @@ namespace GnomeGardeners
 #endif
         }
 
-        public void RestartLevel()
-        {
-            if (isInTransition) { return; }
-
-            var scene = SceneManager.GetActiveScene();
-            SceneManager.UnloadSceneAsync(scene);
-
-            if (GameManager.Instance.loadTestingScenes)
-            {
-                StartCoroutine(LoadSceneAsync(SceneState.TestingGame));
-            }
-            else
-            {
-                StartCoroutine(LoadSceneAsync(SceneState.Game));
-            }
-        }
-
         public void NextLevel()
         {
             if (isInTransition) { return; }
-
-            var scene = SceneManager.GetActiveScene();
-            SceneManager.UnloadSceneAsync(scene);      
             
-            if (GameManager.Instance.loadTestingScenes)
-            {
-                StartCoroutine(NextLevelTransition());
-            }
-            else
-            {
-                StartCoroutine(NextLevelTransition());
-            }
+            StartCoroutine(NextLevelTransition());
+        }
+
+        public void RestartLevel()
+        {
+            if (isInTransition) return;
+
+            StartCoroutine(RestartLevelTransition());
         }
 
         public void HandleInput()
@@ -165,18 +109,6 @@ namespace GnomeGardeners
         #endregion
 
         #region Private Methods
-
-        private void Configure()
-        {
-            if (GameManager.Instance.SceneController == null)
-            {
-                GameManager.Instance.SceneController = this;
-                OnSceneLoaded.OnEventRaised += UpdateState;
-            }
-            currentScene = (SceneState)SceneManager.GetActiveScene().buildIndex;
-            activeMenuPanel = MenuPanel.Title;
-            FindCameraForCanvas();
-        }
 
         private void FindCameraForCanvas()
         {
@@ -194,26 +126,6 @@ namespace GnomeGardeners
             currentScene = (SceneState)SceneManager.GetActiveScene().buildIndex;
         }
 
-        private IEnumerator LoadSceneAsync(int index)
-        {
-            isInTransition = true;
-
-            transition.SetTrigger("FadeIn");
-
-            yield return new WaitForSeconds(transitionTime);
-
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(index);
-            while (!asyncLoad.isDone)
-            {
-                yield return null;
-            }
-
-            DebugLogger.Log(this, "Scene Loaded");
-            isInTransition = false;
-            OnSceneLoaded.RaiseEvent();
-            transition.SetTrigger("FadeOut");
-        }
-
         private IEnumerator LoadSceneAsync(SceneState index)
         {
             isInTransition = true;
@@ -222,33 +134,16 @@ namespace GnomeGardeners
 
             yield return new WaitForSeconds(transitionTime);
 
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync((int)index);
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync((int)index, LoadSceneMode.Single);
             while (!asyncLoad.isDone)
             {
                 yield return null;
             }
+            
+            if(index == SceneState.Game)
+                yield return StartCoroutine(GameManager.Instance.LevelManager.LoadTutorial());
 
 
-            DebugLogger.Log(this, "Scene Loaded");
-            isInTransition = false;
-            OnSceneLoaded.RaiseEvent();
-            transition.SetTrigger("FadeOut");
-        }
-
-        private IEnumerator LoadSceneAsync(string sceneName)
-        {
-            isInTransition = true;
-            transition.SetTrigger("FadeIn");
-
-            yield return new WaitForSeconds(transitionTime);
-
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
-            while (!asyncLoad.isDone)
-            {
-                yield return null;
-            }
-
-            DebugLogger.Log(this, "Scene Loaded");
             isInTransition = false;
             OnSceneLoaded.RaiseEvent();
             transition.SetTrigger("FadeOut");
@@ -262,7 +157,25 @@ namespace GnomeGardeners
 
             yield return new WaitForSeconds(transitionTime);
 
-            GameManager.Instance.LevelManager.NextLevel();
+            activeInGameUI = InGameUIMode.TutorialMenu;
+
+            yield return StartCoroutine(GameManager.Instance.LevelManager.NextLevel());
+
+            isInTransition = false;
+            transition.SetTrigger("FadeOut");
+        }
+        
+        private IEnumerator RestartLevelTransition()
+        {
+            isInTransition = true;
+
+            transition.SetTrigger("FadeIn");
+
+            yield return new WaitForSeconds(transitionTime);
+
+            activeInGameUI = InGameUIMode.TutorialMenu;
+
+            GameManager.Instance.LevelManager.RestartLevel();
 
             yield return null;
             

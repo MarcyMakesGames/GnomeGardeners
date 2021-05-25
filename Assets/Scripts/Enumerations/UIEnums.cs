@@ -18,8 +18,6 @@ namespace GnomeGardeners
     {
         MainMenu,
         Game,
-        TestingMainMenu,
-        TestingGame,
     }
 
     public enum InGameUIMode

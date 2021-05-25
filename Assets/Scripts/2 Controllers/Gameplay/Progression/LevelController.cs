@@ -45,27 +45,11 @@ namespace GnomeGardeners
 
         private void Start()
         {
-            timeAtStart = GameManager.Instance.Time.ElapsedTime;
+            timeAtStart = 0f;
             restTime = availableTime;
             currentScore = 0;
             isActive = false;
             hasStarted = false;
-
-
-        }
-
-        private void Update()
-        {
-            CheckLevelStart();
-
-            CalculateTime();
-
-            CheckLoseCondition();
-
-            CheckWinCondition();
-
-            OnCurrentLevelCurrentScore.RaiseEvent(currentScore);
-            OnCurrentLevelRequiredScore.RaiseEvent(requiredScore);
         }
 
         private void OnDestroy()
@@ -74,23 +58,40 @@ namespace GnomeGardeners
         }
 
         #endregion
+        
+        #region Public Methods
+        
+        public void LevelStart()
+        {
+            OnLevelStartEvent.RaiseEvent();
+
+            currentScore = 0;
+            timeAtStart = GameManager.Instance.Time.ElapsedTime;
+            restTime = availableTime;
+
+            isActive = true;
+            hasStarted = true;
+        }
+        
+        public IEnumerator UpdateLevel()
+        {
+            CalculateTime();
+
+            CheckLoseCondition();
+
+            CheckWinCondition();
+
+            OnCurrentLevelCurrentScore.RaiseEvent(currentScore);
+            OnCurrentLevelRequiredScore.RaiseEvent(requiredScore);
+
+            yield return null;
+        }
+        
+        #endregion
 
         #region Private Methods
 
-        private void CheckLevelStart()
-        {
-            if (timeAtStart == GameManager.Instance.Time.ElapsedTime) return;
 
-            if (!hasStarted)
-            {
-                OnLevelStartEvent.RaiseEvent();
-
-                isActive = true;
-                hasStarted = true;
-
-                DebugLogger.Log(this, "Level Start.");
-            }
-        }
 
         private void CalculateTime()
         {
