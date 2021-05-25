@@ -45,7 +45,12 @@ namespace GnomeGardeners
             OnLevelStart = Resources.Load<VoidEventChannelSO>("Channels/LevelStartEC");
             OnLevelLose = Resources.Load<VoidEventChannelSO>("Channels/LevelLoseEC");
             OnLevelWin = Resources.Load<VoidEventChannelSO>("Channels/LevelWinEC");
-            Configure();
+            if (GameManager.Instance.HazardManager == null)
+                GameManager.Instance.HazardManager = this;
+            
+            OnLevelStart.OnEventRaised += StartSpawningHazards;
+            OnLevelLose.OnEventRaised += StopSpawningHazards;
+            OnLevelWin.OnEventRaised += StopSpawningHazards;
         }
 
         private void Start()
@@ -75,7 +80,11 @@ namespace GnomeGardeners
 
         private void OnDisable()
         {
-            Dispose();
+            OnLevelStart.OnEventRaised -= StartSpawningHazards;
+            OnLevelLose.OnEventRaised -= StopSpawningHazards;
+            OnLevelWin.OnEventRaised -= StopSpawningHazards;
+            OnLevelStart.OnEventRaised -= RaiseFirstHazardEvent;
+            GameManager.Instance.HazardManager = null;
         }
 
 

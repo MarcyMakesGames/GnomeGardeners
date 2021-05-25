@@ -25,12 +25,17 @@ namespace GnomeGardeners
             gameTime = GameManager.Instance.Time;
             audioManager.PlayAmbience(ambience);
             timeToNextAccent = timeBetweenAccents;
-            mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
             rotationSpeed = 0.01f;
         }
 
         private void Update()
         {
+            if (!mainCamera)
+            {
+                mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+                return;
+            }
+            
             transform.position = mainCamera.transform.position;
             transform.rotation.eulerAngles.Set(
                 transform.rotation.eulerAngles.x,
@@ -45,6 +50,7 @@ namespace GnomeGardeners
                 audioManager.PlayAmbience(randomAccent, accentSource);
                 timeToNextAccent = timeBetweenAccents + Random.Range(-timeVariance, timeVariance);
             }
+
         }
     }
 }
