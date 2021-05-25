@@ -13,6 +13,7 @@ namespace GnomeGardeners
             name = "Seed";
             sprite = Resources.Load<Sprite>("seed");
             plantKey = key;
+            popUpKey = PoolKey.PopUp_Seed;
         }
     }
 }

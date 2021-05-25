@@ -10,6 +10,7 @@ namespace GnomeGardeners
     {
         protected AudioSource audioSource;
         protected ToolType toolType;
+        protected bool isEquipped;
         public AudioSource AudioSource { get => audioSource; }
         public ToolType ToolType { get => ToolType; }
         #region Unity Methods
@@ -17,6 +18,7 @@ namespace GnomeGardeners
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
+            popUpOffset = new Vector3(0.3f, 0.8f, 0f);
         }
 
         private new void Start()
@@ -33,16 +35,13 @@ namespace GnomeGardeners
         public void Unequip(GridCell targetCell)
         {
             cell = targetCell;
+            if (targetCell.Occupant != null) return;
+            transform.position = targetCell.WorldPosition;
+            gameObject.SetActive(true);
+            isEquipped = false;
+            AddOccupantToCells(targetCell);
 
-            if(targetCell.Occupant == null)
-            {
-                transform.position = targetCell.WorldPosition;
-                gameObject.SetActive(true);
-
-                AddOccupantToCells(targetCell);
-
-                PlayUnequipSound(targetCell.GroundType);
-            }
+            PlayUnequipSound(targetCell.GroundType);
         }
 
 
@@ -50,6 +49,10 @@ namespace GnomeGardeners
         {
             RemoveOccupantFromCells();
             gameObject.SetActive(false);
+            isEquipped = true;
+            
+            if(popUp != null)
+                ClearPopUp();
         }
 
         public abstract void UpdateSpriteResolvers(SpriteResolver[] resolvers);
