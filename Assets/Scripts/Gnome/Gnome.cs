@@ -124,13 +124,18 @@ namespace GnomeGardeners
             PlayFootstepSound();
         }
 
-        void OnDrawGizmosSelected()
+        private void OnDrawGizmosSelected()
         {
             if(inputFrames != null)
             {
                 foreach(Vector2 vector in inputFrames)
                     Gizmos.DrawLine(transform.position, transform.position + (Vector3)vector);
             }
+        }
+
+        private void OnDestroy()
+        {
+            playerConfig.Input.onActionTriggered -= OnInputAction;
         }
 
         #endregion
@@ -299,8 +304,6 @@ namespace GnomeGardeners
         {
             GameManager.Instance.SceneController.HandleInput();
         }
-
-
 
         private void Move()
         {

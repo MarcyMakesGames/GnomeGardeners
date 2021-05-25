@@ -75,16 +75,18 @@ namespace GnomeGardeners
         
         public IEnumerator UpdateLevel()
         {
-            CalculateTime();
+            while (isActive)
+            {
+                CalculateTime();
 
-            CheckLoseCondition();
+                CheckLoseCondition();
 
-            CheckWinCondition();
+                CheckWinCondition();
 
-            OnCurrentLevelCurrentScore.RaiseEvent(currentScore);
-            OnCurrentLevelRequiredScore.RaiseEvent(requiredScore);
-
-            yield return null;
+                OnCurrentLevelCurrentScore.RaiseEvent(currentScore);
+                OnCurrentLevelRequiredScore.RaiseEvent(requiredScore);
+                yield return null;
+            }
         }
         
         #endregion

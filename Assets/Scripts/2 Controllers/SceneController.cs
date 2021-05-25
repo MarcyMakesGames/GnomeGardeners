@@ -139,9 +139,12 @@ namespace GnomeGardeners
             {
                 yield return null;
             }
-            
-            if(index == SceneState.Game)
+
+            if (index == SceneState.Game)
+            {
+                activeInGameUI = InGameUIMode.TutorialMenu;
                 yield return StartCoroutine(GameManager.Instance.LevelManager.LoadTutorial());
+            }
 
 
             isInTransition = false;
@@ -175,9 +178,7 @@ namespace GnomeGardeners
 
             activeInGameUI = InGameUIMode.TutorialMenu;
 
-            GameManager.Instance.LevelManager.RestartLevel();
-
-            yield return null;
+            yield return StartCoroutine(GameManager.Instance.LevelManager.RestartLevel());
             
             isInTransition = false;
             transition.SetTrigger("FadeOut");

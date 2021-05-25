@@ -53,7 +53,12 @@ namespace GnomeGardeners
 
         public IEnumerator RestartLevel()
         {
-            yield return StartCoroutine(LoadLevel(current));
+            GameObject currentLevelPrefab;
+            if (levelIndex < 0)
+                currentLevelPrefab = levelTutorial;
+            else
+                currentLevelPrefab = levels[levelIndex];
+            yield return StartCoroutine(LoadLevel(currentLevelPrefab));
         }
         
         #endregion
@@ -68,6 +73,9 @@ namespace GnomeGardeners
             yield return new WaitForSeconds(1f);
             
             var newLevel = Instantiate(level);
+
+            yield return new WaitForSeconds(1f);
+            
             current = newLevel;
             var currentLevel = current.GetComponent<LevelController>();
             currentLevel.LevelStart();
@@ -82,6 +90,9 @@ namespace GnomeGardeners
             yield return new WaitForSeconds(1f);
             
             var newLevel = Instantiate(levels[index]);
+            
+            yield return new WaitForSeconds(1f);
+
             current = newLevel;
             var currentLevel = current.GetComponent<LevelController>();
             currentLevel.LevelStart();
