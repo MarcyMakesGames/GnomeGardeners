@@ -9,6 +9,7 @@ namespace GnomeGardeners
     public class Sickle : Tool
     {
         private Harvest harvest;
+        private bool isHarvesting = false;
 
         private void Update()
         {
@@ -26,6 +27,7 @@ namespace GnomeGardeners
 
         public override void UseTool(GridCell cell)
         {
+            isHarvesting = false;
             DebugLogger.Log(this, "Executing.");
             var occupant = cell.Occupant;
             if (occupant != null)
@@ -36,6 +38,7 @@ namespace GnomeGardeners
                 {
                     DebugLogger.Log(this, "Harvesting plant!");
                     harvest = plant.HarvestPlant();
+                    isHarvesting = true;
                     return;
                 }
 
@@ -83,6 +86,13 @@ namespace GnomeGardeners
         public override void FailedInteraction()
         {
             throw new System.NotImplementedException();
+        }
+
+        public override void PlayCorrespondingAnimation(Animator animator, string prefix)
+        {
+            base.PlayCorrespondingAnimation(animator, prefix);
+            if(isHarvesting)
+                animator.Play(prefix + "_harvest");
         }
 
         #endregion
