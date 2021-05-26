@@ -31,7 +31,7 @@ namespace GnomeGardeners
             var image = gameObjectToSpawn.AddComponent<Image>();
             image.sprite = icon;
             image.SetNativeSize();
-            var spawnedGO = Instantiate(gameObjectToSpawn, posRight.position, gameObjectToSpawn.transform.rotation, transform);
+            var spawnedGO = Instantiate(gameObjectToSpawn, posRight.position, gameObjectToSpawn.transform.rotation, transform.GetChild(1));
             StartCoroutine(MoveAcross(spawnedGO, delay, duration));
         }
 
