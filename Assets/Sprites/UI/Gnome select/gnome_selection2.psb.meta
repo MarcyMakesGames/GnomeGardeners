@@ -91,14 +91,14 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: gnome selection 2
+  - name: gnome selection 2.
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 322
+      x: 640
       y: 4
       width: 301
       height: 497
@@ -112,7 +112,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 318, y: 3}
+    uvTransform: {x: 636, y: 3}
   - name: gnome selection 2 white
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -120,7 +120,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
+      x: 322
       y: 4
       width: 310
       height: 503
@@ -134,7 +134,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 3, y: 4}
+    uvTransform: {x: 321, y: 4}
   - name: Layer 2
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -142,8 +142,8 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 631
-      y: 4
+      x: 4
+      y: 515
       width: 292
       height: 479
     spriteID: e30c5769bc8e50c47b533f426fe520d4
@@ -156,7 +156,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 622, y: -6}
+    uvTransform: {x: -5, y: 505}
   - name: Layer 1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -164,7 +164,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
+      x: 304
       y: 515
       width: 243
       height: 423
@@ -178,7 +178,29 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -33, y: 470}
+    uvTransform: {x: 267, y: 470}
+  - name: gnome selection 2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 310
+      height: 503
+    spriteID: 18f31cd47e924854998b15b6d285905f
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 3, y: 4}
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
@@ -224,30 +246,37 @@ ScriptedImporter:
     spriteName: gnome selection 2
     isGroup: 0
     parentIndex: -1
+    spriteID: 18f31cd47e924854998b15b6d285905f
+    layerID: 12
+    mosaicPosition: {x: 4, y: 4}
+  - name: gnome selection 2.
+    spriteName: gnome selection 2.
+    isGroup: 0
+    parentIndex: -1
     spriteID: 088eb37888692b048a4b02f431c5497f
     layerID: 6
-    mosaicPosition: {x: 322, y: 4}
+    mosaicPosition: {x: 640, y: 4}
   - name: gnome selection 2 white
     spriteName: gnome selection 2 white
     isGroup: 0
     parentIndex: -1
     spriteID: e315ed36055ed0846935eb6c66328993
     layerID: 5
-    mosaicPosition: {x: 4, y: 4}
+    mosaicPosition: {x: 322, y: 4}
   - name: Layer 2
     spriteName: Layer 2
     isGroup: 0
     parentIndex: -1
     spriteID: e30c5769bc8e50c47b533f426fe520d4
     layerID: 8
-    mosaicPosition: {x: 631, y: 4}
+    mosaicPosition: {x: 4, y: 515}
   - name: Layer 1
     spriteName: Layer 1
     isGroup: 0
     parentIndex: -1
     spriteID: d635c7749dcc2494d83d3678d3f656fc
     layerID: 7
-    mosaicPosition: {x: 4, y: 515}
+    mosaicPosition: {x: 304, y: 515}
   characterData:
     bones: []
     parts: []
