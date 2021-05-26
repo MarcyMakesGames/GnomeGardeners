@@ -7,11 +7,9 @@ namespace GnomeGardeners
 {
     public class HazardClockUI : MonoBehaviour
     {
-        public GameObject mask;
-        public Image currentHazardIcon;
-
         public Transform posLeft;
-        public Transform posCenter;
+        public Transform posStart;
+        public Transform posEnd;
         public Transform posRight;
 
         private HazardEventChannelSO OnNextHazard;
@@ -33,25 +31,32 @@ namespace GnomeGardeners
             var image = gameObjectToSpawn.AddComponent<Image>();
             image.sprite = icon;
             image.SetNativeSize();
-            var spawnedGO = Instantiate(gameObjectToSpawn, posRight.position, gameObjectToSpawn.transform.rotation, mask.transform);
-            StartCoroutine(MoveAcross(spawnedGO, delay, duration, icon));
+            var spawnedGO = Instantiate(gameObjectToSpawn, posRight.position, gameObjectToSpawn.transform.rotation, transform);
+            StartCoroutine(MoveAcross(spawnedGO, delay, duration));
         }
 
-        public IEnumerator MoveAcross(GameObject objectToMove, float delay, float duration, Sprite icon)
+        private IEnumerator MoveAcross(GameObject objectToMove, float delay, float duration)
         {
             float elapsedTime = 0;
             while (elapsedTime < delay)
             {
-                objectToMove.transform.position = Vector3.Lerp(posRight.position, posCenter.position, (elapsedTime / delay));
+                objectToMove.transform.position = Vector3.Lerp(posRight.position, posStart.position, (elapsedTime / delay));
                 elapsedTime += GameManager.Instance.Time.DeltaTime;
                 yield return new WaitForEndOfFrame();
             }
-            objectToMove.transform.position = posCenter.position;
-            currentHazardIcon.sprite = icon;
+            objectToMove.transform.position = posStart.position;
             elapsedTime = 0;
             while (elapsedTime < duration)
             {
-                objectToMove.transform.position = Vector3.Lerp(posCenter.position, posLeft.position, (elapsedTime / duration));
+                objectToMove.transform.position = Vector3.Lerp(posStart.position, posEnd.position, (elapsedTime / duration));
+                elapsedTime += GameManager.Instance.Time.DeltaTime;
+                yield return new WaitForEndOfFrame();
+            }
+            objectToMove.transform.position = posEnd.position;
+            elapsedTime = 0;
+            while (elapsedTime < delay)
+            {
+                objectToMove.transform.position = Vector3.Lerp(posEnd.position, posLeft.position, (elapsedTime / delay));
                 elapsedTime += GameManager.Instance.Time.DeltaTime;
                 yield return new WaitForEndOfFrame();
             }
