@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 176e8623bae001042bf3e0259f074a60, type: 3}
+  m_Name: Tulip_4_Ripening
+  m_EditorClassIdentifier: 
+  stageName: Ripening
+  specifier: 4
+  sprite: {fileID: 21300000, guid: 3dce17930f1ea4945be12ee02e9ce02c, type: 3}
+  need: {fileID: 0}
+  popUpPositionOffset: {x: 0, y: 3.16, z: 0}
+  timeToFulfillNeed: 16
+  timeToGrow: 3
+  isHarvestable: 1
+  isPlantable: 0
+  points: 50

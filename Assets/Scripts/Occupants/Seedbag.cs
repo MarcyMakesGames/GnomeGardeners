@@ -6,28 +6,38 @@ namespace GnomeGardeners
 {
     public class Seedbag : Occupant
     {
-        public bool onlySunflowerSeed = true;
-
-        public Seed sunflowerSeed;
-
-        public Seed[] allSeeds = new Seed[3];
+        [SerializeField] private bool dispensesRandomizedSeeds = false;
+        [SerializeField] private PoolKey[] seedKeys;
+        [SerializeField] private PoolKey[] popUpKeys;
+        
+        private List<Seed> seeds;
+        private int currentSeedIndex;
+        private int nextSeedIndex;
+        private Seed nextSeed;
 
         #region Unity Methods
 
         private new void Start()
         {
             base.Start();
-            allSeeds[0] = new Seed(PoolKey.Plant_Sunflower);
-            allSeeds[1] = new Seed(PoolKey.Plant_Peppermint);
-            allSeeds[2] = new Seed(PoolKey.Plant_Strawberry);
+            seeds = new List<Seed>();
+            foreach (PoolKey key in seedKeys)
+                seeds.Add(new Seed(key));
 
-            sunflowerSeed = new Seed(PoolKey.Plant_Sunflower);
+            currentSeedIndex = 0;
+            nextSeedIndex = 1;
         }
 
         protected override void Update()
         {
             base.Update();
+            if (popUp == null)
+            {
+                var key = popUpKeys[nextSeedIndex];
+                GetPopUp(key);
+            }
         }
+        
         #endregion
 
         #region Public Methods
@@ -36,20 +46,29 @@ namespace GnomeGardeners
             
         }
 
-        public Seed GetRandomDispensable()
+        public Seed GetSeed()
         {
             GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_seedbag_dispense, GetComponent<AudioSource>());
-            var randomIndex = Random.Range(0, allSeeds.Length);
-            var randomSeed = allSeeds[randomIndex];
-            DebugLogger.Log(this, "Dispensing." + randomSeed.ToString());
-            return randomSeed;
-        }
-
-        public Seed GetSunflowerSeed()
-        {
-            GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_seedbag_dispense, GetComponent<AudioSource>());
-            DebugLogger.Log(this, "Dispensing." + sunflowerSeed.ToString());
-            return sunflowerSeed;
+            ClearPopUp();
+            popUp = null;
+            if (dispensesRandomizedSeeds)
+            {
+                var seed = nextSeed;
+                nextSeedIndex = UnityEngine.Random.Range(0, seeds.Count);
+                nextSeed = seeds[nextSeedIndex];
+                return seed;
+            }
+            else
+            {
+                var seed = seeds[currentSeedIndex];
+                currentSeedIndex++;
+                if (currentSeedIndex >= seeds.Count)
+                    currentSeedIndex = 0;
+                nextSeedIndex++;
+                if (nextSeedIndex >= seeds.Count)
+                    nextSeedIndex = 0;
+                return seed;
+            }
         }
 
         public override void FailedInteraction()

@@ -13,7 +13,7 @@ namespace GnomeGardeners
             name = "Harvest";
             sprite = _sprite;
             points = _points;
-            popUpKey = PoolKey.PopUp_Sunflower;
+            popUpKey = PoolKey.PopUp_Plant_Sunflower;
         }
     }
 }

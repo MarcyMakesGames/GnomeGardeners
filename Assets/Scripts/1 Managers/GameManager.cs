@@ -60,6 +60,8 @@ namespace GnomeGardeners
                 DontDestroyOnLoad(gameObject);
             }
             #endregion
+
+            Cursor.visible = false;
         }
 
         private void Update()

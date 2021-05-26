@@ -7,6 +7,8 @@ namespace GnomeGardeners
 {
     public class WateringCan : Tool
     {
+        private bool isWatering = false;
+        
         #region Unity Methods
 
 
@@ -23,6 +25,7 @@ namespace GnomeGardeners
 
         public override void UseTool(GridCell cell)
         {
+            isWatering = false;
             DebugLogger.Log(this, "Executing");
             var occupant = cell.Occupant;
             if (occupant != null)
@@ -31,6 +34,7 @@ namespace GnomeGardeners
                 if (occupant.TryGetComponent(out plant))
                 {
                     plant.FulfillCurrentNeed(NeedType.Water);
+                    isWatering = true;
                     return;
                 }
 
@@ -38,6 +42,7 @@ namespace GnomeGardeners
                 if (occupant.TryGetComponent(out insect) && occupant.TryGetComponent(out insect))
                 {
                     insect.IncrementShooedCount();
+                    isWatering = true;
                     return;
                 }
 
@@ -55,6 +60,14 @@ namespace GnomeGardeners
         public override void FailedInteraction()
         {
             throw new System.NotImplementedException();
+        }
+
+        public override void PlayCorrespondingAnimation(Animator animator, string prefix)
+        {
+            base.PlayCorrespondingAnimation(animator, prefix);
+            if (isWatering)
+                animator.Play(prefix + "_water");
+
         }
 
         #endregion

@@ -11,6 +11,7 @@ namespace GnomeGardeners
         protected AudioSource audioSource;
         protected ToolType toolType;
         protected bool isEquipped;
+        private bool isEquipping = false;
         public AudioSource AudioSource { get => audioSource; }
         public ToolType ToolType { get => ToolType; }
         #region Unity Methods
@@ -34,6 +35,7 @@ namespace GnomeGardeners
 
         public void Unequip(GridCell targetCell)
         {
+            isEquipping = false;
             cell = targetCell;
             if (targetCell.Occupant != null) return;
             transform.position = targetCell.WorldPosition;
@@ -42,14 +44,19 @@ namespace GnomeGardeners
             AddOccupantToCells(targetCell);
 
             PlayUnequipSound(targetCell.GroundType);
+            isEquipping = true;
+
         }
 
 
         public void Equip()
         {
+            isEquipping = false;
             RemoveOccupantFromCells();
             gameObject.SetActive(false);
             isEquipped = true;
+            isEquipping = true;
+
             
             if(popUp != null)
                 ClearPopUp();
@@ -65,6 +72,12 @@ namespace GnomeGardeners
         public virtual void UpdateToolRenderers(SpriteRenderer[] renderers)
         {
                
+        }
+
+        public virtual void PlayCorrespondingAnimation(Animator animator, string prefix)
+        {
+            if(isEquipping)
+                animator.Play(prefix + "_pick_up");
         }
 
         #endregion

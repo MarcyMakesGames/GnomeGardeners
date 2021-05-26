@@ -7,6 +7,7 @@ namespace GnomeGardeners
 {
     public class Hoe : Tool
     {
+        private bool isPreparing = false;
         public override void Interact(Tool tool)
         {
             throw new System.NotImplementedException();
@@ -22,6 +23,7 @@ namespace GnomeGardeners
 
         public override void UseTool(GridCell cell)
         {
+            isPreparing = false;
             DebugLogger.Log(this, "Executing");
             var occupant = cell.Occupant;
             if (occupant != null)
@@ -42,6 +44,7 @@ namespace GnomeGardeners
             if (occupant == null && cell.GroundType.Equals(GroundType.FallowSoil))
             {
                 GameManager.Instance.GridManager.ChangeTile(cell.GridPosition, GroundType.ArableSoil);
+                isPreparing = true;
             }
         }
 
@@ -58,13 +61,15 @@ namespace GnomeGardeners
             return;
         }
 
+        public override void PlayCorrespondingAnimation(Animator animator, string prefix)
+        {
+            base.PlayCorrespondingAnimation(animator, prefix);
+            if(isPreparing)
+                animator.Play(prefix + "_prepare");
+        }
+
         #endregion
 
-        #region Private Methods
-
-
-
-        #endregion
 
     }
 }

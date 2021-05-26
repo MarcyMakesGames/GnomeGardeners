@@ -102,7 +102,7 @@ RectTransform:
   m_GameObject: {fileID: 1838242507974526466}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalScale: {x: 2.68, y: 2.68, z: 0.67}
   m_Children: []
   m_Father: {fileID: 8973428124558176087}
   m_RootOrder: 0
@@ -110,7 +110,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -29, y: -12}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 61.71875, y: 95.3125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2648978452865852690
 CanvasRenderer:
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d879b3b6128c5fe40a74d4b53069d353, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bdaf36ab815af2e47a3de94fcd410037, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -297,7 +297,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 414, y: 1}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 221.875, y: 178.90625}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1217302459509292345
 CanvasRenderer:
@@ -327,7 +327,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3925eb53567898a4b90567602761df33, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 16cc9f6a2cd614a44aa73cf5796192db, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -701,8 +701,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7222092031544565968, guid: 46d83095abc16b34cad1925ce94bdabb, type: 3}
       propertyPath: m_Name
-      value: Sickle Tutorial
+      value: Garden fork tutorial
       objectReference: {fileID: 0}
+    - target: {fileID: 7368715417664471334, guid: 46d83095abc16b34cad1925ce94bdabb, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 35b192b3acb09aa4db701b667c13df4e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46d83095abc16b34cad1925ce94bdabb, type: 3}
 --- !u!224 &6260003456228972077 stripped
