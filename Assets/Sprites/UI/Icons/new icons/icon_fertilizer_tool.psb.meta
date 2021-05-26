@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c0e655ca177c9184f9ee5ab56c16e861
+guid: 31ba08be669250a478530fc691a007bd
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -91,7 +91,7 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: flowers in front
+  - name: lines
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -99,10 +99,10 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 4
-      width: 529
-      height: 321
-    spriteID: 3114cf9eb506f14438d2673b4a431ef5
+      y: 76
+      width: 60
+      height: 61
+    spriteID: dd93bb92bc3b93e4e8386a6beeaf8fa0
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -112,32 +112,61 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -34, y: -55}
+    uvTransform: {x: 3, y: 75}
+  - name: Layer 3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 64
+      height: 64
+    spriteID: 70e12a35a011aad4f9162ba1b72297d6
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 4}
   platformSettings: []
   mosaicLayers: 1
   documentPivot: {x: 0, y: 0}
   documentAlignment: 7
   importHiddenLayers: 0
-  importedTextureWidth: 1024
-  importedTextureHeight: 1024
-  documentSize: {x: 745, y: 602}
+  importedTextureWidth: 128
+  importedTextureHeight: 256
+  documentSize: {x: 64, y: 64}
   paperDollMode: 0
   keepDupilcateSpriteName: 0
   spriteCategoryList:
     categories: []
-  textureActualWidth: 1024
-  textureActualHeight: 1024
+  textureActualWidth: 128
+  textureActualHeight: 256
   spritePackingTag: 
   resliceFromLayer: 0
   characterMode: 1
   mosaicPSDLayers: []
   rigPSDLayers:
-  - name: flowers in front
-    spriteName: flowers in front
+  - name: lines
+    spriteName: lines
     isGroup: 0
     parentIndex: -1
-    spriteID: 3114cf9eb506f14438d2673b4a431ef5
-    layerID: 10
+    spriteID: dd93bb92bc3b93e4e8386a6beeaf8fa0
+    layerID: 2
+    mosaicPosition: {x: 4, y: 76}
+  - name: Layer 3
+    spriteName: Layer 3
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 70e12a35a011aad4f9162ba1b72297d6
+    layerID: 5
     mosaicPosition: {x: 4, y: 4}
   characterData:
     bones: []
@@ -145,7 +174,7 @@ ScriptedImporter:
     dimension: {x: 0, y: 0}
     characterGroups: []
   generateGOHierarchy: 0
-  textureAssetName: logo Texture
-  prefabAssetName: logo Prefab
-  spriteLibAssetName: logo Sprite Lib
+  textureAssetName: icon_fertilizing_tool Texture
+  prefabAssetName: icon_fertilizing_tool Prefab
+  spriteLibAssetName: icon_fertilizing_tool Sprite Lib
   secondarySpriteTextures: []

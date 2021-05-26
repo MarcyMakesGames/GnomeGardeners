@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c0e655ca177c9184f9ee5ab56c16e861
+guid: 871732320da3f6d45a32a919f16fc857
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -91,18 +91,18 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: flowers in front
+  - name: lines
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
+      x: 108
       y: 4
-      width: 529
-      height: 321
-    spriteID: 3114cf9eb506f14438d2673b4a431ef5
+      width: 92
+      height: 94
+    spriteID: 70e020c6ecf0dab45917d8d9e9bcd8c2
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -112,40 +112,98 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -34, y: -55}
+    uvTransform: {x: 105, y: -1}
+  - name: white
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 96
+      height: 100
+    spriteID: 843620d0c5eed9a4db64767df90da59f
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 4}
+  - name: Layer 3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 112
+      width: 96
+      height: 96
+    spriteID: bdf3cc668d30b7441b726e3dac8f4584
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 108}
   platformSettings: []
   mosaicLayers: 1
   documentPivot: {x: 0, y: 0}
   documentAlignment: 7
   importHiddenLayers: 0
-  importedTextureWidth: 1024
-  importedTextureHeight: 1024
-  documentSize: {x: 745, y: 602}
+  importedTextureWidth: 256
+  importedTextureHeight: 256
+  documentSize: {x: 96, y: 100}
   paperDollMode: 0
   keepDupilcateSpriteName: 0
   spriteCategoryList:
     categories: []
-  textureActualWidth: 1024
-  textureActualHeight: 1024
+  textureActualWidth: 256
+  textureActualHeight: 256
   spritePackingTag: 
   resliceFromLayer: 0
   characterMode: 1
   mosaicPSDLayers: []
   rigPSDLayers:
-  - name: flowers in front
-    spriteName: flowers in front
+  - name: lines
+    spriteName: lines
     isGroup: 0
     parentIndex: -1
-    spriteID: 3114cf9eb506f14438d2673b4a431ef5
-    layerID: 10
+    spriteID: 70e020c6ecf0dab45917d8d9e9bcd8c2
+    layerID: 14
+    mosaicPosition: {x: 108, y: 4}
+  - name: white
+    spriteName: white
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 843620d0c5eed9a4db64767df90da59f
+    layerID: 16
     mosaicPosition: {x: 4, y: 4}
+  - name: Layer 3
+    spriteName: Layer 3
+    isGroup: 0
+    parentIndex: -1
+    spriteID: bdf3cc668d30b7441b726e3dac8f4584
+    layerID: 15
+    mosaicPosition: {x: 4, y: 112}
   characterData:
     bones: []
     parts: []
     dimension: {x: 0, y: 0}
     characterGroups: []
   generateGOHierarchy: 0
-  textureAssetName: logo Texture
-  prefabAssetName: logo Prefab
-  spriteLibAssetName: logo Sprite Lib
+  textureAssetName: icon_info_large Texture
+  prefabAssetName: icon_info_large Prefab
+  spriteLibAssetName: icon_info_large Sprite Lib
   secondarySpriteTextures: []
