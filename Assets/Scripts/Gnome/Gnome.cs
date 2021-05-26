@@ -50,6 +50,7 @@ namespace GnomeGardeners
         private bool receiveGameInput;
         private AudioSource audioSource;
         private Animator currentAnimator;
+        private string currentPrefix;
         private GridCell interactionCell;
         private PlayerConfig playerConfig;
         private float currentSpeedUpTimer;
@@ -214,6 +215,7 @@ namespace GnomeGardeners
                 gnomeBack.SetActive(false);
                 gnomeRight.SetActive(false);
                 currentAnimator = gnomeFront.GetComponent<Animator>();
+                currentPrefix = "front";
             }
             else if (lookDir.y == 0 && lookDir.x < 0)
             {
@@ -222,6 +224,7 @@ namespace GnomeGardeners
                 gnomeBack.SetActive(false);
                 gnomeRight.SetActive(false);
                 currentAnimator = gnomeLeft.GetComponent<Animator>();
+                currentPrefix = "left";
             }
             else if (lookDir.y > 0)
             {
@@ -230,6 +233,7 @@ namespace GnomeGardeners
                 gnomeBack.SetActive(true);
                 gnomeRight.SetActive(false);
                 currentAnimator = gnomeBack.GetComponent<Animator>();
+                currentPrefix = "back";
             }
             else
             {
@@ -238,6 +242,7 @@ namespace GnomeGardeners
                 gnomeBack.SetActive(false);
                 gnomeRight.SetActive(true);
                 currentAnimator = gnomeRight.GetComponent<Animator>();
+                currentPrefix = "right";
             }
 
             if (moveDir.magnitude != 0)
@@ -344,6 +349,7 @@ namespace GnomeGardeners
                 tool.UseTool(cell);
                 tool.UpdateItemRenderers(itemRenderers);
                 tool.UpdateToolRenderers(toolRenderers);
+                tool.PlayCorrespondingAnimation(currentAnimator, currentPrefix);
             }
             else if (tool == null && occupant != null) // note: no Tool equipped and interacting on occupant
             {
@@ -360,6 +366,7 @@ namespace GnomeGardeners
                 var dropPosition = transform.position + (Vector3)lookDir * dropRange;
                 var dropCell = GameManager.Instance.GridManager.GetClosestCell(dropPosition);
                 tool.Unequip(dropCell);
+                tool.PlayCorrespondingAnimation(currentAnimator, currentPrefix);
                 tool = null;
                 SetAllResolvers("tools", "nada");
                 SetAllItemRenderers(null);
@@ -375,6 +382,7 @@ namespace GnomeGardeners
                     tool.UpdateItemRenderers(itemRenderers);
                     tool.UpdateToolRenderers(toolRenderers);
                     toolOnGround.Equip();
+                    tool.PlayCorrespondingAnimation(currentAnimator, currentPrefix);
 
                 }
             }

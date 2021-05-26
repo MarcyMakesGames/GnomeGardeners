@@ -7,6 +7,7 @@ namespace GnomeGardeners
 	public class Shovel : Tool
 	{
 		private Seed seed;
+        private bool isPlanting = false;
 
         private void Update()
         {
@@ -24,6 +25,7 @@ namespace GnomeGardeners
 
         public override void UseTool(GridCell cell)
         {
+            isPlanting = false;
             DebugLogger.Log(this, "Executing.");
 
             var occupant = cell.Occupant;
@@ -55,6 +57,7 @@ namespace GnomeGardeners
                     seed = null;
                     seedObject.GetComponent<Plant>().PlantSeed(cell);
                     GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_spade_digging, audioSource);
+                    isPlanting = true;
                 }
             }
         }
@@ -80,11 +83,12 @@ namespace GnomeGardeners
             throw new System.NotImplementedException();
         }
 
-        #endregion
-
-        #region Private Methods
-
-
+        public override void PlayCorrespondingAnimation(Animator animator, string prefix)
+        {
+            base.PlayCorrespondingAnimation(animator, prefix);
+            if(isPlanting)
+                animator.Play(prefix + "_seed");
+        }
 
         #endregion
     }
