@@ -98,8 +98,8 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 646
-      y: 4
+      x: 4
+      y: 505
       width: 302
       height: 496
     spriteID: 32c9e718b0f802e47aa23f243c772517
@@ -112,7 +112,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 640, y: 2}
+    uvTransform: {x: -2, y: 503}
   - name: gnome selection white
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -120,7 +120,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 325
+      x: 4
       y: 4
       width: 313
       height: 493
@@ -134,19 +134,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 325, y: 4}
-  - name: Background
+    uvTransform: {x: 4, y: 4}
+  - name: Layer 2
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
+      x: 325
       y: 4
-      width: 313
-      height: 498
-    spriteID: e5e8d22b9fc05834197b4ca9a9c69164
+      width: 304
+      height: 473
+    spriteID: 2545349e7ff269847bab57bd76c2905d
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -156,7 +156,29 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 4, y: 4}
+    uvTransform: {x: 321, y: -8}
+  - name: Layer 1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 637
+      y: 4
+      width: 236
+      height: 415
+    spriteID: db8ba80646e5a9b46ab9c540469b6ed0
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 594, y: -38}
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
@@ -204,21 +226,28 @@ ScriptedImporter:
     parentIndex: -1
     spriteID: 32c9e718b0f802e47aa23f243c772517
     layerID: 4
-    mosaicPosition: {x: 646, y: 4}
+    mosaicPosition: {x: 4, y: 505}
   - name: gnome selection white
     spriteName: gnome selection white
     isGroup: 0
     parentIndex: -1
     spriteID: 10e7e2f6953771545a488be1c630b8b1
     layerID: 3
-    mosaicPosition: {x: 325, y: 4}
-  - name: Background
-    spriteName: Background
+    mosaicPosition: {x: 4, y: 4}
+  - name: Layer 2
+    spriteName: Layer 2
     isGroup: 0
     parentIndex: -1
-    spriteID: e5e8d22b9fc05834197b4ca9a9c69164
-    layerID: 1
-    mosaicPosition: {x: 4, y: 4}
+    spriteID: 2545349e7ff269847bab57bd76c2905d
+    layerID: 6
+    mosaicPosition: {x: 325, y: 4}
+  - name: Layer 1
+    spriteName: Layer 1
+    isGroup: 0
+    parentIndex: -1
+    spriteID: db8ba80646e5a9b46ab9c540469b6ed0
+    layerID: 5
+    mosaicPosition: {x: 637, y: 4}
   characterData:
     bones: []
     parts: []
