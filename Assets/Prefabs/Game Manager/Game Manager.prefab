@@ -462,7 +462,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6771955404163415833}
   - component: {fileID: 8584072150009934217}
-  - component: {fileID: 8196084132292377384}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -507,22 +506,6 @@ MonoBehaviour:
   sceneToLoad: 
   loadTestingScenes: 0
   playersReady: 0
---- !u!114 &8196084132292377384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6771955404163415835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 274adf2505b367e41a078df400d8f853, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activateWind: 1
-  minMaxFrequency: {x: 0.41044778, y: 0.97014934}
-  minVelocity: {x: -1, y: -1}
-  maxVelocity: {x: 0, y: 0}
 --- !u!1 &6771955404369908315
 GameObject:
   m_ObjectHideFlags: 0
