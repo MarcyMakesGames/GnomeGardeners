@@ -12,7 +12,7 @@ namespace GnomeGardeners
         [SerializeField] private Image gnomeImage;
         private GnomeSelectorController gnomeSelector;
         private GnomeSkinObject gnomeSkin;
-        private int PlayerIndex;
+        public int PlayerIndex { get; set; }
 
 
         private float inputDelayTime = 0.15f;
@@ -49,7 +49,7 @@ namespace GnomeGardeners
             if (!inputEnabled)
                 return;
 
-            readyButton.GetComponent<TMP_Text>().color = Color.red;
+            readyButton.GetComponentInChildren<TMP_Text>().color = Color.red;
             GameManager.Instance.PlayerConfigManager.ReadyPlayer(PlayerIndex, gnomeSkin);
         }
     }

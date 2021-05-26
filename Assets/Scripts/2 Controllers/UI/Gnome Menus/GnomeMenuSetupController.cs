@@ -19,6 +19,7 @@ namespace GnomeGardeners
             if (menuLayout != null)
             {
                 var menu = GameObject.FindGameObjectWithTag("Player" + input.playerIndex + 1.ToString() + "Menu");
+                menu.GetComponent<GnomeMenuController>().PlayerIndex = input.playerIndex;
                 input.uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
             }
         }

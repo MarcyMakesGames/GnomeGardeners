@@ -35,6 +35,7 @@ namespace GnomeGardeners
         private void Update()
         {
             ListenJoinPlayer();
+            ListenMainMenu();
         }
 
         public void ReadyPlayer(int index, GnomeSkinObject gnomeSkin)
@@ -95,6 +96,15 @@ namespace GnomeGardeners
                         playerCount++;
                         break;
                 }
+            }
+        }
+
+        private void ListenMainMenu()
+        {
+            if (canJoinPlayers && Keyboard.current.escapeKey.wasPressedThisFrame)
+            {
+                canJoinPlayers = false;
+                FindObjectOfType<MainMenuController>().SetPanelActive(1);
             }
         }
     }
