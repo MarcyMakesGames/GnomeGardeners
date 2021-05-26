@@ -37,9 +37,12 @@ namespace GnomeGardeners
             ListenJoinPlayer();
         }
 
-        public void ReadyPlayer(int index)
+        public void ReadyPlayer(int index, GnomeSkinObject gnomeSkin)
         {
             playerConfigs[index].IsReady = true;
+            playerConfigs[index].GnomeSkin = gnomeSkin;
+
+            StartGameCheck();
         }
 
         public void StartGameCheck()
@@ -51,7 +54,6 @@ namespace GnomeGardeners
                     canJoinPlayers = false;
                     GameManager.Instance.SceneController.LoadSceneGameplay();
                     GameManager.Instance.playersReady = true;
-                    
                 }
             }
         }
@@ -69,15 +71,6 @@ namespace GnomeGardeners
             }
         }
 
-        public bool AllPlayerAreReady()
-        {
-            foreach(PlayerConfig playerConfig in playerConfigs)
-            {
-                if (!playerConfig.IsReady)
-                    return false;
-            }
-            return true;
-        }
 
         private void ListenJoinPlayer()
         {

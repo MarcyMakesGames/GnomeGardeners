@@ -8,7 +8,6 @@ namespace GnomeGardeners
 {
     public class GnomeMenuSetupController : MonoBehaviour
     {
-        public GameObject setupMenuPrefab;
         public PlayerInput input;
 
         private GameObject menuLayout;
@@ -19,9 +18,8 @@ namespace GnomeGardeners
 
             if (menuLayout != null)
             {
-                var menu = Instantiate(setupMenuPrefab, menuLayout.transform);
+                var menu = GameObject.FindGameObjectWithTag("Player" + input.playerIndex + 1.ToString() + "Menu");
                 input.uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
-                menu.GetComponent<GnomeMenuController>().SetPlayerIndex(input.playerIndex);
             }
         }
     }
