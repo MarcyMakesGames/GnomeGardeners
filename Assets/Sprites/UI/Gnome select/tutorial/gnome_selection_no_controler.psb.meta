@@ -98,8 +98,8 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 334
+      x: 252
+      y: 4
       width: 227
       height: 145
     spriteID: ec69661f32fd82f4badb3b9295ae78b5
@@ -112,7 +112,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -3, y: 328}
+    uvTransform: {x: 245, y: -2}
   - name: no controler white
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -121,7 +121,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 4
+      y: 169
       width: 240
       height: 157
     spriteID: 502183621f7d2b94db4df940743d9255
@@ -134,7 +134,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 4, y: 4}
+    uvTransform: {x: 4, y: 169}
   - name: Background
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -143,7 +143,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 169
+      y: 334
       width: 240
       height: 157
     spriteID: fe3c7d6fd47483b40bd1efb45d510ca5
@@ -156,7 +156,29 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 4, y: 169}
+    uvTransform: {x: 4, y: 334}
+  - name: no controler_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 240
+      height: 157
+    spriteID: d92826b43145c0b4eb541671c7d768d3
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 4}
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
@@ -184,14 +206,14 @@ ScriptedImporter:
   documentPivot: {x: 0, y: 0}
   documentAlignment: 7
   importHiddenLayers: 0
-  importedTextureWidth: 256
+  importedTextureWidth: 512
   importedTextureHeight: 512
   documentSize: {x: 240, y: 157}
   paperDollMode: 0
   keepDupilcateSpriteName: 0
   spriteCategoryList:
     categories: []
-  textureActualWidth: 256
+  textureActualWidth: 512
   textureActualHeight: 512
   spritePackingTag: 
   resliceFromLayer: 0
@@ -199,26 +221,33 @@ ScriptedImporter:
   mosaicPSDLayers: []
   rigPSDLayers:
   - name: no controler
+    spriteName: no controler_1
+    isGroup: 0
+    parentIndex: -1
+    spriteID: d92826b43145c0b4eb541671c7d768d3
+    layerID: 14
+    mosaicPosition: {x: 4, y: 4}
+  - name: no controler
     spriteName: no controler
     isGroup: 0
     parentIndex: -1
     spriteID: ec69661f32fd82f4badb3b9295ae78b5
     layerID: 12
-    mosaicPosition: {x: 4, y: 334}
+    mosaicPosition: {x: 252, y: 4}
   - name: no controler white
     spriteName: no controler white
     isGroup: 0
     parentIndex: -1
     spriteID: 502183621f7d2b94db4df940743d9255
     layerID: 11
-    mosaicPosition: {x: 4, y: 4}
+    mosaicPosition: {x: 4, y: 169}
   - name: Background
     spriteName: Background
     isGroup: 0
     parentIndex: -1
     spriteID: fe3c7d6fd47483b40bd1efb45d510ca5
     layerID: 1
-    mosaicPosition: {x: 4, y: 169}
+    mosaicPosition: {x: 4, y: 334}
   characterData:
     bones: []
     parts: []

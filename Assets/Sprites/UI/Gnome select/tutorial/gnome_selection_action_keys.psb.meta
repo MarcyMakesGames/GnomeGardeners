@@ -99,7 +99,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 230
-      y: 4
+      y: 201
       width: 205
       height: 177
     spriteID: 61c446f333157284e94affab74f66e64
@@ -112,7 +112,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 221, y: -4}
+    uvTransform: {x: 221, y: 193}
   - name: action keys white
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -121,7 +121,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 4
+      y: 201
       width: 218
       height: 189
     spriteID: b603499aa6f719848886db21223813b0
@@ -134,7 +134,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 4, y: 4}
+    uvTransform: {x: 4, y: 201}
   - name: Background
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -142,8 +142,8 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 201
+      x: 230
+      y: 4
       width: 218
       height: 189
     spriteID: c6e98f2a337e35248a04b13b2052fd90
@@ -156,7 +156,29 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 4, y: 201}
+    uvTransform: {x: 230, y: 4}
+  - name: action keys_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 218
+      height: 189
+    spriteID: 4ed25a28cd4a1e340a2e12d90a8a9789
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 4}
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
@@ -199,26 +221,33 @@ ScriptedImporter:
   mosaicPSDLayers: []
   rigPSDLayers:
   - name: action keys
+    spriteName: action keys_1
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 4ed25a28cd4a1e340a2e12d90a8a9789
+    layerID: 18
+    mosaicPosition: {x: 4, y: 4}
+  - name: action keys
     spriteName: action keys
     isGroup: 0
     parentIndex: -1
     spriteID: 61c446f333157284e94affab74f66e64
     layerID: 16
-    mosaicPosition: {x: 230, y: 4}
+    mosaicPosition: {x: 230, y: 201}
   - name: action keys white
     spriteName: action keys white
     isGroup: 0
     parentIndex: -1
     spriteID: b603499aa6f719848886db21223813b0
     layerID: 15
-    mosaicPosition: {x: 4, y: 4}
+    mosaicPosition: {x: 4, y: 201}
   - name: Background
     spriteName: Background
     isGroup: 0
     parentIndex: -1
     spriteID: c6e98f2a337e35248a04b13b2052fd90
     layerID: 1
-    mosaicPosition: {x: 4, y: 201}
+    mosaicPosition: {x: 230, y: 4}
   characterData:
     bones: []
     parts: []

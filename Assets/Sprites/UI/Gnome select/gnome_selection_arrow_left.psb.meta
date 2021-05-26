@@ -91,7 +91,7 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: arrow left
+  - name: arrow left.
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -99,7 +99,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 88
+      y: 172
       width: 75
       height: 63
     spriteID: 3c102ba25442ab54f9d2640206f92262
@@ -112,7 +112,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -1, y: 80}
+    uvTransform: {x: -1, y: 164}
   - name: arrow left white
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -121,7 +121,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 4
+      y: 88
       width: 83
       height: 76
     spriteID: 788688ab0f1e86e4980184934423192d
@@ -134,7 +134,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 4, y: 4}
+    uvTransform: {x: 4, y: 88}
   - name: Layer 1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -142,8 +142,8 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 159
+      x: 95
+      y: 4
       width: 70
       height: 60
     spriteID: 42a40586e4113864db74071112df1093
@@ -156,7 +156,29 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -3, y: 150}
+    uvTransform: {x: 88, y: -5}
+  - name: arrow left
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 83
+      height: 76
+    spriteID: 3057e3d39879ead4a87b10d23420dc26
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 4}
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
@@ -184,14 +206,14 @@ ScriptedImporter:
   documentPivot: {x: 0, y: 0}
   documentAlignment: 7
   importHiddenLayers: 0
-  importedTextureWidth: 128
+  importedTextureWidth: 256
   importedTextureHeight: 256
   documentSize: {x: 83, y: 76}
   paperDollMode: 0
   keepDupilcateSpriteName: 0
   spriteCategoryList:
     categories: []
-  textureActualWidth: 128
+  textureActualWidth: 256
   textureActualHeight: 256
   spritePackingTag: 
   resliceFromLayer: 0
@@ -202,23 +224,30 @@ ScriptedImporter:
     spriteName: arrow left
     isGroup: 0
     parentIndex: -1
+    spriteID: 3057e3d39879ead4a87b10d23420dc26
+    layerID: 24
+    mosaicPosition: {x: 4, y: 4}
+  - name: arrow left.
+    spriteName: arrow left.
+    isGroup: 0
+    parentIndex: -1
     spriteID: 3c102ba25442ab54f9d2640206f92262
     layerID: 20
-    mosaicPosition: {x: 4, y: 88}
+    mosaicPosition: {x: 4, y: 172}
   - name: arrow left white
     spriteName: arrow left white
     isGroup: 0
     parentIndex: -1
     spriteID: 788688ab0f1e86e4980184934423192d
     layerID: 19
-    mosaicPosition: {x: 4, y: 4}
+    mosaicPosition: {x: 4, y: 88}
   - name: Layer 1
     spriteName: Layer 1
     isGroup: 0
     parentIndex: -1
     spriteID: 42a40586e4113864db74071112df1093
     layerID: 21
-    mosaicPosition: {x: 4, y: 159}
+    mosaicPosition: {x: 95, y: 4}
   characterData:
     bones: []
     parts: []
