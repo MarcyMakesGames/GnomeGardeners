@@ -32,7 +32,9 @@ namespace GnomeGardeners
         {
             if (!mainCamera)
             {
-                mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+                var mainCameraObject = GameObject.FindGameObjectWithTag("MainCamera");
+                if (mainCameraObject)
+                    mainCamera = mainCameraObject.GetComponent<Camera>();
                 return;
             }
             

@@ -144,7 +144,8 @@ namespace GnomeGardeners
                     eventSystem.SetSelectedGameObject(selectableSettingsMenu);
                     break;
                 case InGameUIMode.TutorialMenu:
-                    tutorialMenu.SetActive(true);
+                    if(tutorialMenu)
+                        tutorialMenu.SetActive(true);
                     GameManager.Instance.Time.PauseTime();
                     break;
                 case InGameUIMode.GameOverMenu:
