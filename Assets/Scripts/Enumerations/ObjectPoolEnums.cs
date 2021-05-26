@@ -11,9 +11,14 @@ namespace GnomeGardeners
         PopUp_Pest,
         PopUp_Recycle,
         PopUp_Dead,
-        PopUp_Sunflower,
         PopUp_Seed,
 
+        PopUp_Plant_Daffodil,
+        PopUp_Plant_Peppermint,
+        PopUp_Plant_Strawberry,
+        PopUp_Plant_Sunflower,
+        PopUp_Plant_Tulip,
+        
         PopUp_Tool_Harvester,
         PopUp_Tool_Seeding,
         PopUp_Need_Seeding_Tool,
@@ -24,5 +29,7 @@ namespace GnomeGardeners
         Plant_Sunflower,
         Plant_Peppermint,
         Plant_Strawberry,
+        Plant_Daffodil,
+        Plant_Tulip,
     }
 }
