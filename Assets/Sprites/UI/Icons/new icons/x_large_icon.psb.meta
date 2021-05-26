@@ -98,11 +98,11 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
+      x: 108
       y: 4
-      width: 90
-      height: 89
-    spriteID: 5b9c2b1370fe2b94da86352419b39012
+      width: 92
+      height: 85
+    spriteID: ae9b92af7c1720041b336e1c091d8815
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -112,7 +112,51 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 1, y: 4}
+    uvTransform: {x: 105, y: 0}
+  - name: white
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 108
+      width: 96
+      height: 92
+    spriteID: 2cb96959753f0474099e7cefa35e5836
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 107}
+  - name: Layer 1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 96
+      height: 96
+    spriteID: 4739d52d24c57d0478ef14936afbbb53
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 4}
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
@@ -173,8 +217,8 @@ ScriptedImporter:
   documentPivot: {x: 0, y: 0}
   documentAlignment: 7
   importHiddenLayers: 0
-  importedTextureWidth: 128
-  importedTextureHeight: 128
+  importedTextureWidth: 256
+  importedTextureHeight: 256
   documentSize: {x: 96, y: 96}
   paperDollMode: 0
   keepDupilcateSpriteName: 0
@@ -191,8 +235,22 @@ ScriptedImporter:
     spriteName: lines
     isGroup: 0
     parentIndex: -1
-    spriteID: 5b9c2b1370fe2b94da86352419b39012
-    layerID: 9
+    spriteID: ae9b92af7c1720041b336e1c091d8815
+    layerID: 6
+    mosaicPosition: {x: 108, y: 4}
+  - name: white
+    spriteName: white
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 2cb96959753f0474099e7cefa35e5836
+    layerID: 8
+    mosaicPosition: {x: 4, y: 108}
+  - name: Layer 1
+    spriteName: Layer 1
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 4739d52d24c57d0478ef14936afbbb53
+    layerID: 4
     mosaicPosition: {x: 4, y: 4}
   characterData:
     bones: []
