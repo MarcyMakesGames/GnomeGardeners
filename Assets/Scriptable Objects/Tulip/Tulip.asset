@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7816c91d91f7cc4d8150ad9f6e84b5c, type: 3}
+  m_Name: Tulip
+  m_EditorClassIdentifier: 
+  speciesName: Sunflower
+  stages:
+  - {fileID: 11400000, guid: 385bfa1ef76d20746904fe26413ecc26, type: 2}
+  - {fileID: 11400000, guid: 05e4bd62bc3044843b05580057b2a64d, type: 2}
+  - {fileID: 11400000, guid: ce6c0546994e0b547bd28920a1be570d, type: 2}
+  - {fileID: 11400000, guid: 792c46fc7d2a0fa4eabdb3b0b219e320, type: 2}
+  - {fileID: 11400000, guid: aca72133fd1f1e241b07198b74fe8ca9, type: 2}
+  decayedStage: {fileID: 11400000, guid: ddecc798d880b50459775049b90ee910, type: 2}
+  isDamaging: 0
+  isSpawning: 0
+  isFragile: 0
+  growMultiplier: 1
+  deadSprite: {fileID: 21300000, guid: f581f9064b77e454cbdd253517f0a7e8, type: 3}
+  prematureSprite: {fileID: 21300000, guid: b09e1c6feafdfba4ebea8fa0b267fde2, type: 3}
+  harvestSprite: {fileID: 21300000, guid: fd5afed70aed0004894db579549582cd, type: 3}
