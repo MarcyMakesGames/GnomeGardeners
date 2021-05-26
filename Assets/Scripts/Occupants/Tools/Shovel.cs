@@ -35,7 +35,7 @@ namespace GnomeGardeners
                 if (seed == null && occupant.TryGetComponent(out seedbag))
                 {
                     DebugLogger.Log(this, "Seed taken.");
-                    seed = seedbag.GetSunflowerSeed();
+                    seed = seedbag.GetSeed();
                     return;
                 }
                 else if (seed != null && occupant.TryGetComponent(out seedbag))
