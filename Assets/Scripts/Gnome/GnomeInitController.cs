@@ -26,7 +26,8 @@ namespace GnomeGardeners
                 newGnome.GetComponent<Gnome>().InitializePlayer(player);
                 DebugLogger.Log(this, "Player " + player.Input.playerIndex + " device: " + player.Input.devices);
 
-                player.Input.uiInputModule = FindObjectOfType<InputSystemUIInputModule>();
+                if(player.PlayerIndex == 0)
+                    player.Input.uiInputModule = FindObjectOfType<InputSystemUIInputModule>();
             }
 
             hasSpawned = true;
