@@ -39,6 +39,8 @@ namespace GnomeGardeners
 
         private void OnDestroy()
         {
+            GameManager.Instance.PoolController.SetPoolObjectsInactive();
+
             OnLevelLoseEvent.OnEventRaised -= UpdateIsLastLevelCompleted;
             OnLevelWinEvent.OnEventRaised -= UpdateIsLastLevelCompleted;
         }
