@@ -159,9 +159,7 @@ namespace GnomeGardeners
             if (popUp == null && !isCurrentNeedFulfilled && currentStage.need != null)
             {
                 GetPopUp(currentStage.need.popUpType);
-                PopUpController popUpControls = popUp.GetComponent<PopUpController>();
-
-                popUpControls.InitAnimIconTimer(currentStage.timeToGrow);
+                SetPopUpLifetime(currentStage.timeToGrow, true);
             }
             else if (popUp != null && isCurrentNeedFulfilled)
             {
@@ -202,6 +200,7 @@ namespace GnomeGardeners
             {
                 spriteInHand = species.harvestSprite;
                 GetPopUp(PoolKey.PopUp_Score);
+                SetPopUpLifetime(currentStage.timeToGrow, true);
             }
             
             if(type == ItemType.Seed) 
