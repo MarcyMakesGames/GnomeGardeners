@@ -10,6 +10,7 @@ namespace GnomeGardeners
         public PlayerInput Input { get; set; }
         public int PlayerIndex { get; set; }
         public GnomeSkinObject GnomeSkin { get; set; }
+        public PlayerIconObject PlayerIcon { get; set; }
         public bool IsReady { get; set; }
 
 

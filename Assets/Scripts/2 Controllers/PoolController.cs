@@ -40,7 +40,8 @@ namespace GnomeGardeners
         public void SetPoolObjectsInactive()
         {
             foreach (Transform obj in GetComponentsInChildren<Transform>())
-                obj.gameObject.SetActive(false);
+                if(obj.GetComponent<PoolController>() == null)
+                    obj.gameObject.SetActive(false);
         }
 
         private void Awake()

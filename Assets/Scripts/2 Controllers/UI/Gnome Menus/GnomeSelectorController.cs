@@ -8,6 +8,7 @@ namespace GnomeGardeners
     public class GnomeSelectorController : MonoBehaviour
     {
         [SerializeField] private List<GnomeSkinObject> selectableGnomes;
+        [SerializeField] private List<Sprite> playerIcons;
         private List<GnomeSkinObject> unselectableGnomes;
 
         public void SelectGnome(GnomeSkinObject gnome)

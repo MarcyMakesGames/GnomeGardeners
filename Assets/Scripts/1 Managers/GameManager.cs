@@ -62,7 +62,9 @@ namespace GnomeGardeners
             }
             #endregion
 
+            #if UNITY_STANDALONE
             Cursor.visible = false;
+            #endif
         }
 
         private void Update()
