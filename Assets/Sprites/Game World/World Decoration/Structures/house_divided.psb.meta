@@ -98,8 +98,8 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1159
-      y: 524
+      x: 1168
+      y: 255
       width: 430
       height: 136
     spriteID: e89fc3fadbcc53348960b50db94f5951
@@ -112,29 +112,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 791, y: 524}
-  - name: flowers
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 524
-      width: 1147
-      height: 262
-    spriteID: 7630c04cc54f35e47b159a0d1bfe6d52
-    internalID: 0
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: -5, y: 505}
+    uvTransform: {x: 800, y: 255}
   - name: frontcurb
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -143,7 +121,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 794
+      y: 524
       width: 1164
       height: 64
     spriteID: 9cff8aa4dd4e278418cc43e11ab4625a
@@ -156,7 +134,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 4, y: 794}
+    uvTransform: {x: 4, y: 524}
   - name: 'house '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -179,6 +157,50 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 0, y: 4}
+  - name: flowers_left
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1569
+      y: 4
+      width: 402
+      height: 214
+    spriteID: a11a6048ab808be448b558532414d530
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1565, y: -14}
+  - name: flowers_right
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1168
+      y: 4
+      width: 393
+      height: 247
+    spriteID: c13a4aa3ebffbbd418f0931d2320ace8
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 412, y: -35}
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
@@ -226,21 +248,28 @@ ScriptedImporter:
     parentIndex: -1
     spriteID: e89fc3fadbcc53348960b50db94f5951
     layerID: 36
-    mosaicPosition: {x: 1159, y: 524}
-  - name: flowers
-    spriteName: flowers
+    mosaicPosition: {x: 1168, y: 255}
+  - name: flowers_left
+    spriteName: flowers_left
     isGroup: 0
     parentIndex: -1
-    spriteID: 7630c04cc54f35e47b159a0d1bfe6d52
-    layerID: 34
-    mosaicPosition: {x: 4, y: 524}
+    spriteID: a11a6048ab808be448b558532414d530
+    layerID: 42
+    mosaicPosition: {x: 1569, y: 4}
+  - name: flowers_right
+    spriteName: flowers_right
+    isGroup: 0
+    parentIndex: -1
+    spriteID: c13a4aa3ebffbbd418f0931d2320ace8
+    layerID: 43
+    mosaicPosition: {x: 1168, y: 4}
   - name: frontcurb
     spriteName: frontcurb
     isGroup: 0
     parentIndex: -1
     spriteID: 9cff8aa4dd4e278418cc43e11ab4625a
     layerID: 19
-    mosaicPosition: {x: 4, y: 794}
+    mosaicPosition: {x: 4, y: 524}
   - name: 'house '
     spriteName: 'house '
     isGroup: 0
