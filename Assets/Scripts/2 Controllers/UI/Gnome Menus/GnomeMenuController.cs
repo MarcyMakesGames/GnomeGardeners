@@ -14,6 +14,7 @@ namespace GnomeGardeners
         private GnomeSelectorController gnomeSelector;
         private GnomeSkinObject gnomeSkin;
         private int playerIndex = -1;
+        private bool isReady = false;
         public int PlayerIndex { get => playerIndex; set => SetPlayerIndex(value); }
 
 
@@ -24,6 +25,8 @@ namespace GnomeGardeners
         {
             gnomeSelector = FindObjectOfType<GnomeSelectorController>();
             gnomeImage.sprite = null;
+            readyButton.GetComponentInChildren<TMP_Text>().color = Color.white;
+            isReady = false;
 
             if (playerIndex == 0)
             {
@@ -49,6 +52,9 @@ namespace GnomeGardeners
 
         public void CycleGnomeSkin(bool right) 
         {
+            if (isReady)
+                return;
+
             if (right)
             {
                 gnomeSkin = gnomeSelector.GetNextGnome(gnomeSkin);
@@ -68,6 +74,7 @@ namespace GnomeGardeners
 
             readyButton.GetComponentInChildren<TMP_Text>().color = Color.red;
             GameManager.Instance.PlayerConfigManager.ReadyPlayer(PlayerIndex, gnomeSkin);
+            isReady = true;
         }
 
         private void SetPlayerIndex(int index)
