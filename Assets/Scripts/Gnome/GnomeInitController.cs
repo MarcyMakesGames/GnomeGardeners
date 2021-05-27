@@ -34,16 +34,16 @@ namespace GnomeGardeners
                 GameObject newGnome;
                 switch (player.GnomeSkin.GnomeSkinNumber)
                 {
-                    case 1:
+                    case 0:
                          newGnome = Instantiate(gnomePrefab, playerSpawnLocations[player.PlayerIndex].position, gnomePrefab.transform.rotation, transform);
                         break;
-                    case 2:
+                    case 1:
                         newGnome = Instantiate(gnomePrefab2, playerSpawnLocations[player.PlayerIndex].position, gnomePrefab2.transform.rotation, transform);
                         break;
-                    case 3:
+                    case 2:
                         newGnome = Instantiate(gnomePrefab3, playerSpawnLocations[player.PlayerIndex].position, gnomePrefab3.transform.rotation, transform);
                         break;
-                    case 4:
+                    case 3:
                         newGnome = Instantiate(gnomePrefab4, playerSpawnLocations[player.PlayerIndex].position, gnomePrefab4.transform.rotation, transform);
                         break;
                     default:
