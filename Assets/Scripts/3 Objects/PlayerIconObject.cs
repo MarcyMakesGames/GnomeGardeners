@@ -4,12 +4,13 @@ using UnityEngine;
 
 namespace GnomeGardeners
 {
-    public class PlayerIconObject : MonoBehaviour
+    [System.Serializable]
+    public class PlayerIconObject
     {
-        [SerializeField] private Sprite gnomeSprite;
+        [SerializeField] private int playerIndex;
         [SerializeField] private List<Sprite> playerIcons;
-        private Sprite playerIcon;
-        public Sprite SelectedPlayerIcon { get => playerIcon; }
+
+        public int PlayerIndex { get => playerIndex; }
         public List<Sprite> PlayerIcons { get => playerIcons; }
     }
 }

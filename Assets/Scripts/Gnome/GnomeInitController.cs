@@ -32,7 +32,7 @@ namespace GnomeGardeners
             foreach(PlayerConfig player in GameManager.Instance.PlayerConfigManager.PlayerConfigs)
             {
                 GameObject newGnome;
-                switch (player.GnomeSkin.GnomeSkin)
+                switch (player.GnomeSkin.GnomeSkinNumber)
                 {
                     case 1:
                          newGnome = Instantiate(gnomePrefab, playerSpawnLocations[player.PlayerIndex].position, gnomePrefab.transform.rotation, transform);
@@ -53,7 +53,7 @@ namespace GnomeGardeners
                 }
                 newGnome.GetComponent<Gnome>().InitializePlayer(player);
                 DebugLogger.Log(this, "Player " + player.Input.playerIndex + " device: " + player.Input.devices);
-                OnPlayerColorAssignedEvent.RaiseEvent( player.PlayerIndex, player.GnomeSkin.GnomeSkin);
+                OnPlayerColorAssignedEvent.RaiseEvent( player.PlayerIndex, player.GnomeSkin.GnomeSkinNumber);
 
             }
             GameManager.Instance.PlayerConfigManager.PlayerConfigs[0].Input.uiInputModule = FindObjectOfType<InputSystemUIInputModule>();

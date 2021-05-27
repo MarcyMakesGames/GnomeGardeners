@@ -8,7 +8,7 @@ namespace GnomeGardeners
     public class GnomeSelectorController : MonoBehaviour
     {
         [SerializeField] private List<GnomeSkinObject> selectableGnomes;
-        [SerializeField] private List<Sprite> playerIcons;
+        [SerializeField] private List<PlayerIconObject> playerIcons;
         private List<GnomeSkinObject> unselectableGnomes;
 
         public void SelectGnome(GnomeSkinObject gnome)
@@ -54,6 +54,15 @@ namespace GnomeGardeners
                         return selectableGnomes[i - 1];
 
             DebugLogger.Log(this, "Something went wrong finding the next gnome.");
+            return null;
+        }
+
+        public Sprite GetPlayerIcon(GnomeSkinObject gnomeSkin, int playerIndex)
+        {
+            foreach (PlayerIconObject playerIcon in playerIcons)
+                if (playerIcon.PlayerIndex == playerIndex)
+                    return playerIcon.PlayerIcons[gnomeSkin.GnomeSkinNumber];
+
             return null;
         }
     }
