@@ -241,11 +241,15 @@ namespace GnomeGardeners
             isOnArableGround = false;
             spriteRenderer.sprite = currentStage.sprite;
             name = currentStage.name + " " + species.name;
-            isBeingCarried = true;
+            isBeingCarried = false;
             spriteInHand = species.prematureSprite;
             type = ItemType.Seed;
             randomizedTimeToGrow = currentStage.timeToGrow + UnityEngine.Random.Range(-timeToGrowVariation, timeToGrowVariation);
             isCurrentNeedFulfilled = false;
+            lastStageTimeStamp = 0f;
+            currentGrowTime = 0f;
+            occupyingCell = null;
+            cell = null;
         }
 
         public override void FailedInteraction()
