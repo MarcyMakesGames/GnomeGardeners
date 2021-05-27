@@ -80,11 +80,12 @@ namespace GnomeGardeners
                 var points = currentStage.points;
                 RemoveOccupantFromCells();
                 isBeingCarried = true;
+                var spriteBeforeReturning = spriteInHand;
                 GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_tool_cutting_plant);
                 ClearPopUp();
                 ReturnToPool();
 
-                return new Harvest(points, spriteInHand);
+                return new Harvest(points, spriteBeforeReturning);
             }
             return null;
         }
@@ -185,21 +186,18 @@ namespace GnomeGardeners
 
         private void AdvanceStages()
         {
-            DebugLogger.Log(this, "Grew into stage: " + currentStage.specifier.ToString());
             var currentStageIndex = species.stages.IndexOf(currentStage);
             currentStage = species.NextStage(currentStageIndex);
             lastStageTimeStamp = GameManager.Instance.Time.ElapsedTime;
             spriteRenderer.sprite = currentStage.sprite;
             name = currentStage.name + " " + species.name;
             isCurrentNeedFulfilled = false;
+            
             if(currentStage.specifier == PlantStage.Ripening) 
-            { 
                 spriteInHand = species.harvestSprite;
-            }
+            
             if(type == ItemType.Seed) 
-            {
                 type = ItemType.Harvest;
-            }
 
             randomizedTimeToGrow = currentStage.timeToGrow + UnityEngine.Random.Range(-timeToGrowVariation, timeToGrowVariation);
 
