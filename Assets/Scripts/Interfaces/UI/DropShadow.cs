@@ -9,11 +9,12 @@ public class DropShadow : MonoBehaviour
     public Material shadowMaterial;
 
     private SpriteRenderer spriteRenderer;
-    private GameObject shadowGameObject = new("Shadow");
+    private GameObject shadowGameObject;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        shadowGameObject = new GameObject();
         Instantiate(shadowGameObject, transform);
 
         SpriteRenderer shadowSpriteRenderer = shadowGameObject.AddComponent<SpriteRenderer>();
