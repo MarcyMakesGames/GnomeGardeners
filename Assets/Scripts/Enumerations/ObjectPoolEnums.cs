@@ -31,5 +31,6 @@ namespace GnomeGardeners
         Plant_Strawberry,
         Plant_Daffodil,
         Plant_Tulip,
+        PopUp_Score,
     }
 }

@@ -181,6 +181,8 @@ namespace GnomeGardeners
             GameManager.Instance.GridManager.ChangeTile(occupyingCell.GridPosition, GroundType.FallowSoil);
             spriteInHand = species.deadSprite;
             GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_plant_wilting, audioSource);
+            popUpOffset = currentStage.popUpPositionOffset;
+
             GetPopUp(PoolKey.PopUp_Recycle);
         }
 
@@ -192,20 +194,20 @@ namespace GnomeGardeners
             spriteRenderer.sprite = currentStage.sprite;
             name = currentStage.name + " " + species.name;
             isCurrentNeedFulfilled = false;
+            popUpOffset = currentStage.popUpPositionOffset;
+
+            ClearPopUp();
             
-            if(currentStage.specifier == PlantStage.Ripening) 
+            if (currentStage.specifier == PlantStage.Ripening)
+            {
                 spriteInHand = species.harvestSprite;
+                GetPopUp(PoolKey.PopUp_Score);
+            }
             
             if(type == ItemType.Seed) 
                 type = ItemType.Harvest;
 
             randomizedTimeToGrow = currentStage.timeToGrow + UnityEngine.Random.Range(-timeToGrowVariation, timeToGrowVariation);
-
-            if(popUp != null)
-            {
-                popUp.gameObject.SetActive(false);
-                popUp = null;
-            }        
         }
 
         private void CheckArableGround()
@@ -248,6 +250,8 @@ namespace GnomeGardeners
             currentGrowTime = 0f;
             occupyingCell = null;
             cell = null;
+            popUpOffset = currentStage.popUpPositionOffset;
+
         }
 
         public override void FailedInteraction()
