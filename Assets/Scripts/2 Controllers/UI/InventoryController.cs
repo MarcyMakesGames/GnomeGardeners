@@ -112,7 +112,7 @@ namespace GnomeGardeners
 
 		private void UpdatePlayerColor( int playerNumber, int gnomeSkin)
 		{
-			var index = playerNumber * 4 + gnomeSkin;
+			var index = playerNumber * 4 + (gnomeSkin - 1);
 			playerImages[playerNumber].sprite = playerColors[index];
 		}
 
