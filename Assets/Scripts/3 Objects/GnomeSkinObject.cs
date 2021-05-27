@@ -9,7 +9,6 @@ namespace GnomeGardeners
     {
         [SerializeField] private int gnomeSkin;
         [SerializeField] private Sprite gnomeSprite;
-
         public int GnomeSkin { get => gnomeSkin; }
         public Sprite GnomeSprite { get => gnomeSprite; }
     }
