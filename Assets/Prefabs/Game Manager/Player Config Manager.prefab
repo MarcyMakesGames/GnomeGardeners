@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1148481787113081378
+--- !u!1 &322414423945972885
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,50 +8,50 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1148481787113081380}
-  - component: {fileID: 1148481787113081379}
-  - component: {fileID: 5327624845728125264}
+  - component: {fileID: 322414423945972883}
+  - component: {fileID: 322414423945972886}
+  - component: {fileID: 4804197735802835712}
   m_Layer: 0
-  m_Name: PlayerManager
+  m_Name: Player Config Manager 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1148481787113081380
+--- !u!4 &322414423945972883
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1148481787113081378}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.1622293, y: 0.8727012, z: -5.448918}
+  m_GameObject: {fileID: 322414423945972885}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1148481787113081379
+--- !u!114 &322414423945972886
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1148481787113081378}
+  m_GameObject: {fileID: 322414423945972885}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 2
-  m_MaxPlayerCount: 4
+  m_MaxPlayerCount: -1
   m_AllowJoining: 1
-  m_JoinBehavior: 0
+  m_JoinBehavior: 2
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5327624845728125264}
+      - m_Target: {fileID: 4804197735802835712}
         m_TargetAssemblyTypeName: PlayerConfigManager, Assembly-CSharp
         m_MethodName: HandlePlayerJoined
         m_Mode: 0
@@ -87,15 +87,16 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &5327624845728125264
+--- !u!114 &4804197735802835712
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1148481787113081378}
+  m_GameObject: {fileID: 322414423945972885}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b852b30c239187d46a011cfb7510f622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canJoinPlayers: 0

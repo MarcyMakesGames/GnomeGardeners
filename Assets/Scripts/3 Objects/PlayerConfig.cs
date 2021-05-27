@@ -9,9 +9,9 @@ namespace GnomeGardeners
     {
         public PlayerInput Input { get; set; }
         public int PlayerIndex { get; set; }
+        public GnomeSkinObject GnomeSkin { get; set; }
         public bool IsReady { get; set; }
 
-        //We need to add some kind of ISkin or object to represent the gnome appearance here.
 
         public PlayerConfig(PlayerInput playerInput)
         {

@@ -32,7 +32,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 100
+    spritePixelsToUnits: 128
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -113,28 +113,6 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 64, y: -490}
-  - name: slider border
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 425
-      width: 340
-      height: 71
-    spriteID: c9370dc90eccd3846a3e079d2d2e6ca8
-    internalID: 0
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: -178, y: -361}
   - name: pen strokes
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -157,28 +135,6 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: -201, y: -101}
-  - name: border background
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 757
-      width: 312
-      height: 42
-    spriteID: 0df7cef7407d4624b80985034488290d
-    internalID: 0
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: -201, y: -51}
   - name: slider border 2
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -223,7 +179,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: -195, y: 125}
-  - name: border background_1
+  - name: border background
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -289,7 +245,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: -189, y: 346}
-  - name: border background_2
+  - name: border background_1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -531,7 +487,73 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 368, y: -212}
-  platformSettings: []
+  - name: slider border
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 425
+      width: 356
+      height: 86
+    spriteID: a90ca89ba8f3e454d9fbe513607ad758
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -178, y: -361}
+  - name: border background_2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 757
+      width: 312
+      height: 42
+    spriteID: 2573529015111c645b7c789bfd6d3890
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -201, y: -51}
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
   mosaicLayers: 1
   documentPivot: {x: 0, y: 0}
   documentAlignment: 7
@@ -575,7 +597,7 @@ ScriptedImporter:
     spriteName: slider border
     isGroup: 0
     parentIndex: 2
-    spriteID: c9370dc90eccd3846a3e079d2d2e6ca8
+    spriteID: a90ca89ba8f3e454d9fbe513607ad758
     layerID: 14
     mosaicPosition: {x: 4, y: 425}
   - name: pen strokes
@@ -586,10 +608,10 @@ ScriptedImporter:
     layerID: 31
     mosaicPosition: {x: 4, y: 707}
   - name: border background
-    spriteName: border background
+    spriteName: border background_2
     isGroup: 0
     parentIndex: 2
-    spriteID: 0df7cef7407d4624b80985034488290d
+    spriteID: 2573529015111c645b7c789bfd6d3890
     layerID: 28
     mosaicPosition: {x: 4, y: 757}
   - name: slider 2
@@ -614,7 +636,7 @@ ScriptedImporter:
     layerID: 34
     mosaicPosition: {x: 4, y: 807}
   - name: border background
-    spriteName: border background_1
+    spriteName: border background
     isGroup: 0
     parentIndex: 6
     spriteID: 66ba482af04d82b49a0084cd7b0dc0d5
@@ -642,7 +664,7 @@ ScriptedImporter:
     layerID: 37
     mosaicPosition: {x: 4, y: 907}
   - name: border background
-    spriteName: border background_2
+    spriteName: border background_1
     isGroup: 0
     parentIndex: 10
     spriteID: 4d78fbe2c29745448ae659ecde877ee1

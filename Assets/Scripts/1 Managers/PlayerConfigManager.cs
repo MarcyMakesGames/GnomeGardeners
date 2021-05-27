@@ -11,6 +11,7 @@ namespace GnomeGardeners
 
         private PlayerInputManager inputManager;
         private List<PlayerConfig> playerConfigs;
+        private List<GameObject> playerConfigObjects;
         private int maxPlayers = 4;
         private int playerCount;
 
@@ -29,17 +30,22 @@ namespace GnomeGardeners
             {
                 GameManager.Instance.PlayerConfigManager = this;
                 playerConfigs = new List<PlayerConfig>();
+                playerConfigObjects = new List<GameObject>();
             }
         }
 
         private void Update()
         {
             ListenJoinPlayer();
+            ListenMainMenu();
         }
 
-        public void ReadyPlayer(int index)
+        public void ReadyPlayer(int index, GnomeSkinObject gnomeSkin)
         {
             playerConfigs[index].IsReady = true;
+            playerConfigs[index].GnomeSkin = gnomeSkin;
+
+            StartGameCheck();
         }
 
         public void StartGameCheck()
@@ -51,7 +57,6 @@ namespace GnomeGardeners
                     canJoinPlayers = false;
                     GameManager.Instance.SceneController.LoadSceneGameplay();
                     GameManager.Instance.playersReady = true;
-                    
                 }
             }
         }
@@ -66,18 +71,29 @@ namespace GnomeGardeners
                 PlayerConfig newConfig = new PlayerConfig(playerInput);
                 playerConfigs.Add(newConfig);
                 playerInput.transform.SetParent(transform);
+
+                playerConfigObjects.Add(playerInput.gameObject);
             }
         }
 
-        public bool AllPlayerAreReady()
+        public void HandlePlayerLeft(PlayerInput playerInput)
         {
-            foreach(PlayerConfig playerConfig in playerConfigs)
+            if(playerInput.playerIndex == 1)
             {
-                if (!playerConfig.IsReady)
-                    return false;
+                playerInput.user.UnpairDevicesAndRemoveUser();
+                playerCount--;
+
+                List<PlayerConfig> objToDestroy = new List<PlayerConfig>();
+
+                foreach (PlayerConfig config in playerConfigs)
+                    if (config.Input == playerInput)
+                        objToDestroy.Add(config);
+
+                foreach (PlayerConfig config in objToDestroy)
+                    playerConfigs.Remove(config);
             }
-            return true;
         }
+
 
         private void ListenJoinPlayer()
         {
@@ -94,14 +110,44 @@ namespace GnomeGardeners
                         playerCount++;
                         break;
                     case 2:
-                        inputManager.JoinPlayer(playerCount, playerCount, "Gamepad");
+                        if (Gamepad.all.Count < 1)
+                            return;
+                        inputManager.JoinPlayer(playerCount, playerCount, "Gamepad", Gamepad.all[1]);
                         playerCount++;
                         break;
                     case 3:
-                        inputManager.JoinPlayer(playerCount, playerCount, "Gamepad");
+                        if (Gamepad.all.Count < 2)
+                            return;
+                        inputManager.JoinPlayer(playerCount, playerCount, "Gamepad", Gamepad.all[2]);
                         playerCount++;
                         break;
                 }
+            }
+        }
+
+        private void ListenMainMenu()
+        {
+            if (canJoinPlayers && Keyboard.current.escapeKey.wasPressedThisFrame)
+            {
+                List<GameObject> objectsToDestroy = new List<GameObject>();
+
+                foreach (GameObject playerConfigObject in playerConfigObjects)
+                    if(playerConfigObject != playerConfigObjects[0])
+                    {
+                        HandlePlayerLeft(playerConfigObject.GetComponent<PlayerInput>());
+                        objectsToDestroy.Add(playerConfigObject);
+                    }
+
+                foreach (GameObject obj in objectsToDestroy)
+                {
+                    playerConfigObjects.Remove(obj);
+                    Destroy(obj);
+                }
+
+                playerConfigs[0].IsReady = false;
+
+                canJoinPlayers = false;
+                FindObjectOfType<MainMenuController>().SetPanelActive(1);
             }
         }
     }
