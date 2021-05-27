@@ -380,7 +380,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 1.5
   m_Range: 100
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -444,3 +444,96 @@ Transform:
   m_Father: {fileID: 1047307585}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1768222785
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1199808207942694004, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 991a640cabd377942b019c13e7605338, type: 2}
+    - target: {fileID: 2223517915246834808, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: shakeSpeed.x
+      value: 0.9350364
+      objectReference: {fileID: 0}
+    - target: {fileID: 2223517915246834808, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: shakeSpeed.y
+      value: 3.8389294
+      objectReference: {fileID: 0}
+    - target: {fileID: 2223517915246834808, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: shakeBending.x
+      value: 0.39440393
+      objectReference: {fileID: 0}
+    - target: {fileID: 2223517915246834808, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: shakeBending.y
+      value: 1.3835766
+      objectReference: {fileID: 0}
+    - target: {fileID: 2223517915246834808, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: waveFriction.x
+      value: 0.18211678
+      objectReference: {fileID: 0}
+    - target: {fileID: 2223517915246834808, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: waveFriction.y
+      value: 0.2321168
+      objectReference: {fileID: 0}
+    - target: {fileID: 2223517915246834808, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: waveDissipation.x
+      value: 0.080146015
+      objectReference: {fileID: 0}
+    - target: {fileID: 2223517915246834808, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: waveDissipation.y
+      value: 0.8108759
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654787685476050934, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: m_Name
+      value: pinetree_small(Clone)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6674303235532873581, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6674303235532873581, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.096523
+      objectReference: {fileID: 0}
+    - target: {fileID: 6674303235532873581, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.700774
+      objectReference: {fileID: 0}
+    - target: {fileID: 6674303235532873581, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 6674303235532873581, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9848078
+      objectReference: {fileID: 0}
+    - target: {fileID: 6674303235532873581, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.17364825
+      objectReference: {fileID: 0}
+    - target: {fileID: 6674303235532873581, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6674303235532873581, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6674303235532873581, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6674303235532873581, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6674303235532873581, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f2004c15f888d6548a8747ec4666e321, type: 3}
