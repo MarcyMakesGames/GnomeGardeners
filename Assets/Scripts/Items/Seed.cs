@@ -8,12 +8,12 @@ namespace GnomeGardeners
 	{
         public PoolKey plantKey;
 
-        public Seed(PoolKey key)
+        public Seed(PoolKey _plantKey, PoolKey _popUpKey)
         {
             name = "Seed";
             sprite = Resources.Load<Sprite>("seed");
-            plantKey = key;
-            popUpKey = PoolKey.PopUp_Seed;
+            plantKey = _plantKey;
+            popUpKey = _popUpKey;
         }
     }
 }
