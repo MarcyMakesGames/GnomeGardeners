@@ -28,6 +28,7 @@ namespace GnomeGardeners
 
         public GameObject backgroundTitle;
         public GameObject backgroundCredits;
+        public GameObject backgroundMain;
 
         private Animator transition;
         public float transitionTime = 1f;
@@ -68,6 +69,7 @@ namespace GnomeGardeners
             {
                 backgroundTitle,
                 backgroundCredits,
+                backgroundMain,
             };
 
             transition = GameManager.Instance.SceneController.Transition;
@@ -139,7 +141,7 @@ namespace GnomeGardeners
 
                     break;
                 case MenuPanel.Main:
-                    StartCoroutine(TransitionIntoPanel(panelMain, selectableMain));
+                    StartCoroutine(TransitionIntoPanel(panelMain, selectableMain, backgroundMain));
 
                     break;
                 case MenuPanel.Settings:
