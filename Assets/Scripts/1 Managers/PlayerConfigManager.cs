@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 namespace GnomeGardeners
 {
     public class PlayerConfigManager : MonoBehaviour
@@ -11,6 +12,7 @@ namespace GnomeGardeners
 
         private PlayerInputManager inputManager;
         private List<PlayerConfig> playerConfigs;
+        private List<GameObject> playerConfigObjects;
         private int maxPlayers = 4;
         private int playerCount;
 
@@ -29,17 +31,22 @@ namespace GnomeGardeners
             {
                 GameManager.Instance.PlayerConfigManager = this;
                 playerConfigs = new List<PlayerConfig>();
+                playerConfigObjects = new List<GameObject>();
             }
         }
 
         private void Update()
         {
             ListenJoinPlayer();
+            ListenMainMenu();
         }
 
-        public void ReadyPlayer(int index)
+        public void ReadyPlayer(int index, GnomeSkinObject gnomeSkin)
         {
             playerConfigs[index].IsReady = true;
+            playerConfigs[index].GnomeSkin = gnomeSkin;
+
+            StartGameCheck();
         }
 
         public void StartGameCheck()
@@ -51,7 +58,6 @@ namespace GnomeGardeners
                     canJoinPlayers = false;
                     GameManager.Instance.SceneController.LoadSceneGameplay();
                     GameManager.Instance.playersReady = true;
-                    
                 }
             }
         }
@@ -65,19 +71,10 @@ namespace GnomeGardeners
             {
                 PlayerConfig newConfig = new PlayerConfig(playerInput);
                 playerConfigs.Add(newConfig);
-                playerInput.transform.SetParent(transform);
+                playerInput.transform.SetParent(transform);;
             }
         }
 
-        public bool AllPlayerAreReady()
-        {
-            foreach(PlayerConfig playerConfig in playerConfigs)
-            {
-                if (!playerConfig.IsReady)
-                    return false;
-            }
-            return true;
-        }
 
         private void ListenJoinPlayer()
         {
@@ -88,20 +85,41 @@ namespace GnomeGardeners
                     case 0:
                         inputManager.JoinPlayer(playerCount, playerCount, "KeyboardLeft", Keyboard.current);
                         playerCount++;
+                       
                         break;
                     case 1:
                         inputManager.JoinPlayer(playerCount, playerCount, "KeyboardRight", Keyboard.current);
                         playerCount++;
                         break;
                     case 2:
-                        inputManager.JoinPlayer(playerCount, playerCount, "Gamepad");
+                        if (Gamepad.all.Count < 1)
+                            return;
+                        inputManager.JoinPlayer(playerCount, playerCount, "Gamepad", Gamepad.all[1]);
                         playerCount++;
                         break;
                     case 3:
-                        inputManager.JoinPlayer(playerCount, playerCount, "Gamepad");
+                        if (Gamepad.all.Count < 2)
+                            return;
+                        inputManager.JoinPlayer(playerCount, playerCount, "Gamepad", Gamepad.all[2]);
                         playerCount++;
                         break;
                 }
+                DebugLogger.Log(this, inputManager.playerCount.ToString());
+            }
+        }
+
+        private void ListenMainMenu()
+        {
+            if (canJoinPlayers && Keyboard.current.escapeKey.wasPressedThisFrame)
+            {
+                foreach (PlayerConfig playerConfig in playerConfigs)
+                    playerConfig.Input.user.UnpairDevicesAndRemoveUser();
+
+                foreach (GameObject playerConfig in playerConfigObjects)
+                    Destroy(playerConfig);
+
+                canJoinPlayers = false;
+                FindObjectOfType<MainMenuController>().SetPanelActive(1);
             }
         }
     }

@@ -96,10 +96,6 @@ namespace GnomeGardeners
         public void SetGameOverMenuActive()
         {
             GameManager.Instance.SceneController.ActiveInGameUI = InGameUIMode.GameOverMenu;
-            if(GameManager.Instance.LevelManager.isLastLevelCompleted)
-                nextLevelButton.SetActive(false);
-            else
-                nextLevelButton.SetActive(true);
         }
 
         public void NextLevel()
@@ -152,6 +148,7 @@ namespace GnomeGardeners
                     gameOverMenu.SetActive(true);
                     GameManager.Instance.Time.PauseTime();
                     eventSystem.SetSelectedGameObject(selectableGameOverMenu);
+                    nextLevelButton.SetActive(GameManager.Instance.LevelManager.HasCurrentLevelBeenCompleted());
                     break;
             }
 

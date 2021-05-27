@@ -53,7 +53,7 @@ namespace GnomeGardeners
                 if (cell.GroundType == GroundType.ArableSoil)
                 {
                     DebugLogger.Log(this, "ArableSoil found!");
-                    var seedObject = GameManager.Instance.PoolController.GetObjectFromPool(cell.transform.position, Quaternion.identity, seed.plantKey);
+                    var seedObject = GameManager.Instance.PoolController.GetObjectFromPool(cell.transform.position, Quaternion.Euler(-20f, 0f, 0f), seed.plantKey);
                     seed = null;
                     seedObject.GetComponent<Plant>().PlantSeed(cell);
                     GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_spade_digging, audioSource);

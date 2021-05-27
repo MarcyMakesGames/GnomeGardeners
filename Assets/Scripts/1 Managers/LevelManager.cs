@@ -18,7 +18,7 @@ namespace GnomeGardeners
 
         public bool isLastLevelCompleted;
 
-        private GameObject current;
+        private LevelController currentLevel;
         private int levelIndex;
         
         private VoidEventChannelSO OnLevelLoseEvent;
@@ -71,7 +71,12 @@ namespace GnomeGardeners
 
         public GameObject GetTutorialMenu()
         {
-            return current.GetComponent<LevelController>().tutorialMenu;
+            return currentLevel.tutorialMenu;
+        }
+
+        public bool HasCurrentLevelBeenCompleted()
+        {
+            return currentLevel.HasBeenCompleted;
         }
         
         #endregion
@@ -80,8 +85,8 @@ namespace GnomeGardeners
 
         private IEnumerator LoadLevel(GameObject level)
         {
-            if(current)
-                Destroy(current);
+            if(currentLevel)
+                Destroy(currentLevel.gameObject);
 
             yield return new WaitForSeconds(1f);
             
@@ -89,16 +94,15 @@ namespace GnomeGardeners
 
             yield return new WaitForSeconds(1f);
             
-            current = newLevel;
-            var currentLevel = current.GetComponent<LevelController>();
+            currentLevel = newLevel.GetComponent<LevelController>();
             currentLevel.LevelStart();
             StartCoroutine(currentLevel.UpdateLevel());
         }
 
         private IEnumerator LoadLevel(int index)
         {
-            if(current)
-                Destroy(current);
+            if(currentLevel)
+                Destroy(currentLevel.gameObject);
 
             yield return new WaitForSeconds(1f);
             
@@ -106,8 +110,7 @@ namespace GnomeGardeners
             
             yield return new WaitForSeconds(1f);
 
-            current = newLevel;
-            var currentLevel = current.GetComponent<LevelController>();
+            currentLevel = newLevel.GetComponent<LevelController>();
             currentLevel.LevelStart();
             StartCoroutine(currentLevel.UpdateLevel());
         }
