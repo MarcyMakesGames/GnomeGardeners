@@ -88,6 +88,11 @@ namespace GnomeGardeners
 			currentPopUpTime = GameManager.Instance.Time.ElapsedTime;
 		}
 
+		protected void SetPopUpLifetime(float lifeTime, bool iconFlash)
+        {
+			popUp.GetComponent<PopUpController>().SetPopUpTimer(lifeTime, iconFlash);
+        }
+
 		protected void ClearPopUp()
 		{
 			if (popUp != null)
@@ -100,6 +105,9 @@ namespace GnomeGardeners
 		protected void PopUpRemovalCountdown()
 		{
 			if (popUp == null)
+				return;
+
+			if (popUpDuration == 0f)
 				return;
 
 			if (GameManager.Instance.Time.GetTimeSince(currentPopUpTime) >= popUpDuration)
