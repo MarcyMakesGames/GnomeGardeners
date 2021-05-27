@@ -32,5 +32,9 @@ namespace GnomeGardeners
         Plant_Daffodil,
         Plant_Tulip,
         PopUp_Score,
+
+        PopUp_SunflowerSeed,
+        PopUp_TulipSeed,
+        PopUp_DaffodilSeed,
     }
 }
