@@ -10,12 +10,20 @@ namespace GnomeGardeners
         [SerializeField] private Animator iconAnimator;
         private float iconFlashTimer = 0f;
         private float currentFlashTimer = 0f;
+        private bool iconFlash = false;
 
-        public void InitAnimIconTimer(float flashTimer)
+        public void SetPopUpTimer(float flashTimer, bool flash = true)
         {
             if (iconAnimator == null)
                 return;
 
+            if (flash == false)
+                iconAnimator.enabled = false;
+            else
+                iconAnimator.enabled = true;
+            
+            
+            iconFlash = flash;
             iconFlashTimer = GameManager.Instance.Time.ElapsedTime;
             currentFlashTimer = flashTimer;
             popUpAnimator.SetBool("EndPopUp", false);
@@ -33,7 +41,7 @@ namespace GnomeGardeners
 
         private void UpdateAnimIconSpeed()
         {
-            if (iconAnimator == null)
+            if (iconAnimator == null || iconFlash == false)
                 return;
 
             if(currentFlashTimer <= GameManager.Instance.Time.GetTimeSince(iconFlashTimer))

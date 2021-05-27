@@ -37,6 +37,12 @@ namespace GnomeGardeners
             return objectToReturn;
         }
 
+        public void SetPoolObjectsInactive()
+        {
+            foreach (Transform obj in GetComponentsInChildren<Transform>())
+                obj.gameObject.SetActive(false);
+        }
+
         private void Awake()
         {
             length = poolObjects.Length;

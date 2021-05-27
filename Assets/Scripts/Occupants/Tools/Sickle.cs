@@ -13,8 +13,13 @@ namespace GnomeGardeners
 
         private void Update()
         {
-            if(harvest != null && popUp == null)
+            if (harvest != null && popUp == null)
+            {
                 GetPopUp(harvest.PopUpKey);
+                SetPopUpLifetime(0f, false);
+            }
+
+            base.Update();
         }
 
         #region Public Methods

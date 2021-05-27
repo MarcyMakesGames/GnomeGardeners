@@ -71,6 +71,8 @@ namespace GnomeGardeners
             if (isInTransition) { return; }
             StartCoroutine(LoadSceneAsync(SceneState.MainMenu));
             activeMenuPanel = MenuPanel.Title;
+
+            GameManager.Instance.PoolController.SetPoolObjectsInactive();
         }
 
         public void QuitGame()

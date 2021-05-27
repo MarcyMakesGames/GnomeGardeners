@@ -9,10 +9,15 @@ namespace GnomeGardeners
 	{
 		private Fertilizer fertilizer;
 
-		private void Update()
+		protected override void Update()
 		{
 			if(fertilizer != null && popUp == null)
+            {
 				GetPopUp(fertilizer.PopUpKey);
+				SetPopUpLifetime(0f, false);
+			}
+
+			base.Update();
 		}
 		
 		public override void Interact(Tool tool)

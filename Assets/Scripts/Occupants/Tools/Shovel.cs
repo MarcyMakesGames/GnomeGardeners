@@ -9,10 +9,15 @@ namespace GnomeGardeners
 		private Seed seed;
         private bool isPlanting = false;
 
-        private void Update()
+        protected override void Update()
         {
-            if(seed != null && popUp == null)
+            if (seed != null && popUp == null)
+            {
                 GetPopUp(seed.PopUpKey);
+                SetPopUpLifetime(0f, false);
+            }
+
+            base.Update();
         }
 
         #region Public Methods
