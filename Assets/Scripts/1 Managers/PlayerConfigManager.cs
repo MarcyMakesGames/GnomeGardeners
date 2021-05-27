@@ -144,6 +144,7 @@ namespace GnomeGardeners
                     Destroy(obj);
                 }
 
+                playerConfigs[0].IsReady = false;
 
                 canJoinPlayers = false;
                 FindObjectOfType<MainMenuController>().SetPanelActive(1);
