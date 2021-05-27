@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem.UI;
 
 namespace GnomeGardeners
 {
@@ -12,16 +13,17 @@ namespace GnomeGardeners
         [SerializeField] private Image gnomeImage;
         private GnomeSelectorController gnomeSelector;
         private GnomeSkinObject gnomeSkin;
-        public int PlayerIndex { get; set; }
+        private int playerIndex;
+        public int PlayerIndex { get => playerIndex; set => SetPlayerIndex(value); }
 
 
         private float inputDelayTime = 0.15f;
         private bool inputEnabled;
 
-        private void Start()
+        private void OnEnable()
         {
             gnomeSelector = FindObjectOfType<GnomeSelectorController>();
-            gnomeSkin = gnomeSelector.GetNextGnome();
+            gnomeImage.sprite = null;
         }
 
         private void Update()
@@ -51,6 +53,17 @@ namespace GnomeGardeners
 
             readyButton.GetComponentInChildren<TMP_Text>().color = Color.red;
             GameManager.Instance.PlayerConfigManager.ReadyPlayer(PlayerIndex, gnomeSkin);
+        }
+
+        private void SetPlayerIndex(int index)
+        {
+            playerIndex = index;
+            gnomeSkin = gnomeSelector.GetNextGnome();
+
+            gnomeImage.sprite = gnomeSkin.GnomeSprite;
+            gnomeImage.enabled = true;
+
+            GetComponent<InputSystemUIInputModule>().enabled = true;
         }
     }
 }

@@ -14,14 +14,9 @@ namespace GnomeGardeners
 
         private void Awake()
         {
-            menuLayout = GameObject.Find("Player Setup Menus");
-
-            if (menuLayout != null)
-            {
-                var menu = GameObject.FindGameObjectWithTag("Player" + input.playerIndex + 1.ToString() + "Menu");
-                menu.GetComponent<GnomeMenuController>().PlayerIndex = input.playerIndex;
-                input.uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
-            }
+            var menu = GameObject.FindGameObjectWithTag("Player" + (input.playerIndex + 1).ToString() + "Menu");
+            menu.GetComponent<GnomeMenuController>().PlayerIndex = input.playerIndex;
+            input.uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
         }
     }
 }
