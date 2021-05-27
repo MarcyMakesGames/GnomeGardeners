@@ -17,6 +17,12 @@ namespace GnomeGardeners
             if (iconAnimator == null)
                 return;
 
+            if (flash == false)
+                iconAnimator.enabled = false;
+            else
+                iconAnimator.enabled = true;
+            
+            
             iconFlash = flash;
             iconFlashTimer = GameManager.Instance.Time.ElapsedTime;
             currentFlashTimer = flashTimer;

@@ -32,14 +32,16 @@ namespace GnomeGardeners
 
         protected override void Update()
         {
-            base.Update();
             if (popUp == null)
             {
                 var key = seedQueue.FirstOrDefault().PopUpKey;
                 GetPopUp(key);
+                SetPopUpLifetime(0f, false);
             }
+
+            base.Update();
         }
-        
+
         #endregion
 
         #region Public Methods
@@ -61,6 +63,7 @@ namespace GnomeGardeners
         public override void FailedInteraction()
         {
             GetPopUp(PoolKey.PopUp_Need_Seeding_Tool);
+            SetPopUpLifetime(2f, false);
         }
 
         #endregion

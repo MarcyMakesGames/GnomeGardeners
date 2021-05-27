@@ -19,7 +19,6 @@ namespace GnomeGardeners
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
-            //popUpOffset = new Vector3(0.3f, 0.8f, 0f);
         }
 
         private new void Start()
