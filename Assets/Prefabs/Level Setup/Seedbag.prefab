@@ -99,7 +99,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   popUpDuration: 30
   multiCellObject: 1
-  dispensesRandomizedSeeds: 0
   seedKeys: 110000001300000012000000
   popUpKeys: 090000000800000007000000
 --- !u!82 &3488152939737156523
@@ -211,10 +210,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.4365971}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 1.5, y: 2}
     newSize: {x: 1.5, y: 2}
     adaptiveTilingThreshold: 0.5
@@ -222,5 +221,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 1}
+  m_Size: {x: 0.1, y: 1.01386}
   m_EdgeRadius: 0
