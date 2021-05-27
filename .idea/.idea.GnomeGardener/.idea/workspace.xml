@@ -6,12 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="45c60d32-7d3c-4120-9765-924768b74365" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GnomeGardener/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GnomeGardener/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/HUD/Clock.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/HUD/Clock.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/HUD/Scoreboard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/HUD/Scoreboard.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player Selection Menu/Gnome Selection Panel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player Selection Menu/Gnome Selection Panel.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player Selection Menu/Skin Panel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player Selection Menu/Skin Panel.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Scene Setup/Gameplay Scene/Gnome Initialization Controller.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Scene Setup/Gameplay Scene/Gnome Initialization Controller.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/HUD/HUD.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/HUD/HUD.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/HUD/Inventory.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/HUD/Inventory.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tools/Hoe.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tools/Hoe.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tools/Pitchfork.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tools/Pitchfork.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tools/Shovel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tools/Shovel.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tools/Sickle.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tools/Sickle.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tools/WateringCan.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tools/WateringCan.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Testing/Paul Work Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Testing/Paul Work Scene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/1 Managers/PlayerConfigManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/1 Managers/PlayerConfigManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/2 Controllers/UI/InventoryController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/2 Controllers/UI/InventoryController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gnome/Gnome.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gnome/Gnome.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gnome/GnomeInitController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gnome/GnomeInitController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Occupants/Tools/Tool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Occupants/Tools/Tool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/UI/transparent.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/UI/transparent.png.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,6 +44,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/10564ED1-54D6-47E1-94BE-F4AEF8878649/ac/cc8fce28/SetupCoroutine.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/10564ED1-54D6-47E1-94BE-F4AEF8878649/20/4317446a/Component.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Occupants/Tools/Pitchfork.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/SO Scripts/Channels/IntIntEventChannelSO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Programme/Unity/2020.3.2f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/UI/Core/Button.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -45,7 +55,6 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/State Behaviours/InsectSearching.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/2 Controllers/Gameplay/Hazards/Insect Hazard/InsectSpawner.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/2 Controllers/Gameplay/Hazards/Insect Hazard/Insect.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/1 Managers/PlayerConfigManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Enumerations/UIEnums.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/1 Managers/HazardManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/2 Controllers/SceneController.cs" />
@@ -60,17 +69,21 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/Occupants/Tools/Sickle.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Occupants/Tools/WateringCan.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Occupants/Tools/Hoe.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Occupants/Tools/Tool.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/1 Managers/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Occupants/Tools/Shovel.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Occupants/Seedbag.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/2 Controllers/Gameplay/Progression/LevelController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/1 Managers/LevelManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/2 Controllers/UI/GameMenuController.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Gnome/Gnome.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/2 Controllers/UI/MainMenuController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Enumerations/ObjectPoolEnums.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Occupants/Plant.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/SO Scripts/Channels/IntIntEventChannelSO.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/1 Managers/PlayerConfigManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/SO Scripts/Channels/SpriteIntEventChannel.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Occupants/Tools/Tool.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/2 Controllers/UI/InventoryController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Gnome/Gnome.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Gnome/GnomeInitController.cs" />
     </changedPaths>
   </component>
@@ -139,6 +152,7 @@
       <workItem from="1621970409382" duration="6489000" />
       <workItem from="1622101290633" duration="4353000" />
       <workItem from="1622117584670" duration="4645000" />
+      <workItem from="1622135958391" duration="6061000" />
     </task>
     <servers />
   </component>

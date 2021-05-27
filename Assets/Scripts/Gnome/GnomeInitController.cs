@@ -18,6 +18,15 @@ namespace GnomeGardeners
 
         private bool hasSpawned = false;
 
+        private IntEventChannelSO OnNumberOfPlayersEvent;
+        private IntIntEventChannelSO OnPlayerColorAssignedEvent;
+
+        private void Start()
+        {
+            OnNumberOfPlayersEvent = Resources.Load<IntEventChannelSO>("Channels/NumberOfPlayersEC");
+            OnPlayerColorAssignedEvent = Resources.Load<IntIntEventChannelSO>("Channels/PlayerColorAssignedEC");
+        }
+
         private void InitPlayerGnomes()
         {
             foreach(PlayerConfig player in GameManager.Instance.PlayerConfigManager.PlayerConfigs)
@@ -40,13 +49,16 @@ namespace GnomeGardeners
                     default:
                         newGnome = Instantiate(gnomePrefab, playerSpawnLocations[player.PlayerIndex].position, gnomePrefab.transform.rotation, transform);
                         break;
+
                 }
                 newGnome.GetComponent<Gnome>().InitializePlayer(player);
                 DebugLogger.Log(this, "Player " + player.Input.playerIndex + " device: " + player.Input.devices);
+                OnPlayerColorAssignedEvent.RaiseEvent( player.PlayerIndex, player.GnomeSkin.GnomeSkin);
 
             }
             GameManager.Instance.PlayerConfigManager.PlayerConfigs[0].Input.uiInputModule = FindObjectOfType<InputSystemUIInputModule>();
             hasSpawned = true;
+            OnNumberOfPlayersEvent.RaiseEvent(GameManager.Instance.PlayerConfigManager.PlayerCount);
         }
 
         private void Update()

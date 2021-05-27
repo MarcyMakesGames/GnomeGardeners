@@ -61,6 +61,9 @@ namespace GnomeGardeners
         private SpriteResolver[] resolvers = new SpriteResolver[4];
         private SpriteRenderer[] itemRenderers = new SpriteRenderer[4];
         private SpriteRenderer[] toolRenderers = new SpriteRenderer[4];
+        private IntEventChannelSO OnPlayerEquippingToolEvent;
+        private IntEventChannelSO OnToolUnequippedByPlayerEvent;
+
 
         #region Unity Methods
 
@@ -101,6 +104,10 @@ namespace GnomeGardeners
                 testPlayerInput.uiInputModule = FindObjectOfType<InputSystemUIInputModule>();
             }
             moveSpeed = minimumSpeed;
+
+            OnPlayerEquippingToolEvent = Resources.Load<IntEventChannelSO>("Channels/PlayerEquippingToolEC");
+            OnToolUnequippedByPlayerEvent = Resources.Load<IntEventChannelSO>("Channels/ToolUnequippedByPlayerEC");
+
         }
         private void FixedUpdate()
         {
@@ -361,7 +368,7 @@ namespace GnomeGardeners
         {
             var occupant = cell.Occupant;
 
-            if (tool != null && occupant == null)
+            if (tool != null && occupant == null) // Unequip
             {
                 var dropPosition = transform.position + (Vector3)lookDir * dropRange;
                 var dropCell = GameManager.Instance.GridManager.GetClosestCell(dropPosition);
@@ -371,8 +378,9 @@ namespace GnomeGardeners
                 SetAllResolvers("tools", "nada");
                 SetAllItemRenderers(null);
                 SetAllToolRenderers(null);
+                OnToolUnequippedByPlayerEvent.RaiseEvent(playerConfig.PlayerIndex);
             }
-            else if (tool == null && occupant != null)
+            else if (tool == null && occupant != null) // Equip
             {
                 Tool toolOnGround;
                 if (occupant.TryGetComponent(out toolOnGround))
@@ -383,7 +391,7 @@ namespace GnomeGardeners
                     tool.UpdateToolRenderers(toolRenderers);
                     toolOnGround.Equip();
                     tool.PlayCorrespondingAnimation(currentAnimator, currentPrefix);
-
+                    OnPlayerEquippingToolEvent.RaiseEvent(playerConfig.PlayerIndex);
                 }
             }
         }

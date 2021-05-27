@@ -17,6 +17,8 @@ namespace GnomeGardeners
 
         public List<PlayerConfig> PlayerConfigs { get => playerConfigs; }
 
+        public int PlayerCount => playerCount;
+
         //public void SetGnomeSkin(int index, ISkin gnomeSkin)
         //{
         //This is where we'd actually create a new playerConfig with the skin using the index.
