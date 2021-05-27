@@ -11,6 +11,7 @@ namespace GnomeGardeners
     {
         [SerializeField] private Button readyButton;
         [SerializeField] private Image gnomeImage;
+        [SerializeField] private Image playerIcon;
         private GnomeSelectorController gnomeSelector;
         private GnomeSkinObject gnomeSkin;
         private int playerIndex = -1;
@@ -56,14 +57,11 @@ namespace GnomeGardeners
                 return;
 
             if (right)
-            {
                 gnomeSkin = gnomeSelector.GetNextGnome(gnomeSkin);
-            }
             else
-            {
                 gnomeSkin = gnomeSelector.GetPreviousGnome(gnomeSkin);
-            }
 
+            playerIcon.sprite = gnomeSelector.GetPlayerIcon(gnomeSkin, PlayerIndex);
             gnomeImage.sprite = gnomeSkin.GnomeSprite;
         }
 
@@ -73,7 +71,7 @@ namespace GnomeGardeners
                 return;
 
             readyButton.GetComponentInChildren<TMP_Text>().color = Color.red;
-            GameManager.Instance.PlayerConfigManager.ReadyPlayer(PlayerIndex, gnomeSkin);
+            GameManager.Instance.PlayerConfigManager.ReadyPlayer(PlayerIndex, gnomeSkin, playerIcon.sprite);
             isReady = true;
         }
 

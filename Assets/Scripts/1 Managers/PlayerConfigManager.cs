@@ -42,10 +42,11 @@ namespace GnomeGardeners
             ListenMainMenu();
         }
 
-        public void ReadyPlayer(int index, GnomeSkinObject gnomeSkin)
+        public void ReadyPlayer(int index, GnomeSkinObject gnomeSkin, Sprite playerIcon)
         {
             playerConfigs[index].IsReady = true;
             playerConfigs[index].GnomeSkin = gnomeSkin;
+            playerConfigs[index].PlayerIcon = playerIcon;
 
             StartGameCheck();
         }
