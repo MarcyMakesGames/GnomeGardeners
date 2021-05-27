@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: def6f6fe412a3bd42a2413fcf9d324b7
+guid: 91df4baf62ab6b14792814ed03a66561
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -32,7 +32,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 128
+    spritePixelsToUnits: 100
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -91,7 +91,7 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: stage 5
+  - name: stage_5
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -102,7 +102,7 @@ ScriptedImporter:
       y: 123
       width: 122
       height: 109
-    spriteID: 9e8fe318b862d304187f45b347c0d87d
+    spriteID: 8200fc13ec70cf94487b755cbe3defa8
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -113,7 +113,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 2, y: 104}
-  - name: stage 4
+  - name: stage_4
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -124,7 +124,7 @@ ScriptedImporter:
       y: 4
       width: 126
       height: 108
-    spriteID: d42996669a29a7b4191a56f72df7f663
+    spriteID: e4db8e7f8245cf040be2897f1b8042e0
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -135,7 +135,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 133, y: -15}
-  - name: stage 3
+  - name: stage_3
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -146,7 +146,7 @@ ScriptedImporter:
       y: 4
       width: 124
       height: 109
-    spriteID: 86fccd1b4d6cf6741b4df31453efcc39
+    spriteID: ceb3ef099940c2944845c811e13dd055
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -157,7 +157,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 267, y: -14}
-  - name: stage 2
+  - name: stage_2
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -168,7 +168,7 @@ ScriptedImporter:
       y: 123
       width: 123
       height: 106
-    spriteID: d5d4c28755ef0824384747341ba14045
+    spriteID: 2d016def4ad5af240b25e157ffc798b3
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -179,7 +179,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 133, y: 106}
-  - name: stage 1
+  - name: stage_1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -190,7 +190,7 @@ ScriptedImporter:
       y: 4
       width: 123
       height: 111
-    spriteID: e02b25e751a567f4a9b564df884a8c33
+    spriteID: c02cc4dc39380fc4aa24d98c6900d797
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -201,29 +201,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 1, y: -13}
-  platformSettings:
-  - name: DefaultTexturePlatform
-    overridden: 0
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    androidETC2FallbackOverride: 0
-  - name: Standalone
-    overridden: 0
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    androidETC2FallbackOverride: 0
+  platformSettings: []
   mosaicLayers: 1
   documentPivot: {x: 0, y: 0}
   documentAlignment: 7
@@ -242,39 +220,46 @@ ScriptedImporter:
   characterMode: 1
   mosaicPSDLayers: []
   rigPSDLayers:
-  - name: stage 5
-    spriteName: stage 5
-    isGroup: 0
+  - name: big_stones
+    spriteName: 
+    isGroup: 1
     parentIndex: -1
-    spriteID: 9e8fe318b862d304187f45b347c0d87d
+    spriteID: 
+    layerID: 28
+    mosaicPosition: {x: 0, y: 0}
+  - name: stage_5
+    spriteName: stage_5
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 8200fc13ec70cf94487b755cbe3defa8
     layerID: 11
     mosaicPosition: {x: 4, y: 123}
-  - name: stage 4
-    spriteName: stage 4
+  - name: stage_4
+    spriteName: stage_4
     isGroup: 0
-    parentIndex: -1
-    spriteID: d42996669a29a7b4191a56f72df7f663
+    parentIndex: 0
+    spriteID: e4db8e7f8245cf040be2897f1b8042e0
     layerID: 10
     mosaicPosition: {x: 135, y: 4}
-  - name: stage 3
-    spriteName: stage 3
+  - name: stage_3
+    spriteName: stage_3
     isGroup: 0
-    parentIndex: -1
-    spriteID: 86fccd1b4d6cf6741b4df31453efcc39
+    parentIndex: 0
+    spriteID: ceb3ef099940c2944845c811e13dd055
     layerID: 9
     mosaicPosition: {x: 269, y: 4}
-  - name: stage 2
-    spriteName: stage 2
+  - name: stage_2
+    spriteName: stage_2
     isGroup: 0
-    parentIndex: -1
-    spriteID: d5d4c28755ef0824384747341ba14045
+    parentIndex: 0
+    spriteID: 2d016def4ad5af240b25e157ffc798b3
     layerID: 8
     mosaicPosition: {x: 134, y: 123}
-  - name: stage 1
-    spriteName: stage 1
+  - name: stage_1
+    spriteName: stage_1
     isGroup: 0
-    parentIndex: -1
-    spriteID: e02b25e751a567f4a9b564df884a8c33
+    parentIndex: 0
+    spriteID: c02cc4dc39380fc4aa24d98c6900d797
     layerID: 7
     mosaicPosition: {x: 4, y: 4}
   characterData:
