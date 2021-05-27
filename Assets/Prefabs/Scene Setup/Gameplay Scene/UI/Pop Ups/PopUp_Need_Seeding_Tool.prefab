@@ -4996,6 +4996,7 @@ GameObject:
   - component: {fileID: 6059440747253761928}
   - component: {fileID: 8034757092331300833}
   - component: {fileID: 5652511766502445008}
+  - component: {fileID: 6075857692770938990}
   m_Layer: 0
   m_Name: PopUp_Need_Seeding_Tool
   m_TagString: Untagged
@@ -5103,3 +5104,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   popUpParticleSys: {fileID: 1807662266009980332}
   popUp: {fileID: 4216308065544738251}
+--- !u!114 &6075857692770938990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6059440747253761929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShadowOffset: {x: 1, y: 1}
+  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
