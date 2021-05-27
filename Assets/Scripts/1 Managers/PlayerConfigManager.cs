@@ -3,7 +3,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 namespace GnomeGardeners
 {
     public class PlayerConfigManager : MonoBehaviour
@@ -71,7 +70,27 @@ namespace GnomeGardeners
             {
                 PlayerConfig newConfig = new PlayerConfig(playerInput);
                 playerConfigs.Add(newConfig);
-                playerInput.transform.SetParent(transform);;
+                playerInput.transform.SetParent(transform);
+
+                playerConfigObjects.Add(playerInput.gameObject);
+            }
+        }
+
+        public void HandlePlayerLeft(PlayerInput playerInput)
+        {
+            if(playerInput.playerIndex == 1)
+            {
+                playerInput.user.UnpairDevicesAndRemoveUser();
+                playerCount--;
+
+                List<PlayerConfig> objToDestroy = new List<PlayerConfig>();
+
+                foreach (PlayerConfig config in playerConfigs)
+                    if (config.Input == playerInput)
+                        objToDestroy.Add(config);
+
+                foreach (PlayerConfig config in objToDestroy)
+                    playerConfigs.Remove(config);
             }
         }
 
@@ -85,7 +104,6 @@ namespace GnomeGardeners
                     case 0:
                         inputManager.JoinPlayer(playerCount, playerCount, "KeyboardLeft", Keyboard.current);
                         playerCount++;
-                       
                         break;
                     case 1:
                         inputManager.JoinPlayer(playerCount, playerCount, "KeyboardRight", Keyboard.current);
@@ -104,7 +122,6 @@ namespace GnomeGardeners
                         playerCount++;
                         break;
                 }
-                DebugLogger.Log(this, inputManager.playerCount.ToString());
             }
         }
 
@@ -112,11 +129,21 @@ namespace GnomeGardeners
         {
             if (canJoinPlayers && Keyboard.current.escapeKey.wasPressedThisFrame)
             {
-                foreach (PlayerConfig playerConfig in playerConfigs)
-                    playerConfig.Input.user.UnpairDevicesAndRemoveUser();
+                List<GameObject> objectsToDestroy = new List<GameObject>();
 
-                foreach (GameObject playerConfig in playerConfigObjects)
-                    Destroy(playerConfig);
+                foreach (GameObject playerConfigObject in playerConfigObjects)
+                    if(playerConfigObject != playerConfigObjects[0])
+                    {
+                        HandlePlayerLeft(playerConfigObject.GetComponent<PlayerInput>());
+                        objectsToDestroy.Add(playerConfigObject);
+                    }
+
+                foreach (GameObject obj in objectsToDestroy)
+                {
+                    playerConfigObjects.Remove(obj);
+                    Destroy(obj);
+                }
+
 
                 canJoinPlayers = false;
                 FindObjectOfType<MainMenuController>().SetPanelActive(1);

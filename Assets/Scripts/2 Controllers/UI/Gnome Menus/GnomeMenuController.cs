@@ -13,7 +13,7 @@ namespace GnomeGardeners
         [SerializeField] private Image gnomeImage;
         private GnomeSelectorController gnomeSelector;
         private GnomeSkinObject gnomeSkin;
-        private int playerIndex;
+        private int playerIndex = -1;
         public int PlayerIndex { get => playerIndex; set => SetPlayerIndex(value); }
 
 
@@ -24,6 +24,21 @@ namespace GnomeGardeners
         {
             gnomeSelector = FindObjectOfType<GnomeSelectorController>();
             gnomeImage.sprite = null;
+
+            if (playerIndex == 0)
+            {
+                Debug.Log("Here.");
+                GameManager.Instance.PlayerConfigManager.PlayerConfigs[0].Input.uiInputModule = GetComponent<InputSystemUIInputModule>();
+                GetComponent<InputSystemUIInputModule>().enabled = true;
+                gnomeImage.enabled = true;
+                gnomeImage.sprite = gnomeSkin.GnomeSprite;
+            }
+        }
+
+        private void OnDisable()
+        {
+            GetComponent<InputSystemUIInputModule>().enabled = false;
+            gnomeImage.enabled = false;
         }
 
         private void Update()
@@ -62,6 +77,7 @@ namespace GnomeGardeners
 
             gnomeImage.sprite = gnomeSkin.GnomeSprite;
             gnomeImage.enabled = true;
+            gnomeImage.SetNativeSize();
 
             GetComponent<InputSystemUIInputModule>().enabled = true;
         }
