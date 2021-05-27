@@ -53,6 +53,7 @@ namespace GnomeGardeners
         public override void FailedInteraction()
         {
             GetPopUp(PoolKey.PopUp_Need_Fertilizing_Tool);
+            SetPopUpLifetime(2f, false);
         }
 
         #endregion

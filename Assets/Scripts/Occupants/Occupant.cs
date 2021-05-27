@@ -8,11 +8,11 @@ namespace GnomeGardeners
 	[RequireComponent(typeof(BoxCollider2D))]
 	public abstract class Occupant : MonoBehaviour
 	{
+		[SerializeField] protected Vector3 popUpOffset;
 		[SerializeField] protected float popUpDuration = 1f;
 		public bool multiCellObject = false;
 		protected GridCell cell;
 		protected List<GridCell> occupantCells;
-		[SerializeField] protected Vector3 popUpOffset;
 		protected GameObject popUp;
 		protected float currentPopUpTime;
 
@@ -90,6 +90,7 @@ namespace GnomeGardeners
 
 		protected void SetPopUpLifetime(float lifeTime, bool iconFlash)
         {
+			popUpDuration = lifeTime;
 			popUp.GetComponent<PopUpController>().SetPopUpTimer(lifeTime, iconFlash);
         }
 
