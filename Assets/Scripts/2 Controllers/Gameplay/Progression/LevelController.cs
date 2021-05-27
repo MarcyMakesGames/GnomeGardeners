@@ -16,6 +16,7 @@ namespace GnomeGardeners
         private float timeAtStart;
         private bool isActive;
         private bool hasStarted;
+        private bool hasBeenCompleted;
 
         private VoidEventChannelSO OnLevelStartEvent;
         private VoidEventChannelSO OnLevelLoseEvent;
@@ -28,6 +29,8 @@ namespace GnomeGardeners
 
         public float RestTime { get => restTime; }
         public int CurrentScore { get => currentScore; set => currentScore = value; }
+
+        public bool HasBeenCompleted => hasBeenCompleted;
 
         #region Unity Methods
 
@@ -50,6 +53,7 @@ namespace GnomeGardeners
             currentScore = 0;
             isActive = false;
             hasStarted = false;
+            hasBeenCompleted = false;
         }
 
         private void OnDestroy()
@@ -113,8 +117,8 @@ namespace GnomeGardeners
                 GameManager.Instance.LevelManager.lastTotalScore = currentScore;
                 GameManager.Instance.LevelManager.lastRequiredScore = requiredScore;
                 OnLevelWinEvent.RaiseEvent();
-                DebugLogger.Log(this, "Level won!");
                 isActive = false;
+                hasBeenCompleted = true;
             }
         }
 
@@ -125,7 +129,6 @@ namespace GnomeGardeners
                 GameManager.Instance.LevelManager.lastTotalScore = currentScore;
                 GameManager.Instance.LevelManager.lastRequiredScore = requiredScore;
                 OnLevelLoseEvent.RaiseEvent();
-                DebugLogger.Log(this, "Level lost!");
                 isActive = false;
             }
         }
