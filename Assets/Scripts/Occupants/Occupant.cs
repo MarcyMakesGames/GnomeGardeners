@@ -12,7 +12,7 @@ namespace GnomeGardeners
 		public bool multiCellObject = false;
 		protected GridCell cell;
 		protected List<GridCell> occupantCells;
-		protected Vector3 popUpOffset;
+		[SerializeField] protected Vector3 popUpOffset;
 		protected GameObject popUp;
 		protected float currentPopUpTime;
 
