@@ -8,10 +8,13 @@ namespace GnomeGardeners
 {
     public abstract class Tool : Occupant
     {
+        [SerializeField] private Sprite icon;
+        
         protected AudioSource audioSource;
         protected ToolType toolType;
         protected bool isEquipped;
         private bool isEquipping = false;
+        private SpriteEventChannelSO OnEquippedToolSprite;
         public AudioSource AudioSource { get => audioSource; }
         public ToolType ToolType { get => ToolType; }
         #region Unity Methods
@@ -24,6 +27,7 @@ namespace GnomeGardeners
         private new void Start()
         {
             base.Start();
+            OnEquippedToolSprite = Resources.Load<SpriteEventChannelSO>("Channels/EquippedToolSpriteEC");
         }
 
         #endregion
@@ -56,7 +60,7 @@ namespace GnomeGardeners
             isEquipped = true;
             isEquipping = true;
 
-            
+            OnEquippedToolSprite.RaiseEvent(icon);
             if(popUp != null)
                 ClearPopUp();
         }
