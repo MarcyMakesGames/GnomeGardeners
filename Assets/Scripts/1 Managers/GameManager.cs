@@ -26,6 +26,7 @@ namespace GnomeGardeners
         private PoolController poolController;
         private AudioManager audioManager;
 
+
         // Game variables
         public bool playersReady = false;
         bool werePlayersReady = false;
