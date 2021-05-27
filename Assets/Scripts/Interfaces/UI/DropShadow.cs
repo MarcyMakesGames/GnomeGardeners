@@ -5,38 +5,27 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class DropShadow : MonoBehaviour
 {
-    // Start is called before the first frame update
-    
-    public Vector2 ShadowOffset;
-    public Material ShadowMaterial;
+    public Vector2 shadowOffset;
+    public Material shadowMaterial;
 
-    SpriteRenderer spriteRenderer;
-    GameObject shadowGameobject;
+    private SpriteRenderer spriteRenderer;
+    private GameObject shadowGameObject = new("Shadow");
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        Instantiate(shadowGameObject, transform);
 
-        //create a new gameobject to be used as drop shadow
-        shadowGameobject = new GameObject("Shadow");
-
-        //create a new SpriteRenderer for Shadow gameobject
-        SpriteRenderer shadowSpriteRenderer = shadowGameobject.AddComponent<SpriteRenderer>();
-
-        //set the shadow gameobject's sprite to the original sprite
+        SpriteRenderer shadowSpriteRenderer = shadowGameObject.AddComponent<SpriteRenderer>();
         shadowSpriteRenderer.sprite = spriteRenderer.sprite;
-        //set the shadow gameobject's material to the shadow material we created
-        shadowSpriteRenderer.material = ShadowMaterial;
-
-        //update the sorting layer of the shadow to always lie behind the sprite
+        shadowSpriteRenderer.material = shadowMaterial;
         shadowSpriteRenderer.sortingLayerName = spriteRenderer.sortingLayerName;
         shadowSpriteRenderer.sortingOrder = spriteRenderer.sortingOrder - 1;
     }
 
     void LateUpdate()
     {
-        //update the position and rotation of the sprite's shadow with moving sprite
-        shadowGameobject.transform.localPosition = transform.localPosition + (Vector3)ShadowOffset;
-        shadowGameobject.transform.localRotation = transform.localRotation;
+        shadowGameObject.transform.localPosition = transform.localPosition + (Vector3)shadowOffset;
+        shadowGameObject.transform.localRotation = transform.localRotation;
     }
 }
