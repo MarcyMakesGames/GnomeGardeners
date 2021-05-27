@@ -19,6 +19,13 @@ namespace GnomeGardeners
         public GameObject panelManual;
         public GameObject panelCredits;
 
+        public GameObject selectableTitle;
+        public GameObject selectableMain;
+        public GameObject selectableSettings;
+        public GameObject selectablePlayerSelection;
+        public GameObject selectableManual;
+        public GameObject selectableCredits;
+
         public GameObject backgroundTitle;
         public GameObject backgroundCredits;
 
@@ -128,26 +135,26 @@ namespace GnomeGardeners
             switch (panel)
             {
                 case MenuPanel.Title:
-                    StartCoroutine(TransitionIntoPanel(panelTitle, backgroundTitle));
+                    StartCoroutine(TransitionIntoPanel(panelTitle, selectableTitle, backgroundTitle));
 
                     break;
                 case MenuPanel.Main:
-                    StartCoroutine(TransitionIntoPanel(panelMain));
+                    StartCoroutine(TransitionIntoPanel(panelMain, selectableMain));
 
                     break;
                 case MenuPanel.Settings:
-                    StartCoroutine(TransitionIntoPanel(panelSettings));
+                    StartCoroutine(TransitionIntoPanel(panelSettings, selectableSettings));
 
                     break;
                 case MenuPanel.GnomeSelection:
-                    StartCoroutine(TransitionIntoPanel(panelPlayerSelection));
+                    StartCoroutine(TransitionIntoPanel(panelPlayerSelection, selectablePlayerSelection));
 
                     break;
                 case MenuPanel.Credits:
-                    StartCoroutine(TransitionIntoPanel(panelCredits, backgroundCredits));
+                    StartCoroutine(TransitionIntoPanel(panelCredits, selectableCredits, backgroundCredits));
                     break;
                 case MenuPanel.Manual:
-                    StartCoroutine(TransitionIntoPanel(panelManual));
+                    StartCoroutine(TransitionIntoPanel(panelManual, selectableManual));
                     break;
             }
 
@@ -173,7 +180,7 @@ namespace GnomeGardeners
             nextPanel = GameManager.Instance.SceneController.ActiveMenuPanel;
         }
 
-        private IEnumerator TransitionIntoPanel(GameObject panel, GameObject background = null)
+        private IEnumerator TransitionIntoPanel(GameObject panel, GameObject selectable, GameObject background = null)
         {
             transition.SetTrigger("FadeIn");
 
@@ -182,7 +189,7 @@ namespace GnomeGardeners
             DeactivateAllPanels();
 
             panel.SetActive(true);
-            eventSystem.SetSelectedGameObject(panel.transform.GetChild(0).gameObject);
+            eventSystem.SetSelectedGameObject(selectable);
 
             if (background != null)
                 background.SetActive(true);
