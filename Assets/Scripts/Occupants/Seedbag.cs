@@ -54,6 +54,7 @@ namespace GnomeGardeners
             ClearPopUp();
             popUp = null;
             var seed = seedQueue.Dequeue();
+            AddSeedToQueue();
             return seed;
         }
 
