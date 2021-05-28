@@ -34,7 +34,7 @@ namespace GnomeGardeners
             popUpAnimator.SetBool("EndPopUp", true);
         }
 
-        private void OnEnable()
+        private void OnDisable()
         {
             if (iconAnimator != null)
                 iconAnimator.speed = 1f;

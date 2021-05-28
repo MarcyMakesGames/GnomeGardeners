@@ -40,7 +40,10 @@ namespace GnomeGardeners
         {
             isEquipping = false;
             cell = targetCell;
-            if (targetCell.Occupant != null) return;
+
+            if (targetCell.Occupant != null) 
+                return;
+
             transform.position = targetCell.WorldPosition;
             gameObject.SetActive(true);
             isEquipped = false;
