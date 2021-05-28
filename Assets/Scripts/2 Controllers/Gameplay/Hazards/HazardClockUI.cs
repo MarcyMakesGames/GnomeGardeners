@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,11 +14,21 @@ namespace GnomeGardeners
         public Transform posRight;
 
         private HazardEventChannelSO OnNextHazard;
+        private VoidEventChannelSO OnLevelStartEvent;
+
+        private List<GameObject> allIcons;
 
         private void Awake()
         {
             OnNextHazard = Resources.Load<HazardEventChannelSO>("Channels/NextHazardEC");
+            OnLevelStartEvent = Resources.Load<VoidEventChannelSO>("Channels/LevelStartEC");
             OnNextHazard.OnEventRaised += SpawnHazardIcon;
+            OnLevelStartEvent.OnEventRaised += DeleteAllIcons;
+        }
+
+        private void Start()
+        {
+            allIcons = new List<GameObject>();
         }
 
         private void OnDestroy()
@@ -32,6 +43,7 @@ namespace GnomeGardeners
             image.sprite = icon;
             image.SetNativeSize();
             var spawnedGO = Instantiate(gameObjectToSpawn, posRight.position, gameObjectToSpawn.transform.rotation, transform.GetChild(1));
+            allIcons.Add(spawnedGO);
             StartCoroutine(MoveAcross(spawnedGO, delay, duration));
         }
 
@@ -61,6 +73,16 @@ namespace GnomeGardeners
                 yield return new WaitForEndOfFrame();
             }
             Destroy(objectToMove);
+        }
+
+        private void DeleteAllIcons()
+        {
+            foreach (GameObject icon in allIcons)
+            {
+                Destroy(icon);
+            }
+
+            allIcons.Clear();
         }
 
     }
