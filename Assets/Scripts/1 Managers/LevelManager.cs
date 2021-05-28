@@ -99,7 +99,10 @@ namespace GnomeGardeners
 
         private IEnumerator LoadLevel(GameObject level)
         {
-            if(currentLevel)
+            GameManager.Instance.PoolController.SetPoolObjectsInactive();
+
+
+            if (currentLevel)
                 Destroy(currentLevel.gameObject);
 
             yield return new WaitForSeconds(1f);

@@ -58,6 +58,7 @@ namespace GnomeGardeners
 
         private void OnDestroy()
         {
+            GameManager.Instance.PoolController.SetPoolObjectsInactive();
             OnScoreAddEvent.OnEventRaised -= AddToScore;
         }
 
