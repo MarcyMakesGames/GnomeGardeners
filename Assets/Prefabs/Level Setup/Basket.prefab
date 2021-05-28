@@ -97,9 +97,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a740ca158707bd4fa781b938e9dc1e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popUpOffset: {x: 1, y: 1.5, z: 0}
   popUpDuration: 1
   multiCellObject: 1
-  popUpOffset: {x: 1, y: 1.5, z: 0}
+  emptyBasket: {fileID: 1138040578979878752, guid: 527f1bda0ae26034a8893297602c2685, type: 3}
+  halfFullBasket: {fileID: 5881114374048621850, guid: 527f1bda0ae26034a8893297602c2685, type: 3}
+  fullBasket: {fileID: -3522539292035820487, guid: 527f1bda0ae26034a8893297602c2685, type: 3}
   OnScoreAddEvent: {fileID: 11400000, guid: a68c2ea3e5fbae84f908fe3641f20650, type: 2}
 --- !u!61 &8189713993415771254
 BoxCollider2D:

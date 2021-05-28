@@ -80,6 +80,18 @@ namespace GnomeGardeners
         {
             return currentLevel.HasBeenCompleted;
         }
+
+        public int ScoreAmountForBasket()
+        {
+            if (currentLevel == null) return 0;
+            if (currentLevel.CurrentScore == 0)
+                return 0;
+            if (currentLevel.CurrentScore > 0)
+                return 1;
+            if (currentLevel.CurrentScore > currentLevel.requiredScore)
+                return 2;
+            return 0;
+        }
         
         #endregion
         
