@@ -26,6 +26,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.0001, y: 0.0001}
   m_EdgeRadius: 0
+--- !u!61 &8707539974599757856
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5666970385780053137}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.7, y: 0.7}
+  m_EdgeRadius: 0
 --- !u!114 &1516887181455856023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38,9 +64,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a660ed945ad894ea3c0a9a758aa0f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popUpOffset: {x: 0.9, y: 1, z: 0}
   popUpDuration: 0
   multiCellObject: 0
-  popUpOffset: {x: 0.9, y: 1, z: 0}
   icon: {fileID: 21300000, guid: f9ad2fb6f023aaf4bb1d7ac41efc73bd, type: 3}
 --- !u!1001 &7075721084065364632
 PrefabInstance:
@@ -107,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4915783222437946974, guid: a4c01c0d971ce554c928566ccad59364, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.076
+      value: 0.047
       objectReference: {fileID: 0}
     - target: {fileID: 4915783222437946974, guid: a4c01c0d971ce554c928566ccad59364, type: 3}
       propertyPath: m_LocalPosition.y
