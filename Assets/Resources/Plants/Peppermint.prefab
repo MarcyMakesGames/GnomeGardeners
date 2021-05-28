@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &91581230841265698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,6 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d36f0eae487c9244ab6651f5f080723, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popUpOffset: {x: 0, y: 0, z: 0}
+  popUpDuration: 1
   multiCellObject: 0
   spriteRenderer: {fileID: 6781855766866969407}
   OnTileChanged: {fileID: 11400000, guid: 5c9235811ee9890478b55b3f6e2e720a, type: 2}
