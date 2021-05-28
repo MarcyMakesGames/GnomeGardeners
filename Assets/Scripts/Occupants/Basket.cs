@@ -8,13 +8,16 @@ namespace GnomeGardeners
     {
         private bool debug = false;
 
-        private Sprite[] plants;
+        [SerializeField] private Sprite emptyBasket;
+        [SerializeField] private Sprite halfFullBasket;
+        [SerializeField] private Sprite fullBasket;
+        
         private int plantCount;
         private AudioSource basketSource;
+        private SpriteRenderer spriteRenderer;
 
         public IntEventChannelSO OnScoreAddEvent;
 
-        public Sprite[] Plants { set => plants = value; }
         public GameObject AssociatedObject { get => gameObject; }
 
 
@@ -25,12 +28,15 @@ namespace GnomeGardeners
         {
             base.Start();
             basketSource = GetComponent<AudioSource>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         protected override void Update()
         {
             base.Update();
+            UpdateSprites();
         }
+        
         #endregion
 
         #region Public Methods
@@ -57,9 +63,20 @@ namespace GnomeGardeners
         #endregion
 
         #region Private Methods
-        private void AddSprite(Sprite sprite)
+        private void UpdateSprites()
         {
-            plants[plantCount] = sprite;
+            switch (GameManager.Instance.LevelManager.ScoreAmountForBasket())
+            {
+                case 0:
+                    spriteRenderer.sprite = emptyBasket;
+                    break;
+                case 1:
+                    spriteRenderer.sprite = halfFullBasket;
+                    break;
+                case 2:
+                    spriteRenderer.sprite = fullBasket;
+                    break;
+            }
         }
 
         [ContextMenu("Debug: Add Score")]
