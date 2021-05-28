@@ -83,7 +83,7 @@ namespace GnomeGardeners
                 var spriteBeforeReturning = spriteInHand;
                 GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_tool_cutting_plant);
                 ClearPopUp();
-                ReturnToPool();
+                Destroy(gameObject);
 
                 return new Harvest(points, spriteBeforeReturning);
             }
@@ -107,9 +107,9 @@ namespace GnomeGardeners
         public void RemoveFromCell()
         {
             RemoveOccupantFromCells();
-            ReturnToPool();
             ClearPopUp();
             GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_plants_snapping, audioSource);
+            Destroy(gameObject);
         }
 
         public void PlantSeed(GridCell cell)
