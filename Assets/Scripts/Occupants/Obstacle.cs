@@ -12,12 +12,14 @@ namespace GnomeGardeners
         [SerializeField] private bool canBeRemoved = true;
         [SerializeField] private int numberOfHits = 3;
         [Header("Programmers")]
-        [SerializeField] private Sprite spriteOnSoil;
-        [SerializeField] private Sprite spriteOnRest;
+        [SerializeField] private GameObject onSoil;
+        [SerializeField] private GameObject onRest;
 
         private GridCell cell;
-        private SpriteRenderer spriteRenderer;
         private AudioSource audioSource;
+        private SpriteRenderer spriteRenderer;
+        private Animator animator;
+        private bool isDestroyed;
 
         private int hitCounter;
         public GameObject AssociatedObject => gameObject;
@@ -29,22 +31,27 @@ namespace GnomeGardeners
             base.Start();
             cell = GameManager.Instance.GridManager.GetClosestCell(transform.position);
             hitCounter = 1;
-            spriteRenderer = GetComponent<SpriteRenderer>();
             audioSource = GetComponent<AudioSource>();
-
 
             if (cell.GroundType.Equals(GroundType.ArableSoil) || cell.GroundType.Equals(GroundType.FallowSoil))
             {
-                spriteRenderer.sprite = spriteOnSoil;
+                onSoil.SetActive(true);
+                animator = onSoil.GetComponent<Animator>();
             }
             else
             {
-                spriteRenderer.sprite = spriteOnRest;
+                onRest.SetActive(true);
+                animator = onRest.GetComponent<Animator>();
             }
+
+            spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = null;
         }
         protected override void Update()
         {
             base.Update();
+            if(isDestroyed)
+                Destroy(gameObject);
         }
         #endregion
 
@@ -58,10 +65,11 @@ namespace GnomeGardeners
             if (hitCounter < numberOfHits)
             {
                 ++hitCounter;
+                animator.Play("rock_hitting");
             }
             else
             {
-                gameObject.SetActive(false);
+                animator.Play("rock_breaking");
                 var gridPosition = GameManager.Instance.GridManager.GetClosestCell(transform.position).GridPosition;
                 GameManager.Instance.GridManager.ChangeTileOccupant(gridPosition, null);
                 DebugLogger.Log(this, "Obstacle removed.");
@@ -72,6 +80,11 @@ namespace GnomeGardeners
         public override void FailedInteraction()
         {
             throw new System.NotImplementedException();
+        }
+
+        public void SetDestroyed()
+        {
+            isDestroyed = true;
         }
 
         #endregion
