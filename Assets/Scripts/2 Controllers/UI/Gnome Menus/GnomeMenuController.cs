@@ -12,6 +12,7 @@ namespace GnomeGardeners
         [SerializeField] private Button readyButton;
         [SerializeField] private Image gnomeImage;
         [SerializeField] private Image playerIcon;
+        [SerializeField] private bool Player1;
         private GnomeSelectorController gnomeSelector;
         private GnomeSkinObject gnomeSkin;
         private int playerIndex = -1;
@@ -29,12 +30,16 @@ namespace GnomeGardeners
             readyButton.GetComponentInChildren<TMP_Text>().color = Color.white;
             isReady = false;
 
-            if (playerIndex == 0)
+            if (playerIndex == 0 || Player1)
             {
-                Debug.Log("Here.");
+                playerIndex = 0;
                 GameManager.Instance.PlayerConfigManager.PlayerConfigs[0].Input.uiInputModule = GetComponent<InputSystemUIInputModule>();
                 GetComponent<InputSystemUIInputModule>().enabled = true;
                 gnomeImage.enabled = true;
+
+                if (gnomeSkin == null)
+                    gnomeSkin = gnomeSelector.GetNextGnome();
+
                 gnomeImage.sprite = gnomeSkin.GnomeSprite;
             }
         }
