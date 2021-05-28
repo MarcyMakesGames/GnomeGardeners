@@ -2090,7 +2090,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5080507921079019084}
   - component: {fileID: 8322528547383322476}
-  - component: {fileID: 3940361496283783546}
   m_Layer: 0
   m_Name: 2 Hazards
   m_TagString: Untagged
@@ -2135,22 +2134,6 @@ MonoBehaviour:
   availableTime: 420
   requiredScore: 200
   tutorialMenu: {fileID: 6235868592027975887, guid: cb58f6c11ddce4c49a57ac8b5119e339, type: 3}
---- !u!114 &3940361496283783546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3855336070834662954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 274adf2505b367e41a078df400d8f853, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activateWind: 1
-  minMaxFrequency: {x: 0.54, y: 0.9958506}
-  minVelocity: {x: -1, y: -1}
-  maxVelocity: {x: 0, y: 0}
 --- !u!1 &3873925282911433903
 GameObject:
   m_ObjectHideFlags: 0
@@ -4942,11 +4925,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8657662565536267388, guid: df8de5660cc19304da9f8d2861f00228, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.38
+      value: 12.78
       objectReference: {fileID: 0}
     - target: {fileID: 8657662565536267388, guid: df8de5660cc19304da9f8d2861f00228, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.66
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8657662565536267388, guid: df8de5660cc19304da9f8d2861f00228, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5004,7 +4987,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3852253707645664778, guid: 67d8db37efd8ee2459c5fc257d39d35a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3852253707645664778, guid: 67d8db37efd8ee2459c5fc257d39d35a, type: 3}
       propertyPath: m_LocalRotation.w

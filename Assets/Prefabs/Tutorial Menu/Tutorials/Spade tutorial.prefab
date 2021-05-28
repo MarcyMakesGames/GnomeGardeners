@@ -24,12 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 940119266618267332}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.52285767, y: -25.510025, z: 0}
+  m_LocalPosition: {x: 0.52285767, y: 53, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8172602475528222033}
   - {fileID: 4948912298484509865}
   - {fileID: 6124774124596651314}
+  - {fileID: 5029671769382287462}
   m_Father: {fileID: 4779677631713155840}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -52,7 +53,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5029671769382287462
 RectTransform:
   m_ObjectHideFlags: 0
@@ -174,8 +175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &2011043955001181258
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,8 +317,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &2549606317688783054
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,8 +459,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &3976377369373027201
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,8 +602,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &4278020021743052111
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,8 +745,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &6538727164443901180
 GameObject:
   m_ObjectHideFlags: 0
@@ -886,8 +887,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &6677890513186091165
 GameObject:
   m_ObjectHideFlags: 0

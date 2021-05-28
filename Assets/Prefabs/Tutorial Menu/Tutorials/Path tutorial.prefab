@@ -215,8 +215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &1631803064125885789
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,8 +357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &2110879964024912130
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,8 +499,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &2543038596170761230
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,8 +642,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &4777726792139646408
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,8 +785,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &4874540726510995679
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,8 +928,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &5352955148390751344
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,8 +1070,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &5862579489797644666
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,8 +1248,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1001 &9220253194163349251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1368,6 +1368,10 @@ PrefabInstance:
     - target: {fileID: 7222092031544565968, guid: 46d83095abc16b34cad1925ce94bdabb, type: 3}
       propertyPath: m_Name
       value: Path tutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 7356642869554475273, guid: 46d83095abc16b34cad1925ce94bdabb, type: 3}
+      propertyPath: m_text
+      value: 450
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46d83095abc16b34cad1925ce94bdabb, type: 3}
