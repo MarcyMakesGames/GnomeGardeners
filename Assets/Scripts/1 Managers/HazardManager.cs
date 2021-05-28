@@ -6,32 +6,23 @@ namespace GnomeGardeners
 {
     public class HazardManager : MonoBehaviour
     {
-        [SerializeField]
-        private List<HazardSO> hazards;
-        [SerializeField]
-        private bool randomizeHazards;
-        [SerializeField]
-        private float timeToFirstHazard;
-        [SerializeField]
-        private List<Transform> spawnLocations;
-        [SerializeField]
-        private List<Transform> despawnLocations;
+        [SerializeField] private List<HazardSO> hazards;
+        [SerializeField] private float timeToFirstHazard;
+        [SerializeField] private List<Transform> spawnLocations;
+        [SerializeField] private List<Transform> despawnLocations;
 
         private int spawnDespawnIndex;
         private float timeBetweenHazards;
-        private int currentHazardIndex = 0;
+        private int nextHazardIndex;
         private float currentHazardTimer = 0f;
         private bool isSpawningHazards = true;
         private Vector3 movementModifier;
         private HazardSO nextHazard;
         private HazardSO currentHazard;
 
-        public ScriptableObject CurrentHazard { get => hazards[currentHazardIndex]; }
+        public ScriptableObject CurrentHazard { get => hazards[nextHazardIndex]; }
         public Vector3 MovementModifier { get => movementModifier; set => movementModifier = value; }
-
-        public delegate void OnHazardChange();
-        public event OnHazardChange HazardChanged;
-
+        
         private HazardEventChannelSO OnNextHazard;
 
         private VoidEventChannelSO OnLevelStart;
@@ -55,27 +46,20 @@ namespace GnomeGardeners
 
         private void Start()
         {
+            nextHazardIndex = 0;
             if (isSpawningHazards)
             {
                 currentHazardTimer = GameManager.Instance.Time.ElapsedTime;
-                if (randomizeHazards)
-                    nextHazard = GetRandomHazard();
-                else
-                    nextHazard = GetNextHazard();
-
+                nextHazard = hazards[nextHazardIndex];
             }
 
             OnLevelStart.OnEventRaised += RaiseFirstHazardEvent;
         }
 
-
-
         private void Update()
         {
             if (isSpawningHazards)
-            {
                 HazardCountdown();
-            }
         }
 
         private void OnDisable()
@@ -86,7 +70,6 @@ namespace GnomeGardeners
             OnLevelStart.OnEventRaised -= RaiseFirstHazardEvent;
             GameManager.Instance.HazardManager = null;
         }
-
 
         #endregion
 
@@ -99,60 +82,21 @@ namespace GnomeGardeners
                 return;
             }
 
-            if (!randomizeHazards && currentHazardIndex >= hazards.Count)
-                return; 
-
             if (GameManager.Instance.Time.GetTimeSince(currentHazardTimer) >= timeBetweenHazards)
             {
                 currentHazard = nextHazard;
-                if(randomizeHazards)
-                {
-                    nextHazard.SpawnHazard(GetRandomSpawn(), GetRandomDespawn());
-                    timeBetweenHazards = hazards[currentHazardIndex].HazardDuration;
-                    currentHazardIndex++;
-                    nextHazard = GetRandomHazard();
-                }
+                currentHazard.SpawnHazard(GetRandomSpawn(), GetRandomDespawn());
+                if (nextHazardIndex >= hazards.Count - 1)
+                    nextHazardIndex = 0;
                 else
-                {
-                    nextHazard.SpawnHazard(GetRandomSpawn(), GetRandomDespawn());
-                    timeBetweenHazards = hazards[currentHazardIndex].HazardDuration;
-                    currentHazardIndex++;
-                    nextHazard = GetNextHazard();
-                }
-                OnNextHazard.RaiseEvent(nextHazard.Icon, nextHazard.HazardDuration, currentHazard.HazardDuration);
+                    nextHazardIndex++;
+                nextHazard = hazards[nextHazardIndex];
+                timeBetweenHazards = nextHazard.HazardDuration;
+                OnNextHazard.RaiseEvent(nextHazard.Icon, timeBetweenHazards, currentHazard.HazardDuration);
                 currentHazardTimer = GameManager.Instance.Time.ElapsedTime;
             }
         }
-
-        private void Configure()
-        {
-            if (GameManager.Instance.HazardManager == null)
-            {
-                GameManager.Instance.HazardManager = this;
-            }
-            OnLevelStart.OnEventRaised += StartSpawningHazards;
-            OnLevelLose.OnEventRaised += StopSpawningHazards;
-            OnLevelWin.OnEventRaised += StopSpawningHazards;
-        }
-        private void Dispose()
-        {
-            OnLevelStart.OnEventRaised -= StartSpawningHazards;
-            OnLevelLose.OnEventRaised -= StopSpawningHazards;
-            OnLevelWin.OnEventRaised -= StopSpawningHazards;
-            OnLevelStart.OnEventRaised -= RaiseFirstHazardEvent;
-        }
-
-        private HazardSO GetRandomHazard()
-        {
-            currentHazardIndex = Random.Range(0, hazards.Count);
-            return hazards[currentHazardIndex];
-        }
-
-        private HazardSO GetNextHazard()
-        {
-            return hazards[currentHazardIndex];
-        }
-
+        
         private Vector3 GetRandomSpawn()
         {
             spawnDespawnIndex = Random.Range(0, spawnLocations.Count);
