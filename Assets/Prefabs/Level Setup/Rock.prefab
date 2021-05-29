@@ -132,7 +132,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &3274368122619751775
 Animator:
   serializedVersion: 3
@@ -217,6 +217,14 @@ PrefabInstance:
     - target: {fileID: -2070913106706311245, guid: def6f6fe412a3bd42a2413fcf9d324b7, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -824024067822480578, guid: def6f6fe412a3bd42a2413fcf9d324b7, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -824024067822480578, guid: def6f6fe412a3bd42a2413fcf9d324b7, type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4423000521895436171, guid: def6f6fe412a3bd42a2413fcf9d324b7, type: 3}
       propertyPath: m_RootOrder
@@ -347,6 +355,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6979724330021013366}
     m_Modifications:
+    - target: {fileID: -6088592174924853770, guid: e7da08a6a43787346aa8a9ec376c1258, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6088592174924853770, guid: e7da08a6a43787346aa8a9ec376c1258, type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 448564929643628963, guid: e7da08a6a43787346aa8a9ec376c1258, type: 3}
       propertyPath: m_Name
       value: stones
@@ -401,11 +417,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8073936496009112016, guid: e7da08a6a43787346aa8a9ec376c1258, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: 0.0018671453
+      value: 0.0018669367
       objectReference: {fileID: 0}
     - target: {fileID: 8073936496009112016, guid: e7da08a6a43787346aa8a9ec376c1258, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: -0.003874898
+      value: 0.33987507
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073936496009112016, guid: e7da08a6a43787346aa8a9ec376c1258, type: 3}
+      propertyPath: m_Bounds.m_Center.z
+      value: -0.000000010129066
       objectReference: {fileID: 0}
     - target: {fileID: 8073936496009112016, guid: e7da08a6a43787346aa8a9ec376c1258, type: 3}
       propertyPath: m_Bounds.m_Extent.x
@@ -413,7 +433,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8073936496009112016, guid: e7da08a6a43787346aa8a9ec376c1258, type: 3}
       propertyPath: m_Bounds.m_Extent.y
-      value: 0.3387579
+      value: 0.33875784
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073936496009112016, guid: e7da08a6a43787346aa8a9ec376c1258, type: 3}
+      propertyPath: m_Bounds.m_Extent.z
+      value: 0.0000000100957696
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: -6250132805525327867, guid: e7da08a6a43787346aa8a9ec376c1258, type: 3}
