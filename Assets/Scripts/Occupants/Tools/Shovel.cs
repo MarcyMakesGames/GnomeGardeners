@@ -59,7 +59,7 @@ namespace GnomeGardeners
                 {
                     DebugLogger.Log(this, "ArableSoil found!");
                     // var seedObject = GameManager.Instance.PoolController.GetObjectFromPool(cell.transform.position, Quaternion.Euler(-20f, 0f, 0f), seed.plantKey);
-                    var seedObject = Instantiate(seed.prefab, cell.transform.position, seed.prefab.transform.rotation);
+                    var seedObject = Instantiate(seed.prefab, cell.transform.position, seed.prefab.transform.rotation, cell.transform);
                     seed = null;
                     seedObject.GetComponent<Plant>().PlantSeed(cell);
                     GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_spade_digging, audioSource);
