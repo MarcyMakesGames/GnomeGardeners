@@ -91,15 +91,15 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: Grass
+  - name: Flower
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 57
-      y: 56
+      x: 4
+      y: 4
       width: 28
       height: 11
     spriteID: 461ed7f9352759b4aa564a4c42388474
@@ -112,119 +112,32 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 40, y: 53}
-  - name: Stem
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 57
-      y: 4
-      width: 30
-      height: 44
-    spriteID: fc8e50af0109cfa40bc951a85c119e3f
-    internalID: 0
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: 57, y: -1}
-  - name: Flower
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 82
-      width: 36
-      height: 41
-    spriteID: c29ce548c11e77d47a050a2bfa910a24
-    internalID: 0
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: -5, y: 53}
-  - name: Background
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 4
-      width: 45
-      height: 70
-    spriteID: cc65e36f2d3e0bf43b9dcce772438981
-    internalID: 0
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: 4, y: 4}
+    uvTransform: {x: 4, y: 1}
   platformSettings: []
   mosaicLayers: 1
   documentPivot: {x: 0, y: 0}
   documentAlignment: 7
   importHiddenLayers: 0
-  importedTextureWidth: 128
+  importedTextureWidth: 64
   importedTextureHeight: 128
   documentSize: {x: 45, y: 70}
   paperDollMode: 0
   keepDupilcateSpriteName: 0
   spriteCategoryList:
     categories: []
-  textureActualWidth: 128
+  textureActualWidth: 64
   textureActualHeight: 128
   spritePackingTag: 
   resliceFromLayer: 0
   characterMode: 1
   mosaicPSDLayers: []
   rigPSDLayers:
-  - name: Grass
-    spriteName: Grass
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 461ed7f9352759b4aa564a4c42388474
-    layerID: 4
-    mosaicPosition: {x: 57, y: 56}
-  - name: Stem
-    spriteName: Stem
-    isGroup: 0
-    parentIndex: -1
-    spriteID: fc8e50af0109cfa40bc951a85c119e3f
-    layerID: 3
-    mosaicPosition: {x: 57, y: 4}
   - name: Flower
     spriteName: Flower
     isGroup: 0
     parentIndex: -1
-    spriteID: c29ce548c11e77d47a050a2bfa910a24
-    layerID: 2
-    mosaicPosition: {x: 4, y: 82}
-  - name: Background
-    spriteName: Background
-    isGroup: 0
-    parentIndex: -1
-    spriteID: cc65e36f2d3e0bf43b9dcce772438981
-    layerID: 1
+    spriteID: 461ed7f9352759b4aa564a4c42388474
+    layerID: 4
     mosaicPosition: {x: 4, y: 4}
   characterData:
     bones: []
