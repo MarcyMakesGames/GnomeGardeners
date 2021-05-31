@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5469634743903904692}
   - component: {fileID: 1862915894124230412}
   - component: {fileID: 4037780704931404766}
+  - component: {fileID: 9016784687156848834}
   m_Layer: 0
   m_Name: Stars
   m_TagString: Untagged
@@ -40,13 +41,13 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2483832564310143117}
   serializedVersion: 7
-  lengthInSec: 3
+  lengthInSec: 1.5
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -168,7 +169,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.5
+      scalar: 5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1048,8 +1049,8 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 1
-          value: 0.66216403
+          time: 0.42653066
+          value: 0
           inSlope: -0.12094582
           outSlope: -0.12094582
           tangentMode: 0
@@ -1072,8 +1073,8 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 1
-          value: 0.18919182
+          time: 0.21327192
+          value: 0
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -4862,3 +4863,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &9016784687156848834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2483832564310143117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d475d774308511145800b2f16edc8b35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
