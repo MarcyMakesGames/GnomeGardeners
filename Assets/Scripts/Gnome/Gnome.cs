@@ -18,7 +18,6 @@ namespace GnomeGardeners
         [SerializeField] private float slowdownFactor = 0.01f;
         [SerializeField] private float speedUpTime = .5f;
         [SerializeField] private float interactRange = 1f;
-        [SerializeField] private float dropRange = 1f;
         [SerializeField] private int inputFramesCapacity = 10;
 
         [Header("Programmers")]
@@ -43,7 +42,7 @@ namespace GnomeGardeners
         private Tool tool;
         private float moveSpeed;
         private Vector2 moveDir;
-        private Vector2 lookDir;
+        private Vector2 interactDir;
         private GnomeInput inputs;
         private GridCell currentCell;
         private Rigidbody2D rigidBody;
@@ -56,6 +55,11 @@ namespace GnomeGardeners
         private float currentSpeedUpTimer;
         private GroundType currentGroundType;
         private Vector2Int previousGridPosition;
+
+        private Animator animatorBack;
+        private Animator animatorRight;
+        private Animator animatorFront;
+        private Animator animatorLeft;
 
         private Queue<Vector2> inputFrames;
         private SpriteResolver[] resolvers = new SpriteResolver[4];
@@ -70,6 +74,18 @@ namespace GnomeGardeners
         private void Awake()
         {
             inputs = new GnomeInput();
+        }
+
+        private void Start()
+        {
+            if (isTestGnome)
+            {
+                var testPlayerInput = GetComponent<PlayerInput>();
+                var testPlayerConfig = new PlayerConfig(testPlayerInput);
+                InitializePlayer(testPlayerConfig);
+                testPlayerInput.uiInputModule = FindObjectOfType<InputSystemUIInputModule>();
+            }
+            moveSpeed = minimumSpeed;
             rigidBody = GetComponent<Rigidbody2D>();
             audioSource = GetComponent<AudioSource>();
             receiveGameInput = true;
@@ -92,18 +108,12 @@ namespace GnomeGardeners
             toolRenderers[2] = toolRendererLeft;
             toolRenderers[3] = toolRendererRight;
             SetAllResolvers("tools", "nada");
-        }
-
-        private void Start()
-        {
-            if (isTestGnome)
-            {
-                var testPlayerInput = GetComponent<PlayerInput>();
-                var testPlayerConfig = new PlayerConfig(testPlayerInput);
-                InitializePlayer(testPlayerConfig);
-                testPlayerInput.uiInputModule = FindObjectOfType<InputSystemUIInputModule>();
-            }
-            moveSpeed = minimumSpeed;
+            
+            animatorBack = gnomeBack.GetComponent<Animator>();
+            animatorRight = gnomeRight.GetComponent<Animator>();
+            animatorFront = gnomeFront.GetComponent<Animator>();
+            animatorLeft = gnomeLeft.GetComponent<Animator>();
+            currentAnimator = animatorFront;
 
             OnPlayerEquippingToolEvent = Resources.Load<IntEventChannelSO>("Channels/PlayerEquippingToolEC");
             OnToolUnequippedByPlayerEvent = Resources.Load<IntEventChannelSO>("Channels/ToolUnequippedByPlayerEC");
@@ -121,7 +131,7 @@ namespace GnomeGardeners
 
             Move();
 
-            CalculateLookDir();
+            CalculateInteractDir();
         }
 
         private void Update()
@@ -215,40 +225,49 @@ namespace GnomeGardeners
 
         private void UpdateAnimation()
         {
-            if (lookDir.y < 0)
+            var gnomeLooksDown = moveDir.x == 0f && moveDir.y < 0f;
+            var gnomeLooksLeft = moveDir.x < 0f && moveDir.y == 0f;
+            var gnomeLooksUp = moveDir.x == 0f && moveDir.y > 0f;
+            var gnomeLooksRight = moveDir.x > 0f && moveDir.y == 0f;
+            
+            if (gnomeLooksDown)
             {
                 gnomeFront.SetActive(true);
                 gnomeLeft.SetActive(false);
                 gnomeBack.SetActive(false);
                 gnomeRight.SetActive(false);
-                currentAnimator = gnomeFront.GetComponent<Animator>();
+                if (animatorFront != currentAnimator)
+                    currentAnimator = animatorFront;
                 currentPrefix = "front";
             }
-            else if (lookDir.y == 0 && lookDir.x < 0)
+            else if (gnomeLooksLeft)
             {
                 gnomeFront.SetActive(false);
                 gnomeLeft.SetActive(true);
                 gnomeBack.SetActive(false);
                 gnomeRight.SetActive(false);
-                currentAnimator = gnomeLeft.GetComponent<Animator>();
+                if (animatorLeft != currentAnimator)
+                    currentAnimator = animatorLeft;
                 currentPrefix = "left";
             }
-            else if (lookDir.y > 0)
+            else if (gnomeLooksUp)
             {
                 gnomeFront.SetActive(false);
                 gnomeLeft.SetActive(false);
                 gnomeBack.SetActive(true);
                 gnomeRight.SetActive(false);
-                currentAnimator = gnomeBack.GetComponent<Animator>();
+                if (animatorBack!= currentAnimator)
+                    currentAnimator = animatorBack;
                 currentPrefix = "back";
             }
-            else
+            else if(gnomeLooksRight)
             {
                 gnomeFront.SetActive(false);
                 gnomeLeft.SetActive(false);
                 gnomeBack.SetActive(false);
                 gnomeRight.SetActive(true);
-                currentAnimator = gnomeRight.GetComponent<Animator>();
+                if (animatorRight != currentAnimator)
+                    currentAnimator = animatorRight;
                 currentPrefix = "right";
             }
 
@@ -257,10 +276,10 @@ namespace GnomeGardeners
             else
                 currentAnimator.SetBool("IsWalking", false);
         }
-
+        
         private void HighlightInteractionCell()
         {
-            var interactionPosition = (Vector2)transform.position + lookDir * interactRange;
+            var interactionPosition = (Vector2)transform.position + interactDir * interactRange;
             interactionCell = GameManager.Instance.GridManager.GetClosestCell(interactionPosition);
             GameManager.Instance.GridManager.HighlightTile(interactionCell.GridPosition, previousGridPosition);
             previousGridPosition = interactionCell.GridPosition;
@@ -333,7 +352,7 @@ namespace GnomeGardeners
             }
         }
 
-        private void CalculateLookDir()
+        private void CalculateInteractDir()
         {
             if (moveDir == Vector2.zero) return;
 
@@ -342,7 +361,7 @@ namespace GnomeGardeners
 
             Vector2[] vectors = new Vector2[inputFramesCapacity];
             vectors = inputFrames.ToArray();
-            lookDir = new Vector2(
+            interactDir = new Vector2(
             vectors.Average(x => x.x),
             vectors.Average(x => x.y));
         }
@@ -370,9 +389,7 @@ namespace GnomeGardeners
 
             if (tool != null && occupant == null) // Unequip
             {
-                var dropPosition = transform.position + (Vector3)lookDir * dropRange;
-                var dropCell = GameManager.Instance.GridManager.GetClosestCell(dropPosition);
-                tool.Unequip(dropCell);
+                tool.Unequip(interactionCell);
                 tool.PlayCorrespondingAnimation(currentAnimator, currentPrefix);
                 tool = null;
                 SetAllResolvers("tools", "nada");
