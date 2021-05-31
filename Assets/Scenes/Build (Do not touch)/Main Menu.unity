@@ -128,17 +128,6 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 7949309254691934398, guid: cffdec9bd4dd2c74ab1be22b3bc34874, type: 3}
   m_PrefabInstance: {fileID: 1181776330}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &509626312 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2930375108493438759, guid: 576133da3dfed5547b7bf7c80ae857ec, type: 3}
-  m_PrefabInstance: {fileID: 2930375108722010351}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &857781063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -546,17 +535,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cffdec9bd4dd2c74ab1be22b3bc34874, type: 3}
---- !u!114 &1434351493 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4975076435574114657, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
-  m_PrefabInstance: {fileID: 2139691989}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b852b30c239187d46a011cfb7510f622, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1534738248 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7269598016506795679, guid: 847bfef918ccc9342a2a17ce678937d9, type: 3}
@@ -598,50 +576,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 277402378935686903, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
-      propertyPath: m_JoinBehavior
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 277402378935686903, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
-      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 277402378935686903, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
-      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 277402378935686903, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
-      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1434351493}
-    - target: {fileID: 277402378935686903, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
-      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 277402378935686903, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
-      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: HandlePlayerLeft
-      objectReference: {fileID: 0}
-    - target: {fileID: 277402378935686903, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
-      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GnomeGardeners.PlayerConfigManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 277402378935686903, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
-      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 1571887784945383672, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 116896548}
-    - target: {fileID: 4975076435574114657, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
-      propertyPath: mainMenuInputUI
-      value: 
-      objectReference: {fileID: 509626312}
-    - target: {fileID: 4975076435574114657, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
-      propertyPath: mainMenuEventSystem
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6771955404163415833, guid: e691aaf49bd3f664e96d5da714e90c45, type: 3}
       propertyPath: m_RootOrder
       value: 5
