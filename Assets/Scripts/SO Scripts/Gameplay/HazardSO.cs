@@ -9,10 +9,10 @@ namespace GnomeGardeners
     {
         [SerializeField]
         private List<HazardElementSO> hazardElements;
-        private float hazardDuration = 0f;
+        private float duration = 0f;
         [SerializeField] private Sprite icon;
 
-        public float HazardDuration { get => hazardDuration; }
+        public float Duration { get => duration; }
         public Sprite Icon { get => icon; }
 
         public void SpawnHazard(Vector3 spawnLocation, Vector3 despawnLocation)
@@ -22,8 +22,8 @@ namespace GnomeGardeners
             {
                 element.SpawnElement(spawnLocation, despawnLocation);
 
-                if (hazardDuration == 0f || element.Duration > hazardDuration)
-                    hazardDuration = element.Duration;
+                if (duration == 0f || element.Duration > duration)
+                    duration = element.Duration;
             }
         }
     }

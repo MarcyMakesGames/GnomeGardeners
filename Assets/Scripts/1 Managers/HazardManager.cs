@@ -13,14 +13,18 @@ namespace GnomeGardeners
 
         private int spawnDespawnIndex;
         private float timeBetweenHazards;
-        private int nextHazardIndex;
+        private int spawnIterator;
         private float currentHazardTimer = 0f;
         private bool isSpawningHazards = true;
         private Vector3 movementModifier;
-        private HazardSO nextHazard;
         private HazardSO currentHazard;
 
-        public ScriptableObject CurrentHazard { get => hazards[nextHazardIndex]; }
+        private Queue<HazardSO> spawnQueue = new Queue<HazardSO>(2);
+        private Stack<HazardSO> despawnStack = new Stack<HazardSO>();
+        private HazardSO nextHazard;
+        private HazardSO secondNextHazard;
+
+        public ScriptableObject CurrentHazard { get => hazards[spawnIterator]; }
         public Vector3 MovementModifier { get => movementModifier; set => movementModifier = value; }
         
         private HazardEventChannelSO OnNextHazard;
@@ -46,11 +50,11 @@ namespace GnomeGardeners
 
         private void Start()
         {
-            nextHazardIndex = 0;
+            spawnIterator = 0;
             if (isSpawningHazards)
             {
                 currentHazardTimer = GameManager.Instance.Time.ElapsedTime;
-                nextHazard = hazards[nextHazardIndex];
+                SetupQueue();
             }
 
             OnLevelStart.OnEventRaised += RaiseFirstHazardEvent;
@@ -84,17 +88,40 @@ namespace GnomeGardeners
 
             if (GameManager.Instance.Time.GetTimeSince(currentHazardTimer) >= timeBetweenHazards)
             {
-                currentHazard = nextHazard;
-                currentHazard.SpawnHazard(GetRandomSpawn(), GetRandomDespawn());
-                if (nextHazardIndex >= hazards.Count - 1)
-                    nextHazardIndex = 0;
-                else
-                    nextHazardIndex++;
-                nextHazard = hazards[nextHazardIndex];
-                timeBetweenHazards = nextHazard.HazardDuration;
-                OnNextHazard.RaiseEvent(nextHazard.Icon, timeBetweenHazards, currentHazard.HazardDuration);
+                currentHazard = spawnQueue.Dequeue();
+                nextHazard = spawnQueue.Peek();
+                secondNextHazard = EnqueueHazard();
+                timeBetweenHazards = currentHazard.Duration;
+                
+                currentHazard.SpawnHazard(GetRandomSpawn(), GetRandomDespawn());               
+                OnNextHazard.RaiseEvent(nextHazard.Icon, nextHazard.Duration, currentHazard.Duration, secondNextHazard.Duration);   
+
+                
+                despawnStack.Push(currentHazard);
                 currentHazardTimer = GameManager.Instance.Time.ElapsedTime;
+                EnqueueHazard();
+
             }
+        }
+
+        private void SetupQueue()
+        {
+            EnqueueHazard();
+            nextHazard = spawnQueue.Peek();
+            secondNextHazard = EnqueueHazard();
+        }
+
+        private HazardSO EnqueueHazard()
+        {
+            var enqueuedHazard = hazards[spawnIterator];
+            spawnQueue.Enqueue(hazards[spawnIterator]);
+
+            if (spawnIterator >= hazards.Count - 1)
+                spawnIterator = 0;
+            else
+                spawnIterator++;
+
+            return enqueuedHazard;
         }
         
         private Vector3 GetRandomSpawn()
@@ -110,7 +137,7 @@ namespace GnomeGardeners
 
         private void RaiseFirstHazardEvent()
         {
-            OnNextHazard.RaiseEvent(nextHazard.Icon, nextHazard.HazardDuration, timeToFirstHazard);
+            OnNextHazard.RaiseEvent(nextHazard.Icon, nextHazard.Duration, timeToFirstHazard, secondNextHazard.Duration);
         }
 
         private void StartSpawningHazards() => isSpawningHazards = true;

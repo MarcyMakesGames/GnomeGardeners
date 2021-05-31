@@ -36,7 +36,7 @@ namespace GnomeGardeners
             OnNextHazard.OnEventRaised -= SpawnHazardIcon;
         }
 
-        private void SpawnHazardIcon(Sprite icon, float duration, float delay)
+        private void SpawnHazardIcon(Sprite icon, float duration, float enterTime, float exitTime)
         {
             var gameObjectToSpawn = new GameObject("Icon");
             var image = gameObjectToSpawn.AddComponent<Image>();
@@ -44,35 +44,28 @@ namespace GnomeGardeners
             image.SetNativeSize();
             var spawnedGO = Instantiate(gameObjectToSpawn, posRight.position, gameObjectToSpawn.transform.rotation, transform.GetChild(1));
             allIcons.Add(spawnedGO);
-            StartCoroutine(MoveAcross(spawnedGO, delay, duration));
+            StartCoroutine(MoveAcross(spawnedGO, duration, enterTime, exitTime));
         }
 
-        private IEnumerator MoveAcross(GameObject objectToMove, float delay, float duration)
+        private IEnumerator MoveAcross(GameObject objectToMove, float duration, float enterTime, float exitTime)
+        {
+            yield return StartCoroutine(Move(objectToMove, posRight.position, posStart.position, enterTime));
+            objectToMove.transform.position = posStart.position;
+            yield return StartCoroutine(Move(objectToMove, posStart.position, posEnd.position, duration));
+            objectToMove.transform.position = posEnd.position;
+            yield return StartCoroutine(Move(objectToMove, posEnd.position, posLeft.position, exitTime));
+            Destroy(objectToMove);
+        }
+
+        private IEnumerator Move(GameObject objectToMove, Vector3 from, Vector3 to, float time)
         {
             float elapsedTime = 0;
-            while (elapsedTime < delay)
+            while (elapsedTime < time)
             {
-                objectToMove.transform.position = Vector3.Lerp(posRight.position, posStart.position, (elapsedTime / delay));
+                objectToMove.transform.position = Vector3.Lerp(from, to, (elapsedTime / time));
                 elapsedTime += GameManager.Instance.Time.DeltaTime;
                 yield return new WaitForEndOfFrame();
             }
-            objectToMove.transform.position = posStart.position;
-            elapsedTime = 0;
-            while (elapsedTime < duration)
-            {
-                objectToMove.transform.position = Vector3.Lerp(posStart.position, posEnd.position, (elapsedTime / duration));
-                elapsedTime += GameManager.Instance.Time.DeltaTime;
-                yield return new WaitForEndOfFrame();
-            }
-            objectToMove.transform.position = posEnd.position;
-            elapsedTime = 0;
-            while (elapsedTime < delay)
-            {
-                objectToMove.transform.position = Vector3.Lerp(posEnd.position, posLeft.position, (elapsedTime / delay));
-                elapsedTime += GameManager.Instance.Time.DeltaTime;
-                yield return new WaitForEndOfFrame();
-            }
-            Destroy(objectToMove);
         }
 
         private void DeleteAllIcons()
