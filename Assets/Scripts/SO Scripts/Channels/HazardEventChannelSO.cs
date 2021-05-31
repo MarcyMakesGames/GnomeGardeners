@@ -7,12 +7,12 @@ namespace GnomeGardeners
 	[CreateAssetMenu(fileName = "HazardEC", menuName = "Events/Hazard Event Channel")]
 	public class HazardEventChannelSO : ScriptableObject
 	{
-        public delegate void HazardAction(Sprite icon, float duration, float delay);
+        public delegate void HazardAction(Sprite icon, float duration, float enterTime, float exitTime);
         public HazardAction OnEventRaised;
 
-        public void RaiseEvent(Sprite icon, float duration, float delay)
+        public void RaiseEvent(Sprite icon, float duration, float enterTime, float exitTime)
         {
-            OnEventRaised?.Invoke(icon, duration, delay);
+            OnEventRaised?.Invoke(icon, duration, enterTime, exitTime);
         }
     }
 }
