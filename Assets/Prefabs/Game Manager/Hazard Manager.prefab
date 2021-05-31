@@ -84,7 +84,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4004734948675915832}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 30, y: 15.7, z: 26.2}
+  m_LocalPosition: {x: 30, y: 15.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2740311099749060550}
@@ -169,7 +169,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hazards:
   - {fileID: 11400000, guid: 1b9604c0edab693418e90e0f8dd362e0, type: 2}
-  randomizeHazards: 0
   timeToFirstHazard: 0
   spawnLocations:
   - {fileID: 4004734948675915839}
