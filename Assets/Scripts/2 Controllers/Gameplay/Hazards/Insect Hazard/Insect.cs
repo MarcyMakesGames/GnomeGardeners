@@ -210,7 +210,7 @@ namespace GnomeGardeners
         {
             transform.position =
                 Vector3.MoveTowards(transform.position, nextCell.WorldPosition, movementSpeed * Time.deltaTime);
-            if (transform.position == nextCell.WorldPosition)
+            if (transform.position == nextCell.WorldPosition && nextCell.Occupant == null)
             {
                 isMoving = false;
                 RemoveOccupantFromCells();
