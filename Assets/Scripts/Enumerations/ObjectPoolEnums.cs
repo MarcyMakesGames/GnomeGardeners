@@ -36,5 +36,13 @@ namespace GnomeGardeners
         PopUp_SunflowerSeed,
         PopUp_TulipSeed,
         PopUp_DaffodilSeed,
+
+        Particle_GreySmoke,
+        Particle_BlackSmoke,
+        Particle_Stars,
+        Particle_Grass_Single,
+        Particle_Grass_Multiple,
+        Particle_Dust,
+        Particle_Leaves
     }
 }

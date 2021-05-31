@@ -300,13 +300,17 @@ namespace GnomeGardeners
                 {
                     case GroundType.Grass:
                         GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_footsteps_grass, audioSource);
+                        GameManager.Instance.PoolController.GetObjectFromPool(transform.position, Quaternion.identity, PoolKey.Particle_Grass_Single);
                         break;
                     case GroundType.Path:
                         GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_footsteps_gravel, audioSource);
+                        GameManager.Instance.PoolController.GetObjectFromPool(transform.position, Quaternion.identity, PoolKey.Particle_Dust);
                         break;
                     case GroundType.FallowSoil:
                     case GroundType.ArableSoil:
                         GameManager.Instance.AudioManager.PlaySound(SoundType.sfx_footsteps_dirt, audioSource);
+                        GameManager.Instance.PoolController.GetObjectFromPool(transform.position, Quaternion.identity, PoolKey.Particle_Dust);
+
                         break;
                 }
             }

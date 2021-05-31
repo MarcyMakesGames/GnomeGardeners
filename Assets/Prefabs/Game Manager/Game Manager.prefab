@@ -909,6 +909,27 @@ MonoBehaviour:
   - prefab: {fileID: 4635061959517673702, guid: ef0f4a5215ad4724fa190e682cdd28ff, type: 3}
     amount: 10
     key: 25
+  - prefab: {fileID: 203853128518599239, guid: 7fce6a55428bb904b85ea736b76ef015, type: 3}
+    amount: 10
+    key: 26
+  - prefab: {fileID: 203853128518599239, guid: e7d2810edd2ffe94cbb1c30c4c46ef2d, type: 3}
+    amount: 10
+    key: 27
+  - prefab: {fileID: 2483832564310143117, guid: eb2d1cf2041f1d6498730ef6e3a95dbb, type: 3}
+    amount: 10
+    key: 28
+  - prefab: {fileID: 828251955202877901, guid: 8f303d6d823602547b5b20f7d70fbf92, type: 3}
+    amount: 10
+    key: 29
+  - prefab: {fileID: 828251955202877901, guid: f29ab560e004ead4d8bb9bf49debdcf2, type: 3}
+    amount: 10
+    key: 30
+  - prefab: {fileID: 828251955202877901, guid: 72abc49b2dcb84e4aa62785d188d1526, type: 3}
+    amount: 10
+    key: 31
+  - prefab: {fileID: 5585644473655285835, guid: 452085ae2aebe334b9966d2c009d56df, type: 3}
+    amount: 10
+    key: 32
 --- !u!1001 &549709409610914401
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -964,6 +985,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Config Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 322414423945972886, guid: 99c554fee1ded6548af7bbd9635f9f9d, type: 3}
+      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 322414423945972886, guid: 99c554fee1ded6548af7bbd9635f9f9d, type: 3}
+      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4975076435574114657}
+    - target: {fileID: 322414423945972886, guid: 99c554fee1ded6548af7bbd9635f9f9d, type: 3}
+      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 322414423945972886, guid: 99c554fee1ded6548af7bbd9635f9f9d, type: 3}
+      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HandlePlayerLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 322414423945972886, guid: 99c554fee1ded6548af7bbd9635f9f9d, type: 3}
+      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GnomeGardeners.PlayerConfigManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 322414423945972886, guid: 99c554fee1ded6548af7bbd9635f9f9d, type: 3}
+      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99c554fee1ded6548af7bbd9635f9f9d, type: 3}
 --- !u!4 &277402378935686898 stripped
@@ -971,3 +1016,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 322414423945972883, guid: 99c554fee1ded6548af7bbd9635f9f9d, type: 3}
   m_PrefabInstance: {fileID: 549709409610914401}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4975076435574114657 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4804197735802835712, guid: 99c554fee1ded6548af7bbd9635f9f9d, type: 3}
+  m_PrefabInstance: {fileID: 549709409610914401}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b852b30c239187d46a011cfb7510f622, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

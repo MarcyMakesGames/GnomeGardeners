@@ -49,6 +49,8 @@ namespace GnomeGardeners
         private new void Start()
         {
             base.Start();
+            GameManager.Instance.PoolController.GetObjectFromPool(transform.position, Quaternion.identity, PoolKey.Particle_GreySmoke);
+            GameManager.Instance.PoolController.GetObjectFromPool(transform.position, Quaternion.identity, PoolKey.Particle_Stars);
         }
 
         protected override void Update()
@@ -169,6 +171,8 @@ namespace GnomeGardeners
 
         private void AdvanceToDecayedStage()
         {
+            GameManager.Instance.PoolController.GetObjectFromPool(transform.position, Quaternion.identity, PoolKey.Particle_BlackSmoke);
+
             DebugLogger.Log(this, "Grew into decayed stage.");
             currentStage = species.decayedStage;
             lastStageTimeStamp = GameManager.Instance.Time.ElapsedTime;
@@ -186,6 +190,9 @@ namespace GnomeGardeners
 
         private void AdvanceStages()
         {
+            GameManager.Instance.PoolController.GetObjectFromPool(transform.position, Quaternion.identity, PoolKey.Particle_GreySmoke);
+            GameManager.Instance.PoolController.GetObjectFromPool(transform.position, Quaternion.identity, PoolKey.Particle_Stars);
+
             var currentStageIndex = species.stages.IndexOf(currentStage);
             currentStage = species.NextStage(currentStageIndex);
             lastStageTimeStamp = GameManager.Instance.Time.ElapsedTime;
