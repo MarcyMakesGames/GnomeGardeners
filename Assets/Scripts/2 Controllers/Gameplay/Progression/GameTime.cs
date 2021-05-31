@@ -43,6 +43,11 @@ namespace GnomeGardeners
             return ElapsedTime - time;
         }
 
+        public void ResetTimer()
+        {
+            currentTimer = 0f;
+        }
+
         public void PauseTime()
         {
             pauseTimer = true;

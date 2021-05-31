@@ -68,6 +68,7 @@ namespace GnomeGardeners
         {
             OnLevelLoseEvent.OnEventRaised -= SetGameOverMenuActive;
             OnLevelWinEvent.OnEventRaised -= SetGameOverMenuActive;
+            OnLevelStartEvent.OnEventRaised -= UpdateTutorialMenu;
         }
 
         #endregion

@@ -71,6 +71,7 @@ namespace GnomeGardeners
             OnLevelStartEvent.RaiseEvent();
 
             currentScore = 0;
+            GameManager.Instance.Time.ResetTimer();
             timeAtStart = GameManager.Instance.Time.ElapsedTime;
             restTime = availableTime;
 
