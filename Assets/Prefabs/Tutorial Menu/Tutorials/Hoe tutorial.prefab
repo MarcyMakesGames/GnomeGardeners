@@ -140,8 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &2176136698308758152
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,8 +282,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &2519030996018564014
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,8 +425,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &3729710266728253526
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,8 +603,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &4466498815843503647
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,8 +745,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &5117155159212516194
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,8 +888,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &8275740987973246260
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,8 +1031,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &8651091868843174434
 GameObject:
   m_ObjectHideFlags: 0
@@ -1173,8 +1173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680215f0711e72c4e8d56f1080bc215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.05, y: -0.05}
-  ShadowMaterial: {fileID: 2100000, guid: 6c65400cd87a67b4ca63d11ab3e46596, type: 2}
+  shadowOffset: {x: 0, y: 0}
+  shadowMaterial: {fileID: 0}
 --- !u!1 &9210334360402652905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1285,6 +1285,10 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4278190080
       objectReference: {fileID: 0}
+    - target: {fileID: 693696519569817999, guid: 46d83095abc16b34cad1925ce94bdabb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1508429461028345347, guid: 46d83095abc16b34cad1925ce94bdabb, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1367,6 +1371,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1508429461028345347, guid: 46d83095abc16b34cad1925ce94bdabb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2241416612079277547, guid: 46d83095abc16b34cad1925ce94bdabb, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7222092031544565968, guid: 46d83095abc16b34cad1925ce94bdabb, type: 3}
