@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -24,12 +25,14 @@ namespace GnomeGardeners
         [Header("Other")]
         public GameObject nextLevelButton;
 
+        private CanvasGroup hudCanvasGroup;
+        private CanvasGroup gameOverCanvasGroup;
+
         private InGameUIMode activePanel;
         private InGameUIMode nextPanel;
 
         private VoidEventChannelSO OnLevelStartEvent;
-        private VoidEventChannelSO OnLevelLoseEvent;
-        private VoidEventChannelSO OnLevelWinEvent;
+        private VoidEventChannelSO OnLevelEnd;
         
         private EventSystem eventSystem;
 
@@ -38,23 +41,23 @@ namespace GnomeGardeners
         private void Awake()
         {
             OnLevelStartEvent = Resources.Load<VoidEventChannelSO>("Channels/LevelStartEC");
-            OnLevelLoseEvent = Resources.Load<VoidEventChannelSO>("Channels/LevelLoseEC");
-            OnLevelWinEvent = Resources.Load<VoidEventChannelSO>("Channels/LevelWinEC");
+            OnLevelEnd = Resources.Load<VoidEventChannelSO>("Channels/LevelEndEC");
             OnLevelStartEvent.OnEventRaised += UpdateTutorialMenu;
-            OnLevelLoseEvent.OnEventRaised += SetGameOverMenuActive;
-            OnLevelWinEvent.OnEventRaised += SetGameOverMenuActive;
+            OnLevelEnd.OnEventRaised += SetGameOverMenuActive;
             eventSystem = FindObjectOfType<EventSystem>();
         }
 
         private void Start()
         {
             allPanels = new List<GameObject>
-        {
-            pauseMenu,
-            settingsMenu,
-            gameOverMenu
-        };
+            {
+                pauseMenu,
+                settingsMenu,
+            };
             GameManager.Instance.Time.PauseTime();
+            hudCanvasGroup = hud.GetComponent<CanvasGroup>();
+            gameOverCanvasGroup = gameOverMenu.GetComponent<CanvasGroup>();
+
         }
 
         private void Update()
@@ -66,9 +69,8 @@ namespace GnomeGardeners
 
         private void OnDestroy()
         {
-            OnLevelLoseEvent.OnEventRaised -= SetGameOverMenuActive;
-            OnLevelWinEvent.OnEventRaised -= SetGameOverMenuActive;
             OnLevelStartEvent.OnEventRaised -= UpdateTutorialMenu;
+            OnLevelEnd.OnEventRaised -= SetGameOverMenuActive;
         }
 
         #endregion
@@ -122,12 +124,13 @@ namespace GnomeGardeners
         {
             if (panel == activePanel) { return; }
 
-            hud.GetComponent<CanvasGroup>().alpha = 0f;
+            DeactivateMenuWithCanvasGroup(hudCanvasGroup);
+            DeactivateMenuWithCanvasGroup(gameOverCanvasGroup);
             DeactivateAllPanels();
             switch (panel)
             {
                 case InGameUIMode.HUD:
-                    hud.GetComponent<CanvasGroup>().alpha = 1f;
+                    ActivateMenuWithCanvasGroup(hudCanvasGroup);
                     GameManager.Instance.Time.ResumeTime();
                     break;
                 case InGameUIMode.PauseMenu:
@@ -146,7 +149,7 @@ namespace GnomeGardeners
                     GameManager.Instance.Time.PauseTime();
                     break;
                 case InGameUIMode.GameOverMenu:
-                    gameOverMenu.SetActive(true);
+                    ActivateMenuWithCanvasGroup(gameOverCanvasGroup);
                     GameManager.Instance.Time.PauseTime();
                     eventSystem.SetSelectedGameObject(selectableGameOverMenu);
                     nextLevelButton.SetActive(GameManager.Instance.LevelManager.HasCurrentLevelBeenCompleted());
@@ -183,6 +186,18 @@ namespace GnomeGardeners
                 Debug.LogException(new Exception(), this);
             tutorialMenu = Instantiate(tutorialMenuPrefab, canvas.transform);
             allPanels.Add(tutorialMenu);
+        }
+
+        private void ActivateMenuWithCanvasGroup(CanvasGroup canvasGroup)
+        {
+            canvasGroup.alpha = 1f;
+            canvasGroup.interactable = true;
+        }
+
+        private void DeactivateMenuWithCanvasGroup(CanvasGroup canvasGroup)
+        {
+            canvasGroup.alpha = 0f;
+            canvasGroup.interactable = false;
         }
 
         #endregion

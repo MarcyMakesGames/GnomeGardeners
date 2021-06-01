@@ -10,9 +10,6 @@ namespace GnomeGardeners
 {
     public class LevelManager : MonoBehaviour
     {
-        [HideInInspector] public int lastTotalScore;
-        [HideInInspector] public int lastRequiredScore;
-
         public GameObject levelTutorial;
         public List<GameObject> levels;
 
