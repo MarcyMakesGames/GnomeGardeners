@@ -34,6 +34,7 @@ namespace GnomeGardeners
         private void OnDestroy()
         {
             OnNextHazard.OnEventRaised -= SpawnHazardIcon;
+            OnLevelStartEvent.OnEventRaised -= DeleteAllIcons;
         }
 
         private void SpawnHazardIcon(Sprite icon, float duration, float enterTime, float exitTime)
@@ -62,6 +63,9 @@ namespace GnomeGardeners
             float elapsedTime = 0;
             while (elapsedTime < time)
             {
+                if (objectToMove == null)
+                    break;
+
                 objectToMove.transform.position = Vector3.Lerp(from, to, (elapsedTime / time));
                 elapsedTime += GameManager.Instance.Time.DeltaTime;
                 yield return new WaitForEndOfFrame();
