@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveDissipation: {x: 0.22126523, y: 0.57}
-  waveFriction: {x: 0.11155717, y: 0.16155721}
+  waveFriction: {x: 0.65236324, y: 0.7023633}
   shakeBending: {x: 0.1689781, y: 1.4452556}
   shakeSpeed: {x: 0.9155717, y: 3.8}
   coordinateApplication: {x: 0.02, y: 1}
@@ -109,6 +109,26 @@ PrefabInstance:
     - target: {fileID: 8107983885071440429, guid: cc2eae9d69d22a840bf6e0afc4bd9e66, type: 3}
       propertyPath: m_Name
       value: Sunflower
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072536809695550393, guid: cc2eae9d69d22a840bf6e0afc4bd9e66, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 428691f9669427a42b7428746a5bc9e2, type: 3}
+    - target: {fileID: 9072536809695550393, guid: cc2eae9d69d22a840bf6e0afc4bd9e66, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072536809695550393, guid: cc2eae9d69d22a840bf6e0afc4bd9e66, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072536809695550393, guid: cc2eae9d69d22a840bf6e0afc4bd9e66, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072536809695550393, guid: cc2eae9d69d22a840bf6e0afc4bd9e66, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc2eae9d69d22a840bf6e0afc4bd9e66, type: 3}

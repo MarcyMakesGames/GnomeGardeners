@@ -734,7 +734,6 @@ MonoBehaviour:
   slowdownFactor: 0.1
   speedUpTime: 0.15
   interactRange: 1.2
-  dropRange: 1
   inputFramesCapacity: 15
   gnomeBack: {fileID: 8413467373135125043}
   gnomeRight: {fileID: 6058891538329894748}
@@ -1294,6 +1293,26 @@ PrefabInstance:
     - target: {fileID: 7931640753049383149, guid: b047ebb7c893bd345a6ddd4ab819c718, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223271167201118708, guid: b047ebb7c893bd345a6ddd4ab819c718, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0f540d8015013a64c953841427723ece, type: 3}
+    - target: {fileID: 8223271167201118708, guid: b047ebb7c893bd345a6ddd4ab819c718, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223271167201118708, guid: b047ebb7c893bd345a6ddd4ab819c718, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223271167201118708, guid: b047ebb7c893bd345a6ddd4ab819c718, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223271167201118708, guid: b047ebb7c893bd345a6ddd4ab819c718, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9023960193742750427, guid: b047ebb7c893bd345a6ddd4ab819c718, type: 3}
       propertyPath: m_Name
