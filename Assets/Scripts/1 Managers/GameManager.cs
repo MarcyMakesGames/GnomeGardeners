@@ -62,7 +62,7 @@ namespace GnomeGardeners
             }
             #endregion
 
-            #if UNITY_STANDALONE
+            #if UNITY_WEBGL
             Cursor.visible = false;
             #endif
         }
