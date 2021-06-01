@@ -14,6 +14,7 @@ namespace GnomeGardeners
         [HideInInspector] public int lastRequiredScore;
 
         public GameObject levelTutorial;
+        public GameObject toolTutorial;
         public List<GameObject> levels;
 
         public bool isLastLevelCompleted;

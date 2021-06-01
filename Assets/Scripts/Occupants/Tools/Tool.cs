@@ -9,12 +9,17 @@ namespace GnomeGardeners
     public abstract class Tool : Occupant
     {
         [SerializeField] private Sprite icon;
-        
+        [SerializeField] protected GameObject toolTutorial;
+        [SerializeField] protected bool isTutorialTool = false;
+
+        private bool tutorialComplete = false;
         protected AudioSource audioSource;
         protected ToolType toolType;
         protected bool isEquipped;
+
         private bool isEquipping = false;
         private SpriteEventChannelSO OnEquippedToolSprite;
+        private ToolTutorialEventChannelSO OnFirstEquip; 
         public AudioSource AudioSource { get => audioSource; }
         public ToolType ToolType { get => ToolType; }
         #region Unity Methods
@@ -28,6 +33,7 @@ namespace GnomeGardeners
         {
             base.Start();
             OnEquippedToolSprite = Resources.Load<SpriteEventChannelSO>("Channels/EquippedToolSpriteEC");
+            OnFirstEquip = Resources.Load<ToolTutorialEventChannelSO>("Channels/ToolTutorialEventEC");
         }
 
         #endregion
@@ -57,6 +63,12 @@ namespace GnomeGardeners
 
         public void Equip()
         {
+            if (!tutorialComplete)
+            {
+                OnFirstEquip.RaiseEvent(toolTutorial);
+                tutorialComplete = true;
+            }
+
             isEquipping = false;
             RemoveOccupantFromCells();
             gameObject.SetActive(false);

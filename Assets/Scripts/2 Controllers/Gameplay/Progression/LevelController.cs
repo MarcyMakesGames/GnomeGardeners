@@ -99,8 +99,6 @@ namespace GnomeGardeners
 
         #region Private Methods
 
-
-
         private void CalculateTime()
         {
             restTime = availableTime - GameManager.Instance.Time.GetTimeSince(timeAtStart);
@@ -134,10 +132,6 @@ namespace GnomeGardeners
                 isActive = false;
             }
         }
-
-
-
         #endregion
-
     }
 }

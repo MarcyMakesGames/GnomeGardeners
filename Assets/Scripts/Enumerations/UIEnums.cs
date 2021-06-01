@@ -26,6 +26,6 @@ namespace GnomeGardeners
         PauseMenu,
         SettingsMenu,
         TutorialMenu,
-        GameOverMenu,
+        GameOverMenu
     }
 }
