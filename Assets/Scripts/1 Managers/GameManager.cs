@@ -63,7 +63,7 @@ namespace GnomeGardeners
             #endregion
 
             #if UNITY_WEBGL
-            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
             #endif
         }
 
