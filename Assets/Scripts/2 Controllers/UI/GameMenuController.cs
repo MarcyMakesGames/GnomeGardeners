@@ -14,6 +14,11 @@ namespace GnomeGardeners
         public GameObject settingsMenu;
         private GameObject tutorialMenu;
         public GameObject gameOverMenu;
+        public GameObject hoeTutorial;
+        public GameObject wateringCanTutorial;
+        public GameObject spadeTutorial;
+        public GameObject pitchForkTutorial;
+        public GameObject scytheTutorial;
         private List<GameObject> allPanels;
 
         [Header("First selected items")] 
@@ -30,6 +35,7 @@ namespace GnomeGardeners
         private VoidEventChannelSO OnLevelStartEvent;
         private VoidEventChannelSO OnLevelLoseEvent;
         private VoidEventChannelSO OnLevelWinEvent;
+        private ToolTutorialEventChannelSO OnFirstEquip;
         
         private EventSystem eventSystem;
 
@@ -40,9 +46,11 @@ namespace GnomeGardeners
             OnLevelStartEvent = Resources.Load<VoidEventChannelSO>("Channels/LevelStartEC");
             OnLevelLoseEvent = Resources.Load<VoidEventChannelSO>("Channels/LevelLoseEC");
             OnLevelWinEvent = Resources.Load<VoidEventChannelSO>("Channels/LevelWinEC");
+            OnFirstEquip = Resources.Load<ToolTutorialEventChannelSO>("Channels/ToolTutorialEventEC");
             OnLevelStartEvent.OnEventRaised += UpdateTutorialMenu;
             OnLevelLoseEvent.OnEventRaised += SetGameOverMenuActive;
             OnLevelWinEvent.OnEventRaised += SetGameOverMenuActive;
+            OnFirstEquip.OnEventRaised += UpdateToolTutorialMenu;
             eventSystem = FindObjectOfType<EventSystem>();
         }
 
@@ -88,6 +96,8 @@ namespace GnomeGardeners
         {
             GameManager.Instance.SceneController.ActiveInGameUI = InGameUIMode.TutorialMenu;
         }
+
+        
 
         public void SetSettingsMenuActive()
         {
@@ -185,7 +195,23 @@ namespace GnomeGardeners
             allPanels.Add(tutorialMenu);
         }
 
+        private void UpdateToolTutorialMenu(GameObject toolTutorial)
+        {
+            if (tutorialMenu)
+            {
+                allPanels.Remove(tutorialMenu);
+                Destroy(tutorialMenu);
+            }
+
+            var canvas = gameObject.GetComponentInChildren<Canvas>();
+            if (!canvas)
+                Debug.LogException(new Exception(), this);
+
+            tutorialMenu = Instantiate(toolTutorial, canvas.transform);
+            allPanels.Add(tutorialMenu);
+
+            GameManager.Instance.SceneController.ActiveInGameUI = InGameUIMode.TutorialMenu;
+        }
         #endregion
     }
 }
-
