@@ -44,9 +44,6 @@ using TMPro;
 			OnLevelLose.OnEventRaised -= ActiveLoseMessage;
 			OnLevelEnd.OnEventRaised -= UpdateScoreText;
 			OnCurrentLevelCurrentScore.OnEventRaised -= SetTotalScore;
-
-			messageWin.SetActive(false);
-			messageLose.SetActive(false);
 		}
 
 		private void UpdateScoreText()
@@ -60,6 +57,9 @@ using TMPro;
 
 		private void ActivateWinMessage()
 		{
+
+			messageWin.SetActive(false);
+			messageLose.SetActive(false);
 			messageWin.SetActive(true);
 		}
 
@@ -67,6 +67,9 @@ using TMPro;
 
 		private void ActiveLoseMessage()
 		{
+
+			messageWin.SetActive(false);
+			messageLose.SetActive(false);
 			messageLose.SetActive(true);		
 		}
 
