@@ -1,5 +1,28 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &4481514534636145514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5276840136604915775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb044207b29975a4283d6ff6cb92b896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveDissipation: {x: 0.54, y: 0.57}
+  waveFriction: {x: 0.35, y: 0.4}
+  shakeBending: {x: 1.1, y: 1.15}
+  shakeSpeed: {x: 3.3, y: 3.8}
+  coordinateApplication: {x: 0.02, y: 1}
+  rotationPivot: {x: 0, y: 0}
+  rotationStrength: {x: 0.04095858, y: 0.21295854}
+  rotationLimits: 0.313
+  rotationWaveSpeed: 1.14
+  rotationBounciness: 1.73
+  underWater: 0
 --- !u!1001 &4160835981745472018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -83,9 +106,18 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6781855766866969407, guid: cc2eae9d69d22a840bf6e0afc4bd9e66, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 991a640cabd377942b019c13e7605338, type: 2}
     - target: {fileID: 8107983885071440429, guid: cc2eae9d69d22a840bf6e0afc4bd9e66, type: 3}
       propertyPath: m_Name
       value: Tulip
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc2eae9d69d22a840bf6e0afc4bd9e66, type: 3}
+--- !u!1 &5276840136604915775 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8107983885071440429, guid: cc2eae9d69d22a840bf6e0afc4bd9e66, type: 3}
+  m_PrefabInstance: {fileID: 4160835981745472018}
+  m_PrefabAsset: {fileID: 0}
