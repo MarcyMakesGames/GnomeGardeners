@@ -63,7 +63,7 @@ namespace GnomeGardeners
 
         public void Equip()
         {
-            if (!tutorialComplete)
+            if (!tutorialComplete && isTutorialTool)
             {
                 OnFirstEquip.RaiseEvent(toolTutorial);
                 tutorialComplete = true;
