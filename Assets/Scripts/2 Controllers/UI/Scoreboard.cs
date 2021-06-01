@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,16 +12,20 @@ namespace GnomeGardeners
         [SerializeField] private TMP_Text scoreText;
 
         private IntEventChannelSO OnCurrentLevelCurrentScore;
+        private VoidEventChannelSO OnLevelStart;
 
         private void Awake()
         {
             OnCurrentLevelCurrentScore = Resources.Load<IntEventChannelSO>("Channels/CurrentLevelCurrentScoreEC");
+            OnLevelStart = Resources.Load<VoidEventChannelSO>("Channels/LevelStartEC");
             OnCurrentLevelCurrentScore.OnEventRaised += UpdateUI;
+            OnLevelStart.OnEventRaised += ResetUI;
         }
 
         private void OnDestroy()
         {
             OnCurrentLevelCurrentScore.OnEventRaised -= UpdateUI;
+            OnLevelStart.OnEventRaised -= ResetUI;
         }
 
         public override void UpdateUI(int primaryData)
@@ -29,6 +34,11 @@ namespace GnomeGardeners
                 return;
 
             UpdateNumericText(scoreText, "{0}", primaryData);
+        }
+
+        private void ResetUI()
+        {
+            UpdateNumericText(scoreText, "{0}", 0);
         }
 
         protected override bool ClearedIfEmpty(int newData)
