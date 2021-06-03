@@ -43,9 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ee70ccfa40d92f448de045cb58728ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastTotalScore: 0
-  lastRequiredScore: 0
   levelTutorial: {fileID: 3855336070834662954, guid: 89746af6a2265ce46a464a68ea6b554e, type: 3}
+  toolTutorial: {fileID: 0}
   levels:
   - {fileID: 3855336070834662954, guid: acf3cb9c2b690ce42815c1e59e612bd9, type: 3}
   - {fileID: 3855336070834662954, guid: d331c652ff615774185cce3110896c47, type: 3}
@@ -100,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 1571887784945383672}
   transition: {fileID: 91645899851613671}
-  transitionTime: 0.5
+  transitionTime: 0.2
 --- !u!1 &5109226127851896212
 GameObject:
   m_ObjectHideFlags: 0
