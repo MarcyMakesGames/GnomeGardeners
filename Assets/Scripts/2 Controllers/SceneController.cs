@@ -148,10 +148,10 @@ namespace GnomeGardeners
                 yield return StartCoroutine(GameManager.Instance.LevelManager.LoadTutorial());
             }
 
+            transition.SetTrigger("FadeOut");
 
             isInTransition = false;
             OnSceneLoaded.RaiseEvent();
-            transition.SetTrigger("FadeOut");
         }
 
         private IEnumerator NextLevelTransition()
