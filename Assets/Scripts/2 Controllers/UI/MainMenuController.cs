@@ -138,23 +138,24 @@ namespace GnomeGardeners
             {
                 case MenuPanel.Title:
                     StartCoroutine(TransitionIntoPanel(panelTitle, selectableTitle, backgroundTitle));
-
                     break;
+
                 case MenuPanel.Main:
                     StartCoroutine(TransitionIntoPanel(panelMain, selectableMain, backgroundMain));
-
                     break;
+
                 case MenuPanel.Settings:
                     StartCoroutine(TransitionIntoPanel(panelSettings, selectableSettings));
-
                     break;
+
                 case MenuPanel.GnomeSelection:
                     StartCoroutine(TransitionIntoPanel(panelPlayerSelection, selectablePlayerSelection));
-
                     break;
+
                 case MenuPanel.Credits:
                     StartCoroutine(TransitionIntoPanel(panelCredits, selectableCredits, backgroundCredits));
                     break;
+
                 case MenuPanel.Manual:
                     StartCoroutine(TransitionIntoPanel(panelManual, selectableManual));
                     break;

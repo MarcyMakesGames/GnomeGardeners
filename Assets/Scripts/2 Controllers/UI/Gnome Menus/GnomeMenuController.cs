@@ -30,7 +30,8 @@ namespace GnomeGardeners
             readyButton.GetComponentInChildren<TMP_Text>().color = Color.white;
             isReady = false;
 
-            if (playerIndex == 0 || Player1)
+            if (playerIndex == 0 && GameManager.Instance.PlayerConfigManager.PlayerCount != 0 || 
+                Player1 && GameManager.Instance.PlayerConfigManager.PlayerCount != 0)
             {
                 playerIndex = 0;
                 GameManager.Instance.PlayerConfigManager.PlayerConfigs[0].Input.uiInputModule = GetComponent<InputSystemUIInputModule>();

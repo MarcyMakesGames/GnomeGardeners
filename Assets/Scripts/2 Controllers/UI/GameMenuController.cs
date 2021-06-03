@@ -135,7 +135,6 @@ namespace GnomeGardeners
         #endregion
 
         #region Private Methods
-
         private void SetPanelActive(InGameUIMode panel)
         {
             if (panel == activePanel) { return; }

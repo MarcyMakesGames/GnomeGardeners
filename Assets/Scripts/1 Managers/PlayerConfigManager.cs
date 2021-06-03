@@ -132,22 +132,25 @@ namespace GnomeGardeners
         {
             if (canJoinPlayers && Keyboard.current.escapeKey.wasPressedThisFrame)
             {
-                List<GameObject> objectsToDestroy = new List<GameObject>();
+                if(playerConfigObjects.Count != 0)
+                {
+                    List<GameObject> objectsToDestroy = new List<GameObject>();
 
-                foreach (GameObject playerConfigObject in playerConfigObjects)
-                    if(playerConfigObject != playerConfigObjects[0])
+                    foreach (GameObject playerConfigObject in playerConfigObjects)
+                        if (playerConfigObject != playerConfigObjects[0])
+                        {
+                            HandlePlayerLeft(playerConfigObject.GetComponent<PlayerInput>());
+                            objectsToDestroy.Add(playerConfigObject);
+                        }
+
+                    foreach (GameObject obj in objectsToDestroy)
                     {
-                        HandlePlayerLeft(playerConfigObject.GetComponent<PlayerInput>());
-                        objectsToDestroy.Add(playerConfigObject);
+                        playerConfigObjects.Remove(obj);
+                        Destroy(obj);
                     }
 
-                foreach (GameObject obj in objectsToDestroy)
-                {
-                    playerConfigObjects.Remove(obj);
-                    Destroy(obj);
+                    playerConfigs[0].IsReady = false;
                 }
-
-                playerConfigs[0].IsReady = false;
 
                 canJoinPlayers = false;
                 FindObjectOfType<MainMenuController>().SetPanelActive(1);
