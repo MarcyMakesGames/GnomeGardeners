@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.Experimental.U2D.Animation;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
-using UnityEngine.Experimental.U2D.Animation;
 using static UnityEngine.InputSystem.InputAction;
 
 namespace GnomeGardeners
@@ -16,9 +14,7 @@ namespace GnomeGardeners
         [SerializeField] private float minimumSpeed = 5f;
         [SerializeField] private float pathSpeed = 7f;
         [SerializeField] private float slowdownFactor = 0.01f;
-        [SerializeField] private float speedUpTime = .5f;
-        [SerializeField] private float interactRange = 1f;
-        [SerializeField] private int inputFramesCapacity = 10;
+        [SerializeField] private float interactRange = 2f;
 
         [Header("Programmers")]
         [SerializeField] private GameObject gnomeBack;
@@ -43,7 +39,7 @@ namespace GnomeGardeners
         private float moveSpeed;
         private Vector2 moveDir;
         private Vector2 interactDir;
-        private GnomeInput inputs;
+        private InputActions inputs;
         private GridCell currentCell;
         private Rigidbody2D rigidBody;
         private bool receiveGameInput;
@@ -52,16 +48,15 @@ namespace GnomeGardeners
         private string currentPrefix;
         private GridCell interactionCell;
         private PlayerConfig playerConfig;
-        private float currentSpeedUpTimer;
         private GroundType currentGroundType;
         private Vector2Int previousGridPosition;
+        private Vector2 interactionPos;
 
         private Animator animatorBack;
         private Animator animatorRight;
         private Animator animatorFront;
         private Animator animatorLeft;
 
-        private Queue<Vector2> inputFrames;
         private SpriteResolver[] resolvers = new SpriteResolver[4];
         private SpriteRenderer[] itemRenderers = new SpriteRenderer[4];
         private SpriteRenderer[] toolRenderers = new SpriteRenderer[4];
@@ -73,7 +68,7 @@ namespace GnomeGardeners
 
         private void Awake()
         {
-            inputs = new GnomeInput();
+            inputs = new InputActions();
         }
 
         private void Start()
@@ -91,9 +86,7 @@ namespace GnomeGardeners
             receiveGameInput = true;
             previousGridPosition = new Vector2Int();
             moveDir = Vector2.zero;
-            inputFrames = new Queue<Vector2>(inputFramesCapacity);
-            for (int i = 0; i < inputFramesCapacity; ++i)
-                inputFrames.Enqueue(Vector2.zero);
+            interactDir = Vector2.zero;
             
             resolvers[0] = gnomeBackResolver;
             resolvers[1] = gnomeFrontResolver;
@@ -129,26 +122,19 @@ namespace GnomeGardeners
             if (currentCell.GroundType.Equals(GroundType.Path))
                 moveSpeed = pathSpeed;
 
-            Move();
-
-            CalculateInteractDir();
+            if (moveDir == Vector2.zero)
+            {
+                rigidBody.velocity = Vector3.zero + GameManager.Instance.HazardManager.MovementModifier;
+            }
+            rigidBody.velocity = ((Vector3)moveDir * moveSpeed) + GameManager.Instance.HazardManager.MovementModifier;
         }
 
         private void Update()
         {
             CheckInteractGround();
-            HighlightInteractionCell();
+            CalculateInteractionCell();
             UpdateAnimation();
             PlayFootstepSound();
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            if(inputFrames != null)
-            {
-                foreach(Vector2 vector in inputFrames)
-                    Gizmos.DrawLine(transform.position, transform.position + (Vector3)vector);
-            }
         }
 
         private void OnDestroy()
@@ -178,8 +164,6 @@ namespace GnomeGardeners
         }
         public void InitializePlayer(PlayerConfig incomingPlayer)
         {
-            //This is where we would initialize the gnome skin.
-            //skin = playerConfig.skin;
             playerConfig = incomingPlayer;
             playerConfig.Input.onActionTriggered += OnInputAction;
         }
@@ -202,7 +186,10 @@ namespace GnomeGardeners
 
         private void OnInputMove(CallbackContext context)
         {
-            moveDir = context.ReadValue<Vector2>();
+            var value = context.ReadValue<Vector2>();
+            moveDir = value;
+            if(value != Vector2.zero)
+                interactDir = value;
         }
 
         private void CheckInteractGround()
@@ -277,10 +264,10 @@ namespace GnomeGardeners
                 currentAnimator.SetBool("IsWalking", false);
         }
         
-        private void HighlightInteractionCell()
+        private void CalculateInteractionCell()
         {
-            var interactionPosition = (Vector2)transform.position + interactDir * interactRange;
-            interactionCell = GameManager.Instance.GridManager.GetClosestCell(interactionPosition);
+            interactionPos = (Vector2)transform.position + interactDir * interactRange;
+            interactionCell = GameManager.Instance.GridManager.GetClosestCell(interactionPos);
             GameManager.Instance.GridManager.HighlightTile(interactionCell.GridPosition, previousGridPosition);
             previousGridPosition = interactionCell.GridPosition;
         }
@@ -338,36 +325,6 @@ namespace GnomeGardeners
         private void Escape()
         {
             GameManager.Instance.SceneController.HandleInput();
-        }
-
-        private void Move()
-        {
-            if (moveDir == Vector2.zero)
-            {
-                currentSpeedUpTimer = 0f;
-                rigidBody.velocity = Vector3.zero + GameManager.Instance.HazardManager.MovementModifier;
-            }
-
-            currentSpeedUpTimer += Time.deltaTime;
-
-            if (currentSpeedUpTimer >= speedUpTime)
-            {
-                rigidBody.velocity = ((Vector3)moveDir * moveSpeed) + GameManager.Instance.HazardManager.MovementModifier;
-            }
-        }
-
-        private void CalculateInteractDir()
-        {
-            if (moveDir == Vector2.zero) return;
-
-            inputFrames.Enqueue(moveDir);
-            inputFrames.Dequeue();
-
-            Vector2[] vectors = new Vector2[inputFramesCapacity];
-            vectors = inputFrames.ToArray();
-            interactDir = new Vector2(
-            vectors.Average(x => x.x),
-            vectors.Average(x => x.y));
         }
 
         private void UseTool(GridCell cell)
