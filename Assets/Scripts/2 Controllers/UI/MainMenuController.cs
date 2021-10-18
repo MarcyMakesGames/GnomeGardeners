@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
+using static UnityEngine.InputSystem.InputAction;
 
 namespace GnomeGardeners
 {
@@ -48,12 +49,15 @@ namespace GnomeGardeners
         private List<GameObject> allPanels;
         private List<GameObject> allBackgrounds;
 
+        private InputActions inputs;
+
         #region Unity Methods
 
         private void Awake()
         {
             uiInputModule = GetComponent<InputSystemUIInputModule>();
             eventSystem = GetComponent<EventSystem>();
+            inputs = new InputActions();
         }
 
         private void Start()
@@ -92,6 +96,12 @@ namespace GnomeGardeners
         #endregion
 
         #region Public Methods
+
+        public void OnInputAction(CallbackContext context)
+        {
+            if (context.action.name == inputs.Menu.Cancel.name)
+                nextPanel = MenuPanel.Main;
+        }
 
         public void SetPanelActive(int panelIndex)
         {
