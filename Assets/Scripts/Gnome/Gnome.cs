@@ -197,17 +197,18 @@ namespace GnomeGardeners
             var gnomePosition = (Vector2)transform.position;
             var gnomeCell = GameManager.Instance.GridManager.GetClosestCell(gnomePosition);
 
-            if (gnomeCell.GroundType == GroundType.ArableSoil)
-                GameManager.Instance.GridManager.ChangeTile(gnomeCell.GridPosition, GroundType.FallowSoil);
+            // Trample ground ability
+            //if (gnomeCell.GroundType == GroundType.ArableSoil)
+            //    GameManager.Instance.GridManager.ChangeTile(gnomeCell.GridPosition, GroundType.FallowSoil);
 
-            if (gnomeCell.Occupant != null)
-            {
-                if (gnomeCell.Occupant.gameObject.GetComponent<Plant>() != null)
-                {
-                    var plant = (Plant)gnomeCell.Occupant;
-                    plant.RemoveFromCell();
-                }
-            }
+            //if (gnomeCell.Occupant != null)
+            //{
+            //    if (gnomeCell.Occupant.gameObject.GetComponent<Plant>() != null)
+            //    {
+            //        var plant = (Plant)gnomeCell.Occupant;
+            //        plant.RemoveFromCell();
+            //    }
+            //}
         }
 
         private void UpdateAnimation()

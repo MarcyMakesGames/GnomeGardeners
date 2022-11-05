@@ -74,15 +74,15 @@ namespace GnomeGardeners
             }
             if (playerIndex == 1)
             {
-                if (Keyboard.current.jKey.wasPressedThisFrame)
+                if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
                 {
                     CycleGnomeSkin(false);
                 }
-                if (Keyboard.current.lKey.wasPressedThisFrame)
+                if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
                 {
                     CycleGnomeSkin(true);
                 }
-                if (Keyboard.current.uKey.wasPressedThisFrame)
+                if (Keyboard.current.enterKey.wasPressedThisFrame)
                 {
                     SetPlayerReady();
                 }
