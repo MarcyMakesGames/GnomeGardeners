@@ -6,8 +6,6 @@ namespace GnomeGardeners
 {
     public class Basket : Occupant
     {
-        private bool debug = false;
-
         [SerializeField] private Sprite emptyBasket;
         [SerializeField] private Sprite halfFullBasket;
         [SerializeField] private Sprite fullBasket;

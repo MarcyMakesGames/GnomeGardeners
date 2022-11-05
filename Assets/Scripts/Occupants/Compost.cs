@@ -6,8 +6,6 @@ namespace GnomeGardeners
 {
     public class Compost : Occupant
     {
-        private readonly bool debug = false;
-
         public Fertilizer dispensable;
 
         public IntEventChannelSO OnScoreAddEvent;

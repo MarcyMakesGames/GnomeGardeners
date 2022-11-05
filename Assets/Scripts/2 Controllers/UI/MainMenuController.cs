@@ -11,8 +11,6 @@ namespace GnomeGardeners
     
     public class MainMenuController : MonoBehaviour
     {
-        private readonly bool debug = false;
-
         public GameObject panelTitle;
         public GameObject panelMain;
         public GameObject panelSettings;

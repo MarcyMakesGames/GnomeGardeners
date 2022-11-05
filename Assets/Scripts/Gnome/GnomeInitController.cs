@@ -8,8 +8,6 @@ namespace GnomeGardeners
 {
     public class GnomeInitController : MonoBehaviour
     {
-        private bool debug = false;
-
         [SerializeField] private GameObject gnomePrefab;
         [SerializeField] private GameObject gnomePrefab2;
         [SerializeField] private GameObject gnomePrefab3;

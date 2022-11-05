@@ -8,8 +8,6 @@ namespace GnomeGardeners
 {
     public class SceneController : MonoBehaviour
     {
-        private readonly bool debug = false;
-
         private SceneState currentScene;
         private MenuPanel activeMenuPanel;
         private InGameUIMode activeInGameUI;

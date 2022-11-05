@@ -15,7 +15,6 @@ namespace GnomeGardeners
         private float restTime;
         private float timeAtStart;
         private bool isActive;
-        private bool hasStarted;
         private bool hasBeenCompleted;
 
         private VoidEventChannelSO OnLevelStart;
@@ -53,7 +52,6 @@ namespace GnomeGardeners
             restTime = availableTime;
             currentScore = 0;
             isActive = false;
-            hasStarted = false;
             hasBeenCompleted = false;
         }
 
@@ -77,7 +75,6 @@ namespace GnomeGardeners
             restTime = availableTime;
 
             isActive = true;
-            hasStarted = true;
         }
         
         public IEnumerator UpdateLevel()
