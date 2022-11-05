@@ -58,6 +58,11 @@ namespace GnomeGardeners
             target.value = value;
         }
 
+        protected void UpdateSliderValue(Slider target, float value)
+        {
+            target.value = value;
+        }
+
         protected void UpdateSliderMinMax(Slider target, int min, int max)
         {
             target.minValue = min;

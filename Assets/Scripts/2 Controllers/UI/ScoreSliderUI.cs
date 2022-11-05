@@ -17,8 +17,8 @@ namespace GnomeGardeners
         private IntEventChannelSO OnCurrentLevelRequiredScore;
         private VoidEventChannelSO OnLevelEnd;
 
-        private int totalScore;
-        private int animationValue;
+        private float totalScore;
+        private float animationValue;
 
         #region Unity Methods
         
@@ -61,7 +61,7 @@ namespace GnomeGardeners
             int animationFrameCount = Mathf.FloorToInt(animationTime * 30);
             for (int i = 0; i < animationFrameCount; i++)
             {
-                var value = totalScore / animationFrameCount;
+                float value = totalScore / animationFrameCount;
                 animationValue += value;
                 UpdateSliderValue(scoreSlider, animationValue);
                 yield return new WaitForFixedUpdate();

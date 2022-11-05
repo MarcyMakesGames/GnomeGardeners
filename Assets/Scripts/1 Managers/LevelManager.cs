@@ -101,11 +101,11 @@ namespace GnomeGardeners
             if (currentLevel)
                 Destroy(currentLevel.gameObject);
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.1f);
             
             var newLevel = Instantiate(level);
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.1f);
             
             currentLevel = newLevel.GetComponent<LevelController>();
             currentLevel.LevelStart();
@@ -117,11 +117,11 @@ namespace GnomeGardeners
             if(currentLevel)
                 Destroy(currentLevel.gameObject);
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.1f);
             
             var newLevel = Instantiate(levels[index]);
             
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.1f);
 
             currentLevel = newLevel.GetComponent<LevelController>();
             currentLevel.LevelStart();
