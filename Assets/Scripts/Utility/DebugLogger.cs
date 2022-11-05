@@ -6,7 +6,7 @@ namespace GnomeGardeners
 {
     public static class DebugLogger
     {
-        private static bool debug = true;
+        private static bool debug = false;
 
         public static void Log(System.Object obj, string msg)
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 
 namespace GnomeGardeners
@@ -55,6 +56,37 @@ namespace GnomeGardeners
         {
             if (Time.time > inputDelayTime)
                 inputEnabled = true;
+
+            if (playerIndex == 0)
+            {
+                if (Keyboard.current.aKey.wasPressedThisFrame)
+                {
+                    CycleGnomeSkin(false);
+                }
+                if (Keyboard.current.dKey.wasPressedThisFrame)
+                {
+                    CycleGnomeSkin(true);
+                }
+                if (Keyboard.current.eKey.wasPressedThisFrame)
+                {
+                    SetPlayerReady();
+                }
+            }
+            if (playerIndex == 1)
+            {
+                if (Keyboard.current.jKey.wasPressedThisFrame)
+                {
+                    CycleGnomeSkin(false);
+                }
+                if (Keyboard.current.lKey.wasPressedThisFrame)
+                {
+                    CycleGnomeSkin(true);
+                }
+                if (Keyboard.current.uKey.wasPressedThisFrame)
+                {
+                    SetPlayerReady();
+                }
+            }
         }
 
         public void CycleGnomeSkin(bool right) 
